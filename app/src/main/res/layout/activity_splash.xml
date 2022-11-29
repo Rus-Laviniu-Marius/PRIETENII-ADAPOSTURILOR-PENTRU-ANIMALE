@@ -6,7 +6,7 @@
     android:background="@color/main_background"
     android:layout_centerInParent="true"
     android:fillViewport="true"
-    tools:context=".MainActivity" >
+    tools:context=".splash.SplashActivity" >
 
         <LinearLayout
             android:layout_width="match_parent"

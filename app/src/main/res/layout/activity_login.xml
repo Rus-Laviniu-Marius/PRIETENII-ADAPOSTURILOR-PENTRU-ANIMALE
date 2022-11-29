@@ -15,7 +15,9 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/login"
-                android:textSize="32sp" />
+                android:textSize="32sp"
+                android:layout_centerHorizontal="true"
+                android:layout_margin="10dp"/>
             
             <TextView
                 android:id="@+id/loginSubTitle_textView"
@@ -23,37 +25,46 @@
                 android:layout_height="wrap_content"
                 android:text="@string/fill_in_your_details_to_get_started"
                 android:textSize="20sp"
-                android:layout_below="@+id/loginTitle_textView"/>
+                android:layout_below="@+id/loginTitle_textView"
+                android:layout_centerHorizontal="true"
+                android:layout_margin="10dp"/>
 
             <RelativeLayout
-                android:id="@+id/login_linearLayout"
+                android:id="@+id/login_relativeLayout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_below="@id/loginSubTitle_textView" >
+                android:layout_below="@id/loginSubTitle_textView"
+                android:layout_margin="10dp"
+                android:layout_centerHorizontal="true">
                 <EditText
                     android:id="@+id/loginEmail_editText"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:autofillHints="emailAddress"
+                    android:inputType="textEmailAddress"
                     android:hint="@string/email"
-                    android:textSize="20sp"/>
+                    android:textSize="20sp"
+                    android:layout_marginTop="10dp"/>
                 <EditText
                     android:id="@+id/loginPassword_editText"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:autofillHints="password"
+                    android:inputType="textPassword"
                     android:hint="@string/password"
                     android:textSize="20sp"
-                    android:layout_below="@+id/loginEmail_editText" />
+                    android:layout_below="@+id/loginEmail_editText"
+                    android:layout_marginTop="10dp"/>
 
                 <TextView
                     android:id="@+id/forgottenPassword_textView"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/have_you_forgotten_your_password"
-                    android:textSize="16sp"
+                    android:textSize="18sp"
                     android:layout_below="@id/loginPassword_editText"
-                    android:layout_alignParentEnd="true"/>
+                    android:layout_alignParentEnd="true"
+                    android:layout_marginTop="20dp"/>
 
                 <Button
                     android:id="@+id/login_button"
@@ -62,10 +73,63 @@
                     android:text="@string/log_in"
                     android:layout_below="@id/forgottenPassword_textView"
                     android:layout_centerHorizontal="true"
-                    android:textSize="24sp"/>
-
-
+                    android:textSize="24sp"
+                    android:layout_marginTop="30dp"/>
+                
             </RelativeLayout>
+
+            <LinearLayout
+                android:id="@+id/noAccount_linearLayout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/login_relativeLayout"
+                android:orientation="horizontal"
+                android:layout_marginTop="20dp"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:layout_centerHorizontal="true">
+                <TextView
+                    android:id="@+id/noAccount_textView"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/don_t_have_an_account"
+                    android:textSize="18sp"
+                    android:layout_weight="1"
+                    android:layout_gravity="center" />
+                <TextView
+                    android:id="@+id/createAccount_textView"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/create_an_account"
+                    android:textSize="20sp"
+                    android:textColor="@color/black"
+                    android:textStyle="bold"
+                    android:layout_weight="1" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/otherLoginMethods_linearLayout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/noAccount_linearLayout"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="30dp"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp">
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/google"
+                    android:layout_weight="1" />
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/facebook"
+                    android:layout_weight="1"/>
+
+            </LinearLayout>
+
 
         </RelativeLayout>
 </ScrollView>
+
