@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/main_background"
+    tools:context=".authentication.LoginActivity">
+
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" >
+
+            <TextView
+                android:id="@+id/loginTitle_textView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/login"
+                android:textSize="32sp" />
+            
+            <TextView
+                android:id="@+id/loginSubTitle_textView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/fill_in_your_details_to_get_started"
+                android:textSize="20sp"
+                android:layout_below="@+id/loginTitle_textView"/>
+
+            <RelativeLayout
+                android:id="@+id/login_linearLayout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/loginSubTitle_textView" >
+                <EditText
+                    android:id="@+id/loginEmail_editText"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:autofillHints="emailAddress"
+                    android:hint="@string/email"
+                    android:textSize="20sp"/>
+                <EditText
+                    android:id="@+id/loginPassword_editText"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:autofillHints="password"
+                    android:hint="@string/password"
+                    android:textSize="20sp"
+                    android:layout_below="@+id/loginEmail_editText" />
+
+                <TextView
+                    android:id="@+id/forgottenPassword_textView"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/have_you_forgotten_your_password"
+                    android:textSize="16sp"
+                    android:layout_below="@id/loginPassword_editText"
+                    android:layout_alignParentEnd="true"/>
+
+                <Button
+                    android:id="@+id/login_button"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/log_in"
+                    android:layout_below="@id/forgottenPassword_textView"
+                    android:layout_centerHorizontal="true"
+                    android:textSize="24sp"/>
+
+
+            </RelativeLayout>
+
+        </RelativeLayout>
+</ScrollView>

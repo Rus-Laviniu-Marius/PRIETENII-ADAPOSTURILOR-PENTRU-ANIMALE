@@ -1,3 +1,12 @@
 <resources>
     <string name="app_name">PetShelterFriends</string>
+    <string name="ps_friends">PSFriends</string>
+    <string name="proceed">Proceed</string>
+    <string name="login">Login</string>
+    <string name="fill_in_your_details_to_get_started">Fill in your details to get started.</string>
+    <string name="email">Email</string>
+    <string name="password">Password</string>
+    <string name="have_you_forgotten_your_password">Have you forgotten your password?</string>
+    <string name="log_in">Log In</string>
+    <string name="cat_dog_bird_tree_image">Cat, dog, bird, tree image</string>
 </resources>

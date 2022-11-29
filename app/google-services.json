@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "970591158917",
+    "project_id": "pet-shelter-friends-cf67f",
+    "storage_bucket": "pet-shelter-friends-cf67f.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:970591158917:android:f0c5fd99c6157deed79fec",
+        "android_client_info": {
+          "package_name": "com.pet.shelter.friends"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "970591158917-mbi9ufrbfe2oouki596a3t1k7i77c84f.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAtAqTGq7k6lLcPn4de6ZaOibgz-koHOik"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "970591158917-mbi9ufrbfe2oouki596a3t1k7i77c84f.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
