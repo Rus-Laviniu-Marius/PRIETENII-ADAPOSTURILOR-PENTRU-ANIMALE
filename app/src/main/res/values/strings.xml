@@ -17,4 +17,14 @@
     <string name="name">Name</string>
     <string name="i_already_have_an_account">I already have an account</string>
     <string name="confirm_password">Confirm password</string>
+
+    <string name="facebook_app_id">691766819238109</string>
+    <string name="fb_login_protocol_scheme">fb1234</string>
+    <string name="facebook_client_token">a6275f7f4f59975be7a18663203cefa0</string>
+    <string name="confirmation_email">Confirmation email</string>
+    <string name="we_have_sent_you_an_email_to_confirm_your_account">We have sent you an email to confirm your account</string>
+    <string name="flying_paper_plane">Flying paper plane</string>
+    <string name="accept">Accept</string>
+
+
 </resources>

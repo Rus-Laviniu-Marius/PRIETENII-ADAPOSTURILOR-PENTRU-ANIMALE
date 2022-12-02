@@ -3,13 +3,17 @@ package com.pet.shelter.friends.authentication;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.app.Dialog;
 import android.app.ProgressDialog;
 import android.content.Intent;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -29,6 +33,7 @@ public class RegisterActivity extends AppCompatActivity {
     private Button registerButton;
     private String emailPattern = "[a-zA-Z0-9._-]+@[a-z]+\\.+[a-z]+";
     private ProgressDialog progressDialog;
+    private Dialog dialog;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,19 +49,15 @@ public class RegisterActivity extends AppCompatActivity {
         confirmPasswordEditText = findViewById(R.id.registerConfirmPassword_editText);
 
         progressDialog = new ProgressDialog(this);
+        dialog = new Dialog(this);
 
         registerButton = findViewById(R.id.register_button);
-
-
         registerButton.setOnClickListener(new View.OnClickListener() {
-
-
             @Override
             public void onClick(View v) {
                 registerNewlyCreatedUser();
             }
         });
-
     }
 
     private void registerNewlyCreatedUser() {
@@ -84,8 +85,10 @@ public class RegisterActivity extends AppCompatActivity {
                 @Override
                 public void onComplete(@NonNull Task<AuthResult> task) {
                     if(task.isSuccessful()) {
+
                         progressDialog.dismiss();
-                        sendUserToNextActivity();
+                        openSendConfirmRegistrationEmail();
+//                        sendUserToNextActivity();
                         Toast.makeText(RegisterActivity.this, "Registration Successfully", Toast.LENGTH_SHORT).show();
                     } else {
                         progressDialog.dismiss();
@@ -93,14 +96,36 @@ public class RegisterActivity extends AppCompatActivity {
                     }
                 }
             });
-
         }
+    }
 
+    private void openSendConfirmRegistrationEmail() {
+        dialog.setContentView(R.layout.popup_send_confirm_registration_email);
+        dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
 
+        ImageView closeImageViewButton = dialog.findViewById(R.id.popUpConfirmEmailClose_imageView);
+        Button acceptButton = dialog.findViewById(R.id.popUpConfirmEmailAccept_button);
+
+        acceptButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                sendUserToNextActivity();
+            }
+        });
+
+        closeImageViewButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                dialog.dismiss();
+                Toast.makeText(RegisterActivity.this, "Dialog Close", Toast.LENGTH_SHORT).show();
+            }
+        });
+
+        dialog.show();
     }
 
     private void sendUserToNextActivity() {
-        Intent intent = new Intent(RegisterActivity.this, HomeActivity.class);
+        Intent intent = new Intent(RegisterActivity.this, LoginActivity.class);
         intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK| Intent.FLAG_ACTIVITY_NEW_TASK);
         startActivity(intent);
     }

@@ -22,6 +22,8 @@ import com.google.firebase.auth.FirebaseUser;
 import com.pet.shelter.friends.HomeActivity;
 import com.pet.shelter.friends.R;
 
+import org.w3c.dom.Text;
+
 public class LoginActivity extends Activity {
 
     private FirebaseAuth mAuth;
@@ -30,6 +32,7 @@ public class LoginActivity extends Activity {
     private final String TAG = "LoginActivity - ";
     private EditText emailEditText, passwordEditText;
     private Button loginButton;
+    private Button googleSignInButton, facebookSignInButton;
     private TextView createAccount;
     private String emailPattern = "[a-zA-Z0-9._-]+@[a-z]+\\.+[a-z]+";
 
@@ -42,10 +45,11 @@ public class LoginActivity extends Activity {
         emailEditText = findViewById(R.id.loginEmail_editText);
         passwordEditText = findViewById(R.id.loginPassword_editText);
         loginButton = findViewById(R.id.login_button);
+        googleSignInButton = findViewById(R.id.googleSignIn_button);
+        facebookSignInButton = findViewById(R.id.facebookSignIn_button);
         createAccount = findViewById(R.id.createAccount_textView);
 
         mAuth = FirebaseAuth.getInstance();
-        mUser = mAuth.getCurrentUser();
         progressDialog = new ProgressDialog(this);
 
         createAccount.setOnClickListener(new View.OnClickListener() {
@@ -60,6 +64,24 @@ public class LoginActivity extends Activity {
             @Override
             public void onClick(View v) {
                 loginUser();
+            }
+        });
+
+        googleSignInButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(LoginActivity.this, GoogleSignInActivity.class);
+                intent.setFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
+                startActivity(intent);
+            }
+        });
+
+        facebookSignInButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(LoginActivity.this, FacebookAuthActivity.class);
+                intent.setFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
+                startActivity(intent);
             }
         });
 
@@ -86,8 +108,17 @@ public class LoginActivity extends Activity {
                 @Override
                 public void onComplete(@NonNull Task<AuthResult> task) {
                     if(task.isSuccessful()) {
+                        mUser = mAuth.getCurrentUser();
+                        if(mUser != null) {
+                            if(mUser.isEmailVerified()) {
+                                sendUserToNextActivity();
+                            } else {
+                                mUser.sendEmailVerification();
+                                Toast.makeText(LoginActivity.this, "Check your email to verify your account!",Toast.LENGTH_LONG).show();
+                            }
+                        }
                         progressDialog.dismiss();
-                        sendUserToNextActivity();
+//                        sendUserToNextActivity();
                         Toast.makeText(LoginActivity.this, "Login Successfully", Toast.LENGTH_SHORT).show();
                     } else {
                         progressDialog.dismiss();

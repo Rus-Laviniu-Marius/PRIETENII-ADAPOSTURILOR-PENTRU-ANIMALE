@@ -116,18 +116,24 @@
                 android:layout_marginTop="30dp"
                 android:layout_marginLeft="10dp"
                 android:layout_marginRight="10dp">
-                <TextView
+                <Button
+                    android:id="@+id/googleSignIn_button"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="@string/google"
-                    android:layout_weight="1" />
-                <TextView
+                    android:layout_weight="1"
+                    android:textSize="20sp"/>
+                <Button
+                    android:id="@+id/facebookSignIn_button"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="@string/facebook"
-                    android:layout_weight="1"/>
+                    android:layout_weight="1"
+                    android:textSize="20sp"/>
 
             </LinearLayout>
+
+
 
 
         </RelativeLayout>
