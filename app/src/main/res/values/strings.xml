@@ -25,6 +25,10 @@
     <string name="we_have_sent_you_an_email_to_confirm_your_account">We have sent you an email to confirm your account</string>
     <string name="flying_paper_plane">Flying paper plane</string>
     <string name="accept">Accept</string>
+    <string name="don_t_worry_write_the_email_with_which_you_are_registered_and_we_will_send_you_the_steps_you_must_follow_to_change_your_password">Don\'t worry, write the email with which you are registered and we will send you the steps you must follow to change your password.</string>
+    <string name="send">Send</string>
+    <string name="close">Close</string>
+    <string name="we_have_sent_you_an_email_with_the_steps_you_must_follow_to_change_your_password">We have sent you an email with the steps you must follow to change your password.</string>
 
 
 </resources>

@@ -4,13 +4,18 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.Activity;
+import android.app.Dialog;
 import android.app.ProgressDialog;
 import android.content.Intent;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.util.Log;
+import android.util.Patterns;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -31,11 +36,10 @@ public class LoginActivity extends Activity {
     private ProgressDialog progressDialog;
     private final String TAG = "LoginActivity - ";
     private EditText emailEditText, passwordEditText;
-    private Button loginButton;
-    private Button googleSignInButton, facebookSignInButton;
-    private TextView createAccount;
+    private Button loginButton, googleSignInButton, facebookSignInButton;
+    private TextView createAccount, forgottenPassword;
     private String emailPattern = "[a-zA-Z0-9._-]+@[a-z]+\\.+[a-z]+";
-
+    private Dialog forgottenPasswordDialog, forgottenPasswordConfirmEmailSentDialog;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -48,6 +52,9 @@ public class LoginActivity extends Activity {
         googleSignInButton = findViewById(R.id.googleSignIn_button);
         facebookSignInButton = findViewById(R.id.facebookSignIn_button);
         createAccount = findViewById(R.id.createAccount_textView);
+        forgottenPassword = findViewById(R.id.forgottenPassword_textView);
+        forgottenPasswordDialog = new Dialog(this);
+        forgottenPasswordConfirmEmailSentDialog = new Dialog(this);
 
         mAuth = FirebaseAuth.getInstance();
         progressDialog = new ProgressDialog(this);
@@ -85,7 +92,93 @@ public class LoginActivity extends Activity {
             }
         });
 
+        forgottenPassword.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                openForgottenPasswordPopUp();
+            }
+        });
+    }
 
+    private void openForgottenPasswordPopUp() {
+        forgottenPasswordDialog.setContentView(R.layout.popup_forgotten_password);
+        forgottenPasswordDialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+
+        ImageView closeImageViewButton = forgottenPasswordDialog.findViewById(R.id.popUpForgottenPasswordClose_imageView);
+        Button sendButton = forgottenPasswordDialog.findViewById(R.id.popUpForgottenPasswordSend_button);
+
+
+        sendButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                resetPassword();
+            }
+        });
+
+        closeImageViewButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                forgottenPasswordDialog.dismiss();
+                Toast.makeText(LoginActivity.this, "Dialog Close", Toast.LENGTH_SHORT).show();
+            }
+        });
+        forgottenPasswordDialog.show();
+    }
+
+    private void resetPassword() {
+        EditText emailEditText = forgottenPasswordDialog.findViewById(R.id.popUpInputEmail_editText);
+
+        String email = emailEditText.getText().toString();
+
+        if (email.isEmpty()) {
+            emailEditText.setError("Email is required!");
+            emailEditText.requestFocus();
+        }
+
+        if (!Patterns.EMAIL_ADDRESS.matcher(email).matches()) {
+            emailEditText.setError("Please provide valid email!");
+            emailEditText.requestFocus();
+        }
+
+        mAuth.sendPasswordResetEmail(email).addOnCompleteListener(new OnCompleteListener<Void>() {
+            @Override
+            public void onComplete(@NonNull Task<Void> task) {
+                if (task.isSuccessful()) {
+                    openConfirmForgottenPasswordPopUp();
+                }
+            }
+        });
+
+    }
+
+    private void openConfirmForgottenPasswordPopUp() {
+        forgottenPasswordConfirmEmailSentDialog.setContentView(R.layout.popup_forgotten_password_send_email_confirmation);
+        forgottenPasswordConfirmEmailSentDialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+
+        ImageView closeImageViewButton = forgottenPasswordConfirmEmailSentDialog.findViewById(R.id.popUpForgottenPasswordConfirmationClose_imageView);
+        Button acceptButton = forgottenPasswordConfirmEmailSentDialog.findViewById(R.id.popUpForgottenPasswordConfirmationAccept_button);
+
+        acceptButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                sendUserToLoginActivity();
+            }
+        });
+
+        closeImageViewButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                forgottenPasswordConfirmEmailSentDialog.dismiss();
+                Toast.makeText(LoginActivity.this, "Dialog Close", Toast.LENGTH_SHORT).show();
+            }
+        });
+        forgottenPasswordConfirmEmailSentDialog.show();
+    }
+
+    private void sendUserToLoginActivity() {
+        Intent intent = new Intent(LoginActivity.this, LoginActivity.class);
+        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK| Intent.FLAG_ACTIVITY_NEW_TASK);
+        startActivity(intent);
     }
 
     private void loginUser() {

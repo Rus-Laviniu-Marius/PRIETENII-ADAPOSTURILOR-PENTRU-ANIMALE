@@ -87,7 +87,7 @@ public class RegisterActivity extends AppCompatActivity {
                     if(task.isSuccessful()) {
 
                         progressDialog.dismiss();
-                        openSendConfirmRegistrationEmail();
+                        openSendConfirmRegistrationEmailPopUp();
 //                        sendUserToNextActivity();
                         Toast.makeText(RegisterActivity.this, "Registration Successfully", Toast.LENGTH_SHORT).show();
                     } else {
@@ -99,7 +99,7 @@ public class RegisterActivity extends AppCompatActivity {
         }
     }
 
-    private void openSendConfirmRegistrationEmail() {
+    private void openSendConfirmRegistrationEmailPopUp() {
         dialog.setContentView(R.layout.popup_send_confirm_registration_email);
         dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
 
