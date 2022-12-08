@@ -15,6 +15,20 @@
         android:theme="@style/Theme.PetShelterFriends"
         tools:targetApi="31">
         <activity
+            android:name=".adoption.SeeListOfPetsActivity"
+            android:exported="false">
+            <meta-data
+                android:name="android.app.lib_name"
+                android:value="" />
+        </activity>
+        <activity
+            android:name=".adoption.FilterPetPreferencesActivity"
+            android:exported="false">
+            <meta-data
+                android:name="android.app.lib_name"
+                android:value="" />
+        </activity>
+        <activity
             android:name=".authentication.FacebookAuthActivity"
             android:exported="false">
             <meta-data

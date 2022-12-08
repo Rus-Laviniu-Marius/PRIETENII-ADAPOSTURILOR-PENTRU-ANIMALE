@@ -14,20 +14,26 @@
                 android:id="@+id/loginTitle_textView"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/login"
-                android:textSize="32sp"
                 android:layout_centerHorizontal="true"
-                android:layout_margin="10dp"/>
-            
+                android:layout_marginStart="10dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginEnd="10dp"
+                android:layout_marginBottom="10dp"
+                android:text="@string/login"
+                android:textSize="32sp" />
+
             <TextView
                 android:id="@+id/loginSubTitle_textView"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/fill_in_your_details_to_get_started"
-                android:textSize="20sp"
                 android:layout_below="@+id/loginTitle_textView"
                 android:layout_centerHorizontal="true"
-                android:layout_margin="10dp"/>
+                android:layout_marginStart="10dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginEnd="10dp"
+                android:layout_marginBottom="10dp"
+                android:text="@string/fill_in_your_details_to_get_started"
+                android:textSize="20sp" />
 
             <RelativeLayout
                 android:id="@+id/login_relativeLayout"

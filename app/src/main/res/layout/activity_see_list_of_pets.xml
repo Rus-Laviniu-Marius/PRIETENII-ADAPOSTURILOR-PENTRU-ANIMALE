@@ -1,0 +1,202 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/main_background"
+    tools:context=".adoption.SeeListOfPetsActivity">
+
+    <RelativeLayout
+        android:id="@+id/listOfPetsTopBar_relativeLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="10dp"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true">
+
+        <ImageView
+            android:id="@+id/listOfPetsTopBarBack_imageView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/back_64"
+            android:contentDescription="@string/back"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentTop="true"/>
+
+        <ImageView
+            android:id="@+id/listOfPetsTopBarFilter_imageView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/filter_64"
+            android:contentDescription="@string/filter"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentTop="true"
+            android:layout_marginEnd="10dp"/>
+
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/listOfPetsContent_relativeLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_below="@+id/listOfPetsTopBar_relativeLayout">
+        <LinearLayout
+            android:id="@+id/listOfPetsContentLocation_linearLayout"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="10dp"
+            android:orientation="vertical">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/location"
+                android:textSize="30sp"
+                android:textAlignment="center"
+                android:layout_gravity="center"/>
+            <TextView
+                android:id="@+id/listOfPetsContentLocation_textView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:drawableStartCompat="@drawable/location_64"
+                android:text="@string/timisoara"
+                android:textSize="30sp"
+                android:textAlignment="center"
+                android:layout_gravity="center" />
+        </LinearLayout>
+
+        <HorizontalScrollView
+            android:id="@+id/listOfPetsContentActiveFilters_horizontalScrollView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="30dp"
+            android:layout_centerHorizontal="true"
+            android:layout_below="@+id/listOfPetsContentLocation_linearLayout">
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_margin="10dp">
+
+                <TextView
+                    android:id="@+id/listOfPetsContentSizeActiveFilter_textView"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/filter_option"
+                    android:text="@string/small_size"
+                    android:textSize="30sp"
+                    android:drawablePadding="10dp"
+                    app:drawableEndCompat="@drawable/close_36"
+                    android:layout_margin="10dp"/>
+
+                <TextView
+                    android:id="@+id/listOfPetsContentAgeActiveFilter_textView"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/filter_option"
+                    android:text="@string/young"
+                    android:textSize="30sp"
+                    android:drawablePadding="10dp"
+                    app:drawableEndCompat="@drawable/close_36"
+                    android:layout_margin="10dp"/>
+
+                <TextView
+                    android:id="@+id/listOfPetsContentGenderActiveFilter_textView"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/filter_option"
+                    android:text="@string/male"
+                    android:textSize="30sp"
+                    android:drawablePadding="10dp"
+                    app:drawableEndCompat="@drawable/close_36"
+                    android:layout_margin="10dp"/>
+
+                <TextView
+                    android:id="@+id/listOfPetsContentFitForChildrenActiveFilter_textView"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/filter_option"
+                    android:text="@string/fit_for_children"
+                    android:textSize="30sp"
+                    android:drawablePadding="10dp"
+                    app:drawableEndCompat="@drawable/close_36"
+                    android:layout_margin="10dp"/>
+
+                <TextView
+                    android:id="@+id/listOfPetsContentFitForGuardingActiveFilter_textView"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/filter_option"
+                    android:text="@string/fit_for_guarding"
+                    android:textSize="30sp"
+                    android:drawablePadding="10dp"
+                    app:drawableEndCompat="@drawable/close_36"
+                    android:layout_margin="10dp"/>
+            </LinearLayout>
+
+        </HorizontalScrollView>
+
+        <GridView
+            android:id="@+id/listOfPetsContentPets_gridView"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:horizontalSpacing="10dp"
+            android:numColumns="auto_fit"
+            android:verticalSpacing="10dp"
+            android:layout_below="@id/listOfPetsContentActiveFilters_horizontalScrollView"/>
+
+    </RelativeLayout>
+
+
+    <LinearLayout
+        android:id="@+id/listOfPetsBottomBar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginEnd="20dp"
+        android:layout_marginBottom="20dp"
+        android:orientation="horizontal"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentEnd="true">
+
+        <ImageView
+            android:id="@+id/listOfPetsBottomBarSearch_imageView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:contentDescription="@string/search"
+            android:src="@drawable/search_64"
+            android:layout_weight="1"/>
+
+        <ImageView
+            android:id="@+id/listOfPetsBottomBarHearth_imageView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/hearth_64"
+            android:contentDescription="@string/favorites"
+            android:layout_weight="1"/>
+
+        <ImageView
+            android:id="@+id/listOfPetsBottomBarPaperAirplane_imageView"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:contentDescription="@string/flying_paper_plane"
+            android:src="@drawable/paper_airplane_64"
+            android:layout_weight="1"/>
+
+        <ImageView
+            android:id="@+id/listOfPetsBottomBarHome_imageView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:contentDescription="@string/home"
+            android:src="@drawable/home"
+            android:layout_weight="1"/>
+
+    </LinearLayout>
+
+</RelativeLayout>

@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/customPetViewContainer_relativeLayout"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:background="@color/card1_background">
+
+        <TextView
+            android:id="@+id/customPetView1Title_textView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/milo"
+            android:textSize="30sp"
+            app:drawableEndCompat="@drawable/hearth_64"
+            android:drawablePadding="20dp"
+            android:layout_margin="10dp"/>
+
+        <TextView
+            android:id="@+id/customPetView1Age_textView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/_3_years"
+            android:textSize="20sp"
+            android:layout_margin="10dp"
+            android:layout_below="@id/customPetView1Title_textView"/>
+
+        <ImageView
+            android:id="@+id/customPetView1_imageView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/customPetView1Age_textView"
+            android:layout_margin="10dp"
+            android:layout_marginStart="10dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginEnd="10dp"
+            android:layout_marginBottom="10dp"
+            android:contentDescription="@string/a_dog_named_milo"
+            android:src="@drawable/milo_dog" />
+
+</RelativeLayout>

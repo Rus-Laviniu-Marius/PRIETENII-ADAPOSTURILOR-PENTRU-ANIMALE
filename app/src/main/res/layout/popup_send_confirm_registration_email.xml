@@ -38,7 +38,7 @@
         android:id="@+id/popUpConfirmEmailPaperPlane_imageView"
         android:layout_width="75dp"
         android:layout_height="75dp"
-        android:src="@drawable/paper_airplane"
+        android:src="@drawable/paper_airplane_64"
         android:layout_below="@id/popUpConfirmEmailDescription_textView"
         android:layout_marginTop="30dp"
         android:layout_centerHorizontal="true"
