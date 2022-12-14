@@ -1,9 +1,297 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".adoption.SeePetDetailsActivity">
+    tools:context=".adoption.SeePetDetailsActivity"
+    android:background="@color/card4_background">
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+    <RelativeLayout
+        android:id="@+id/petDetailsTopBar_relativeLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="10dp"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true">
+
+        <ImageView
+            android:id="@+id/petDetailsTopBarBack_imageView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/back_64"
+            android:contentDescription="@string/back"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentTop="true"/>
+
+        <ImageView
+            android:id="@+id/petDetailsTopBarFilter_imageView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/filter_64"
+            android:contentDescription="@string/filter"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentTop="true"
+            android:layout_marginEnd="10dp"/>
+
+    </RelativeLayout>
+
+    <ImageView
+        android:id="@+id/petDetailsContentPet_imageView"
+        android:layout_width="245dp"
+        android:layout_height="316dp"
+        android:layout_below="@+id/petDetailsTopBar_relativeLayout"
+        android:layout_centerHorizontal="true"
+        android:contentDescription="@string/a_dog_named_oscar"
+        android:src="@drawable/oscar_dog" />
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/petDetailsContentPet_imageView">
+
+        <LinearLayout
+            android:orientation="vertical"
+            android:id="@+id/petDetailsContent_relativeLayout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/pet_details_background" >
+
+            <TextView
+                android:id="@+id/petDetailsContentName_textView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/oscar"
+                android:textSize="36sp"
+                android:textColor="@color/card4_background"
+                android:layout_margin="30dp" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:baselineAligned="false">
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:layout_weight="1"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_margin="10dp"
+                    android:padding="10dp">
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="@string/_2_years"
+                        android:textColor="@color/card4_background"
+                        android:textSize="22sp"
+                        android:drawablePadding="10dp"
+                        app:drawableStartCompat="@drawable/yellow_birthday_cake" />
+                    <TextView
+                        android:layout_marginTop="10dp"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="@string/_6_7_kg"
+                        android:textSize="22sp"
+                        android:textColor="@color/card4_background"
+                        android:drawablePadding="10dp"
+                        app:drawableStartCompat="@drawable/yellow_weighing_scale" />
+                    <TextView
+                        android:layout_marginTop="10dp"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="@string/timisoara"
+                        android:textSize="22sp"
+                        android:textColor="@color/card4_background"
+                        android:drawablePadding="10dp"
+                        app:drawableStartCompat="@drawable/yellow_location" />
+                </LinearLayout>
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:layout_weight="1"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_margin="10dp"
+                    android:padding="10dp">
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="@string/medium"
+                        android:textColor="@color/card4_background"
+                        android:textSize="22sp"
+                        android:drawablePadding="10dp"
+                        app:drawableStartCompat="@drawable/yellow_full_size" />
+                    <TextView
+                        android:layout_marginTop="10dp"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="@string/fox_terrier"
+                        android:textSize="22sp"
+                        android:textColor="@color/card4_background"
+                        android:drawablePadding="10dp"
+                        app:drawableStartCompat="@drawable/yellow_paws_print" />
+                    <TextView
+                        android:layout_marginTop="10dp"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="@string/male"
+                        android:textSize="22sp"
+                        android:textColor="@color/card4_background"
+                        android:drawablePadding="10dp"
+                        app:drawableStartCompat="@drawable/yellow_gender" />
+                </LinearLayout>
+            </LinearLayout>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/veterinarian_data"
+                android:textSize="26sp"
+                android:textColor="@color/card4_background"
+                android:layout_marginStart="30dp" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:layout_weight="1"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_margin="10dp"
+                    android:padding="10dp">
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/id"
+                            android:textColor="@color/black"
+                            android:textSize="20sp"
+                            android:textAlignment="center"
+                            android:background="@drawable/veterinarian_data_background" />
+
+                        <ImageView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:src="@drawable/yellow_tick_32"
+                            android:contentDescription="@string/confirmation_tick"/>
+
+                    </LinearLayout>
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/sterilized"
+                            android:textColor="@color/black"
+                            android:textSize="20sp"
+                            android:textAlignment="center"
+                            android:gravity="center"
+                            android:background="@drawable/veterinarian_data_background"
+                            app:drawableEndCompat="@drawable/yellow_tick_32" />
+
+                        <ImageView
+                            android:layout_width="50dp"
+                            android:layout_height="50dp"
+                            android:src="@drawable/yellow_tick_32"
+                            android:contentDescription="@string/confirmation_tick"/>
+
+                    </LinearLayout>
+
+                </LinearLayout>
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:layout_weight="1"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_margin="10dp"
+                    android:padding="10dp">
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/dewormed"
+                            android:textColor="@color/black"
+                            android:textSize="20sp"
+                            android:textAlignment="center"
+                            android:background="@drawable/veterinarian_data_background" />
+
+                        <ImageView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:src="@drawable/yellow_tick_32"
+                            android:contentDescription="@string/confirmation_tick"/>
+
+                    </LinearLayout>
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/vaccines"
+                            android:textColor="@color/black"
+                            android:textSize="20sp"
+                            android:textAlignment="center"
+                            android:background="@drawable/veterinarian_data_background" />
+
+                        <ImageView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:src="@drawable/yellow_tick_32"
+                            android:contentDescription="@string/confirmation_tick"/>
+
+                    </LinearLayout>
+                </LinearLayout>
+
+            </LinearLayout>
+
+            <TextView
+                android:id="@+id/petDetailsDescription_textView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/description"
+                android:textSize="26sp"
+                android:layout_marginStart="30dp"
+                android:textColor="@color/card4_background" />
+            <TextView
+                android:id="@+id/petDetailsDescriptionContent_textView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/oscar_dog_description"
+                android:layout_margin="10dp"
+                android:textSize="22sp"
+                android:textColor="@color/card4_background" />
+
+            <Button
+                android:id="@+id/petDetailsAdopt_button"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/adopt"
+                android:layout_margin="20dp"
+                android:backgroundTint="@color/card4_background"
+                android:textColor="@color/black" />
+        </LinearLayout>
+
+    </ScrollView>
+
+</RelativeLayout>

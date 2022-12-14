@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".adoption.CompleteContactInformationActivity">
+
+    <ImageView
+        android:id="@+id/completeContactInformationBack_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/back_64"
+        android:contentDescription="@string/back" />
+
+    <ImageView
+        android:id="@+id/completeContactInformationDogToAdopt_imageView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/oscar_dog"
+        android:layout_centerHorizontal="true"
+        android:layout_below="@id/completeContactInformationBack_button" />
+
+    <TextView
+        android:id="@+id/completeContactInformationDescription_textView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/completeContactInformationDogToAdopt_imageView"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginEnd="10dp"
+        android:layout_marginBottom="10dp"
+        android:text="@string/complete_information_description"
+        android:textSize="30sp" />
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:layout_margin="20dp"
+        android:layout_below="@id/completeContactInformationDescription_textView" >
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+            <EditText
+                android:id="@+id/completeContactInformationFullName_editText"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:autofillHints="Full name"
+                android:inputType="textPersonName"
+                android:hint="@string/what_is_your_full_name"
+                android:textSize="24sp"
+                android:layout_margin="10dp"/>
+            <EditText
+                android:id="@+id/completeContactInformationOccupation_editText"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:autofillHints="Occupation"
+                android:inputType="text"
+                android:hint="@string/what_is_your_occupation"
+                android:textSize="24sp"
+                android:layout_margin="10dp"/>
+            <EditText
+                android:id="@+id/completeContactInformationAddress_editText"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:autofillHints="Occupation"
+                android:inputType="text"
+                android:hint="@string/what_is_your_address"
+                android:textSize="24sp"
+                android:layout_margin="10dp"/>
+            <Button
+                android:id="@+id/completeContactInformationSubmit_button"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/submit"
+                android:textSize="20sp"
+                android:layout_margin="20dp"/>
+        </LinearLayout>
+    </ScrollView>
+
+
+</RelativeLayout>

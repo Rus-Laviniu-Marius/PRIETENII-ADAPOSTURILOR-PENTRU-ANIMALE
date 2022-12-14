@@ -71,9 +71,9 @@
     <string name="filter">Filter</string>
     <string name="favorites">Favorites</string>
     <string name="location">Location</string>
-    <string name="timisoara">Timisoara, Timisoara</string>
-    <string name="arad">Arad, Arad</string>
-    <string name="ineu_arad">Ineu, Arad</string>
+    <string name="timisoara">Timisoara</string>
+    <string name="arad">Arad</string>
+    <string name="ineu">Ineu</string>
     <string name="small_size">Small size</string>
     <string name="young">Young</string>
     <string name="male">Male</string>
@@ -89,5 +89,40 @@
     <string name="oscar">Oscar</string>
     <string name="_2_years">2 years</string>
     <string name="a_dog_named_oscar">A dog named Oscar</string>
+    <string name="_6_7_kg">6.7 kg</string>
+    <string name="medium">Medium</string>
+    <string name="fox_terrier">Fox Terrier</string>
+    <string name="veterinarian_data">Veterinarian data</string>
+    <string name="id">ID</string>
+    <string name="confirmation_tick">Confirmation tick</string>
+    <string name="sterilized">Sterilized</string>
+    <string name="dewormed">Dewormed</string>
+    <string name="vaccines">Vaccines</string>
+    <string name="description">Description</string>
+    <string name="oscar_dog_description">Oscar is a lovely and well-trained dog. He loves to play when he sees other dogs</string>
+    <string name="complete_information_description">Please complete the following information</string>
+    <string name="contact_information">Contact information</string>
+    <string name="family_and_housing">Family and housing</string>
+    <string name="other_pets">Other pets</string>
+    <string name="veterinarian">Veterinarian</string>
+    <string name="about_the_pet_you_wish_to_adopt">About the pet you wish to adopt</string>
+    <string name="personal_references">Personal references</string>
+    <string name="what_is_your_occupation">What is your occupation?</string>
+    <string name="what_is_your_full_name">What is your full name?</string>
+    <string name="what_is_your_address">What is your address?</string>
+    <string name="submit">Submit</string>
+
+    <string name="text_paragraph_example">Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry\'s standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.</string>
+    <string name="text_cancel">Cancel</string>
+    <string name="text_print">Print</string>
+    <string name="text_share">Share</string>
+    <string name="text_generated_file_error">Generated File is null or does not exist!</string>
+    <string name="text_create_test_pdf">Create Test Pdf</string>
+    <string name="text_create_html_pdf">Create Pdf From HTML</string>
+    <string name="text_example">Example</string>
+    <string name="text_edit_html_pdf">Edit HTML Pdf</string>
+    <string name="app_icon_license">App Icon made by Freepik from www.flaticon.com</string>
+    <string name="pdf_icon_license">PDF Icon made by Google from www.flaticon.com</string>
+    <string name="text_create_pdf">Create PDF</string>
 
 </resources>

@@ -140,14 +140,45 @@
 
         </HorizontalScrollView>
 
-        <GridView
-            android:id="@+id/listOfPetsContentPets_gridView"
+<!--        <GridView-->
+<!--            android:id="@+id/listOfPetsContentPets_gridView"-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="match_parent"-->
+<!--            android:horizontalSpacing="10dp"-->
+<!--            android:numColumns="auto_fit"-->
+<!--            android:verticalSpacing="10dp"-->
+<!--            android:layout_below="@id/listOfPetsContentActiveFilters_horizontalScrollView"/>-->
+
+        <LinearLayout
+            android:id="@+id/listOfPetsCard_linearLayout"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:horizontalSpacing="10dp"
-            android:numColumns="auto_fit"
-            android:verticalSpacing="10dp"
-            android:layout_below="@id/listOfPetsContentActiveFilters_horizontalScrollView"/>
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/listOfPetsContentActiveFilters_horizontalScrollView"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentEnd="true"
+            android:background="@color/card4_background"
+            android:gravity="center"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/oscar"
+                android:textSize="36sp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/_2_years"
+                android:textSize="22sp" />
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:contentDescription="@string/a_dog_named_oscar"
+                android:src="@drawable/oscar_dog" />
+
+        </LinearLayout>
 
     </RelativeLayout>
 
