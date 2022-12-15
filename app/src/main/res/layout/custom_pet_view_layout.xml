@@ -5,9 +5,8 @@
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
     android:background="@color/card1_background">
-
         <TextView
-            android:id="@+id/customPetView1Title_textView"
+            android:id="@+id/customPetViewTitle_textView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/milo"
@@ -16,26 +15,43 @@
             android:drawablePadding="20dp"
             android:layout_margin="10dp"/>
 
-        <TextView
-            android:id="@+id/customPetView1Age_textView"
+        <RelativeLayout
+            android:id="@+id/customPetViewContent_relativeLayout"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/_3_years"
-            android:textSize="20sp"
-            android:layout_margin="10dp"
-            android:layout_below="@id/customPetView1Title_textView"/>
+            android:layout_centerHorizontal="true"
+            android:layout_below="@id/customPetViewTitle_textView">
+                <TextView
+                    android:id="@+id/customPetViewAge_textView"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/_3_years"
+                    android:textSize="20sp"
+                    android:layout_margin="10dp" />
 
-        <ImageView
-            android:id="@+id/customPetView1_imageView"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/customPetView1Age_textView"
-            android:layout_margin="10dp"
-            android:layout_marginStart="10dp"
-            android:layout_marginTop="10dp"
-            android:layout_marginEnd="10dp"
-            android:layout_marginBottom="10dp"
-            android:contentDescription="@string/a_dog_named_milo"
-            android:src="@drawable/milo_dog" />
+                <TextView
+                    android:id="@+id/customPetViewSize_textView"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/small"
+                    android:textSize="20sp"
+                    android:layout_margin="10dp"
+                    android:layout_below="@id/customPetViewAge_textView"/>
+
+                <ImageView
+                    android:id="@+id/customPetView_imageView"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/customPetViewSize_textView"
+                    android:layout_margin="10dp"
+                    android:layout_marginStart="10dp"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginEnd="10dp"
+                    android:layout_marginBottom="10dp"
+                    android:contentDescription="@string/a_dog_named_milo"
+                    android:src="@drawable/milo_dog"
+                    />
+        </RelativeLayout>
+
 
 </RelativeLayout>

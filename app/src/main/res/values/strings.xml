@@ -124,5 +124,10 @@
     <string name="app_icon_license">App Icon made by Freepik from www.flaticon.com</string>
     <string name="pdf_icon_license">PDF Icon made by Google from www.flaticon.com</string>
     <string name="text_create_pdf">Create PDF</string>
+    <string name="small">Small</string>
+    <string name="big">Big</string>
+    <string name="female">Female</string>
+    <string name="old">Old</string>
+    <string name="middle_age">Middle age</string>
 
 </resources>

@@ -1,17 +1,27 @@
 package com.pet.shelter.friends.adoption;
 
-public class Items {
+public class Pets {
 
     private int image_id;
     private String title;
     private int age;
     private int backgroundColor;
+    private String size;
 
-    public Items(int image_id, String title, int age, int backgroundColor) {
+    public Pets(int image_id, String title, int age, int backgroundColor, String size) {
         this.image_id = image_id;
         this.title = title;
         this.age = age;
         this.backgroundColor = backgroundColor;
+        this.size = size;
+    }
+
+    public String getSize() {
+        return size;
+    }
+
+    public void setSize(String size) {
+        this.size = size;
     }
 
     public int getBackgroundColor() {

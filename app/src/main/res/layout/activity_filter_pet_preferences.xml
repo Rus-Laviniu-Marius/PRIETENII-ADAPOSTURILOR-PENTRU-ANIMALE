@@ -84,9 +84,12 @@
                         android:layout_height="wrap_content"
                         android:layout_alignParentStart="true"
                         android:layout_centerInParent="true"
-                        android:layout_margin="10dp"
+                        android:layout_marginStart="10dp"
+                        android:layout_marginTop="10dp"
+                        android:layout_marginEnd="10dp"
+                        android:layout_marginBottom="10dp"
                         android:text="@string/size"
-                        android:textSize="20sp" />
+                        android:textSize="28sp" />
 
                     <TextView
                         android:id="@+id/step_1_5_textView"
@@ -96,7 +99,7 @@
                         android:layout_centerInParent="true"
                         android:layout_margin="10dp"
                         android:text="@string/step_1_5"
-                        android:textSize="20sp" />
+                        android:textSize="28sp" />
                 </RelativeLayout>
 
                 <RelativeLayout
@@ -116,15 +119,6 @@
                         android:contentDescription="@string/small_dog"
                         android:src="@drawable/small_dog" />
 
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="@string/between"
-                        android:textSize="20sp"
-                        android:layout_alignParentTop="true"
-                        android:layout_centerHorizontal="true"
-                        android:layout_centerVertical="true" />
-
                     <ImageView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
@@ -134,30 +128,48 @@
                         android:src="@drawable/big_dog" />
                 </RelativeLayout>
 
-                <RelativeLayout
-                    android:id="@+id/filterSizeRadioButtons_relativeLayout"
+                <RadioGroup
+                    android:id="@+id/filterSize_radioGroup"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:gravity="center"
+                    android:layout_centerHorizontal="true"
                     android:layout_below="@id/filterSizeImage_relativeLayout">
 
                     <RadioButton
                         android:id="@+id/filterSizeSmall_radioButton"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_alignParentStart="true" />
+                        android:layout_weight="1"
+                        android:gravity="center_vertical"
+                        android:textSize="20sp"
+                        android:button="@null"
+                        android:drawableStart="@android:drawable/btn_radio"
+                        android:text="@string/small"/>
 
                     <RadioButton
-                        android:id="@+id/filterSizeBetween_radioButton"
+                        android:id="@+id/filterSizeMedium_radioButton"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_centerHorizontal="true" />
+                        android:layout_weight="1"
+                        android:text="@string/medium"
+                        android:textSize="20sp"
+                        android:button="@null"
+                        android:drawableBottom="@android:drawable/btn_radio"
+                        android:textAlignment="center"/>
 
                     <RadioButton
                         android:id="@+id/filterSizeBig_radioButton"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_alignParentEnd="true" />
-                </RelativeLayout>
+                        android:layout_weight="1"
+                        android:button="@null"
+                        android:drawableEnd="@android:drawable/btn_radio"
+                        android:text="@string/big"
+                        android:textSize="20sp"
+                        android:textAlignment="textEnd" />
+                </RadioGroup>
             </RelativeLayout>
 
             <RelativeLayout
@@ -183,9 +195,12 @@
                         android:layout_height="wrap_content"
                         android:layout_alignParentStart="true"
                         android:layout_centerInParent="true"
-                        android:layout_margin="10dp"
+                        android:layout_marginStart="10dp"
+                        android:layout_marginTop="10dp"
+                        android:layout_marginEnd="10dp"
+                        android:layout_marginBottom="10dp"
                         android:text="@string/age"
-                        android:textSize="20sp" />
+                        android:textSize="28sp" />
 
                     <TextView
                         android:id="@+id/step_2_5_textView"
@@ -195,7 +210,7 @@
                         android:layout_centerInParent="true"
                         android:layout_margin="10dp"
                         android:text="@string/step_2_5"
-                        android:textSize="20sp" />
+                        android:textSize="28sp" />
                 </RelativeLayout>
 
                 <RelativeLayout
@@ -213,15 +228,7 @@
                         android:layout_centerInParent="true"
                         android:layout_margin="10dp"
                         android:text="@string/_1"
-                        android:textSize="20sp" />
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="@string/between"
-                        android:layout_centerHorizontal="true"
-                        android:layout_centerVertical="true"
-                        android:textSize="20sp" />
+                        android:textSize="24sp" />
 
                     <TextView
                         android:layout_width="wrap_content"
@@ -233,39 +240,54 @@
                         android:layout_marginEnd="10dp"
                         android:layout_marginBottom="10dp"
                         android:text="@string/_10"
-                        android:textSize="20sp" />
+                        android:textSize="24sp" />
                 </RelativeLayout>
 
-                <RelativeLayout
-                    android:id="@+id/filterAgeRadioButtons_relativeLayout"
+                <RadioGroup
+                    android:id="@+id/filterAge_radioGroup"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:gravity="center"
                     android:layout_below="@id/filterAgeNumberText_relativeLayout">
 
                     <RadioButton
                         android:id="@+id/filterAgeYoung_radioButton"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_alignParentStart="true"
-                        android:layout_margin="10dp" />
+                        android:layout_margin="10dp"
+                        android:layout_weight="1"
+                        android:text="@string/young"
+                        android:textSize="20sp"
+                        android:button="@null"
+                        android:drawableStart="@android:drawable/btn_radio" />
 
                     <RadioButton
                         android:id="@+id/filterMiddleAge_radioButton"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_centerInParent="true"
                         android:layout_marginStart="10dp"
                         android:layout_marginTop="10dp"
                         android:layout_marginEnd="10dp"
-                        android:layout_marginBottom="10dp" />
+                        android:layout_marginBottom="10dp"
+                        android:layout_weight="1"
+                        android:text="@string/middle_age"
+                        android:textSize="20sp"
+                        android:button="@null"
+                        android:textAlignment="center"
+                        android:drawableBottom="@android:drawable/btn_radio" />
 
                     <RadioButton
                         android:id="@+id/filterAgeOld_radioButton"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_alignParentEnd="true"
-                        android:layout_margin="10dp" />
-                </RelativeLayout>
+                        android:layout_margin="10dp"
+                        android:layout_weight="1"
+                        android:text="@string/old"
+                        android:textSize="20sp"
+                        android:button="@null"
+                        android:drawableEnd="@android:drawable/btn_radio" />
+                </RadioGroup>
             </RelativeLayout>
 
             <RelativeLayout
@@ -280,7 +302,7 @@
                     android:id="@+id/filterGenderText_relativeLayout"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:orientation="horizontal">
+                    android:layout_centerHorizontal="true">
 
                     <TextView
                         android:id="@+id/sex_textView"
@@ -288,9 +310,12 @@
                         android:layout_height="wrap_content"
                         android:layout_alignParentStart="true"
                         android:layout_centerInParent="true"
-                        android:layout_margin="10dp"
+                        android:layout_marginStart="10dp"
+                        android:layout_marginTop="10dp"
+                        android:layout_marginEnd="10dp"
+                        android:layout_marginBottom="10dp"
                         android:text="@string/gender"
-                        android:textSize="20sp" />
+                        android:textSize="28sp" />
 
                     <TextView
                         android:id="@+id/step_3_5_textView"
@@ -298,9 +323,12 @@
                         android:layout_height="wrap_content"
                         android:layout_alignParentEnd="true"
                         android:layout_centerInParent="true"
-                        android:layout_margin="10dp"
+                        android:layout_marginStart="10dp"
+                        android:layout_marginTop="10dp"
+                        android:layout_marginEnd="10dp"
+                        android:layout_marginBottom="10dp"
                         android:text="@string/step_3_5"
-                        android:textSize="20sp" />
+                        android:textSize="28sp" />
                 </RelativeLayout>
 
                 <RelativeLayout
@@ -327,32 +355,38 @@
                         android:src="@drawable/male" />
                 </RelativeLayout>
 
-                <RelativeLayout
-                    android:id="@+id/filterGenderRadioButtons_relativeLayout"
+                <RadioGroup
+                    android:id="@+id/filterGender_radioGroup"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:gravity="center"
+                    android:layout_centerHorizontal="true"
                     android:layout_below="@id/filterGenderImages_relativeLayout">
 
                     <RadioButton
                         android:id="@+id/filterGenderFemale_radioButton"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_alignParentStart="true"
-                        android:layout_marginStart="10dp"
-                        android:layout_marginTop="10dp"
-                        android:layout_marginEnd="10dp"
-                        android:layout_marginBottom="10dp" />
+                        android:layout_weight="1"
+                        android:button="@null"
+                        android:drawableStart="@android:drawable/btn_radio"
+                        android:text="@string/female"
+                        android:textSize="20sp"
+                        android:drawablePadding="5dp" />
 
                     <RadioButton
                         android:id="@+id/filterGenderMale_radioButton"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_alignParentEnd="true"
-                        android:layout_marginStart="10dp"
-                        android:layout_marginTop="10dp"
-                        android:layout_marginEnd="10dp"
-                        android:layout_marginBottom="10dp" />
-                </RelativeLayout>
+                        android:layout_weight="1"
+                        android:drawableEnd="@android:drawable/btn_radio"
+                        android:button="@null"
+                        android:text="@string/male"
+                        android:textSize="20sp"
+                        android:drawablePadding="5dp"
+                        android:textAlignment="textEnd" />
+                </RadioGroup>
             </RelativeLayout>
 
             <RelativeLayout
@@ -375,9 +409,12 @@
                         android:layout_height="wrap_content"
                         android:layout_alignParentStart="true"
                         android:layout_centerInParent="true"
-                        android:layout_margin="10dp"
+                        android:layout_marginStart="10dp"
+                        android:layout_marginTop="10dp"
+                        android:layout_marginEnd="10dp"
+                        android:layout_marginBottom="10dp"
                         android:text="@string/fit_for_children"
-                        android:textSize="20sp" />
+                        android:textSize="28sp" />
 
                     <TextView
                         android:id="@+id/step_4_5_textView"
@@ -385,9 +422,12 @@
                         android:layout_height="wrap_content"
                         android:layout_alignParentEnd="true"
                         android:layout_centerInParent="true"
-                        android:layout_margin="10dp"
+                        android:layout_marginStart="10dp"
+                        android:layout_marginTop="10dp"
+                        android:layout_marginEnd="10dp"
+                        android:layout_marginBottom="10dp"
                         android:text="@string/step_4_5"
-                        android:textSize="20sp" />
+                        android:textSize="28sp" />
                 </RelativeLayout>
 
                 <RelativeLayout
@@ -401,7 +441,10 @@
                         android:layout_height="wrap_content"
                         android:layout_alignParentStart="true"
                         android:layout_centerInParent="true"
-                        android:layout_margin="10dp"
+                        android:layout_marginStart="10dp"
+                        android:layout_marginTop="10dp"
+                        android:layout_marginEnd="10dp"
+                        android:layout_marginBottom="10dp"
                         android:text="@string/no"
                         android:textSize="20sp" />
 
@@ -415,26 +458,34 @@
                         android:textSize="20sp" />
                 </RelativeLayout>
 
-                <RelativeLayout
-                    android:id="@+id/filterFitForChildrenRadioButtons_relativeLayout"
+                <RadioGroup
+                    android:id="@+id/filterFitForChildren_radioGroup"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:orientation="horizontal"
+                    android:layout_centerHorizontal="true"
                     android:layout_below="@id/filterFitForChildrenOptions_relativeLayout">
 
                     <RadioButton
                         android:id="@+id/filterNotFitForChildren_radioButton"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_alignParentStart="true"
-                        android:layout_margin="10dp" />
+                        android:text="@string/no"
+                        android:layout_weight="1"
+                        android:button="@null"
+                        android:drawableStart="@android:drawable/btn_radio"/>
 
                     <RadioButton
                         android:id="@+id/filterFitForChildren_radioButton"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_alignParentEnd="true"
-                        android:layout_margin="10dp" />
-                </RelativeLayout>
+                        android:text="@string/yes"
+                        android:layout_weight="1"
+                        android:button="@null"
+                        android:drawableEnd="@android:drawable/btn_radio"
+                        android:textAlignment="textEnd"/>
+                </RadioGroup>
             </RelativeLayout>
 
             <RelativeLayout
@@ -449,6 +500,7 @@
                     android:id="@+id/filterFitForGuardingText_relativeLayout"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:layout_centerHorizontal="true"
                     android:orientation="horizontal">
 
                     <TextView
@@ -459,7 +511,7 @@
                         android:layout_centerInParent="true"
                         android:layout_margin="10dp"
                         android:text="@string/fit_for_guarding"
-                        android:textSize="20sp" />
+                        android:textSize="28sp" />
 
                     <TextView
                         android:id="@+id/step_5_5_textView"
@@ -469,7 +521,7 @@
                         android:layout_centerInParent="true"
                         android:layout_margin="10dp"
                         android:text="@string/step_5_5"
-                        android:textSize="20sp" />
+                        android:textSize="28sp" />
                 </RelativeLayout>
 
                 <RelativeLayout
@@ -497,27 +549,38 @@
                         android:textSize="20sp" />
                 </RelativeLayout>
 
-                <RelativeLayout
-                    android:id="@+id/filterFitForGuardingRadioButtons_relativeLayout"
+                <RadioGroup
+                    android:id="@+id/filterFitForGuarding_radioGroup"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:layout_centerHorizontal="true"
+                    android:gravity="center"
+                    android:orientation="horizontal"
                     android:layout_below="@id/filterFitForGuardingOptions_relativeLayout">
 
                     <RadioButton
                         android:id="@+id/filterNotFitForGuarding_radioButton"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_alignParentStart="true"
-                        android:layout_margin="10dp" />
+                        android:text="@string/no"
+                        android:layout_weight="1"
+                        android:textSize="20sp"
+                        android:button="@null"
+                        android:drawableStart="@android:drawable/btn_radio" />
 
                     <RadioButton
                         android:id="@+id/filterFitForGuarding_radioButton"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_alignParentEnd="true"
-                        android:layout_margin="10dp" />
-                </RelativeLayout>
+                        android:text="@string/yes"
+                        android:button="@null"
+                        android:drawableEnd="@android:drawable/btn_radio"
+                        android:textAlignment="textEnd"
+                        android:layout_weight="1"
+                        android:textSize="20sp"/>
+                </RadioGroup>
             </RelativeLayout>
+
             <Button
                 android:id="@+id/searchFilters_button"
                 android:layout_width="match_parent"
@@ -528,7 +591,4 @@
                 android:layout_margin="10dp"/>
         </LinearLayout>
     </ScrollView>
-
-
-
 </RelativeLayout>

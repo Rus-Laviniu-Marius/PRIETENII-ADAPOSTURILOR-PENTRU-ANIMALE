@@ -140,94 +140,61 @@
 
         </HorizontalScrollView>
 
-<!--        <GridView-->
-<!--            android:id="@+id/listOfPetsContentPets_gridView"-->
-<!--            android:layout_width="match_parent"-->
-<!--            android:layout_height="match_parent"-->
-<!--            android:horizontalSpacing="10dp"-->
-<!--            android:numColumns="auto_fit"-->
-<!--            android:verticalSpacing="10dp"-->
-<!--            android:layout_below="@id/listOfPetsContentActiveFilters_horizontalScrollView"/>-->
-
-        <LinearLayout
-            android:id="@+id/listOfPetsCard_linearLayout"
+        <GridView
+            android:id="@+id/listOfPetsContentPets_gridView"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/listOfPetsContentActiveFilters_horizontalScrollView"
-            android:layout_alignParentStart="true"
-            android:layout_alignParentEnd="true"
-            android:background="@color/card4_background"
-            android:gravity="center"
-            android:orientation="vertical">
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/oscar"
-                android:textSize="36sp" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/_2_years"
-                android:textSize="22sp" />
-
-            <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:contentDescription="@string/a_dog_named_oscar"
-                android:src="@drawable/oscar_dog" />
-
-        </LinearLayout>
+            android:horizontalSpacing="10dp"
+            android:numColumns="auto_fit"
+            android:verticalSpacing="10dp"
+            android:layout_centerHorizontal="true"
+            android:layout_below="@+id/listOfPetsContentActiveFilters_horizontalScrollView"/>
 
     </RelativeLayout>
-
-
-    <LinearLayout
-        android:id="@+id/listOfPetsBottomBar"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_marginStart="20dp"
-        android:layout_marginTop="20dp"
-        android:layout_marginEnd="20dp"
-        android:layout_marginBottom="20dp"
-        android:orientation="horizontal"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentEnd="true">
-
-        <ImageView
-            android:id="@+id/listOfPetsBottomBarSearch_imageView"
-            android:layout_width="wrap_content"
+        <LinearLayout
+            android:id="@+id/listOfPetsBottomBar"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:contentDescription="@string/search"
-            android:src="@drawable/search_64"
-            android:layout_weight="1"/>
+            android:layout_alignParentBottom="true"
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="20dp"
+            android:layout_marginEnd="20dp"
+            android:layout_marginBottom="20dp"
+            android:orientation="horizontal"
+            android:layout_centerHorizontal="true" >
 
-        <ImageView
-            android:id="@+id/listOfPetsBottomBarHearth_imageView"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:src="@drawable/hearth_64"
-            android:contentDescription="@string/favorites"
-            android:layout_weight="1"/>
+            <ImageView
+                android:id="@+id/listOfPetsBottomBarSearch_imageView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:contentDescription="@string/search"
+                android:src="@drawable/search_64"
+                android:layout_weight="1"/>
 
-        <ImageView
-            android:id="@+id/listOfPetsBottomBarPaperAirplane_imageView"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:contentDescription="@string/flying_paper_plane"
-            android:src="@drawable/paper_airplane_64"
-            android:layout_weight="1"/>
+            <ImageView
+                android:id="@+id/listOfPetsBottomBarHearth_imageView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/hearth_64"
+                android:contentDescription="@string/favorites"
+                android:layout_weight="1"/>
 
-        <ImageView
-            android:id="@+id/listOfPetsBottomBarHome_imageView"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:contentDescription="@string/home"
-            android:src="@drawable/home"
-            android:layout_weight="1"/>
+            <ImageView
+                android:id="@+id/listOfPetsBottomBarPaperAirplane_imageView"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:contentDescription="@string/flying_paper_plane"
+                android:src="@drawable/paper_airplane_64"
+                android:layout_weight="1"/>
 
-    </LinearLayout>
+            <ImageView
+                android:id="@+id/listOfPetsBottomBarHome_imageView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:contentDescription="@string/home"
+                android:src="@drawable/home"
+                android:layout_weight="1"/>
+
+        </LinearLayout>
 
 </RelativeLayout>

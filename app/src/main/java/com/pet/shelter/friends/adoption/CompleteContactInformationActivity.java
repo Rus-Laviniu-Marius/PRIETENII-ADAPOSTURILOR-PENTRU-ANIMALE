@@ -72,9 +72,6 @@ public class CompleteContactInformationActivity extends AppCompatActivity {
         submitButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String fullName = fullNameEditText.getText().toString().trim(),
-                    occupation = occupationEditText.getText().toString().trim(),
-                    address = addressEditText.getText().toString().trim();
 
 //                myRef.child("full_name").setValue(fullName);
 //                myRef.child("occupation").setValue(occupation);
@@ -106,6 +103,11 @@ public class CompleteContactInformationActivity extends AppCompatActivity {
     }
 
     private void createPDF() throws FileNotFoundException {
+        String fullName = fullNameEditText.getText().toString().trim(),
+                occupation = occupationEditText.getText().toString().trim(),
+                address = addressEditText.getText().toString().trim();
+
+
         String pdfPath = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS).toString();
         File file = new File(pdfPath, "pet_adoption_papers.pdf");
         OutputStream outputStream = new FileOutputStream(file);
@@ -137,16 +139,17 @@ public class CompleteContactInformationActivity extends AppCompatActivity {
         Paragraph paragraph1 = new Paragraph();
         Text text = new Text("This is to certify that\n")
                 .setFontSize(20);
-        Text text1 = new Text("LAVINIU\n")
+        Text text1 = new Text(fullName+"\n")
                 .setFontSize(60)
                 .setBackgroundColor(ColorConstants.GREEN)
                 .setTextAlignment(TextAlignment.CENTER);
-        Text text2 = new Text("has adopted\n")
+        Text text2 = new Text("who is a " + occupation + " and who lives in " + address + "\n");
+        Text text3 = new Text("has adopted\n")
                 .setFontSize(20);
-        Text text3 = new Text("Papeto")
+        Text text4 = new Text("Papeto")
                 .setFontSize(60)
                 .setTextAlignment(TextAlignment.CENTER);
-        paragraph1.add(text).add(text1).add(text2).add(text3);
+        paragraph1.add(text).add(text1).add(text2).add(text3).add(text4);
 
         document.add(paragraph1);
 
