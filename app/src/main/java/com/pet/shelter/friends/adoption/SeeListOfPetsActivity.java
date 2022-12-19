@@ -93,12 +93,51 @@ public class SeeListOfPetsActivity extends AppCompatActivity {
             }
         });
 
-        List<Pets> petsList = new ArrayList<>();
-        petsList.add(new Pets(R.drawable.milo_dog, "Milo", 3, getResources().getColor(R.color.card1_background), "medium"));
-        petsList.add(new Pets(R.drawable.arthur_dog, "Arthur", 2, getResources().getColor(R.color.card2_background), "medium"));
-        petsList.add(new Pets(R.drawable.maya_cat, "Maya", 1, getResources().getColor(R.color.card3_background),"small"));
-        petsList.add(new Pets(R.drawable.oscar_dog, "Oscar",2, getResources().getColor(R.color.card4_background),"medium"));
-
+        List<Pet> petsList = new ArrayList<>();
+        petsList.add(new Pet(
+                getResources().getColor(R.color.card1_background),
+                R.drawable.milo_dog,
+                "Milo",
+                3,
+                7.4,
+                "Timisoara",
+                "medium",
+                "Bulldog",
+                "Male",
+                "Milo is a friendly dog"));
+        petsList.add(new Pet(
+                getResources().getColor(R.color.card2_background),
+                R.drawable.arthur_dog,
+                "Arthur",
+                2,
+                11.4,
+                "Arad",
+                "small",
+                "Pekingese",
+                "Male",
+                "Arthur love short walks"));
+        petsList.add(new Pet(
+                getResources().getColor(R.color.card3_background),
+                R.drawable.maya_cat,
+                "Maya",
+                1,
+                5.4,
+                "Oradea",
+                "small",
+                "",
+                "Female",
+                "Maya does not like raining weather"));
+        petsList.add(new Pet(
+                getResources().getColor(R.color.card4_background),
+                R.drawable.oscar_dog,
+                "Oscar",
+                2,
+                9.5,
+                "Timisoara",
+                "medium",
+                "Fox Terrier",
+                "Male",
+                "Oscar is a very very energetic dog"));
 
         GridView gridView = findViewById(R.id.listOfPetsContentPets_gridView);
         CustomListOfPetsAdapter customAdapter = new CustomListOfPetsAdapter(this, R.layout.custom_pet_view_layout, petsList);
@@ -107,24 +146,20 @@ public class SeeListOfPetsActivity extends AppCompatActivity {
         gridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                if (position == 0) {
-                    // open milo (pet) dog details
-                    Intent intent = new Intent(SeeListOfPetsActivity.this, SeePetDetailsActivity.class);
-                    startActivity(intent);
-                }
-                switch (position) {
-                    case 0:
-                        Intent intent = new Intent(SeeListOfPetsActivity.this, SeePetDetailsActivity.class);
-                        intent.putExtra("petName", "Milo");
-                        startActivity(intent);
-                        break;
-                    case 1:
-                        intent = new Intent(SeeListOfPetsActivity.this, SeePetDetailsActivity.class);
-                        startActivity(intent);
-                        break;
-                    default:
 
-                }
+                Pet pet = petsList.get(position);
+                Intent intent = new Intent(SeeListOfPetsActivity.this, SeePetDetailsActivity.class);
+                intent.putExtra("backgroundColor", pet.getBackgroundColor());
+                intent.putExtra("imageId", pet.getImageId());
+                intent.putExtra("petName", pet.getName());
+                intent.putExtra("petAge", pet.getAge());
+                intent.putExtra("petWeight", pet.getWeight());
+                intent.putExtra("petLocation", pet.getLocation());
+                intent.putExtra("petSize", pet.getSize());
+                intent.putExtra("petBreed", pet.getBreed());
+                intent.putExtra("petGender", pet.getGender());
+                intent.putExtra("petDescription", pet.getDescription());
+                startActivity(intent);
             }
         });
     }

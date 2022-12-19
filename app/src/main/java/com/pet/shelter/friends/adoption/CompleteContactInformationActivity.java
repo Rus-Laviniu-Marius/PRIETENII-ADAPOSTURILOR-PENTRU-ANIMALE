@@ -1,15 +1,20 @@
 package com.pet.shelter.friends.adoption;
 
 
+import static android.content.Intent.EXTRA_SUBJECT;
+
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.content.res.AppCompatResources;
+import androidx.core.content.FileProvider;
 
 import android.app.DownloadManager;
+import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
 import android.view.View;
@@ -39,6 +44,7 @@ import com.itextpdf.layout.element.Table;
 import com.itextpdf.layout.element.Text;
 import com.itextpdf.layout.property.HorizontalAlignment;
 import com.itextpdf.layout.property.TextAlignment;
+import com.pet.shelter.friends.BuildConfig;
 import com.pet.shelter.friends.R;
 
 
@@ -93,11 +99,61 @@ public class CompleteContactInformationActivity extends AppCompatActivity {
 //                startActivity(Intent.createChooser(sendEmail, "Email:"));
 
                 String mailTo="rusmarius0809@gmail.com";
-                Intent email_intent = new Intent(Intent.ACTION_SENDTO, Uri.fromParts("mailto",mailTo, null));
-                email_intent.putExtra(android.content.Intent.EXTRA_SUBJECT, "Pet adoption papers");
-                email_intent.putExtra(android.content.Intent.EXTRA_TEXT,"These are the papers you completed");
-                startActivity(Intent.createChooser(email_intent, "Send email..."));
+//                Intent email_intent = new Intent(Intent.ACTION_SENDTO, Uri.fromParts("mailto",mailTo, null));
+//                email_intent.putExtra(android.content.Intent.EXTRA_SUBJECT, "Pet adoption papers");
+//                email_intent.putExtra(android.content.Intent.EXTRA_TEXT,"Completed adoption papers");
+//                startActivity(Intent.createChooser(email_intent, "Send email..."));
 
+//                Intent emailIntent = new Intent(Intent.ACTION_SENDTO);
+//                emailIntent.setData(Uri.parse("mailto:")); // only email apps should handle this
+//                emailIntent.putExtra(Intent.EXTRA_EMAIL, new String[]{mailTo});
+//                emailIntent.putExtra(Intent.EXTRA_SUBJECT, "Pet adoption papers");
+//                emailIntent.putExtra(Intent.EXTRA_TEXT, "Completed adoption papers");
+//                if (emailIntent.resolveActivity(getPackageManager()) != null) {
+//                    startActivity(emailIntent);
+//                }
+
+//                Uri uri = generateFile(context);
+//                Uri uri;
+//                final Intent emailIntent = new Intent(android.content.Intent.ACTION_SENDTO);
+//                emailIntent.setType("application/pdf");
+//
+//                emailIntent.putExtra(Intent.EXTRA_STREAM, uri);
+//                emailIntent.putExtra(Intent.EXTRA_EMAIL, new String[]{mailTo});
+//                emailIntent.putExtra(EXTRA_SUBJECT, "Send something");
+//                emailIntent.putExtra(Intent.EXTRA_TEXT, "You receive attachment");
+//                emailIntent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
+//
+//                startActivity(emailIntent);
+
+                String petAdoptionPapers = "pet_adoption_papers";
+                //create the send intent
+                Intent shareIntent = new Intent(android.content.Intent.ACTION_SEND);
+                // File path
+//                String fileName = "file://" + android.os.Environment.getExternalStorageDirectory() +
+//                        "/" + Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS).toString() + "/" + petAdoptionPapers + ".pdf";
+//                Uri pdfUri = Uri.parse(fileName);
+                //                    pdfUri = FileProvider.getUriForFile(context,
+//                            context.getApplicationContext().getPackageName() + ".provider", createPDF());
+                File file = new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOCUMENTS),
+                        "pet_adoption_papers.pdf");
+                Uri pdfUri = FileProvider.getUriForFile(CompleteContactInformationActivity.this,
+                        BuildConfig.APPLICATION_ID + ".provider", file);
+                //set the type
+                shareIntent.setType("application/pdf");
+                shareIntent.putExtra(Intent.EXTRA_EMAIL, new String[]{mailTo});
+                //add a subject
+                shareIntent.putExtra(android.content.Intent.EXTRA_SUBJECT, petAdoptionPapers);
+                //build the body of the message to be shared
+                String shareMessage = getResources().getString(R.string.label_share_message);
+                //add the message
+                shareIntent.putExtra(android.content.Intent.EXTRA_TEXT, shareMessage);
+                //add the attachment
+                shareIntent.putExtra(Intent.EXTRA_STREAM, pdfUri);
+                shareIntent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
+                //start the chooser for sharing
+                startActivity(Intent.createChooser(shareIntent, getResources().
+                        getString(R.string.label_chooser_title)));
             }
         });
     }
@@ -110,7 +166,6 @@ public class CompleteContactInformationActivity extends AppCompatActivity {
 
         String pdfPath = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS).toString();
         File file = new File(pdfPath, "pet_adoption_papers.pdf");
-        OutputStream outputStream = new FileOutputStream(file);
 
         PdfWriter pdfWriter = new PdfWriter(file);
         PdfDocument pdfDocument = new PdfDocument(pdfWriter);
@@ -251,6 +306,7 @@ public class CompleteContactInformationActivity extends AppCompatActivity {
 
         Toast.makeText(this, "Pdf created", Toast.LENGTH_LONG).show();
 
+//        return file;
     }
 
 }

@@ -129,5 +129,7 @@
     <string name="female">Female</string>
     <string name="old">Old</string>
     <string name="middle_age">Middle age</string>
+    <string name="label_chooser_title">Choose email provider</string>
+    <string name="label_share_message">Pet adoption document</string>
 
 </resources>

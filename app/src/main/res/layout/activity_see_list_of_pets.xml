@@ -140,6 +140,19 @@
 
         </HorizontalScrollView>
 
+        <!-- TODO: change from gridView to recyclerView -->
+<!--        <androidx.recyclerview.widget.RecyclerView-->
+<!--            android:id="@+id/listOfPetsContentPets_recyclerView"-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:horizontalSpacing="10dp"-->
+<!--            app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"-->
+<!--            app:spanCount="2"-->
+<!--            android:numColumns="auto_fit"-->
+<!--            android:verticalSpacing="10dp"-->
+<!--            android:layout_centerHorizontal="true"-->
+<!--            android:layout_below="@+id/listOfPetsContentActiveFilters_horizontalScrollView"/>-->
+
         <GridView
             android:id="@+id/listOfPetsContentPets_gridView"
             android:layout_width="match_parent"

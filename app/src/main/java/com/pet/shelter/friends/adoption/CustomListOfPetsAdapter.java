@@ -15,14 +15,15 @@ import com.pet.shelter.friends.R;
 
 import java.util.List;
 
+// TODO: change to recyclerView adapter
 public class CustomListOfPetsAdapter extends ArrayAdapter {
 
-    private List<Pets> petsList;
-    private int custom_pet_view_layout_id;
+    private final List<Pet> petList;
+    private final int custom_pet_view_layout_id;
 
-    public CustomListOfPetsAdapter(@NonNull Context context, int resource, @NonNull List<Pets> objects) {
+    public CustomListOfPetsAdapter(@NonNull Context context, int resource, @NonNull List<Pet> objects) {
         super(context, resource, objects);
-        petsList = objects;
+        petList = objects;
         custom_pet_view_layout_id = resource;
     }
 
@@ -34,7 +35,7 @@ public class CustomListOfPetsAdapter extends ArrayAdapter {
     @NonNull
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
-        //return super.getView(position, convertView, parent);
+//        return super.getView(position, convertView, parent);
 
         View v = convertView;
 
@@ -53,10 +54,10 @@ public class CustomListOfPetsAdapter extends ArrayAdapter {
         RelativeLayout containerPetView = v.findViewById(R.id.customPetViewContainer_relativeLayout);
 
         // get the item using the  position param
-        Pets pet = petsList.get(position);
+        Pet pet = petList.get(position);
         String age = pet.getAge()+" years";
-        petImageView.setImageResource(pet.getImage_id());
-        titleTextView.setText(pet.getTitle());
+        petImageView.setImageResource(pet.getImageId());
+        titleTextView.setText(pet.getName());
         ageTextView.setText(age);
         sizeTextView.setText(pet.getSize());
         containerPetView.setBackgroundColor(pet.getBackgroundColor());
