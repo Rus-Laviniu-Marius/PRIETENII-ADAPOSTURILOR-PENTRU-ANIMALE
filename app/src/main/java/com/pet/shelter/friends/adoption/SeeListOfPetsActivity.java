@@ -101,7 +101,7 @@ public class SeeListOfPetsActivity extends AppCompatActivity {
                 3,
                 7.4,
                 "Timisoara",
-                "medium",
+                "Medium",
                 "Bulldog",
                 "Male",
                 "Milo is a friendly dog"));
@@ -112,7 +112,7 @@ public class SeeListOfPetsActivity extends AppCompatActivity {
                 2,
                 11.4,
                 "Arad",
-                "small",
+                "Small",
                 "Pekingese",
                 "Male",
                 "Arthur love short walks"));
@@ -123,8 +123,8 @@ public class SeeListOfPetsActivity extends AppCompatActivity {
                 1,
                 5.4,
                 "Oradea",
-                "small",
-                "",
+                "Small",
+                "Mixed",
                 "Female",
                 "Maya does not like raining weather"));
         petsList.add(new Pet(
@@ -134,7 +134,7 @@ public class SeeListOfPetsActivity extends AppCompatActivity {
                 2,
                 9.5,
                 "Timisoara",
-                "medium",
+                "Medium",
                 "Fox Terrier",
                 "Male",
                 "Oscar is a very very energetic dog"));

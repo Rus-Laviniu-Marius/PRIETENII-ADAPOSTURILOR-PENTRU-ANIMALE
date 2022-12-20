@@ -1,0 +1,257 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".adoption.CompleteOtherPetsInformationActivity">
+
+    <RelativeLayout
+        android:id="@+id/completeOtherPetsInformationTopBar_relativeLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="20dp"
+        android:layout_alignParentTop="true"
+        android:layout_centerInParent="true">
+
+        <ImageView
+            android:id="@+id/completeOtherPetsInformationBack_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentTop="true"
+            android:layout_centerInParent="true"
+            android:contentDescription="@string/back"
+            android:src="@drawable/back_left_32" />
+
+        <ImageView
+            android:id="@+id/completeOtherPetsInformationNext_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentTop="true"
+            android:layout_centerInParent="true"
+            android:contentDescription="@string/next"
+            android:src="@drawable/next_right_32" />
+
+
+    </RelativeLayout>
+
+    <TextView
+        android:id="@+id/completeOtherPetsInformationDescription_textView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:layout_below="@+id/completeOtherPetsInformationTopBar_relativeLayout"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginEnd="10dp"
+        android:layout_marginBottom="10dp"
+        android:text="@string/complete_information_description"
+        android:textSize="30sp" />
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:layout_margin="20dp"
+        android:layout_below="@+id/completeOtherPetsInformationDescription_textView">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textSize="20sp"
+                    android:text="@string/what_other_pets_do_you_have"/>
+
+                <EditText
+                    android:id="@+id/otherPetsTypeAndNumber_editText"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:autofillHints="text"
+                    android:textSize="20sp"
+                    android:inputType="text|textMultiLine|number"
+                    android:hint="@string/specify_type_and_number"/>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textSize="20sp"
+                    android:text="@string/are_these_pets_up_to_date_on_vaccines"/>
+                <RadioGroup
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:gravity="center">
+                    <RadioButton
+                        android:id="@+id/vaccinesUpToDateNo_radioButton"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="@string/no"
+                        android:textSize="20sp"
+                        android:button="@null"
+                        android:padding="10dp"
+                        android:drawablePadding="10dp"
+                        android:drawableStart="@android:drawable/btn_radio"/>
+                    <RadioButton
+                        android:id="@+id/vaccinesUpToDateYes_radioButton"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="@string/yes"
+                        android:textSize="20sp"
+                        android:button="@null"
+                        android:padding="10dp"
+                        android:drawablePadding="10dp"
+                        android:drawableStart="@android:drawable/btn_radio"/>
+                </RadioGroup>
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textSize="20sp"
+                    android:text="@string/have_you_every_surrendered_a_pet"/>
+
+                <RadioGroup
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:gravity="center">
+                    <RadioButton
+                        android:id="@+id/surrenderedPetNo_radioButton"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="@string/no"
+                        android:textSize="20sp"
+                        android:button="@null"
+                        android:padding="10dp"
+                        android:drawablePadding="10dp"
+                        android:drawableStart="@android:drawable/btn_radio"/>
+                    <RadioButton
+                        android:id="@+id/surrenderedPetYes_radioButton"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="@string/yes"
+                        android:textSize="20sp"
+                        android:button="@null"
+                        android:padding="10dp"
+                        android:drawablePadding="10dp"
+                        android:drawableStart="@android:drawable/btn_radio"/>
+                </RadioGroup>
+
+                <EditText
+                    android:id="@+id/surrenderedPetDescription_editText"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:autofillHints="text"
+                    android:textSize="20sp"
+                    android:inputType="text|textMultiLine"
+                    android:hint="@string/please_tell_us_what_happened"/>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textSize="20sp"
+                    android:text="@string/have_you_every_had_a_pet_euthanized"/>
+
+                <RadioGroup
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:gravity="center">
+                    <RadioButton
+                        android:id="@+id/euthanizedNo_radioButton"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="@string/no"
+                        android:textSize="20sp"
+                        android:button="@null"
+                        android:padding="10dp"
+                        android:drawablePadding="10dp"
+                        android:drawableStart="@android:drawable/btn_radio"/>
+                    <RadioButton
+                        android:id="@+id/euthanizedYes_radioButton"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="@string/yes"
+                        android:textSize="20sp"
+                        android:button="@null"
+                        android:padding="10dp"
+                        android:drawablePadding="10dp"
+                        android:drawableStart="@android:drawable/btn_radio"/>
+                </RadioGroup>
+
+                <EditText
+                    android:id="@+id/euthanizedPetDescription_editText"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:autofillHints="text"
+                    android:textSize="20sp"
+                    android:inputType="text|textMultiLine"
+                    android:hint="@string/please_tell_us_what_happened"/>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textSize="20sp"
+                    android:text="@string/how_do_you_discipline_your_pet"/>
+
+                <EditText
+                    android:id="@+id/otherPetsDisciplineMethods_editText"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:autofillHints="text"
+                    android:textSize="20sp"
+                    android:inputType="text|textMultiLine"
+                    android:hint="@string/please_describe"/>
+
+            </LinearLayout>
+
+            <Button
+                android:id="@+id/completeOtherPetsInformationSubmit_button"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/bottom_bar"
+                android:text="@string/submit"
+                android:textSize="20sp"
+                android:layout_margin="20dp"/>
+
+        </LinearLayout>
+
+    </ScrollView>
+
+</RelativeLayout>

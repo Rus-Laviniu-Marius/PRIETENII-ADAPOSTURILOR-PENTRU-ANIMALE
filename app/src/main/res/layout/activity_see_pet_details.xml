@@ -12,29 +12,32 @@
         android:id="@+id/petDetailsTopBar_relativeLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="10dp"
-        android:layout_alignParentEnd="true"
         android:layout_alignParentStart="true"
-        android:layout_alignParentTop="true">
+        android:layout_alignParentTop="true"
+        android:layout_alignParentEnd="true"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginEnd="10dp"
+        android:layout_marginBottom="10dp">
 
         <ImageView
             android:id="@+id/petDetailsTopBarBack_imageView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:src="@drawable/back_64"
-            android:contentDescription="@string/back"
             android:layout_alignParentStart="true"
-            android:layout_alignParentTop="true"/>
+            android:layout_alignParentTop="true"
+            android:contentDescription="@string/back"
+            android:src="@drawable/back_64" />
 
         <ImageView
             android:id="@+id/petDetailsTopBarFilter_imageView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:src="@drawable/filter_64"
-            android:contentDescription="@string/filter"
-            android:layout_alignParentEnd="true"
             android:layout_alignParentTop="true"
-            android:layout_marginEnd="10dp"/>
+            android:layout_alignParentEnd="true"
+            android:layout_marginEnd="10dp"
+            android:contentDescription="@string/filter"
+            android:src="@drawable/filter_64" />
 
     </RelativeLayout>
 
@@ -91,7 +94,7 @@
                         android:textColor="@color/card4_background"
                         android:textSize="22sp"
                         android:drawablePadding="10dp"
-                        app:drawableStartCompat="@drawable/yellow_birthday_cake" />
+                        app:drawableStartCompat="@drawable/card4_birthday_cake" />
                     <TextView
                         android:id="@+id/petDetailsContentWeight_textView"
                         android:layout_marginTop="10dp"
@@ -101,7 +104,7 @@
                         android:textSize="22sp"
                         android:textColor="@color/card4_background"
                         android:drawablePadding="10dp"
-                        app:drawableStartCompat="@drawable/yellow_weighing_scale" />
+                        app:drawableStartCompat="@drawable/card4_weighting_scale" />
                     <TextView
                         android:id="@+id/petDetailsContentLocation_textView"
                         android:layout_marginTop="10dp"
@@ -111,7 +114,7 @@
                         android:textSize="22sp"
                         android:textColor="@color/card4_background"
                         android:drawablePadding="10dp"
-                        app:drawableStartCompat="@drawable/yellow_location" />
+                        app:drawableStartCompat="@drawable/card4_location" />
                 </LinearLayout>
                 <LinearLayout
                     android:layout_width="wrap_content"
@@ -129,7 +132,7 @@
                         android:textColor="@color/card4_background"
                         android:textSize="22sp"
                         android:drawablePadding="10dp"
-                        app:drawableStartCompat="@drawable/yellow_full_size" />
+                        app:drawableStartCompat="@drawable/card4_full_size" />
                     <TextView
                         android:id="@+id/petDetailsContentBreed_textView"
                         android:layout_marginTop="10dp"
@@ -139,7 +142,7 @@
                         android:textSize="22sp"
                         android:textColor="@color/card4_background"
                         android:drawablePadding="10dp"
-                        app:drawableStartCompat="@drawable/yellow_paws_print" />
+                        app:drawableStartCompat="@drawable/card4_paws_print" />
                     <TextView
                         android:id="@+id/petDetailsContentGender_textView"
                         android:layout_marginTop="10dp"
@@ -149,7 +152,7 @@
                         android:textSize="22sp"
                         android:textColor="@color/card4_background"
                         android:drawablePadding="10dp"
-                        app:drawableStartCompat="@drawable/yellow_gender" />
+                        app:drawableStartCompat="@drawable/card4_gender" />
                 </LinearLayout>
             </LinearLayout>
 

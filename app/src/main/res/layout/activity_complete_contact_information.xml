@@ -3,28 +3,46 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/main_background"
     tools:context=".adoption.CompleteContactInformationActivity">
 
-    <ImageView
-        android:id="@+id/completeContactInformationBack_button"
-        android:layout_width="wrap_content"
+    <RelativeLayout
+        android:id="@+id/completeContactInformationTopBar_relativeLayout"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:src="@drawable/back_64"
-        android:contentDescription="@string/back" />
+        android:layout_alignParentTop="true"
+        android:layout_centerInParent="true"
+        android:padding="20dp">
 
-    <ImageView
-        android:id="@+id/completeContactInformationDogToAdopt_imageView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:src="@drawable/oscar_dog"
-        android:layout_centerHorizontal="true"
-        android:layout_below="@id/completeContactInformationBack_button" />
+        <ImageView
+            android:id="@+id/completeContactInformationBack_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentTop="true"
+            android:layout_centerInParent="true"
+            android:contentDescription="@string/back"
+            android:src="@drawable/back_left_32" />
+
+        <ImageView
+            android:id="@+id/completeContactInformationNext_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentEnd="true"
+            android:layout_centerInParent="true"
+            android:contentDescription="@string/next"
+            android:src="@drawable/next_right_32" />
+
+
+    </RelativeLayout>
 
     <TextView
         android:id="@+id/completeContactInformationDescription_textView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/completeContactInformationDogToAdopt_imageView"
+        android:layout_centerInParent="true"
+        android:layout_below="@+id/completeContactInformationTopBar_relativeLayout"
         android:layout_marginStart="10dp"
         android:layout_marginTop="10dp"
         android:layout_marginEnd="10dp"
@@ -48,31 +66,96 @@
                 android:layout_height="wrap_content"
                 android:autofillHints="Full name"
                 android:inputType="textPersonName"
-                android:hint="@string/what_is_your_full_name"
+                android:hint="@string/full_name"
                 android:textSize="24sp"
-                android:layout_margin="10dp"/>
+                android:layout_margin="10dp"
+                android:drawableStart="@drawable/full_name_32"
+                android:textAlignment="center"
+                android:background="@drawable/veterinarian_data_background"
+                android:padding="10dp"/>
             <EditText
                 android:id="@+id/completeContactInformationOccupation_editText"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:autofillHints="Occupation"
                 android:inputType="text"
-                android:hint="@string/what_is_your_occupation"
+                android:hint="@string/occupation"
                 android:textSize="24sp"
-                android:layout_margin="10dp"/>
+                android:layout_margin="10dp"
+                android:textAlignment="center"
+                android:background="@drawable/veterinarian_data_background"
+                android:padding="10dp"
+                android:drawableStart="@drawable/briefcase_filled_32"/>
             <EditText
                 android:id="@+id/completeContactInformationAddress_editText"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:autofillHints="Occupation"
                 android:inputType="text"
-                android:hint="@string/what_is_your_address"
+                android:hint="@string/address"
                 android:textSize="24sp"
-                android:layout_margin="10dp"/>
+                android:layout_margin="10dp"
+                android:textAlignment="center"
+                android:background="@drawable/veterinarian_data_background"
+                android:padding="10dp"
+                android:drawableStart="@drawable/home_address_32"/>
+            <EditText
+                android:id="@+id/completeContactInformationSittingTime_editText"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:autofillHints="Full name"
+                android:inputType="textPersonName"
+                android:hint="@string/time_at_this_address"
+                android:textSize="24sp"
+                android:layout_margin="10dp"
+                android:drawableStart="@drawable/calendar_32"
+                android:background="@drawable/veterinarian_data_background"
+                android:padding="10dp"
+                android:textAlignment="center"/>
+            <EditText
+                android:id="@+id/completeContactInformationPhoneNumber_editText"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:autofillHints="Occupation"
+                android:inputType="phone"
+                android:hint="@string/phone_number"
+                android:textSize="24sp"
+                android:layout_margin="10dp"
+                android:textAlignment="center"
+                android:background="@drawable/veterinarian_data_background"
+                android:padding="10dp"
+                android:drawableStart="@drawable/telephone_call_32"/>
+            <EditText
+                android:id="@+id/completeContactInformationEmailAddress_editText"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:autofillHints="Occupation"
+                android:inputType="textEmailAddress"
+                android:hint="@string/email"
+                android:textSize="24sp"
+                android:layout_margin="10dp"
+                android:textAlignment="center"
+                android:background="@drawable/veterinarian_data_background"
+                android:padding="10dp"
+                android:drawableStart="@drawable/email_32"/>
+            <EditText
+                android:id="@+id/completeContactInformationBestTimeToCall_editText"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:autofillHints="Occupation"
+                android:inputType="textEmailAddress"
+                android:hint="@string/best_time_to_call"
+                android:textSize="24sp"
+                android:layout_margin="10dp"
+                android:textAlignment="center"
+                android:background="@drawable/veterinarian_data_background"
+                android:padding="10dp"
+                android:drawableStart="@drawable/best_time_to_call_32"/>
             <Button
                 android:id="@+id/completeContactInformationSubmit_button"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:background="@drawable/bottom_bar"
                 android:text="@string/submit"
                 android:textSize="20sp"
                 android:layout_margin="20dp"/>

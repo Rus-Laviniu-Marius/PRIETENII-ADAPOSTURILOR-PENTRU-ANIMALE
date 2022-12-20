@@ -15,4 +15,5 @@
     <color name="card3_background">#A3FFDC</color>
     <color name="card4_background">#FFF087</color>
     <color name="pet_details_background">#2E3656</color>
+    <color name="bottom_bar_background">#CED5F1</color>
 </resources>

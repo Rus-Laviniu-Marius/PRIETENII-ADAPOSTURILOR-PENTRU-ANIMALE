@@ -14,6 +14,8 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.pet.shelter.friends.R;
 
+import java.util.Objects;
+
 public class FilterPetPreferencesActivity extends AppCompatActivity {
 
     private Button skipFiltersButton, searchFiltersButton;
@@ -63,6 +65,7 @@ public class FilterPetPreferencesActivity extends AppCompatActivity {
         skipFiltersButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                setFiltersToDefaultValue();
                 removeActiveFilters();
                 sendToSeeListOfPetsActivity();
             }
@@ -77,26 +80,46 @@ public class FilterPetPreferencesActivity extends AppCompatActivity {
         });
     }
 
-    private void removeActiveFilters() {
-        String uId = "";
+    private void setFiltersToDefaultValue() {
+        String uId = Objects.requireNonNull(firebaseAuth.getCurrentUser()).getUid();
 
-        if (firebaseAuth.getCurrentUser() != null) {
-            uId = firebaseAuth.getCurrentUser().getUid();
-        }
-
-        if (smallSize.isChecked() || mediumSize.isChecked() || bigSize.isChecked()) {
+        if (!smallSize.isChecked() || !mediumSize.isChecked() || !bigSize.isChecked()) {
             filtersReference.child(uId).child("size").setValue("don't care");
         }
 
-        if (young.isChecked() || middleAge.isChecked() || old.isChecked()) {
+        if (!young.isChecked() || !middleAge.isChecked() || !old.isChecked()) {
             filtersReference.child(uId).child("age").setValue("don't care");
         }
 
-        if (female.isChecked() || male.isChecked()) {
+        if (!female.isChecked() || !male.isChecked()) {
             filtersReference.child(uId).child("gender").setValue("don't care");
         }
 
-        if (fitForChildren.isChecked() || notFitForChildren.isChecked()) {
+        if (!fitForChildren.isChecked() || !notFitForChildren.isChecked() ) {
+            filtersReference.child(uId).child("fitForChildren").setValue("don't care");
+        }
+
+        if (!fitForGuarding.isChecked() || !notFitForGuarding.isChecked()) {
+            filtersReference.child(uId).child("fitForGuarding").setValue("don't care");
+        }
+    }
+
+    private void removeActiveFilters() {
+        String uId = Objects.requireNonNull(firebaseAuth.getCurrentUser()).getUid();
+
+        if (smallSize.isChecked() || mediumSize.isChecked() || bigSize.isChecked() || (!smallSize.isChecked() || !mediumSize.isChecked() || !bigSize.isChecked())) {
+            filtersReference.child(uId).child("size").setValue("don't care");
+        }
+
+        if (young.isChecked() || middleAge.isChecked() || old.isChecked() || (!young.isChecked() || !middleAge.isChecked() || !old.isChecked())) {
+            filtersReference.child(uId).child("age").setValue("don't care");
+        }
+
+        if (female.isChecked() || male.isChecked() || (!female.isChecked() || !male.isChecked())) {
+            filtersReference.child(uId).child("gender").setValue("don't care");
+        }
+
+        if (fitForChildren.isChecked() || notFitForChildren.isChecked() ) {
             filtersReference.child(uId).child("fitForChildren").setValue("don't care");
         }
 

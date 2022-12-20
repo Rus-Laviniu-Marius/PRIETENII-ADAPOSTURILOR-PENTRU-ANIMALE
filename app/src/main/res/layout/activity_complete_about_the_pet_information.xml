@@ -1,0 +1,210 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".adoption.CompleteAboutThePetInformationActivity">
+
+    <RelativeLayout
+        android:id="@+id/completeAboutThePetInformationTopBar_relativeLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_centerInParent="true"
+        android:padding="20dp">
+
+        <ImageView
+            android:id="@+id/completeAboutThePetInformationBack_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentTop="true"
+            android:layout_centerInParent="true"
+            android:contentDescription="@string/back"
+            android:src="@drawable/back_left_32" />
+
+        <ImageView
+            android:id="@+id/completeAboutThePetInformationNext_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentEnd="true"
+            android:layout_centerInParent="true"
+            android:contentDescription="@string/next"
+            android:src="@drawable/next_right_32" />
+
+
+    </RelativeLayout>
+
+    <TextView
+        android:id="@+id/completeAboutThePetInformationDescription_textView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:layout_below="@+id/completeAboutThePetInformationTopBar_relativeLayout"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginEnd="10dp"
+        android:layout_marginBottom="10dp"
+        android:text="@string/complete_information_description"
+        android:textSize="30sp" />
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:layout_margin="10dp"
+        android:layout_below="@+id/completeAboutThePetInformationDescription_textView">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:layout_margin="10dp">
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textSize="20sp"
+                    android:text="@string/where_will_the_pet_spend_the_day"/>
+
+                <EditText
+                    android:id="@+id/dayTimePlaceDescription_editText"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:autofillHints="text"
+                    android:textSize="20sp"
+                    android:inputType="text|textMultiLine"
+                    android:hint="@string/please_describe"/>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:layout_margin="10dp">
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textSize="20sp"
+                    android:text="@string/where_will_the_pet_spend_the_night"/>
+
+                <EditText
+                    android:id="@+id/nightTimePlaceDescription_editText"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:autofillHints="text"
+                    android:textSize="20sp"
+                    android:inputType="text|textMultiLine"
+                    android:hint="@string/please_describe"/>
+
+            </LinearLayout>
+
+            <EditText
+                android:id="@+id/numberOfHoursPetIsALone_editText"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="@string/number_of_hours_that_pet_will_spend_alone"
+                android:inputType="number"
+                android:autofillHints="hours" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:layout_margin="10dp">
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textSize="20sp"
+                    android:text="@string/do_you_agree_to_provide_regular_health_care_by_a_licensed_veterinarian"/>
+                <RadioGroup
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:gravity="center">
+                    <RadioButton
+                        android:id="@+id/regularHealthCareNo_radioButton"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="@string/no"
+                        android:textSize="20sp"
+                        android:button="@null"
+                        android:padding="10dp"
+                        android:drawablePadding="10dp"
+                        android:drawableStart="@android:drawable/btn_radio"/>
+                    <RadioButton
+                        android:id="@+id/regularHealthCareYes_radioButton"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="@string/yes"
+                        android:textSize="20sp"
+                        android:button="@null"
+                        android:padding="10dp"
+                        android:drawablePadding="10dp"
+                        android:drawableStart="@android:drawable/btn_radio"/>
+                </RadioGroup>
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:layout_margin="10dp">
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textSize="20sp"
+                    android:text="@string/do_you_agree_to_contact_us_if_you_can_no_longer_keep_this_pet"/>
+
+                <RadioGroup
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:gravity="center">
+                    <RadioButton
+                        android:id="@+id/contactForSurrenderNo_radioButton"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="@string/no"
+                        android:textSize="20sp"
+                        android:button="@null"
+                        android:padding="10dp"
+                        android:drawablePadding="10dp"
+                        android:drawableStart="@android:drawable/btn_radio"/>
+                    <RadioButton
+                        android:id="@+id/contactForSurrenderYes_radioButton"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="@string/yes"
+                        android:textSize="20sp"
+                        android:button="@null"
+                        android:padding="10dp"
+                        android:drawablePadding="10dp"
+                        android:drawableStart="@android:drawable/btn_radio"/>
+                </RadioGroup>
+
+            </LinearLayout>
+
+            <Button
+                android:id="@+id/completeAboutThePetInformationSubmit_button"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/bottom_bar"
+                android:text="@string/submit"
+                android:textSize="20sp"
+                android:layout_margin="20dp"/>
+
+        </LinearLayout>
+
+    </ScrollView>
+
+</RelativeLayout>
