@@ -314,7 +314,7 @@
                         android:layout_marginTop="10dp"
                         android:layout_marginEnd="10dp"
                         android:layout_marginBottom="10dp"
-                        android:text="@string/gender"
+                        android:text="@string/sex"
                         android:textSize="28sp" />
 
                     <TextView
@@ -365,7 +365,7 @@
                     android:layout_below="@id/filterGenderImages_relativeLayout">
 
                     <RadioButton
-                        android:id="@+id/filterGenderFemale_radioButton"
+                        android:id="@+id/filterSexFemale_radioButton"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
@@ -376,7 +376,7 @@
                         android:drawablePadding="5dp" />
 
                     <RadioButton
-                        android:id="@+id/filterGenderMale_radioButton"
+                        android:id="@+id/filterSexMale_radioButton"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"

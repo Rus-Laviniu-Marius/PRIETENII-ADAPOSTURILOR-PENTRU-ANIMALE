@@ -71,12 +71,12 @@
                     android:text="@string/what_other_pets_do_you_have"/>
 
                 <EditText
-                    android:id="@+id/otherPetsTypeAndNumber_editText"
+                    android:id="@+id/otherPetsDetails_editText"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:autofillHints="text"
                     android:textSize="20sp"
-                    android:inputType="text|textMultiLine|number"
+                    android:inputType="text|textMultiLine"
                     android:hint="@string/specify_type_and_number"/>
 
             </LinearLayout>

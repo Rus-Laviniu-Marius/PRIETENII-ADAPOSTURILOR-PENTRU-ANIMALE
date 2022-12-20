@@ -1,4 +1,4 @@
-package com.pet.shelter.friends.adoption;
+package com.pet.shelter.friends.adoption.model;
 
 public class Pet {
 

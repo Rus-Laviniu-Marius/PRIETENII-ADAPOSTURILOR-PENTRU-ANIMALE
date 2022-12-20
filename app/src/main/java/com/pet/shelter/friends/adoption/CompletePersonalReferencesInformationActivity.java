@@ -32,7 +32,7 @@ public class CompletePersonalReferencesInformationActivity extends AppCompatActi
 
         firebaseAuth = FirebaseAuth.getInstance();
         firebaseDatabase = FirebaseDatabase.getInstance();
-        personalReference = firebaseDatabase.getReference("personal_reference");
+        personalReference = firebaseDatabase.getReference("personalReference");
 
         referenceNameEditText = findViewById(R.id.personalReferenceName_editText);
         referenceAddressEditText = findViewById(R.id.personalReferenceAddress_editText);
@@ -46,14 +46,7 @@ public class CompletePersonalReferencesInformationActivity extends AppCompatActi
         submitButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
-                String currentFirebaseUserUid = Objects.requireNonNull(firebaseAuth.getCurrentUser()).getUid();
-
-                personalReference.child(currentFirebaseUserUid).child("reference_name").setValue(referenceNameEditText.getText().toString());
-                personalReference.child(currentFirebaseUserUid).child("reference_address").setValue(referenceAddressEditText.getText().toString());
-                personalReference.child(currentFirebaseUserUid).child("reference_phone_number").setValue(referencePhoneNumberEditText.getText().toString());
-                personalReference.child(currentFirebaseUserUid).child("reference_relationship").setValue(referenceRelationshipEditText.getText().toString());
-
+                writeToDatabase();
                 sendToNextActivity();
             }
         });
@@ -72,6 +65,17 @@ public class CompletePersonalReferencesInformationActivity extends AppCompatActi
                 startActivity(intent);
             }
         });
+    }
+
+    private void writeToDatabase() {
+        String currentFirebaseUserUid = Objects.requireNonNull(firebaseAuth.getCurrentUser()).getUid();
+
+        personalReference.child(currentFirebaseUserUid).child("referenceName").setValue(referenceNameEditText.getText().toString());
+        personalReference.child(currentFirebaseUserUid).child("referenceAddress").setValue(referenceAddressEditText.getText().toString());
+        personalReference.child(currentFirebaseUserUid).child("referencePhoneNumber").setValue(referencePhoneNumberEditText.getText().toString());
+        personalReference.child(currentFirebaseUserUid).child("referenceRelationship").setValue(referenceRelationshipEditText.getText().toString());
+
+
     }
 
     private void sendToNextActivity() {

@@ -36,9 +36,9 @@ public class CompleteOtherPetsInformationActivity extends AppCompatActivity {
 
         firebaseAuth = FirebaseAuth.getInstance();
         firebaseDatabase = FirebaseDatabase.getInstance();
-        otherPetsReference = firebaseDatabase.getReference("other_pets");
+        otherPetsReference = firebaseDatabase.getReference("otherPets");
 
-        otherPetsDetailsEditText = findViewById(R.id.otherPetsTypeAndNumber_editText);
+        otherPetsDetailsEditText = findViewById(R.id.otherPetsDetails_editText);
         surrenderedPetDescription = findViewById(R.id.surrenderedPetDescription_editText);
         euthanizedPetDescription = findViewById(R.id.euthanizedPetDescription_editText);
         vaccinesUpToDate = findViewById(R.id.vaccinesUpToDateYes_radioButton);
@@ -55,34 +55,7 @@ public class CompleteOtherPetsInformationActivity extends AppCompatActivity {
         submitButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
-                String currentFirebaseUserUid = Objects.requireNonNull(firebaseAuth.getCurrentUser()).getUid();
-
-                otherPetsReference.child(currentFirebaseUserUid).child("other_pets_details").setValue(otherPetsDetailsEditText.getText().toString());
-                otherPetsReference.child(currentFirebaseUserUid).child("surrendered_pet_details").setValue(surrenderedPetDescription.getText().toString());
-                otherPetsReference.child(currentFirebaseUserUid).child("euthanized_pet_details").setValue(euthanizedPetDescription.getText().toString());
-
-                if (vaccinesUpToDate.isChecked()) {
-                    otherPetsReference.child(currentFirebaseUserUid).child("vaccines_up_to_date").setValue("yes");
-                }
-                if (vaccinesNotUpToDate.isChecked()) {
-                    otherPetsReference.child(currentFirebaseUserUid).child("vaccines_up_to_date").setValue("no");
-                }
-
-                if (surrenderedPet.isChecked()) {
-                    otherPetsReference.child(currentFirebaseUserUid).child("surrendered_pet").setValue("yes");
-                }
-                if (notSurrenderedPet.isChecked()) {
-                    otherPetsReference.child(currentFirebaseUserUid).child("surrendered_pet").setValue("no");
-                }
-
-                if (euthanizedPet.isChecked()) {
-                    otherPetsReference.child(currentFirebaseUserUid).child("euthanized_pet").setValue("yes");
-                }
-                if (notEuthanizedPet.isChecked()) {
-                    otherPetsReference.child(currentFirebaseUserUid).child("euthanized_pet").setValue("no");
-                }
-
+                writeToDatabase();
                 sendToNextActivity();
             }
         });
@@ -101,6 +74,35 @@ public class CompleteOtherPetsInformationActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+    }
+
+    private void writeToDatabase() {
+        String currentFirebaseUserUid = Objects.requireNonNull(firebaseAuth.getCurrentUser()).getUid();
+
+        otherPetsReference.child(currentFirebaseUserUid).child("otherPetsDetails").setValue(otherPetsDetailsEditText.getText().toString());
+        otherPetsReference.child(currentFirebaseUserUid).child("surrenderedPetDetails").setValue(surrenderedPetDescription.getText().toString());
+        otherPetsReference.child(currentFirebaseUserUid).child("euthanizedPetDetails").setValue(euthanizedPetDescription.getText().toString());
+
+        if (vaccinesUpToDate.isChecked()) {
+            otherPetsReference.child(currentFirebaseUserUid).child("vaccinesUpToDate").setValue("yes");
+        }
+        if (vaccinesNotUpToDate.isChecked()) {
+            otherPetsReference.child(currentFirebaseUserUid).child("vaccinesUpToDate").setValue("no");
+        }
+
+        if (surrenderedPet.isChecked()) {
+            otherPetsReference.child(currentFirebaseUserUid).child("surrenderedPet").setValue("yes");
+        }
+        if (notSurrenderedPet.isChecked()) {
+            otherPetsReference.child(currentFirebaseUserUid).child("surrenderedPet").setValue("no");
+        }
+
+        if (euthanizedPet.isChecked()) {
+            otherPetsReference.child(currentFirebaseUserUid).child("euthanizedPet").setValue("yes");
+        }
+        if (notEuthanizedPet.isChecked()) {
+            otherPetsReference.child(currentFirebaseUserUid).child("euthanizedPet").setValue("no");
+        }
     }
 
     private void sendToNextActivity() {

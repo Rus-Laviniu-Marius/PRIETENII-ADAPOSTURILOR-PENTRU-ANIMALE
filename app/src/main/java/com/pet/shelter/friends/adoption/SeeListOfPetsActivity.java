@@ -18,6 +18,7 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.pet.shelter.friends.R;
+import com.pet.shelter.friends.adoption.model.Pet;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -54,7 +55,7 @@ public class SeeListOfPetsActivity extends AppCompatActivity {
         filtersReference.child(loggedUid).addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
-                String size, age, gender, fitForChildren, fitForGuarding;
+                String size, age, sex, fitForChildren, fitForGuarding;
 
                 size = Objects.requireNonNull(snapshot.child("size").getValue()).toString();
                 if (size.equals("don't care"))
@@ -68,11 +69,11 @@ public class SeeListOfPetsActivity extends AppCompatActivity {
                 else
                     ageActiveFilter.setText(age);
 
-                gender = Objects.requireNonNull(snapshot.child("gender").getValue()).toString();
-                if (gender.equals("don't care"))
+                sex = Objects.requireNonNull(snapshot.child("sex").getValue()).toString();
+                if (sex.equals("don't care"))
                     genderActiveFilter.setVisibility(View.GONE);
                 else
-                    genderActiveFilter.setText(gender);
+                    genderActiveFilter.setText(sex);
 
                 fitForChildren = Objects.requireNonNull(snapshot.child("fitForChildren").getValue()).toString();
                 if (fitForChildren.equals("don't care"))

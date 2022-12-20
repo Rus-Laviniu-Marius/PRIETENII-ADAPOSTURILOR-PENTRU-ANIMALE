@@ -34,7 +34,7 @@ public class CompleteVeterinarianInformationActivity extends AppCompatActivity {
 
         firebaseAuth = FirebaseAuth.getInstance();
         firebaseDatabase = FirebaseDatabase.getInstance();
-        veterinarianInformationReference = firebaseDatabase.getReference("regular_veterinarian");
+        veterinarianInformationReference = firebaseDatabase.getReference("regularVeterinarian");
 
         regularVeterinarian = findViewById(R.id.regularVeterinarianYes_radioButton);
         noRegularVeterinarian = findViewById(R.id.regularVeterinarianNo_radioButton);
@@ -50,22 +50,7 @@ public class CompleteVeterinarianInformationActivity extends AppCompatActivity {
         submitButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
-                String currentFirebaseUserUid = Objects.requireNonNull(firebaseAuth.getCurrentUser()).getUid();
-
-                if (regularVeterinarian.isChecked()) {
-                    veterinarianInformationReference.child(currentFirebaseUserUid).child("regular_veterinarian").setValue("yes");
-                }
-                if (noRegularVeterinarian.isChecked()) {
-                    veterinarianInformationReference.child(currentFirebaseUserUid).child("regular_veterinarian").setValue("no");
-                }
-
-                veterinarianInformationReference.child(currentFirebaseUserUid).child("veterinarian_name").setValue(veterinarianName.getText().toString());
-                veterinarianInformationReference.child(currentFirebaseUserUid).child("veterinarian_clinic_name").setValue(veterinarianClinicName.getText().toString());
-                veterinarianInformationReference.child(currentFirebaseUserUid).child("veterinarian_clinic_address").setValue(veterinarianClinicAddress.getText().toString());
-                veterinarianInformationReference.child(currentFirebaseUserUid).child("veterinarian_clinic_phone_number").setValue(veterinarianClinicPhoneNumber.getText().toString());
-
-
+                writeToDatabase();
                 sendToNextActivity();
             }
         });
@@ -84,6 +69,22 @@ public class CompleteVeterinarianInformationActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+    }
+
+    private void writeToDatabase() {
+        String currentFirebaseUserUid = Objects.requireNonNull(firebaseAuth.getCurrentUser()).getUid();
+
+        if (regularVeterinarian.isChecked()) {
+            veterinarianInformationReference.child(currentFirebaseUserUid).child("regularVeterinarian").setValue("yes");
+        }
+        if (noRegularVeterinarian.isChecked()) {
+            veterinarianInformationReference.child(currentFirebaseUserUid).child("regularVeterinarian").setValue("no");
+        }
+
+        veterinarianInformationReference.child(currentFirebaseUserUid).child("veterinarianName").setValue(veterinarianName.getText().toString());
+        veterinarianInformationReference.child(currentFirebaseUserUid).child("veterinarianClinicName").setValue(veterinarianClinicName.getText().toString());
+        veterinarianInformationReference.child(currentFirebaseUserUid).child("veterinarianClinicAddress").setValue(veterinarianClinicAddress.getText().toString());
+        veterinarianInformationReference.child(currentFirebaseUserUid).child("veterinarianClinicPhoneNumber").setValue(veterinarianClinicPhoneNumber.getText().toString());
     }
 
     private void sendToNextActivity() {

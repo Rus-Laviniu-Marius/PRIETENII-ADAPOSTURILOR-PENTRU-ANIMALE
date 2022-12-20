@@ -36,7 +36,7 @@ public class CompleteFamilyAndHousingInformationActivity extends AppCompatActivi
 
         firebaseAuth = FirebaseAuth.getInstance();
         firebaseDatabase = FirebaseDatabase.getInstance();
-        familyAndHousingReference = firebaseDatabase.getReference("family_and_housing");
+        familyAndHousingReference = firebaseDatabase.getReference("familyAndHousing");
 
         adultsNumberEditText = findViewById(R.id.familyAndHousingAdultsNumber_editText);
         childrenNumberEditText = findViewById(R.id.familyAndHousingChildrenNumber_editText);
@@ -58,36 +58,7 @@ public class CompleteFamilyAndHousingInformationActivity extends AppCompatActivi
         submitButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
-                String currentFirebaseUserUid = Objects.requireNonNull(firebaseAuth.getCurrentUser()).getUid();
-
-                familyAndHousingReference.child(currentFirebaseUserUid).child("adults_number").setValue(adultsNumberEditText.getText().toString());
-                familyAndHousingReference.child(currentFirebaseUserUid).child("children_number").setValue(childrenNumberEditText.getText().toString());
-                familyAndHousingReference.child(currentFirebaseUserUid).child("home_type").setValue(homeTypeEditText.getText().toString());
-                familyAndHousingReference.child(currentFirebaseUserUid).child("home_description").setValue(homeDescriptionEditText.getText().toString());
-                familyAndHousingReference.child(currentFirebaseUserUid).child("renting_rules_regarding_pet_ownership").setValue(rentingRulesRegardingPetOwnership.getText().toString());
-
-                if (knownAllergy.isChecked()) {
-                    familyAndHousingReference.child(currentFirebaseUserUid).child("known_allergy").setValue("yes");
-                }
-                if (notKnownAllergy.isChecked()) {
-                    familyAndHousingReference.child(currentFirebaseUserUid).child("known_allergy").setValue("no");
-                }
-
-                if (familyAgrees.isChecked()) {
-                    familyAndHousingReference.child(currentFirebaseUserUid).child("family_agreement").setValue("yes");
-                }
-                if (familyDoesNotAgree.isChecked()) {
-                    familyAndHousingReference.child(currentFirebaseUserUid).child("family_agreement").setValue("no");
-                }
-
-                if (adequateLoveAndAttention.isChecked()) {
-                    familyAndHousingReference.child(currentFirebaseUserUid).child("provide_adequate_love_and_attention").setValue("yes");
-                }
-                if (notAdequateLoveAndAttention.isChecked()) {
-                    familyAndHousingReference.child(currentFirebaseUserUid).child("provide_adequate_love_and_attention").setValue("no");
-                }
-
+                writeToDatabase();
                 sendToNextActivity();
             }
         });
@@ -106,6 +77,39 @@ public class CompleteFamilyAndHousingInformationActivity extends AppCompatActivi
                 sendToNextActivity();
             }
         });
+    }
+
+    private void writeToDatabase() {
+
+        String currentFirebaseUserUid = Objects.requireNonNull(firebaseAuth.getCurrentUser()).getUid();
+
+        familyAndHousingReference.child(currentFirebaseUserUid).child("adultsNumber").setValue(adultsNumberEditText.getText().toString());
+        familyAndHousingReference.child(currentFirebaseUserUid).child("childrenNumber").setValue(childrenNumberEditText.getText().toString());
+        familyAndHousingReference.child(currentFirebaseUserUid).child("homeType").setValue(homeTypeEditText.getText().toString());
+        familyAndHousingReference.child(currentFirebaseUserUid).child("homeDescription").setValue(homeDescriptionEditText.getText().toString());
+        familyAndHousingReference.child(currentFirebaseUserUid).child("rentingRulesRegardingPetOwnership").setValue(rentingRulesRegardingPetOwnership.getText().toString());
+
+        if (knownAllergy.isChecked()) {
+            familyAndHousingReference.child(currentFirebaseUserUid).child("knownAllergy").setValue("yes");
+        }
+        if (notKnownAllergy.isChecked()) {
+            familyAndHousingReference.child(currentFirebaseUserUid).child("knownAllergy").setValue("no");
+        }
+
+        if (familyAgrees.isChecked()) {
+            familyAndHousingReference.child(currentFirebaseUserUid).child("familyAgreement").setValue("yes");
+        }
+        if (familyDoesNotAgree.isChecked()) {
+            familyAndHousingReference.child(currentFirebaseUserUid).child("familyAgreement").setValue("no");
+        }
+
+        if (adequateLoveAndAttention.isChecked()) {
+            familyAndHousingReference.child(currentFirebaseUserUid).child("provideAdequateLoveAndAttention").setValue("yes");
+        }
+        if (notAdequateLoveAndAttention.isChecked()) {
+            familyAndHousingReference.child(currentFirebaseUserUid).child("provideAdequateLoveAndAttention").setValue("no");
+        }
+
     }
 
     private void sendToNextActivity() {

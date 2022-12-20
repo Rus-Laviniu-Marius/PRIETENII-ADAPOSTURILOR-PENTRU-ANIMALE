@@ -53,8 +53,8 @@ public class FilterPetPreferencesActivity extends AppCompatActivity {
         middleAge = findViewById(R.id.filterMiddleAge_radioButton);
         old = findViewById(R.id.filterAgeOld_radioButton);
 
-        female = findViewById(R.id.filterGenderFemale_radioButton);
-        male = findViewById(R.id.filterGenderMale_radioButton);
+        female = findViewById(R.id.filterSexFemale_radioButton);
+        male = findViewById(R.id.filterSexMale_radioButton);
 
         notFitForChildren = findViewById(R.id.filterNotFitForChildren_radioButton);
         fitForChildren = findViewById(R.id.filterFitForChildren_radioButton);
@@ -92,7 +92,7 @@ public class FilterPetPreferencesActivity extends AppCompatActivity {
         }
 
         if (!female.isChecked() || !male.isChecked()) {
-            filtersReference.child(uId).child("gender").setValue("don't care");
+            filtersReference.child(uId).child("sex").setValue("don't care");
         }
 
         if (!fitForChildren.isChecked() || !notFitForChildren.isChecked() ) {
@@ -116,7 +116,7 @@ public class FilterPetPreferencesActivity extends AppCompatActivity {
         }
 
         if (female.isChecked() || male.isChecked() || (!female.isChecked() || !male.isChecked())) {
-            filtersReference.child(uId).child("gender").setValue("don't care");
+            filtersReference.child(uId).child("sex").setValue("don't care");
         }
 
         if (fitForChildren.isChecked() || notFitForChildren.isChecked() ) {
@@ -160,13 +160,13 @@ public class FilterPetPreferencesActivity extends AppCompatActivity {
         }
 
         if (female.isChecked()) {
-            filtersReference.child(uId).child("gender").setValue("Female");
+            filtersReference.child(uId).child("sex").setValue("Female");
         }
         if (male.isChecked()) {
-            filtersReference.child(uId).child("gender").setValue("Male");
+            filtersReference.child(uId).child("sex").setValue("Male");
         }
         if (!female.isChecked() && !male.isChecked()) {
-            filtersReference.child(uId).child("gender").setValue("don't care");
+            filtersReference.child(uId).child("sex").setValue("don't care");
         }
 
         if (fitForChildren.isChecked()) {

@@ -33,7 +33,7 @@ public class CompleteContactInformationActivity extends AppCompatActivity {
 
         firebaseAuth = FirebaseAuth.getInstance();
         database = FirebaseDatabase.getInstance();
-        contactInformationReference = database.getReference().child("contact_information");
+        contactInformationReference = database.getReference().child("contactInformation");
 
         fullNameEditText = findViewById(R.id.completeContactInformationFullName_editText);
         occupationEditText = findViewById(R.id.completeContactInformationOccupation_editText);
@@ -49,17 +49,7 @@ public class CompleteContactInformationActivity extends AppCompatActivity {
         submitButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
-                String currentFirebaseUserUid = Objects.requireNonNull(firebaseAuth.getCurrentUser()).getUid();
-
-                contactInformationReference.child(currentFirebaseUserUid).child("full_name").setValue(fullNameEditText.getText().toString());
-                contactInformationReference.child(currentFirebaseUserUid).child("occupation").setValue(occupationEditText.getText().toString());
-                contactInformationReference.child(currentFirebaseUserUid).child("address").setValue(addressEditText.getText().toString());
-                contactInformationReference.child(currentFirebaseUserUid).child("sitting_time").setValue(timeAtThisAddressEditText.getText().toString());
-                contactInformationReference.child(currentFirebaseUserUid).child("phone_number").setValue(phoneNumberEditText.getText().toString());
-                contactInformationReference.child(currentFirebaseUserUid).child("email_address").setValue(emailEditText.getText().toString());
-                contactInformationReference.child(currentFirebaseUserUid).child("best_time_to_call").setValue(bestTimeToCallEditText.getText().toString());
-
+                writeToDatabase();
                 sendToNextActivity();
             }
         });
@@ -78,6 +68,19 @@ public class CompleteContactInformationActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+    }
+
+    private void writeToDatabase() {
+        String currentFirebaseUserUid = Objects.requireNonNull(firebaseAuth.getCurrentUser()).getUid();
+
+        contactInformationReference.child(currentFirebaseUserUid).child("fullName").setValue(fullNameEditText.getText().toString());
+        contactInformationReference.child(currentFirebaseUserUid).child("occupation").setValue(occupationEditText.getText().toString());
+        contactInformationReference.child(currentFirebaseUserUid).child("address").setValue(addressEditText.getText().toString());
+        contactInformationReference.child(currentFirebaseUserUid).child("sittingTime").setValue(timeAtThisAddressEditText.getText().toString());
+        contactInformationReference.child(currentFirebaseUserUid).child("phoneNumber").setValue(phoneNumberEditText.getText().toString());
+        contactInformationReference.child(currentFirebaseUserUid).child("emailAddress").setValue(emailEditText.getText().toString());
+        contactInformationReference.child(currentFirebaseUserUid).child("bestTimeToCall").setValue(bestTimeToCallEditText.getText().toString());
+
     }
 
     private void sendToNextActivity() {

@@ -12,6 +12,7 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 
 import com.pet.shelter.friends.R;
+import com.pet.shelter.friends.adoption.model.Pet;
 
 import java.util.List;
 
