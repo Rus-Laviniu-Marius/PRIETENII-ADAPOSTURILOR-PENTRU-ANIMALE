@@ -3,6 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/main_background"
     tools:context=".adoption.CompletePersonalReferencesInformationActivity">
 
     <RelativeLayout
@@ -67,7 +68,12 @@
                 android:autofillHints="text"
                 android:textSize="20sp"
                 android:inputType="text|textMultiLine"
-                android:hint="@string/name"/>
+                android:hint="@string/name"
+                android:padding="10dp"
+                android:layout_margin="10dp"
+                android:gravity="center"
+                android:background="@drawable/veterinarian_data_background"
+                android:drawableStart="@drawable/full_name_32"/>
 
             <EditText
                 android:id="@+id/personalReferenceAddress_editText"
@@ -76,7 +82,12 @@
                 android:autofillHints="text"
                 android:textSize="20sp"
                 android:inputType="text|textMultiLine"
-                android:hint="@string/address"/>
+                android:hint="@string/address"
+                android:padding="10dp"
+                android:layout_margin="10dp"
+                android:gravity="center"
+                android:background="@drawable/veterinarian_data_background"
+                android:drawableStart="@drawable/home_address_32"/>
 
             <EditText
                 android:id="@+id/personalReferencePhoneNumber_editText"
@@ -84,7 +95,12 @@
                 android:layout_height="wrap_content"
                 android:hint="@string/phone_number"
                 android:inputType="phone"
-                android:autofillHints="hours" />
+                android:autofillHints="hours"
+                android:padding="10dp"
+                android:layout_margin="10dp"
+                android:gravity="center"
+                android:background="@drawable/veterinarian_data_background"
+                android:drawableStart="@drawable/telephone_call_32"/>
 
             <EditText
                 android:id="@+id/personalReferenceRelationship_editText"
@@ -93,7 +109,12 @@
                 android:autofillHints="relative|neighbor|friend"
                 android:textSize="20sp"
                 android:inputType="text|textMultiLine"
-                android:hint="@string/relationship_relative_neighbor_etc" />
+                android:hint="@string/relationship_relative_neighbor_etc"
+                android:padding="10dp"
+                android:layout_margin="10dp"
+                android:gravity="center"
+                android:background="@drawable/veterinarian_data_background"
+                android:drawableStart="@drawable/friends_32"/>
 
             <Button
                 android:id="@+id/completePersonalReferencesInformationSubmit_button"

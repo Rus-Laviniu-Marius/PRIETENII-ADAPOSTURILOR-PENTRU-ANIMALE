@@ -3,6 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/main_background"
     tools:context=".adoption.CompleteFamilyAndHousingInformationActivity">
 
     <RelativeLayout
@@ -53,7 +54,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_centerInParent="true"
-        android:layout_margin="20dp"
+        android:layout_margin="10dp"
         android:layout_below="@+id/completeFamilyAndHousingInformationDescription_textView">
         <LinearLayout
             android:layout_width="match_parent"
@@ -67,6 +68,8 @@
                 android:hint="@string/how_many_adults"
                 android:autofillHints="adults number"
                 android:layout_margin="10dp"
+                android:drawableStart="@drawable/adults_32"
+                android:background="@drawable/veterinarian_data_background"
                 android:padding="10dp"
                 android:gravity="center"
                 android:textSize="20sp"/>
@@ -79,6 +82,8 @@
                 android:hint="@string/how_many_children"
                 android:autofillHints="children number"
                 android:layout_margin="10dp"
+                android:drawableStart="@drawable/children_32"
+                android:background="@drawable/veterinarian_data_background"
                 android:padding="10dp"
                 android:gravity="center"
                 android:textSize="20sp"/>
@@ -91,6 +96,8 @@
                 android:hint="@string/what_type_of_home_do_you_live_in"
                 android:autofillHints="home type"
                 android:layout_margin="10dp"
+                android:drawableStart="@drawable/home_type_32"
+                android:background="@drawable/veterinarian_data_background"
                 android:padding="10dp"
                 android:gravity="center"
                 android:textSize="20sp"/>
@@ -103,6 +110,8 @@
                 android:hint="@string/please_describe_your_home"
                 android:autofillHints="home description"
                 android:layout_margin="10dp"
+                android:background="@drawable/veterinarian_data_background"
+                android:drawableStart="@drawable/house_design_32"
                 android:padding="10dp"
                 android:gravity="center"
                 android:textSize="20sp"/>
@@ -239,7 +248,12 @@
                     android:layout_height="wrap_content"
                     android:autofillHints="text"
                     android:textSize="20sp"
-                    android:inputType="text|textMultiLine"/>
+                    android:hint="@string/rules_name_and_phone_number"
+                    android:gravity="center"
+                    android:inputType="text|textMultiLine"
+                    android:drawableStart="@drawable/renting_rules_32"
+                    android:background="@drawable/veterinarian_data_background"
+                    android:padding="10dp"/>
 
             </LinearLayout>
             <Button

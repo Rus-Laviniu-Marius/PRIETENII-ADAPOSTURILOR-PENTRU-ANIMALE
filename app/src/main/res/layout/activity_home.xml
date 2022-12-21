@@ -155,7 +155,7 @@
             android:textSize="20sp"
             android:textAlignment="center"
             android:layout_gravity="center"
-            app:drawableTopCompat="@drawable/home"
+            app:drawableTopCompat="@drawable/home_64"
             android:layout_weight="1" />
 
         <TextView

@@ -3,6 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/main_background"
     tools:context=".adoption.CompleteAboutThePetInformationActivity">
 
     <RelativeLayout
@@ -68,7 +69,11 @@
                 android:textSize="20sp"
                 android:hint="@string/pet_name"
                 android:inputType="text"
-                android:autofillHints="pet name" />
+                android:autofillHints="pet name"
+                android:padding="10dp"
+                android:gravity="center"
+                android:background="@drawable/veterinarian_data_background"
+                android:drawableStart="@drawable/name_32"/>
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -88,7 +93,10 @@
                     android:autofillHints="text"
                     android:textSize="20sp"
                     android:inputType="text|textMultiLine"
-                    android:hint="@string/please_describe"/>
+                    android:hint="@string/please_describe"
+                    android:padding="10dp"
+                    android:gravity="center"
+                    android:background="@drawable/veterinarian_data_background" />
 
             </LinearLayout>
 
@@ -110,7 +118,11 @@
                     android:autofillHints="text"
                     android:textSize="20sp"
                     android:inputType="text|textMultiLine"
-                    android:hint="@string/please_describe"/>
+                    android:hint="@string/please_describe"
+                    android:padding="10dp"
+                    android:gravity="center"
+                    android:background="@drawable/veterinarian_data_background"
+                    />
 
             </LinearLayout>
 
@@ -120,7 +132,11 @@
                 android:layout_height="wrap_content"
                 android:hint="@string/number_of_hours_that_pet_will_spend_alone"
                 android:inputType="number"
-                android:autofillHints="hours" />
+                android:autofillHints="hours"
+                android:padding="10dp"
+                android:gravity="center"
+                android:background="@drawable/veterinarian_data_background"
+                />
 
             <LinearLayout
                 android:layout_width="match_parent"

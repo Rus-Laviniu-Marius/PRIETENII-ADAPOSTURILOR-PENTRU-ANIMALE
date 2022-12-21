@@ -1,4 +1,4 @@
-package com.pet.shelter.friends.adoption;
+package com.pet.shelter.friends.adoption.adapter;
 
 import android.content.Context;
 import android.view.LayoutInflater;

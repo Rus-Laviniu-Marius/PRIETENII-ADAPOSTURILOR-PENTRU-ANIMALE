@@ -352,7 +352,7 @@
                         android:layout_alignParentEnd="true"
                         android:layout_margin="10dp"
                         android:contentDescription="@string/male_sign"
-                        android:src="@drawable/male" />
+                        android:src="@drawable/male_32" />
                 </RelativeLayout>
 
                 <RadioGroup

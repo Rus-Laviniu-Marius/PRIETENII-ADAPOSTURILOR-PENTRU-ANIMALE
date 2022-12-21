@@ -3,6 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/main_background"
     tools:context=".adoption.CompleteVeterinarianInformationActivity">
 
     <RelativeLayout
@@ -109,7 +110,9 @@
                 android:layout_margin="10dp"
                 android:padding="10dp"
                 android:gravity="center"
-                android:textSize="20sp"/>
+                android:textSize="20sp"
+                android:background="@drawable/veterinarian_data_background"
+                android:drawableStart="@drawable/full_name_32"/>
 
             <EditText
                 android:id="@+id/veterinarianInformationClinicName_editText"
@@ -121,7 +124,9 @@
                 android:layout_margin="10dp"
                 android:padding="10dp"
                 android:gravity="center"
-                android:textSize="20sp"/>
+                android:textSize="20sp"
+                android:background="@drawable/veterinarian_data_background"
+                android:drawableStart="@drawable/veterinary_clinic_32"/>
 
             <EditText
                 android:id="@+id/veterinarianInformationClinicAddress_editText"
@@ -133,7 +138,9 @@
                 android:layout_margin="10dp"
                 android:padding="10dp"
                 android:gravity="center"
-                android:textSize="20sp"/>
+                android:textSize="20sp"
+                android:background="@drawable/veterinarian_data_background"
+                android:drawableStart="@drawable/clinic_address"/>
 
             <EditText
                 android:id="@+id/veterinarianInformationClinicPhone_editText"
@@ -145,7 +152,9 @@
                 android:layout_margin="10dp"
                 android:padding="10dp"
                 android:gravity="center"
-                android:textSize="20sp"/>
+                android:textSize="20sp"
+                android:background="@drawable/veterinarian_data_background"
+                android:drawableStart="@drawable/telephone_call_32"/>
 
             <TextView
                 android:layout_width="match_parent"

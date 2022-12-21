@@ -170,5 +170,6 @@
     <string name="veterinarian_rgpd_description">(By providing this information you are allowing us to contact your vet for verification. Please ask your vet to authorize the release of information</string>
     <string name="generate_pdf">Generate PDF</string>
     <string name="pet_name">Pet name</string>
+    <string name="rules_name_and_phone_number">Rules, name and phone number</string>
 
 </resources>

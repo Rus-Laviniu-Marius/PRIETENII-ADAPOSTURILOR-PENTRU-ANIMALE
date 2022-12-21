@@ -99,19 +99,21 @@
                 android:background="@drawable/veterinarian_data_background"
                 android:padding="10dp"
                 android:drawableStart="@drawable/home_address_32"/>
+
             <EditText
                 android:id="@+id/completeContactInformationSittingTime_editText"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:autofillHints="Full name"
-                android:inputType="textPersonName"
-                android:hint="@string/time_at_this_address"
-                android:textSize="24sp"
                 android:layout_margin="10dp"
-                android:drawableStart="@drawable/calendar_32"
+                android:autofillHints="Full name"
                 android:background="@drawable/veterinarian_data_background"
+                android:drawableStart="@drawable/calendar_32"
+                android:hint="@string/time_at_this_address"
+                android:inputType="textPersonName"
                 android:padding="10dp"
-                android:textAlignment="center"/>
+                android:textAlignment="center"
+                android:textSize="24sp" />
+
             <EditText
                 android:id="@+id/completeContactInformationPhoneNumber_editText"
                 android:layout_width="match_parent"
@@ -137,7 +139,7 @@
                 android:textAlignment="center"
                 android:background="@drawable/veterinarian_data_background"
                 android:padding="10dp"
-                android:drawableStart="@drawable/email_32"/>
+                android:drawableStart="@drawable/email_address_32"/>
             <EditText
                 android:id="@+id/completeContactInformationBestTimeToCall_editText"
                 android:layout_width="match_parent"
@@ -150,7 +152,7 @@
                 android:textAlignment="center"
                 android:background="@drawable/veterinarian_data_background"
                 android:padding="10dp"
-                android:drawableStart="@drawable/best_time_to_call_32"/>
+                android:drawableStart="@drawable/time_call_32"/>
             <Button
                 android:id="@+id/completeContactInformationSubmit_button"
                 android:layout_width="match_parent"
