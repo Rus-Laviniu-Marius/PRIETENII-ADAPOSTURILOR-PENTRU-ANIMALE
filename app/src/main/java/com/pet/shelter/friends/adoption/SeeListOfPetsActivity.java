@@ -7,7 +7,9 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.Button;
 import android.widget.GridView;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -17,6 +19,7 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.pet.shelter.friends.HomeActivity;
 import com.pet.shelter.friends.R;
 import com.pet.shelter.friends.adoption.adapter.CustomListOfPetsAdapter;
 import com.pet.shelter.friends.adoption.model.Pet;
@@ -27,12 +30,14 @@ import java.util.Objects;
 
 public class SeeListOfPetsActivity extends AppCompatActivity {
 
-    private TextView sizeActiveFilter, ageActiveFilter, genderActiveFilter,
+    private TextView sizeActiveFilter, ageActiveFilter, sexActiveFilter,
             fitForChildrenActiveFilter, fitForGuardingActiveFilter;
+    private ImageView back, filter;
+    private Button addNewPetButton;
 
     private FirebaseAuth firebaseAuth;
     private FirebaseDatabase firebaseDatabase;
-    private DatabaseReference filtersReference;
+    private DatabaseReference filtersReference, usersReference;
 
 
     @Override
@@ -40,19 +45,37 @@ public class SeeListOfPetsActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_see_list_of_pets);
 
+        back = findViewById(R.id.listOfPetsTopBarBack_imageView);
+        filter = findViewById(R.id.listOfPetsTopBarFilter_imageView);
+        addNewPetButton = findViewById(R.id.listOfPetsContentAddNewPet_button);
+
         firebaseAuth = FirebaseAuth.getInstance();
         firebaseDatabase = FirebaseDatabase.getInstance();
         filtersReference = firebaseDatabase.getReference("filters");
+        usersReference = firebaseDatabase.getReference("shelterAdmin");
 
         sizeActiveFilter = findViewById(R.id.listOfPetsContentSizeActiveFilter_textView);
         ageActiveFilter = findViewById(R.id.listOfPetsContentAgeActiveFilter_textView);
-        genderActiveFilter = findViewById(R.id.listOfPetsContentGenderActiveFilter_textView);
+        sexActiveFilter = findViewById(R.id.listOfPetsContentGenderActiveFilter_textView);
         fitForChildrenActiveFilter = findViewById(R.id.listOfPetsContentFitForChildrenActiveFilter_textView);
         fitForGuardingActiveFilter = findViewById(R.id.listOfPetsContentFitForGuardingActiveFilter_textView);
 
-        String loggedUid = "";
-        if (firebaseAuth.getCurrentUser() != null)
-            loggedUid = firebaseAuth.getCurrentUser().getUid();
+        back.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(SeeListOfPetsActivity.this, HomeActivity.class));
+            }
+        });
+
+        filter.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(SeeListOfPetsActivity.this, FilterPetPreferencesActivity.class));
+            }
+        });
+
+
+        String loggedUid = Objects.requireNonNull(firebaseAuth.getCurrentUser()).getUid();
         filtersReference.child(loggedUid).addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
@@ -72,9 +95,9 @@ public class SeeListOfPetsActivity extends AppCompatActivity {
 
                 sex = Objects.requireNonNull(snapshot.child("sex").getValue()).toString();
                 if (sex.equals("don't care"))
-                    genderActiveFilter.setVisibility(View.GONE);
+                    sexActiveFilter.setVisibility(View.GONE);
                 else
-                    genderActiveFilter.setText(sex);
+                    sexActiveFilter.setText(sex);
 
                 fitForChildren = Objects.requireNonNull(snapshot.child("fitForChildren").getValue()).toString();
                 if (fitForChildren.equals("don't care"))
@@ -95,9 +118,21 @@ public class SeeListOfPetsActivity extends AppCompatActivity {
             }
         });
 
+        checkIfCurrentUserIsShelterAdmin(loggedUid);
+
+        addNewPetButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(SeeListOfPetsActivity.this, AddNewPetActivity.class);
+                startActivity(intent);
+            }
+        });
+
+        removeActiveFilters();
+
         List<Pet> petsList = new ArrayList<>();
         petsList.add(new Pet(
-                getResources().getColor(R.color.card1_background),
+                getResources().getColor(R.color.linen_card1_background),
                 R.drawable.milo_dog,
                 "Milo",
                 3,
@@ -108,7 +143,7 @@ public class SeeListOfPetsActivity extends AppCompatActivity {
                 "Male",
                 "Milo is a friendly dog"));
         petsList.add(new Pet(
-                getResources().getColor(R.color.card2_background),
+                getResources().getColor(R.color.water_card2_background),
                 R.drawable.arthur_dog,
                 "Arthur",
                 2,
@@ -119,7 +154,7 @@ public class SeeListOfPetsActivity extends AppCompatActivity {
                 "Male",
                 "Arthur love short walks"));
         petsList.add(new Pet(
-                getResources().getColor(R.color.card3_background),
+                getResources().getColor(R.color.magic_mint_card3_background),
                 R.drawable.maya_cat,
                 "Maya",
                 1,
@@ -130,7 +165,7 @@ public class SeeListOfPetsActivity extends AppCompatActivity {
                 "Female",
                 "Maya does not like raining weather"));
         petsList.add(new Pet(
-                getResources().getColor(R.color.card4_background),
+                getResources().getColor(R.color.crayola_yellow_card4_background),
                 R.drawable.oscar_dog,
                 "Oscar",
                 2,
@@ -162,6 +197,56 @@ public class SeeListOfPetsActivity extends AppCompatActivity {
                 intent.putExtra("petGender", pet.getGender());
                 intent.putExtra("petDescription", pet.getDescription());
                 startActivity(intent);
+            }
+        });
+    }
+
+    private void checkIfCurrentUserIsShelterAdmin(String loggedUid) {
+        usersReference.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                String uId = Objects.requireNonNull(snapshot.child("uId").getValue()).toString();
+                if (loggedUid.equals(uId)) {
+                    addNewPetButton.setVisibility(View.VISIBLE);
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+    }
+
+    private void removeActiveFilters() {
+        sizeActiveFilter.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                sizeActiveFilter.setVisibility(View.GONE);
+            }
+        });
+        ageActiveFilter.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                ageActiveFilter.setVisibility(View.GONE);
+            }
+        });
+        sexActiveFilter.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                sexActiveFilter.setVisibility(View.GONE);
+            }
+        });
+        fitForChildrenActiveFilter.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                fitForChildrenActiveFilter.setVisibility(View.GONE);
+            }
+        });
+        fitForGuardingActiveFilter.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                fitForGuardingActiveFilter.setVisibility(View.GONE);
             }
         });
     }

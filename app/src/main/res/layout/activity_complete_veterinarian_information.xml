@@ -154,7 +154,7 @@
                 android:gravity="center"
                 android:textSize="20sp"
                 android:background="@drawable/veterinarian_data_background"
-                android:drawableStart="@drawable/telephone_call_32"/>
+                android:drawableStart="@drawable/veterinary_phone_32"/>
 
             <TextView
                 android:layout_width="match_parent"

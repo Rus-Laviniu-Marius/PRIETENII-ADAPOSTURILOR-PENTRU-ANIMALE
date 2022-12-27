@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -19,6 +20,7 @@
                 android:layout_marginTop="10dp"
                 android:layout_marginEnd="10dp"
                 android:layout_marginBottom="10dp"
+                android:layout_alignParentTop="true"
                 android:text="@string/login"
                 android:textSize="32sp" />
 
@@ -49,6 +51,11 @@
                     android:autofillHints="emailAddress"
                     android:inputType="textEmailAddress"
                     android:hint="@string/email"
+                    android:layout_centerHorizontal="true"
+                    android:drawableStart="@drawable/email_address_32"
+                    android:padding="10dp"
+                    android:drawablePadding="10dp"
+                    android:gravity="center"
                     android:textSize="20sp"
                     android:layout_marginTop="10dp"/>
                 <EditText
@@ -58,6 +65,11 @@
                     android:autofillHints="password"
                     android:inputType="textPassword"
                     android:hint="@string/password"
+                    android:layout_centerHorizontal="true"
+                    android:padding="10dp"
+                    android:drawablePadding="10dp"
+                    android:drawableStart="@drawable/lock_32"
+                    android:gravity="center"
                     android:textSize="20sp"
                     android:layout_below="@+id/loginEmail_editText"
                     android:layout_marginTop="10dp"/>
@@ -80,6 +92,7 @@
                     android:layout_below="@id/forgottenPassword_textView"
                     android:layout_centerHorizontal="true"
                     android:textSize="24sp"
+                    android:textColor="@color/black"
                     android:layout_marginTop="30dp"/>
                 
             </RelativeLayout>
@@ -122,21 +135,22 @@
                 android:layout_marginTop="30dp"
                 android:layout_marginLeft="10dp"
                 android:layout_marginRight="10dp">
-                <Button
-                    android:id="@+id/googleSignIn_button"
+                <ImageView
+                    android:id="@+id/googleSignIn_imageView"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="@string/google"
                     android:layout_weight="1"
-                    android:textSize="20sp"/>
-                <Button
-                    android:id="@+id/facebookSignIn_button"
+                    android:gravity="center"
+                    android:src="@drawable/google_64"
+                    android:contentDescription="@string/google" />
+                <ImageView
+                    android:id="@+id/facebookSignIn_imageView"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="@string/facebook"
                     android:layout_weight="1"
-                    android:textSize="20sp"/>
-
+                    android:contentDescription="@string/facebook"
+                    android:textSize="20sp"
+                    android:src="@drawable/facebook_64" />
             </LinearLayout>
 
 

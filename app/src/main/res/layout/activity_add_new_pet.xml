@@ -1,0 +1,160 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".adoption.AddNewPetActivity"
+    android:background="@color/main_background">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <ImageView
+            android:id="@+id/addNewPet_imageView"
+            android:layout_width="200dp"
+            android:layout_height="200dp"
+            android:src="@drawable/add_image_128"
+            android:layout_gravity="center"
+            android:layout_margin="20dp"
+            android:contentDescription="@string/new_pet_image_view" />
+
+        <EditText
+            android:id="@+id/addNewPetName_editText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:autofillHints="username"
+            android:inputType="textPersonName"
+            android:hint="@string/name"
+            android:textSize="20sp"
+            android:gravity="center"
+            android:drawableStart="@drawable/name_32"
+            android:padding="20dp"
+            android:layout_margin="10dp"/>
+
+        <EditText
+            android:id="@+id/addNewPetAge_editText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:autofillHints="age"
+            android:inputType="number"
+            android:hint="@string/age"
+            android:textSize="20sp"
+            android:gravity="center"
+            android:drawableStart="@drawable/birthday_cake_32"
+            android:padding="20dp"
+            android:layout_margin="10dp"/>
+
+        <EditText
+            android:id="@+id/addNewPetWeight_editText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:autofillHints="weight"
+            android:inputType="numberDecimal"
+            android:hint="@string/weight"
+            android:textSize="20sp"
+            android:gravity="center"
+            android:drawableStart="@drawable/weighing_scale_32"
+            android:padding="20dp"
+            android:layout_margin="10dp"/>
+
+        <EditText
+            android:id="@+id/addNewPetLocation_editText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:autofillHints="postalAddress"
+            android:inputType="textPostalAddress"
+            android:hint="@string/location"
+            android:textSize="20sp"
+            android:gravity="center"
+            android:drawableStart="@drawable/pet_location"
+            android:padding="20dp"
+            android:layout_margin="10dp"/>
+
+        <EditText
+            android:id="@+id/addNewPetSize_editText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:autofillHints="size"
+            android:inputType="text|number"
+            android:hint="@string/size"
+            android:textSize="20sp"
+            android:gravity="center"
+            android:drawableStart="@drawable/full_size_32"
+            android:padding="20dp"
+            android:layout_margin="10dp"/>
+
+        <EditText
+        android:id="@+id/addNewPetBreed_editText"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:autofillHints="breed"
+        android:inputType="text"
+        android:hint="@string/breed"
+        android:textSize="20sp"
+        android:gravity="center"
+        android:drawableStart="@drawable/paw_print_32"
+        android:padding="20dp"
+        android:layout_margin="10dp"/>
+
+        <EditText
+        android:id="@+id/addNewPetSex_editText"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:autofillHints="sex"
+        android:inputType="text"
+        android:hint="@string/sex"
+        android:textSize="20sp"
+        android:gravity="center"
+        android:drawableStart="@drawable/gender_32"
+        android:padding="20dp"
+        android:layout_margin="10dp"/>
+
+        <EditText
+        android:id="@+id/addNewPetDescription_editText"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:autofillHints="pet description"
+        android:inputType="textMultiLine"
+        android:hint="@string/description"
+        android:textSize="20sp"
+        android:gravity="center"
+        android:padding="20dp"
+        android:layout_margin="10dp"/>
+
+        <Spinner
+            android:id="@+id/addNewPetCardBackgroundColor_spinner"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+        <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="20dp">
+
+        <Button
+            android:id="@+id/addNewPetCancel_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/text_cancel"
+            android:textColor="@color/black"
+            android:layout_weight="1"
+            android:layout_margin="10dp"
+            android:backgroundTint="@color/buttons_general"
+            style="?android:attr/buttonBarButtonStyle" />
+        <Button
+            android:id="@+id/addNewPetAdd_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/add"
+            android:textColor="@color/black"
+            android:layout_weight="1"
+            android:layout_margin="10dp"
+            android:backgroundTint="@color/buttons_general"
+            style="?android:attr/buttonBarButtonStyle" />
+    </LinearLayout>
+
+    </LinearLayout>
+
+</ScrollView>

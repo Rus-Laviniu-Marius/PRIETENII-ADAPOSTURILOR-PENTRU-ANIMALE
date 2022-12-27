@@ -36,8 +36,9 @@ public class LoginActivity extends Activity {
     private ProgressDialog progressDialog;
     private final String TAG = "LoginActivity - ";
     private EditText emailEditText, passwordEditText;
-    private Button loginButton, googleSignInButton, facebookSignInButton;
+    private Button loginButton;
     private TextView createAccount, forgottenPassword;
+    private ImageView googleSignIn, facebookSignIn;
     private String emailPattern = "[a-zA-Z0-9._-]+@[a-z]+\\.+[a-z]+";
     private Dialog forgottenPasswordDialog, forgottenPasswordConfirmEmailSentDialog;
 
@@ -49,8 +50,8 @@ public class LoginActivity extends Activity {
         emailEditText = findViewById(R.id.loginEmail_editText);
         passwordEditText = findViewById(R.id.loginPassword_editText);
         loginButton = findViewById(R.id.login_button);
-        googleSignInButton = findViewById(R.id.googleSignIn_button);
-        facebookSignInButton = findViewById(R.id.facebookSignIn_button);
+        googleSignIn = findViewById(R.id.googleSignIn_imageView);
+        facebookSignIn = findViewById(R.id.facebookSignIn_imageView);
         createAccount = findViewById(R.id.createAccount_textView);
         forgottenPassword = findViewById(R.id.forgottenPassword_textView);
         forgottenPasswordDialog = new Dialog(this);
@@ -74,7 +75,7 @@ public class LoginActivity extends Activity {
             }
         });
 
-        googleSignInButton.setOnClickListener(new View.OnClickListener() {
+        googleSignIn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(LoginActivity.this, GoogleSignInActivity.class);
@@ -83,7 +84,7 @@ public class LoginActivity extends Activity {
             }
         });
 
-        facebookSignInButton.setOnClickListener(new View.OnClickListener() {
+        facebookSignIn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(LoginActivity.this, FacebookAuthActivity.class);
@@ -211,7 +212,6 @@ public class LoginActivity extends Activity {
                             }
                         }
                         progressDialog.dismiss();
-//                        sendUserToNextActivity();
                         Toast.makeText(LoginActivity.this, "Login Successfully", Toast.LENGTH_SHORT).show();
                     } else {
                         progressDialog.dismiss();

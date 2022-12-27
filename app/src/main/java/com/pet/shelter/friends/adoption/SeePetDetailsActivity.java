@@ -17,7 +17,7 @@ import com.pet.shelter.friends.R;
 public class SeePetDetailsActivity extends AppCompatActivity {
 
     private RelativeLayout mainContainer;
-    private ImageView petImage;
+    private ImageView petImage, back, love;
     private TextView petName, petAge, petWeight, petLocation, petSize, petBreed, petGender,
             petDescription, veterinarianData, descriptionTextView;
     private Button adoptPet;
@@ -26,6 +26,23 @@ public class SeePetDetailsActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_see_pet_details);
+
+        back = findViewById(R.id.petDetailsTopBarBack_imageView);
+        love = findViewById(R.id.petDetailsTopBarLove_imageView);
+
+        back.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(SeePetDetailsActivity.this, SeeListOfPetsActivity.class));
+            }
+        });
+
+        love.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                love.setImageResource(R.drawable.filled_hearth_64);
+            }
+        });
 
         Bundle bundle = getIntent().getExtras();
 
@@ -73,7 +90,7 @@ public class SeePetDetailsActivity extends AppCompatActivity {
 
         adoptPet.setBackgroundColor(getResources().getColor(R.color.main_background));
 
-        if (color == getResources().getColor(R.color.card1_background)) {
+        if (color == getResources().getColor(R.color.linen_card1_background)) {
             birthdayCake = AppCompatResources.getDrawable(SeePetDetailsActivity.this, R.drawable.card1_birthday_cake);
             petAge.setCompoundDrawablesWithIntrinsicBounds(birthdayCake, null, null, null);
             weightingScale = AppCompatResources.getDrawable(SeePetDetailsActivity.this, R.drawable.card1_weighting_scale);
@@ -86,7 +103,7 @@ public class SeePetDetailsActivity extends AppCompatActivity {
             petBreed.setCompoundDrawablesWithIntrinsicBounds(pawsPrint, null, null, null);
             gender = AppCompatResources.getDrawable(SeePetDetailsActivity.this, R.drawable.card1_gender);
             petGender.setCompoundDrawablesWithIntrinsicBounds(gender, null, null, null);
-        } else if (color == getResources().getColor(R.color.card2_background)) {
+        } else if (color == getResources().getColor(R.color.water_card2_background)) {
             birthdayCake = AppCompatResources.getDrawable(SeePetDetailsActivity.this, R.drawable.card2_birthday_cake);
             petAge.setCompoundDrawablesWithIntrinsicBounds(birthdayCake, null, null, null);
             weightingScale = AppCompatResources.getDrawable(SeePetDetailsActivity.this, R.drawable.card2_weighting_scale);
@@ -99,7 +116,7 @@ public class SeePetDetailsActivity extends AppCompatActivity {
             petBreed.setCompoundDrawablesWithIntrinsicBounds(pawsPrint, null, null, null);
             gender = AppCompatResources.getDrawable(SeePetDetailsActivity.this, R.drawable.card2_gender);
             petGender.setCompoundDrawablesWithIntrinsicBounds(gender, null, null, null);
-        } else if (color == getResources().getColor(R.color.card3_background)) {
+        } else if (color == getResources().getColor(R.color.magic_mint_card3_background)) {
             birthdayCake = AppCompatResources.getDrawable(SeePetDetailsActivity.this, R.drawable.card3_birthday_cake);
             petAge.setCompoundDrawablesWithIntrinsicBounds(birthdayCake, null, null, null);
             weightingScale = AppCompatResources.getDrawable(SeePetDetailsActivity.this, R.drawable.card3_weighting_scale);

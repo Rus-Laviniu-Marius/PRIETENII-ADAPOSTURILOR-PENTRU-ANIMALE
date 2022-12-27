@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="card_background_colors_array">
+        <item>Linen</item>
+        <item>Water</item>
+        <item>Magic Mint</item>
+        <item>Yellow (Crayola)</item>
+    </string-array>
+</resources>

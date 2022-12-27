@@ -14,20 +14,27 @@
             android:id="@+id/registerTitle_textView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/register"
-            android:textSize="32sp"
             android:layout_centerHorizontal="true"
-            android:layout_margin="10dp"/>
+            android:layout_alignParentTop="true"
+            android:layout_marginStart="10dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginEnd="10dp"
+            android:layout_marginBottom="10dp"
+            android:text="@string/register"
+            android:textSize="32sp" />
 
         <TextView
             android:id="@+id/registerSubTitle_textView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/fill_in_your_details_to_get_started"
-            android:textSize="20sp"
             android:layout_below="@+id/registerTitle_textView"
             android:layout_centerHorizontal="true"
-            android:layout_margin="10dp"/>
+            android:layout_marginStart="10dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginEnd="10dp"
+            android:layout_marginBottom="10dp"
+            android:text="@string/fill_in_your_details_to_get_started"
+            android:textSize="20sp" />
 
         <RelativeLayout
             android:id="@+id/login_relativeLayout"
@@ -41,10 +48,14 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:autofillHints="name"
-                android:inputType="text"
+                android:inputType="textPersonName"
+                android:layout_centerHorizontal="true"
                 android:hint="@string/name"
+                android:gravity="center"
+                android:padding="10dp"
                 android:textSize="20sp"
-                android:layout_marginTop="10dp"/>
+                android:layout_marginTop="10dp"
+                android:drawableStart="@drawable/full_name_32"/>
             <EditText
                 android:id="@+id/registerEmail_editText"
                 android:layout_width="match_parent"
@@ -53,6 +64,10 @@
                 android:inputType="textEmailAddress"
                 android:hint="@string/email"
                 android:textSize="20sp"
+                android:layout_centerHorizontal="true"
+                android:drawableStart="@drawable/email_address_32"
+                android:padding="10dp"
+                android:gravity="center"
                 android:layout_marginTop="10dp"
                 android:layout_below="@+id/registerName_editText"/>
             <EditText
@@ -63,6 +78,10 @@
                 android:inputType="textPassword"
                 android:hint="@string/password"
                 android:textSize="20sp"
+                android:layout_centerHorizontal="true"
+                android:padding="10dp"
+                android:drawableStart="@drawable/lock_32"
+                android:gravity="center"
                 android:layout_below="@+id/registerEmail_editText"
                 android:layout_marginTop="10dp"/>
             <EditText
@@ -73,6 +92,10 @@
                 android:inputType="textPassword"
                 android:hint="@string/confirm_password"
                 android:textSize="20sp"
+                android:layout_centerHorizontal="true"
+                android:padding="10dp"
+                android:drawableStart="@drawable/lock_32"
+                android:gravity="center"
                 android:layout_below="@+id/registerPassword_editText"
                 android:layout_marginTop="10dp"/>
 
@@ -84,6 +107,7 @@
                 android:layout_below="@id/registerConfirmPassword_editText"
                 android:layout_centerHorizontal="true"
                 android:textSize="24sp"
+                android:textColor="@color/black"
                 android:layout_marginTop="30dp"/>
 
         </RelativeLayout>
