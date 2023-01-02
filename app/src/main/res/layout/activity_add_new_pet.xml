@@ -20,140 +20,276 @@
             android:layout_margin="20dp"
             android:contentDescription="@string/new_pet_image_view" />
 
-        <EditText
-            android:id="@+id/addNewPetName_editText"
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:autofillHints="username"
-            android:inputType="textPersonName"
-            android:hint="@string/name"
-            android:textSize="20sp"
-            android:gravity="center"
-            android:drawableStart="@drawable/name_32"
-            android:padding="20dp"
-            android:layout_margin="10dp"/>
+            android:orientation="vertical"
+            android:layout_marginHorizontal="@dimen/margin_horizontal"
+            android:layout_marginVertical="@dimen/margin_vertical"
+            android:padding="@dimen/padding">
+            <TextView
+                android:id="@+id/addNewPetType_textView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/select_pet_type"
+                android:textSize="@dimen/text_view_size"
+                />
+            <Spinner
+                android:id="@+id/addNewPetType_spinner"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textAlignment="center" />
 
-        <EditText
-            android:id="@+id/addNewPetAge_editText"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:autofillHints="age"
-            android:inputType="number"
-            android:hint="@string/age"
-            android:textSize="20sp"
-            android:gravity="center"
-            android:drawableStart="@drawable/birthday_cake_32"
-            android:padding="20dp"
-            android:layout_margin="10dp"/>
-
-        <EditText
-            android:id="@+id/addNewPetWeight_editText"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:autofillHints="weight"
-            android:inputType="numberDecimal"
-            android:hint="@string/weight"
-            android:textSize="20sp"
-            android:gravity="center"
-            android:drawableStart="@drawable/weighing_scale_32"
-            android:padding="20dp"
-            android:layout_margin="10dp"/>
-
-        <EditText
-            android:id="@+id/addNewPetLocation_editText"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:autofillHints="postalAddress"
-            android:inputType="textPostalAddress"
-            android:hint="@string/location"
-            android:textSize="20sp"
-            android:gravity="center"
-            android:drawableStart="@drawable/pet_location"
-            android:padding="20dp"
-            android:layout_margin="10dp"/>
-
-        <EditText
-            android:id="@+id/addNewPetSize_editText"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:autofillHints="size"
-            android:inputType="text|number"
-            android:hint="@string/size"
-            android:textSize="20sp"
-            android:gravity="center"
-            android:drawableStart="@drawable/full_size_32"
-            android:padding="20dp"
-            android:layout_margin="10dp"/>
-
-        <EditText
-        android:id="@+id/addNewPetBreed_editText"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:autofillHints="breed"
-        android:inputType="text"
-        android:hint="@string/breed"
-        android:textSize="20sp"
-        android:gravity="center"
-        android:drawableStart="@drawable/paw_print_32"
-        android:padding="20dp"
-        android:layout_margin="10dp"/>
-
-        <EditText
-        android:id="@+id/addNewPetSex_editText"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:autofillHints="sex"
-        android:inputType="text"
-        android:hint="@string/sex"
-        android:textSize="20sp"
-        android:gravity="center"
-        android:drawableStart="@drawable/gender_32"
-        android:padding="20dp"
-        android:layout_margin="10dp"/>
-
-        <EditText
-        android:id="@+id/addNewPetDescription_editText"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:autofillHints="pet description"
-        android:inputType="textMultiLine"
-        android:hint="@string/description"
-        android:textSize="20sp"
-        android:gravity="center"
-        android:padding="20dp"
-        android:layout_margin="10dp"/>
-
-        <Spinner
-            android:id="@+id/addNewPetCardBackgroundColor_spinner"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
+        </LinearLayout>
 
         <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_margin="20dp">
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_marginHorizontal="@dimen/margin_horizontal"
+            android:layout_marginVertical="@dimen/margin_vertical"
+            android:padding="@dimen/padding">
+            <TextView
+                android:id="@+id/addNewPetName_textView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/name"
+                android:textSize="@dimen/text_view_size"
+                android:visibility="gone"/>
+            <EditText
+                android:id="@+id/addNewPetName_editText"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:autofillHints="username"
+                android:inputType="textPersonName"
+                android:hint="@string/name"
+                android:textSize="@dimen/edit_text_size" />
 
-        <Button
-            android:id="@+id/addNewPetCancel_button"
-            android:layout_width="wrap_content"
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/text_cancel"
-            android:textColor="@color/black"
-            android:layout_weight="1"
-            android:layout_margin="10dp"
-            android:backgroundTint="@color/buttons_general"
-            style="?android:attr/buttonBarButtonStyle" />
-        <Button
-            android:id="@+id/addNewPetAdd_button"
-            android:layout_width="wrap_content"
+            android:orientation="vertical"
+            android:layout_marginHorizontal="@dimen/margin_horizontal"
+            android:layout_marginVertical="@dimen/margin_vertical"
+            android:padding="@dimen/padding" >
+            <TextView
+                android:id="@+id/addNewPetAge_textView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/age"
+                android:textSize="@dimen/text_view_size"
+                android:visibility="gone"/>
+            <EditText
+                android:id="@+id/addNewPetAge_editText"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:autofillHints="age"
+                android:inputType="number"
+                android:hint="@string/age"
+                android:textSize="@dimen/edit_text_size" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/add"
-            android:textColor="@color/black"
-            android:layout_weight="1"
-            android:layout_margin="10dp"
-            android:backgroundTint="@color/buttons_general"
-            style="?android:attr/buttonBarButtonStyle" />
-    </LinearLayout>
+            android:orientation="vertical"
+            android:layout_marginHorizontal="@dimen/margin_horizontal"
+            android:layout_marginVertical="@dimen/margin_vertical"
+            android:padding="@dimen/padding" >
+            <TextView
+                android:id="@+id/addNewPetWeight_textView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/weight"
+                android:textSize="@dimen/text_view_size"
+                android:visibility="gone"/>
+            <EditText
+                android:id="@+id/addNewPetWeight_editText"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:autofillHints="weight"
+                android:inputType="numberDecimal"
+                android:hint="@string/weight"
+                android:textSize="@dimen/edit_text_size" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_marginHorizontal="@dimen/margin_horizontal"
+            android:layout_marginVertical="@dimen/margin_vertical"
+            android:padding="@dimen/padding">
+            <TextView
+                android:id="@+id/addNewPetLocation_textView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/location"
+                android:textSize="@dimen/text_view_size"
+                android:visibility="gone"/>
+            <EditText
+                android:id="@+id/addNewPetLocation_editText"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:autofillHints="postalAddress"
+                android:inputType="textPostalAddress"
+                android:hint="@string/location"
+                android:textSize="@dimen/edit_text_size" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_marginHorizontal="@dimen/margin_horizontal"
+            android:layout_marginVertical="@dimen/margin_vertical"
+            android:padding="@dimen/padding">
+            <TextView
+                android:id="@+id/addNewPetSize_textView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/size"
+                android:textSize="@dimen/text_view_size"
+                android:visibility="gone"/>
+            <EditText
+                android:id="@+id/addNewPetSize_editText"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:autofillHints="size"
+                android:inputType="text"
+                android:hint="@string/size"
+                android:textSize="@dimen/edit_text_size"
+                tools:ignore="TextFields" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_marginHorizontal="@dimen/margin_horizontal"
+            android:layout_marginVertical="@dimen/margin_vertical"
+            android:padding="@dimen/padding">
+            <TextView
+                android:id="@+id/addNewPetBreed_textView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/breed"
+                android:textSize="@dimen/text_view_size"
+                android:visibility="gone"/>
+            <EditText
+                android:id="@+id/addNewPetBreed_editText"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:autofillHints="breed"
+                android:inputType="text"
+                android:hint="@string/breed"
+                android:textSize="@dimen/edit_text_size" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_marginHorizontal="@dimen/margin_horizontal"
+            android:layout_marginVertical="@dimen/margin_vertical"
+            android:padding="@dimen/padding">
+            <TextView
+                android:id="@+id/addNewPetSex_textView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/sex"
+                android:textSize="@dimen/text_view_size"
+                android:visibility="gone"/>
+            <EditText
+                android:id="@+id/addNewPetSex_editText"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:autofillHints="sex"
+                android:inputType="text"
+                android:hint="@string/sex"
+                android:textSize="@dimen/edit_text_size" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_marginHorizontal="@dimen/margin_horizontal"
+            android:layout_marginVertical="@dimen/margin_vertical"
+            android:padding="@dimen/padding">
+            <TextView
+                android:id="@+id/addNewPetDescription_textView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/description"
+                android:textSize="@dimen/text_view_size"
+                android:visibility="gone"/>
+            <EditText
+                android:id="@+id/addNewPetDescription_editText"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:autofillHints="pet description"
+                android:inputType="textMultiLine"
+                android:hint="@string/description"
+                android:textSize="@dimen/edit_text_size"/>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_marginHorizontal="@dimen/margin_horizontal"
+            android:layout_marginVertical="@dimen/margin_vertical"
+            android:padding="@dimen/padding">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/select_color"
+                android:textSize="16sp"/>
+
+            <Spinner
+                android:id="@+id/addNewPetCardBackgroundColor_spinner"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textAlignment="center"/>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="20dp">
+
+            <Button
+                android:id="@+id/addNewPetCancel_button"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/text_cancel"
+                android:textColor="@color/black"
+                android:layout_weight="1"
+                android:layout_margin="10dp"
+                android:backgroundTint="@color/buttons_general"
+                style="?android:attr/buttonBarButtonStyle" />
+            <Button
+                android:id="@+id/addNewPetAdd_button"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/add"
+                android:textColor="@color/black"
+                android:layout_weight="1"
+                android:layout_margin="10dp"
+                android:backgroundTint="@color/buttons_general"
+                style="?android:attr/buttonBarButtonStyle" />
+        </LinearLayout>
 
     </LinearLayout>
 

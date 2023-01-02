@@ -13,11 +13,12 @@ import androidx.annotation.NonNull;
 
 import com.pet.shelter.friends.R;
 import com.pet.shelter.friends.adoption.model.Pet;
+import com.squareup.picasso.Picasso;
 
 import java.util.List;
 
 // TODO: change to recyclerView adapter
-public class CustomListOfPetsAdapter extends ArrayAdapter {
+public class CustomListOfPetsAdapter extends ArrayAdapter<Pet> {
 
     private final List<Pet> petList;
     private final int custom_pet_view_layout_id;
@@ -56,12 +57,29 @@ public class CustomListOfPetsAdapter extends ArrayAdapter {
 
         // get the item using the  position param
         Pet pet = petList.get(position);
+
+        Picasso.get().load(pet.getImageDownloadLink()).into(petImageView);
         String age = pet.getAge()+" years";
-        petImageView.setImageResource(pet.getImageId());
         titleTextView.setText(pet.getName());
         ageTextView.setText(age);
         sizeTextView.setText(pet.getSize());
-        containerPetView.setBackgroundColor(pet.getBackgroundColor());
+        switch (pet.getBackgroundColor()) {
+            case "linen":
+                containerPetView.setBackgroundColor(v.getResources().getColor(R.color.linen));
+                break;
+            case "water":
+                containerPetView.setBackgroundColor(v.getResources().getColor(R.color.water));
+                break;
+            case "magic_mint":
+                containerPetView.setBackgroundColor(v.getResources().getColor(R.color.magic_mint));
+                break;
+            case "yellow_crayola":
+                containerPetView.setBackgroundColor(v.getResources().getColor(R.color.yellow_crayola));
+                break;
+            default:
+                break;
+        }
+
         return v;
     }
 }

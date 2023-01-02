@@ -4,7 +4,7 @@
     android:id="@+id/customPetViewContainer_relativeLayout"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
-    android:background="@color/linen_card1_background">
+    android:background="@color/linen">
         <TextView
             android:id="@+id/customPetViewTitle_textView"
             android:layout_width="wrap_content"

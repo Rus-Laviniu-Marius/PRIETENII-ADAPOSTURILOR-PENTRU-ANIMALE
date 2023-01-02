@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".adoption.SeePetDetailsActivity"
-    android:background="@color/crayola_yellow_card4_background">
+    android:background="@color/yellow_crayola">
 
     <RelativeLayout
         android:id="@+id/petDetailsTopBar_relativeLayout"
@@ -70,7 +70,7 @@
                 android:layout_height="wrap_content"
                 android:text="@string/oscar"
                 android:textSize="36sp"
-                android:textColor="@color/crayola_yellow_card4_background"
+                android:textColor="@color/yellow_crayola"
                 android:layout_margin="30dp" />
 
             <LinearLayout
@@ -91,7 +91,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:text="@string/_2_years"
-                        android:textColor="@color/crayola_yellow_card4_background"
+                        android:textColor="@color/yellow_crayola"
                         android:textSize="22sp"
                         android:drawablePadding="10dp"
                         app:drawableStartCompat="@drawable/card4_birthday_cake" />
@@ -102,7 +102,7 @@
                         android:layout_height="wrap_content"
                         android:text="@string/_6_7_kg"
                         android:textSize="22sp"
-                        android:textColor="@color/crayola_yellow_card4_background"
+                        android:textColor="@color/yellow_crayola"
                         android:drawablePadding="10dp"
                         app:drawableStartCompat="@drawable/card4_weighting_scale" />
                     <TextView
@@ -112,7 +112,7 @@
                         android:layout_height="wrap_content"
                         android:text="@string/timisoara"
                         android:textSize="22sp"
-                        android:textColor="@color/crayola_yellow_card4_background"
+                        android:textColor="@color/yellow_crayola"
                         android:drawablePadding="10dp"
                         app:drawableStartCompat="@drawable/card4_location" />
                 </LinearLayout>
@@ -129,7 +129,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:text="@string/medium"
-                        android:textColor="@color/crayola_yellow_card4_background"
+                        android:textColor="@color/yellow_crayola"
                         android:textSize="22sp"
                         android:drawablePadding="10dp"
                         app:drawableStartCompat="@drawable/card4_full_size" />
@@ -140,7 +140,7 @@
                         android:layout_height="wrap_content"
                         android:text="@string/fox_terrier"
                         android:textSize="22sp"
-                        android:textColor="@color/crayola_yellow_card4_background"
+                        android:textColor="@color/yellow_crayola"
                         android:drawablePadding="10dp"
                         app:drawableStartCompat="@drawable/card4_paws_print" />
                     <TextView
@@ -150,7 +150,7 @@
                         android:layout_height="wrap_content"
                         android:text="@string/male"
                         android:textSize="22sp"
-                        android:textColor="@color/crayola_yellow_card4_background"
+                        android:textColor="@color/yellow_crayola"
                         android:drawablePadding="10dp"
                         app:drawableStartCompat="@drawable/card4_gender" />
                 </LinearLayout>
@@ -162,7 +162,7 @@
                 android:layout_height="wrap_content"
                 android:text="@string/veterinarian_data"
                 android:textSize="26sp"
-                android:textColor="@color/crayola_yellow_card4_background"
+                android:textColor="@color/yellow_crayola"
                 android:layout_marginStart="30dp" />
 
             <LinearLayout
@@ -241,7 +241,7 @@
                 android:text="@string/description"
                 android:textSize="26sp"
                 android:layout_marginStart="30dp"
-                android:textColor="@color/crayola_yellow_card4_background" />
+                android:textColor="@color/yellow_crayola" />
             <TextView
                 android:id="@+id/petDetailsDescriptionContent_textView"
                 android:layout_width="wrap_content"
@@ -249,7 +249,7 @@
                 android:text="@string/oscar_dog_description"
                 android:layout_margin="10dp"
                 android:textSize="22sp"
-                android:textColor="@color/crayola_yellow_card4_background" />
+                android:textColor="@color/yellow_crayola" />
 
             <Button
                 android:id="@+id/petDetailsAdopt_button"
@@ -257,7 +257,7 @@
                 android:layout_height="wrap_content"
                 android:text="@string/adopt"
                 android:layout_margin="20dp"
-                android:backgroundTint="@color/crayola_yellow_card4_background"
+                android:backgroundTint="@color/yellow_crayola"
                 android:textColor="@color/black" />
         </LinearLayout>
 

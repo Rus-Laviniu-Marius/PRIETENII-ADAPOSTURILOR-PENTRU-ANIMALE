@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <!--TODO: USE PROPER NAME FOR COLORS-->
     <color name="purple_200">#FFBB86FC</color>
     <color name="purple_500">#FF6200EE</color>
     <color name="purple_700">#FF3700B3</color>
@@ -10,10 +11,10 @@
     <color name="main_background">#D8FDE0</color>
     <color name="buttons_group">#DED726</color>
     <color name="buttons_general">#D9D9D9</color>
-    <color name="linen_card1_background">#FDEAE8</color>
-    <color name="water_card2_background">#C6F6F4</color>
-    <color name="magic_mint_card3_background">#A3FFDC</color>
-    <color name="crayola_yellow_card4_background">#FFF087</color>
+    <color name="linen">#FDEAE8</color>
+    <color name="water">#C6F6F4</color>
+    <color name="magic_mint">#A3FFDC</color>
+    <color name="yellow_crayola">#FFF087</color>
     <color name="pet_details_background">#2E3656</color>
     <color name="bottom_bar_background">#CED5F1</color>
 </resources>

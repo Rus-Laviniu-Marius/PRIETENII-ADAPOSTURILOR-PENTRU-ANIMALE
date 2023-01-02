@@ -13,6 +13,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.pet.shelter.friends.R;
+import com.squareup.picasso.Picasso;
 
 public class SeePetDetailsActivity extends AppCompatActivity {
 
@@ -46,7 +47,7 @@ public class SeePetDetailsActivity extends AppCompatActivity {
 
         Bundle bundle = getIntent().getExtras();
 
-        int color = bundle.getInt("backgroundColor", 0);
+        String color = bundle.getString("backgroundColor");
         String age = "" + bundle.getInt("petAge") + " years";
         String weight = "" + bundle.getDouble("petWeight") + " KG";
 
@@ -66,8 +67,8 @@ public class SeePetDetailsActivity extends AppCompatActivity {
         descriptionTextView = findViewById(R.id.petDetailsDescription_textView);
         adoptPet = findViewById(R.id.petDetailsAdopt_button);
 
-        mainContainer.setBackgroundColor(color);
-        petImage.setImageResource(bundle.getInt("imageId", 0));
+
+        Picasso.get().load(bundle.getString("imageDownloadLink")).into(petImage);
         petName.setText(bundle.getString("petName"));
         petAge.setText(age);
         petWeight.setText(weight);
@@ -77,73 +78,117 @@ public class SeePetDetailsActivity extends AppCompatActivity {
         petGender.setText(bundle.getString("petGender"));
         petDescription.setText(bundle.getString("petDescription"));
 
-        petName.setTextColor(color);
-        petAge.setTextColor(color);
-        petWeight.setTextColor(color);
-        petLocation.setTextColor(color);
-        petSize.setTextColor(color);
-        petBreed.setTextColor(color);
-        petGender.setTextColor(color);
-        petDescription.setTextColor(color);
-        descriptionTextView.setTextColor(color);
-        veterinarianData.setTextColor(color);
+        switch (color) {
+            case "linen":
+                mainContainer.setBackgroundColor(getResources().getColor(R.color.linen));
+                petName.setTextColor(getResources().getColor(R.color.linen));
+                petAge.setTextColor(getResources().getColor(R.color.linen));
+                petWeight.setTextColor(getResources().getColor(R.color.linen));
+                petLocation.setTextColor(getResources().getColor(R.color.linen));
+                petSize.setTextColor(getResources().getColor(R.color.linen));
+                petBreed.setTextColor(getResources().getColor(R.color.linen));
+                petGender.setTextColor(getResources().getColor(R.color.linen));
+                petDescription.setTextColor(getResources().getColor(R.color.linen));
+                descriptionTextView.setTextColor(getResources().getColor(R.color.linen));
+                veterinarianData.setTextColor(getResources().getColor(R.color.linen));
+
+                birthdayCake = AppCompatResources.getDrawable(SeePetDetailsActivity.this, R.drawable.card1_birthday_cake);
+                petAge.setCompoundDrawablesWithIntrinsicBounds(birthdayCake, null, null, null);
+                weightingScale = AppCompatResources.getDrawable(SeePetDetailsActivity.this, R.drawable.card1_weighting_scale);
+                petWeight.setCompoundDrawablesWithIntrinsicBounds(weightingScale, null, null, null);
+                location = AppCompatResources.getDrawable(SeePetDetailsActivity.this, R.drawable.card1_location);
+                petLocation.setCompoundDrawablesWithIntrinsicBounds(location, null, null, null);
+                fullSize = AppCompatResources.getDrawable(SeePetDetailsActivity.this, R.drawable.card1_full_size);
+                petSize.setCompoundDrawablesWithIntrinsicBounds(fullSize, null, null, null);
+                pawsPrint = AppCompatResources.getDrawable(SeePetDetailsActivity.this, R.drawable.card1_paws_print);
+                petBreed.setCompoundDrawablesWithIntrinsicBounds(pawsPrint, null, null, null);
+                gender = AppCompatResources.getDrawable(SeePetDetailsActivity.this, R.drawable.card1_gender);
+                petGender.setCompoundDrawablesWithIntrinsicBounds(gender, null, null, null);
+                break;
+            case "water":
+                mainContainer.setBackgroundColor(getResources().getColor(R.color.water));
+                petName.setTextColor(getResources().getColor(R.color.water));
+                petAge.setTextColor(getResources().getColor(R.color.water));
+                petWeight.setTextColor(getResources().getColor(R.color.water));
+                petLocation.setTextColor(getResources().getColor(R.color.water));
+                petSize.setTextColor(getResources().getColor(R.color.water));
+                petBreed.setTextColor(getResources().getColor(R.color.water));
+                petGender.setTextColor(getResources().getColor(R.color.water));
+                petDescription.setTextColor(getResources().getColor(R.color.water));
+                descriptionTextView.setTextColor(getResources().getColor(R.color.water));
+                veterinarianData.setTextColor(getResources().getColor(R.color.water));
+
+                birthdayCake = AppCompatResources.getDrawable(SeePetDetailsActivity.this, R.drawable.card2_birthday_cake);
+                petAge.setCompoundDrawablesWithIntrinsicBounds(birthdayCake, null, null, null);
+                weightingScale = AppCompatResources.getDrawable(SeePetDetailsActivity.this, R.drawable.card2_weighting_scale);
+                petWeight.setCompoundDrawablesWithIntrinsicBounds(weightingScale, null, null, null);
+                location = AppCompatResources.getDrawable(SeePetDetailsActivity.this, R.drawable.card2_location);
+                petLocation.setCompoundDrawablesWithIntrinsicBounds(location, null, null, null);
+                fullSize = AppCompatResources.getDrawable(SeePetDetailsActivity.this, R.drawable.card2_full_size);
+                petSize.setCompoundDrawablesWithIntrinsicBounds(fullSize, null, null, null);
+                pawsPrint = AppCompatResources.getDrawable(SeePetDetailsActivity.this, R.drawable.card2_paws_print);
+                petBreed.setCompoundDrawablesWithIntrinsicBounds(pawsPrint, null, null, null);
+                gender = AppCompatResources.getDrawable(SeePetDetailsActivity.this, R.drawable.card2_gender);
+                petGender.setCompoundDrawablesWithIntrinsicBounds(gender, null, null, null);
+                break;
+            case "magic_mint":
+                mainContainer.setBackgroundColor(getResources().getColor(R.color.magic_mint));
+                petName.setTextColor(getResources().getColor(R.color.magic_mint));
+                petAge.setTextColor(getResources().getColor(R.color.magic_mint));
+                petWeight.setTextColor(getResources().getColor(R.color.magic_mint));
+                petLocation.setTextColor(getResources().getColor(R.color.magic_mint));
+                petSize.setTextColor(getResources().getColor(R.color.magic_mint));
+                petBreed.setTextColor(getResources().getColor(R.color.magic_mint));
+                petGender.setTextColor(getResources().getColor(R.color.magic_mint));
+                petDescription.setTextColor(getResources().getColor(R.color.magic_mint));
+                descriptionTextView.setTextColor(getResources().getColor(R.color.magic_mint));
+                veterinarianData.setTextColor(getResources().getColor(R.color.magic_mint));
+
+                birthdayCake = AppCompatResources.getDrawable(SeePetDetailsActivity.this, R.drawable.card3_birthday_cake);
+                petAge.setCompoundDrawablesWithIntrinsicBounds(birthdayCake, null, null, null);
+                weightingScale = AppCompatResources.getDrawable(SeePetDetailsActivity.this, R.drawable.card3_weighting_scale);
+                petWeight.setCompoundDrawablesWithIntrinsicBounds(weightingScale, null, null, null);
+                location = AppCompatResources.getDrawable(SeePetDetailsActivity.this, R.drawable.card3_location);
+                petLocation.setCompoundDrawablesWithIntrinsicBounds(location, null, null, null);
+                fullSize = AppCompatResources.getDrawable(SeePetDetailsActivity.this, R.drawable.card3_full_size);
+                petSize.setCompoundDrawablesWithIntrinsicBounds(fullSize, null, null, null);
+                pawsPrint = AppCompatResources.getDrawable(SeePetDetailsActivity.this, R.drawable.card3_paws_print);
+                petBreed.setCompoundDrawablesWithIntrinsicBounds(pawsPrint, null, null, null);
+                gender = AppCompatResources.getDrawable(SeePetDetailsActivity.this, R.drawable.card3_gender);
+                petGender.setCompoundDrawablesWithIntrinsicBounds(gender, null, null, null);
+                break;
+            case "yellow_crayola":
+                mainContainer.setBackgroundColor(getResources().getColor(R.color.yellow_crayola));
+                petName.setTextColor(getResources().getColor(R.color.yellow_crayola));
+                petAge.setTextColor(getResources().getColor(R.color.yellow_crayola));
+                petWeight.setTextColor(getResources().getColor(R.color.yellow_crayola));
+                petLocation.setTextColor(getResources().getColor(R.color.yellow_crayola));
+                petSize.setTextColor(getResources().getColor(R.color.yellow_crayola));
+                petBreed.setTextColor(getResources().getColor(R.color.yellow_crayola));
+                petGender.setTextColor(getResources().getColor(R.color.yellow_crayola));
+                petDescription.setTextColor(getResources().getColor(R.color.yellow_crayola));
+                descriptionTextView.setTextColor(getResources().getColor(R.color.yellow_crayola));
+                veterinarianData.setTextColor(getResources().getColor(R.color.yellow_crayola));
+
+                birthdayCake = AppCompatResources.getDrawable(SeePetDetailsActivity.this, R.drawable.card4_birthday_cake);
+                petAge.setCompoundDrawablesWithIntrinsicBounds(birthdayCake, null, null, null);
+                weightingScale = AppCompatResources.getDrawable(SeePetDetailsActivity.this, R.drawable.card4_weighting_scale);
+                petWeight.setCompoundDrawablesWithIntrinsicBounds(weightingScale, null, null, null);
+                location = AppCompatResources.getDrawable(SeePetDetailsActivity.this, R.drawable.card4_location);
+                petLocation.setCompoundDrawablesWithIntrinsicBounds(location, null, null, null);
+                fullSize = AppCompatResources.getDrawable(SeePetDetailsActivity.this, R.drawable.card4_full_size);
+                petSize.setCompoundDrawablesWithIntrinsicBounds(fullSize, null, null, null);
+                pawsPrint = AppCompatResources.getDrawable(SeePetDetailsActivity.this, R.drawable.card4_paws_print);
+                petBreed.setCompoundDrawablesWithIntrinsicBounds(pawsPrint, null, null, null);
+                gender = AppCompatResources.getDrawable(SeePetDetailsActivity.this, R.drawable.card4_gender);
+                petGender.setCompoundDrawablesWithIntrinsicBounds(gender, null, null, null);
+                break;
+            default:
+                break;
+        }
+
 
         adoptPet.setBackgroundColor(getResources().getColor(R.color.main_background));
-
-        if (color == getResources().getColor(R.color.linen_card1_background)) {
-            birthdayCake = AppCompatResources.getDrawable(SeePetDetailsActivity.this, R.drawable.card1_birthday_cake);
-            petAge.setCompoundDrawablesWithIntrinsicBounds(birthdayCake, null, null, null);
-            weightingScale = AppCompatResources.getDrawable(SeePetDetailsActivity.this, R.drawable.card1_weighting_scale);
-            petWeight.setCompoundDrawablesWithIntrinsicBounds(weightingScale, null, null, null);
-            location = AppCompatResources.getDrawable(SeePetDetailsActivity.this, R.drawable.card1_location);
-            petLocation.setCompoundDrawablesWithIntrinsicBounds(location, null, null, null);
-            fullSize = AppCompatResources.getDrawable(SeePetDetailsActivity.this, R.drawable.card1_full_size);
-            petSize.setCompoundDrawablesWithIntrinsicBounds(fullSize, null, null, null);
-            pawsPrint = AppCompatResources.getDrawable(SeePetDetailsActivity.this, R.drawable.card1_paws_print);
-            petBreed.setCompoundDrawablesWithIntrinsicBounds(pawsPrint, null, null, null);
-            gender = AppCompatResources.getDrawable(SeePetDetailsActivity.this, R.drawable.card1_gender);
-            petGender.setCompoundDrawablesWithIntrinsicBounds(gender, null, null, null);
-        } else if (color == getResources().getColor(R.color.water_card2_background)) {
-            birthdayCake = AppCompatResources.getDrawable(SeePetDetailsActivity.this, R.drawable.card2_birthday_cake);
-            petAge.setCompoundDrawablesWithIntrinsicBounds(birthdayCake, null, null, null);
-            weightingScale = AppCompatResources.getDrawable(SeePetDetailsActivity.this, R.drawable.card2_weighting_scale);
-            petWeight.setCompoundDrawablesWithIntrinsicBounds(weightingScale, null, null, null);
-            location = AppCompatResources.getDrawable(SeePetDetailsActivity.this, R.drawable.card2_location);
-            petLocation.setCompoundDrawablesWithIntrinsicBounds(location, null, null, null);
-            fullSize = AppCompatResources.getDrawable(SeePetDetailsActivity.this, R.drawable.card2_full_size);
-            petSize.setCompoundDrawablesWithIntrinsicBounds(fullSize, null, null, null);
-            pawsPrint = AppCompatResources.getDrawable(SeePetDetailsActivity.this, R.drawable.card2_paws_print);
-            petBreed.setCompoundDrawablesWithIntrinsicBounds(pawsPrint, null, null, null);
-            gender = AppCompatResources.getDrawable(SeePetDetailsActivity.this, R.drawable.card2_gender);
-            petGender.setCompoundDrawablesWithIntrinsicBounds(gender, null, null, null);
-        } else if (color == getResources().getColor(R.color.magic_mint_card3_background)) {
-            birthdayCake = AppCompatResources.getDrawable(SeePetDetailsActivity.this, R.drawable.card3_birthday_cake);
-            petAge.setCompoundDrawablesWithIntrinsicBounds(birthdayCake, null, null, null);
-            weightingScale = AppCompatResources.getDrawable(SeePetDetailsActivity.this, R.drawable.card3_weighting_scale);
-            petWeight.setCompoundDrawablesWithIntrinsicBounds(weightingScale, null, null, null);
-            location = AppCompatResources.getDrawable(SeePetDetailsActivity.this, R.drawable.card3_location);
-            petLocation.setCompoundDrawablesWithIntrinsicBounds(location, null, null, null);
-            fullSize = AppCompatResources.getDrawable(SeePetDetailsActivity.this, R.drawable.card3_full_size);
-            petSize.setCompoundDrawablesWithIntrinsicBounds(fullSize, null, null, null);
-            pawsPrint = AppCompatResources.getDrawable(SeePetDetailsActivity.this, R.drawable.card3_paws_print);
-            petBreed.setCompoundDrawablesWithIntrinsicBounds(pawsPrint, null, null, null);
-            gender = AppCompatResources.getDrawable(SeePetDetailsActivity.this, R.drawable.card3_gender);
-            petGender.setCompoundDrawablesWithIntrinsicBounds(gender, null, null, null);
-        }
-        else {// (color == getResources().getColor(R.color.card4_background)) {
-            birthdayCake = AppCompatResources.getDrawable(SeePetDetailsActivity.this, R.drawable.card4_birthday_cake);
-            petAge.setCompoundDrawablesWithIntrinsicBounds(birthdayCake, null, null, null);
-            weightingScale = AppCompatResources.getDrawable(SeePetDetailsActivity.this, R.drawable.card4_weighting_scale);
-            petWeight.setCompoundDrawablesWithIntrinsicBounds(weightingScale, null, null, null);
-            location = AppCompatResources.getDrawable(SeePetDetailsActivity.this, R.drawable.card4_location);
-            petLocation.setCompoundDrawablesWithIntrinsicBounds(location, null, null, null);
-            fullSize = AppCompatResources.getDrawable(SeePetDetailsActivity.this, R.drawable.card4_full_size);
-            petSize.setCompoundDrawablesWithIntrinsicBounds(fullSize, null, null, null);
-            pawsPrint = AppCompatResources.getDrawable(SeePetDetailsActivity.this, R.drawable.card4_paws_print);
-            petBreed.setCompoundDrawablesWithIntrinsicBounds(pawsPrint, null, null, null);
-            gender = AppCompatResources.getDrawable(SeePetDetailsActivity.this, R.drawable.card4_gender);
-            petGender.setCompoundDrawablesWithIntrinsicBounds(gender, null, null, null);
-        }
 
         adoptPet.setOnClickListener(new View.OnClickListener() {
             @Override

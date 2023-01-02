@@ -1,6 +1,7 @@
 package com.pet.shelter.friends.adoption;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
@@ -14,6 +15,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -25,7 +27,6 @@ import com.pet.shelter.friends.adoption.adapter.CustomListOfPetsAdapter;
 import com.pet.shelter.friends.adoption.model.Pet;
 
 import java.util.ArrayList;
-import java.util.List;
 import java.util.Objects;
 
 public class SeeListOfPetsActivity extends AppCompatActivity {
@@ -34,11 +35,15 @@ public class SeeListOfPetsActivity extends AppCompatActivity {
             fitForChildrenActiveFilter, fitForGuardingActiveFilter;
     private ImageView back, filter;
     private Button addNewPetButton;
+    private GridView gridView;
 
     private FirebaseAuth firebaseAuth;
     private FirebaseDatabase firebaseDatabase;
-    private DatabaseReference filtersReference, usersReference;
+    private DatabaseReference databaseReference, filtersReference, usersReference, petReference;
 
+    private final ArrayList<Pet> petsList = new ArrayList<>();
+    private Pet petToAdd;
+    private CustomListOfPetsAdapter customAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -53,12 +58,19 @@ public class SeeListOfPetsActivity extends AppCompatActivity {
         firebaseDatabase = FirebaseDatabase.getInstance();
         filtersReference = firebaseDatabase.getReference("filters");
         usersReference = firebaseDatabase.getReference("shelterAdmin");
+        petReference = firebaseDatabase.getReference("pets");
+
+        databaseReference = firebaseDatabase.getReference();
 
         sizeActiveFilter = findViewById(R.id.listOfPetsContentSizeActiveFilter_textView);
         ageActiveFilter = findViewById(R.id.listOfPetsContentAgeActiveFilter_textView);
         sexActiveFilter = findViewById(R.id.listOfPetsContentGenderActiveFilter_textView);
         fitForChildrenActiveFilter = findViewById(R.id.listOfPetsContentFitForChildrenActiveFilter_textView);
         fitForGuardingActiveFilter = findViewById(R.id.listOfPetsContentFitForGuardingActiveFilter_textView);
+
+        gridView = findViewById(R.id.listOfPetsContentPets_gridView);
+//        customAdapter = new CustomListOfPetsAdapter(this, R.layout.custom_pet_view_layout, petsList);
+//        gridView.setAdapter(customAdapter);
 
         back.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -76,6 +88,29 @@ public class SeeListOfPetsActivity extends AppCompatActivity {
 
 
         String loggedUid = Objects.requireNonNull(firebaseAuth.getCurrentUser()).getUid();
+        setFilters(loggedUid);
+
+
+        checkIfCurrentUserIsShelterAdmin(loggedUid);
+
+        addNewPetButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(SeeListOfPetsActivity.this, AddNewPetActivity.class);
+                startActivity(intent);
+            }
+        });
+
+        removeActiveFilters();
+
+        getPetDataFromDatabase();
+
+//        initializePetsList();
+
+        setOnItemClickListeners();
+    }
+
+    private void setFilters(String loggedUid) {
         filtersReference.child(loggedUid).addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
@@ -117,69 +152,68 @@ public class SeeListOfPetsActivity extends AppCompatActivity {
                 Toast.makeText(SeeListOfPetsActivity.this, "Data not get " + error, Toast.LENGTH_SHORT).show();
             }
         });
+    }
 
-        checkIfCurrentUserIsShelterAdmin(loggedUid);
-
-        addNewPetButton.setOnClickListener(new View.OnClickListener() {
+    private void getPetDataFromDatabase() {
+        petReference.addValueEventListener(new ValueEventListener() {
             @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(SeeListOfPetsActivity.this, AddNewPetActivity.class);
-                startActivity(intent);
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
             }
         });
 
-        removeActiveFilters();
+        petReference.addChildEventListener(new ChildEventListener() {
+            @Override
+            public void onChildAdded(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
 
-        List<Pet> petsList = new ArrayList<>();
-        petsList.add(new Pet(
-                getResources().getColor(R.color.linen_card1_background),
-                R.drawable.milo_dog,
-                "Milo",
-                3,
-                7.4,
-                "Timisoara",
-                "Medium",
-                "Bulldog",
-                "Male",
-                "Milo is a friendly dog"));
-        petsList.add(new Pet(
-                getResources().getColor(R.color.water_card2_background),
-                R.drawable.arthur_dog,
-                "Arthur",
-                2,
-                11.4,
-                "Arad",
-                "Small",
-                "Pekingese",
-                "Male",
-                "Arthur love short walks"));
-        petsList.add(new Pet(
-                getResources().getColor(R.color.magic_mint_card3_background),
-                R.drawable.maya_cat,
-                "Maya",
-                1,
-                5.4,
-                "Oradea",
-                "Small",
-                "Mixed",
-                "Female",
-                "Maya does not like raining weather"));
-        petsList.add(new Pet(
-                getResources().getColor(R.color.crayola_yellow_card4_background),
-                R.drawable.oscar_dog,
-                "Oscar",
-                2,
-                9.5,
-                "Timisoara",
-                "Medium",
-                "Fox Terrier",
-                "Male",
-                "Oscar is a very very energetic dog"));
+            }
 
-        GridView gridView = findViewById(R.id.listOfPetsContentPets_gridView);
-        CustomListOfPetsAdapter customAdapter = new CustomListOfPetsAdapter(this, R.layout.custom_pet_view_layout, petsList);
-        gridView.setAdapter(customAdapter);
+            @Override
+            public void onChildChanged(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
 
+            }
+
+            @Override
+            public void onChildRemoved(@NonNull DataSnapshot snapshot) {
+
+            }
+
+            @Override
+            public void onChildMoved(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
+
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+
+        petReference.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                petsList.clear();
+                for (DataSnapshot petSnapshot : snapshot.getChildren()) {
+                    Pet pet = petSnapshot.getValue(Pet.class);
+                    petsList.add(pet);
+                }
+                customAdapter = new CustomListOfPetsAdapter(SeeListOfPetsActivity.this, R.layout.custom_pet_view_layout, petsList);
+                gridView.setAdapter(customAdapter);
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+    }
+
+    private void setOnItemClickListeners() {
         gridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
@@ -187,14 +221,14 @@ public class SeeListOfPetsActivity extends AppCompatActivity {
                 Pet pet = petsList.get(position);
                 Intent intent = new Intent(SeeListOfPetsActivity.this, SeePetDetailsActivity.class);
                 intent.putExtra("backgroundColor", pet.getBackgroundColor());
-                intent.putExtra("imageId", pet.getImageId());
+                intent.putExtra("imageDownloadLink", pet.getImageDownloadLink());
                 intent.putExtra("petName", pet.getName());
                 intent.putExtra("petAge", pet.getAge());
                 intent.putExtra("petWeight", pet.getWeight());
                 intent.putExtra("petLocation", pet.getLocation());
                 intent.putExtra("petSize", pet.getSize());
                 intent.putExtra("petBreed", pet.getBreed());
-                intent.putExtra("petGender", pet.getGender());
+                intent.putExtra("petGender", pet.getSex());
                 intent.putExtra("petDescription", pet.getDescription());
                 startActivity(intent);
             }
@@ -250,4 +284,51 @@ public class SeeListOfPetsActivity extends AppCompatActivity {
             }
         });
     }
+
+//    private void initializePetsList() {
+//        petsList.add(new Pet(
+//                getResources().getColor(R.color.linen),
+//                R.drawable.milo_dog,
+//                "Milo",
+//                3,
+//                7.4,
+//                "Timisoara",
+//                "Medium",
+//                "Bulldog",
+//                "Male",
+//                "Milo is a friendly dog"));
+//        petsList.add(new Pet(
+//                getResources().getColor(R.color.water),
+//                R.drawable.arthur_dog,
+//                "Arthur",
+//                2,
+//                11.4,
+//                "Arad",
+//                "Small",
+//                "Pekingese",
+//                "Male",
+//                "Arthur love short walks"));
+//        petsList.add(new Pet(
+//                getResources().getColor(R.color.magic_mint),
+//                R.drawable.maya_cat,
+//                "Maya",
+//                1,
+//                5.4,
+//                "Oradea",
+//                "Small",
+//                "Mixed",
+//                "Female",
+//                "Maya does not like raining weather"));
+//        petsList.add(new Pet(
+//                getResources().getColor(R.color.yellow_crayola),
+//                R.drawable.oscar_dog,
+//                "Oscar",
+//                2,
+//                9.5,
+//                "Timisoara",
+//                "Medium",
+//                "Fox Terrier",
+//                "Male",
+//                "Oscar is a very very energetic dog"));
+//    }
 }

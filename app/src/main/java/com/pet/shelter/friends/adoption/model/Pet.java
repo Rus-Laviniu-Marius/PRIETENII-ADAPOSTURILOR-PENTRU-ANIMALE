@@ -2,23 +2,32 @@ package com.pet.shelter.friends.adoption.model;
 
 public class Pet {
 
-    private int backgroundColor, imageId, age;
-    private String name, location, breed, gender, size, description;
+    private String backgroundColor;
+    private String imageDownloadLink;
+    private String name;
+    private String location;
+    private String size;
+    private String breed;
+    private String sex;
+    private String description;
+    private int age;
     private double weight;
-    // TODO: WHEN VETERINARY IS AN ACTOR OF THE APP THEN PET VETERINARIAN DATA
-    private boolean id, dewormed, sterilized, vaccines;
 
-    public Pet(int backgroundColor, int imageId, String name, int age, double weight, String location, String size, String breed, String gender, String description) {
+    public Pet(String backgroundColor, String imageDownloadLink, String name, int age, double weight, String location, String size, String breed, String sex, String description) {
         this.backgroundColor = backgroundColor;
-        this.imageId = imageId;
+        this.imageDownloadLink = imageDownloadLink;
         this.name = name;
         this.age = age;
         this.weight = weight;
         this.location = location;
         this.size = size;
         this.breed = breed;
-        this.gender = gender;
+        this.sex = sex;
         this.description = description;
+    }
+//
+    public Pet() {
+
     }
 
     public String getDescription() {
@@ -45,12 +54,12 @@ public class Pet {
         this.breed = breed;
     }
 
-    public String getGender() {
-        return gender;
+    public String getSex() {
+        return sex;
     }
 
-    public void setGender(String gender) {
-        this.gender = gender;
+    public void setSex(String sex) {
+        this.sex = sex;
     }
 
     public double getWeight() {
@@ -69,20 +78,20 @@ public class Pet {
         this.size = size;
     }
 
-    public int getBackgroundColor() {
+    public String getBackgroundColor() {
         return backgroundColor;
     }
 
-    public void setBackgroundColor(int backgroundColor) {
+    public void setBackgroundColor(String backgroundColor) {
         this.backgroundColor = backgroundColor;
     }
 
-    public int getImageId() {
-        return imageId;
+    public String getImageDownloadLink() {
+        return imageDownloadLink;
     }
 
-    public void setImageId(int imageId) {
-        this.imageId = imageId;
+    public void setImageIdString(String imageDownloadLink) {
+        this.imageDownloadLink = imageDownloadLink;
     }
 
     public String getName() {
