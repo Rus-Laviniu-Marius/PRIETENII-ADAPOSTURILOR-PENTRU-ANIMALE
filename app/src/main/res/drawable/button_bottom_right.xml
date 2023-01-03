@@ -16,8 +16,10 @@
     <!--    </item>-->
     <item >
         <shape android:shape="rectangle"  >
+            <size android:width="200dp"
+                android:height="75dp"/>
             <corners
-                android:topLeftRadius="200dp"
+                android:topLeftRadius="150dp"
                 android:topRightRadius="50dp"
                 android:bottomRightRadius="50dp"
                 android:bottomLeftRadius="50dp" />

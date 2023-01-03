@@ -46,9 +46,7 @@ import java.util.Objects;
 public class AddNewPetActivity extends AppCompatActivity {
 
     private FirebaseAuth firebaseAuth;
-    private FirebaseStorage firebaseStorage;
     private StorageReference storageReference;
-    private FirebaseDatabase firebaseDatabase;
     private DatabaseReference petsReference;
     private Spinner cardBackgroundColorSpinner, petTypeSpinner;
     private EditText nameEditText, ageEditText, weightEditText, locationEditText, sexEditText,
@@ -86,9 +84,9 @@ public class AddNewPetActivity extends AppCompatActivity {
         setContentView(R.layout.activity_add_new_pet);
 
         firebaseAuth = FirebaseAuth.getInstance();
-        firebaseDatabase = FirebaseDatabase.getInstance();
+        FirebaseDatabase firebaseDatabase = FirebaseDatabase.getInstance();
         petsReference = firebaseDatabase.getReference("pets");
-        firebaseStorage = FirebaseStorage.getInstance();
+        FirebaseStorage firebaseStorage = FirebaseStorage.getInstance();
         storageReference = firebaseStorage.getReference();
 
         nameEditText = findViewById(R.id.addNewPetName_editText);
@@ -132,7 +130,6 @@ public class AddNewPetActivity extends AppCompatActivity {
 
                 selectedItem = selectedItem.replace(" ", "_");
 
-//                int colorId = Color.parseColor(getResources().getString(R.color.linen));
                 int colorId = res.getIdentifier(selectedItem, "color", packageName);
                 int desiredColor = ContextCompat.getColor(context, colorId);
                 cardBackgroundColorSpinner.setBackgroundColor(desiredColor);
@@ -338,9 +335,9 @@ public class AddNewPetActivity extends AppCompatActivity {
                                             petSize,
                                             petBreed,
                                             petSex,
-                                            petDescription));
+                                            petDescription,
+                                            "false"));
                                 }
-
                             });
                         }
                     })

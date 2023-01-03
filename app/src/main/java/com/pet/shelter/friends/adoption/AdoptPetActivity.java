@@ -89,7 +89,6 @@ public class AdoptPetActivity extends AppCompatActivity {
             }
         });
 
-        // TODO: When going back from AdoptPetActivity to SeePetDetailsActivity app crushes because in this direction i don't send the same information through intent like i did from SeeListOfPetsActivity to SeePetDetailsActivity
         buttonBack.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

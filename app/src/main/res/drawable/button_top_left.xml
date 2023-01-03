@@ -16,10 +16,12 @@
 <!--    </item>-->
     <item >
         <shape android:shape="rectangle"  >
+            <size android:width="200dp"
+                android:height="75dp"/>
             <corners
                 android:topLeftRadius="50dp"
                 android:topRightRadius="50dp"
-                android:bottomRightRadius="200dp"
+                android:bottomRightRadius="150dp"
                 android:bottomLeftRadius="50dp" />
             <solid android:color="@color/buttons_group" />
         </shape>

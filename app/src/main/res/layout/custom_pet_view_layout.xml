@@ -1,26 +1,33 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/customPetViewContainer_relativeLayout"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
-    android:background="@color/linen">
-        <TextView
-            android:id="@+id/customPetViewTitle_textView"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/milo"
-            android:textSize="30sp"
-            app:drawableEndCompat="@drawable/hearth_64"
-            android:drawablePadding="20dp"
-            android:layout_margin="10dp"/>
+    android:background="@color/linen"
+    android:padding="@dimen/padding"
+    android:layout_margin="20dp">
 
-        <RelativeLayout
-            android:id="@+id/customPetViewContent_relativeLayout"
-            android:layout_width="wrap_content"
+        <LinearLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_centerHorizontal="true"
-            android:layout_below="@id/customPetViewTitle_textView">
+            android:orientation="vertical"
+            android:padding="@dimen/padding"
+            android:gravity="center">
+                <TextView
+                    android:id="@+id/customPetViewName_textView"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="10dp"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginEnd="10dp"
+                    android:layout_marginBottom="10dp"
+                    android:drawablePadding="40dp"
+                    android:text="@string/milo"
+                    android:gravity="center"
+                    android:textSize="30sp"
+                    app:drawableEndCompat="@drawable/heart_32" />
+
                 <TextView
                     android:id="@+id/customPetViewAge_textView"
                     android:layout_width="wrap_content"
@@ -35,23 +42,35 @@
                     android:layout_height="wrap_content"
                     android:text="@string/small"
                     android:textSize="20sp"
-                    android:layout_margin="10dp"
-                    android:layout_below="@id/customPetViewAge_textView"/>
+                    android:layout_margin="10dp"/>
 
+                <TextView
+                    android:id="@+id/customPetViewSex_textView"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/male"
+                    android:textSize="20sp"
+                    android:layout_margin="10dp"/>
+
+                <TextView
+                    android:id="@+id/customPetViewLocation_textView"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/timisoara"
+                    android:textSize="20sp"
+                    android:layout_margin="10dp" />
                 <ImageView
                     android:id="@+id/customPetView_imageView"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_below="@id/customPetViewSize_textView"
-                    android:layout_margin="10dp"
                     android:layout_marginStart="10dp"
                     android:layout_marginTop="10dp"
                     android:layout_marginEnd="10dp"
                     android:layout_marginBottom="10dp"
                     android:contentDescription="@string/a_dog_named_milo"
-                    android:src="@drawable/milo_dog"
-                    />
-        </RelativeLayout>
+                    android:src="@drawable/milo_dog" />
+        </LinearLayout>
 
 
-</RelativeLayout>
+
+</androidx.cardview.widget.CardView>

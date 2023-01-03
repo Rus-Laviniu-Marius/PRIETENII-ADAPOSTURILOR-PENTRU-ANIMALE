@@ -1,5 +1,6 @@
 package com.pet.shelter.friends.adoption.adapter;
 
+
 import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -8,20 +9,29 @@ import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.cardview.widget.CardView;
 
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 import com.pet.shelter.friends.R;
 import com.pet.shelter.friends.adoption.model.Pet;
 import com.squareup.picasso.Picasso;
 
+import java.util.ArrayList;
 import java.util.List;
 
-// TODO: change to recyclerView adapter
 public class CustomListOfPetsAdapter extends ArrayAdapter<Pet> {
 
     private final List<Pet> petList;
     private final int custom_pet_view_layout_id;
+
+    private DatabaseReference favoritePetsReference = FirebaseDatabase.getInstance().getReference("favoritePets");
 
     public CustomListOfPetsAdapter(@NonNull Context context, int resource, @NonNull List<Pet> objects) {
         super(context, resource, objects);
@@ -37,7 +47,6 @@ public class CustomListOfPetsAdapter extends ArrayAdapter<Pet> {
     @NonNull
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
-//        return super.getView(position, convertView, parent);
 
         View v = convertView;
 
@@ -50,19 +59,28 @@ public class CustomListOfPetsAdapter extends ArrayAdapter<Pet> {
 
         // initializing the imageview and textview and setting data
         ImageView petImageView = v.findViewById(R.id.customPetView_imageView);
-        TextView titleTextView = v.findViewById(R.id.customPetViewTitle_textView);
+        TextView nameTextView = v.findViewById(R.id.customPetViewName_textView);
         TextView ageTextView = v.findViewById(R.id.customPetViewAge_textView);
         TextView sizeTextView = v.findViewById(R.id.customPetViewSize_textView);
-        RelativeLayout containerPetView = v.findViewById(R.id.customPetViewContainer_relativeLayout);
+        TextView sexTextView = v.findViewById(R.id.customPetViewSex_textView);
+        TextView locationTextView = v.findViewById(R.id.customPetViewLocation_textView);
+        CardView containerPetView = v.findViewById(R.id.customPetViewContainer_relativeLayout);
 
         // get the item using the  position param
         Pet pet = petList.get(position);
 
         Picasso.get().load(pet.getImageDownloadLink()).into(petImageView);
         String age = pet.getAge()+" years";
-        titleTextView.setText(pet.getName());
+        nameTextView.setText(pet.getName());
+        if (Boolean.parseBoolean(pet.isFavorite())) {
+            nameTextView.setCompoundDrawablesWithIntrinsicBounds(0, 0, R.drawable.filled_heart_32, 0);
+        } else {
+            nameTextView.setCompoundDrawablesWithIntrinsicBounds(0, 0, R.drawable.heart_32, 0);
+        }
         ageTextView.setText(age);
         sizeTextView.setText(pet.getSize());
+        sexTextView.setText(pet.getSex());
+        locationTextView.setText(pet.getLocation());
         switch (pet.getBackgroundColor()) {
             case "linen":
                 containerPetView.setBackgroundColor(v.getResources().getColor(R.color.linen));

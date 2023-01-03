@@ -10,10 +10,11 @@ public class Pet {
     private String breed;
     private String sex;
     private String description;
+    private String favorite;
     private int age;
     private double weight;
 
-    public Pet(String backgroundColor, String imageDownloadLink, String name, int age, double weight, String location, String size, String breed, String sex, String description) {
+    public Pet(String backgroundColor, String imageDownloadLink, String name, int age, double weight, String location, String size, String breed, String sex, String description, String favorite) {
         this.backgroundColor = backgroundColor;
         this.imageDownloadLink = imageDownloadLink;
         this.name = name;
@@ -24,10 +25,19 @@ public class Pet {
         this.breed = breed;
         this.sex = sex;
         this.description = description;
+        this.favorite = favorite;
     }
 //
     public Pet() {
 
+    }
+
+    public String isFavorite() {
+        return favorite;
+    }
+
+    public void setFavorite(String favorite) {
+        this.favorite = favorite;
     }
 
     public String getDescription() {
@@ -86,13 +96,14 @@ public class Pet {
         this.backgroundColor = backgroundColor;
     }
 
+    public void setImageDownloadLink(String imageDownloadLink) {
+        this.imageDownloadLink = imageDownloadLink;
+    }
+
     public String getImageDownloadLink() {
         return imageDownloadLink;
     }
 
-    public void setImageIdString(String imageDownloadLink) {
-        this.imageDownloadLink = imageDownloadLink;
-    }
 
     public String getName() {
         return name;

@@ -178,5 +178,6 @@
     <string name="add">Add</string>
     <string name="select_color">Select color</string>
     <string name="select_pet_type">Select pet type</string>
+    <string name="favorite_pets">Favorite pets</string>
 
 </resources>

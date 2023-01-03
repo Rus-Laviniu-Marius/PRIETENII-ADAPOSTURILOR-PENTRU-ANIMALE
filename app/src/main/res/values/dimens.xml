@@ -2,7 +2,9 @@
 <resources>
     <dimen name="radio_button_text">20sp</dimen>
     <dimen name="edit_text_size">20sp</dimen>
-    <dimen name="text_view_size">16sp</dimen>
+    <dimen name="small_text_view_size">16sp</dimen>
+    <dimen name="medium_text_view_size">24sp</dimen>
+    <dimen name="large_text_view_size">32sp</dimen>
     <dimen name="margin_vertical">5dp</dimen>
     <dimen name="margin_horizontal">10dp</dimen>
     <dimen name="padding">10dp</dimen>
