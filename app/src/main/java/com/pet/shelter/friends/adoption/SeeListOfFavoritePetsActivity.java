@@ -49,7 +49,8 @@ public class SeeListOfFavoritePetsActivity extends AppCompatActivity {
                 petsArrayList.clear();
                 for (DataSnapshot petDataSnapshot : snapshot.getChildren()) {
                     Pet pet = petDataSnapshot.getValue(Pet.class);
-                    petsArrayList.add(pet);
+                    if (pet != null && Boolean.parseBoolean(pet.isFavorite()))
+                        petsArrayList.add(pet);
                 }
 
                 FavoritePetsAdapter.OnRecyclerViewItemClickListener petsListCallback = new FavoritePetsAdapter.OnRecyclerViewItemClickListener() {
@@ -74,6 +75,7 @@ public class SeeListOfFavoritePetsActivity extends AppCompatActivity {
                     }
                 };
                 FavoritePetsAdapter favoritePetsAdapter = new FavoritePetsAdapter(petsArrayList, petsListCallback);
+                favoritePetsAdapter.notifyDataSetChanged();
                 favoritePetsRecyclerView.setAdapter(favoritePetsAdapter);
             }
 

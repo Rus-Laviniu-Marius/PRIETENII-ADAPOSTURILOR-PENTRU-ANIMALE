@@ -2,6 +2,7 @@ package com.pet.shelter.friends.adoption.adapter;
 
 
 import android.content.Context;
+import android.graphics.Color;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -28,7 +29,7 @@ import java.util.List;
 
 public class CustomListOfPetsAdapter extends ArrayAdapter<Pet> {
 
-    private final List<Pet> petList;
+    private List<Pet> petList;
     private final int custom_pet_view_layout_id;
 
     private DatabaseReference favoritePetsReference = FirebaseDatabase.getInstance().getReference("favoritePets");
@@ -41,7 +42,7 @@ public class CustomListOfPetsAdapter extends ArrayAdapter<Pet> {
 
     @Override
     public int getCount() {
-        return super.getCount();
+        return petList.size();
     }
 
     @NonNull
@@ -66,38 +67,47 @@ public class CustomListOfPetsAdapter extends ArrayAdapter<Pet> {
         TextView locationTextView = v.findViewById(R.id.customPetViewLocation_textView);
         CardView containerPetView = v.findViewById(R.id.customPetViewContainer_relativeLayout);
 
-        // get the item using the  position param
+        // get the item using the position param
         Pet pet = petList.get(position);
 
-        Picasso.get().load(pet.getImageDownloadLink()).into(petImageView);
-        String age = pet.getAge()+" years";
-        nameTextView.setText(pet.getName());
-        if (Boolean.parseBoolean(pet.isFavorite())) {
-            nameTextView.setCompoundDrawablesWithIntrinsicBounds(0, 0, R.drawable.filled_heart_32, 0);
-        } else {
-            nameTextView.setCompoundDrawablesWithIntrinsicBounds(0, 0, R.drawable.heart_32, 0);
-        }
-        ageTextView.setText(age);
-        sizeTextView.setText(pet.getSize());
-        sexTextView.setText(pet.getSex());
-        locationTextView.setText(pet.getLocation());
-        switch (pet.getBackgroundColor()) {
-            case "linen":
-                containerPetView.setBackgroundColor(v.getResources().getColor(R.color.linen));
-                break;
-            case "water":
-                containerPetView.setBackgroundColor(v.getResources().getColor(R.color.water));
-                break;
-            case "magic_mint":
-                containerPetView.setBackgroundColor(v.getResources().getColor(R.color.magic_mint));
-                break;
-            case "yellow_crayola":
-                containerPetView.setBackgroundColor(v.getResources().getColor(R.color.yellow_crayola));
-                break;
-            default:
-                break;
-        }
+            Picasso.get().load(pet.getImageDownloadLink()).into(petImageView);
+            String age = pet.getAge() + " years";
+            nameTextView.setText(pet.getName());
+            if (Boolean.parseBoolean(pet.isFavorite())) {
+                nameTextView.setCompoundDrawablesWithIntrinsicBounds(0, 0, R.drawable.filled_heart_32, 0);
+            } else {
+                nameTextView.setCompoundDrawablesWithIntrinsicBounds(0, 0, R.drawable.heart_32, 0);
+            }
+            if (Boolean.parseBoolean(pet.isSelected())) {
+                containerPetView.setCardBackgroundColor(Color.WHITE);
+            }
+            ageTextView.setText(age);
+            sizeTextView.setText(pet.getSize());
+            sexTextView.setText(pet.getSex());
+            locationTextView.setText(pet.getLocation());
+            switch (pet.getBackgroundColor()) {
+                case "linen":
+                    containerPetView.setBackgroundColor(v.getResources().getColor(R.color.linen));
+                    break;
+                case "water":
+                    containerPetView.setBackgroundColor(v.getResources().getColor(R.color.water));
+                    break;
+                case "magic_mint":
+                    containerPetView.setBackgroundColor(v.getResources().getColor(R.color.magic_mint));
+                    break;
+                case "yellow_crayola":
+                    containerPetView.setBackgroundColor(v.getResources().getColor(R.color.yellow_crayola));
+                    break;
+                default:
+                    break;
+            }
 
         return v;
+    }
+
+    public void upToDate(List<Pet> newList){
+        petList = new ArrayList<>();
+        petList.addAll(newList);
+        notifyDataSetChanged();
     }
 }

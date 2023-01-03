@@ -8,8 +8,10 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.GridView;
 import android.widget.ImageView;
+import android.widget.SearchView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -34,14 +36,16 @@ public class SeeListOfPetsActivity extends AppCompatActivity {
     private ImageView back, filter, search, favorites, send, home;
     private Button addNewPetButton;
     private GridView gridView;
+    private EditText searchEditText;
+    private SearchView searchView;
 
     private DatabaseReference filtersReference, usersReference, petReference;
 
     private final ArrayList<Pet> petsList = new ArrayList<>();
     private CustomListOfPetsAdapter customAdapter;
+    private CustomListOfPetsAdapter searchAdapter;
 
-    private Bundle bundle;
-    private ArrayList<String> petKeys = new ArrayList<>();
+    private final ArrayList<String> petKeys = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -53,6 +57,9 @@ public class SeeListOfPetsActivity extends AppCompatActivity {
         filtersReference = firebaseDatabase.getReference("filters");
         usersReference = firebaseDatabase.getReference("shelterAdmin");
         petReference = firebaseDatabase.getReference("pets");
+
+        searchEditText = findViewById(R.id.listOfPetsSearch_editText);
+        searchView = findViewById(R.id.listOfPetsName_searchView);
 
         back = findViewById(R.id.listOfPetsTopBarBack_imageView);
         filter = findViewById(R.id.listOfPetsTopBarFilter_imageView);
@@ -72,8 +79,6 @@ public class SeeListOfPetsActivity extends AppCompatActivity {
         gridView = findViewById(R.id.listOfPetsContentPets_gridView);
 
         String loggedUid = Objects.requireNonNull(firebaseAuth.getCurrentUser()).getUid();
-
-        bundle = getIntent().getExtras();
 
         setOnClickListeners();
 
@@ -104,9 +109,42 @@ public class SeeListOfPetsActivity extends AppCompatActivity {
         });
 
         search.setOnClickListener(new View.OnClickListener() {
+            boolean isPressed = false;
             @Override
             public void onClick(View view) {
+                if (isPressed) {
+                    searchView.setVisibility(View.VISIBLE);
+                    searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+                        @Override
+                        public boolean onQueryTextSubmit(String s) {
+                            String userInput = s.toLowerCase();
+                            ArrayList<Pet> newPetArrayList = new ArrayList<>();
+                            for (Pet pet : petsList) {
+                                if (pet.getName().toLowerCase().contains(userInput)) {
+                                    newPetArrayList.add(pet);
+                                }
+                            }
+                            customAdapter.upToDate(newPetArrayList);
+                            return true;
+                        }
 
+                        @Override
+                        public boolean onQueryTextChange(String s) {
+                            String userInput = s.toLowerCase();
+                            ArrayList<Pet> newPetArrayList = new ArrayList<>();
+                            for (Pet pet : petsList) {
+                                if (pet.getName().toLowerCase().contains(userInput)) {
+                                    newPetArrayList.add(pet);
+                                }
+                            }
+                            customAdapter.upToDate(newPetArrayList);
+                            return true;
+                        }
+                    });
+                } else {
+                    searchView.setVisibility(View.GONE);
+                }
+                isPressed = !isPressed;
             }
         });
 
@@ -119,9 +157,30 @@ public class SeeListOfPetsActivity extends AppCompatActivity {
         });
 
         send.setOnClickListener(new View.OnClickListener() {
+
             @Override
             public void onClick(View view) {
+                int position = -1;
+                boolean selected = false;
+                for (Pet pet : petsList) {
+                    if (Boolean.parseBoolean(pet.isSelected())) {
+                        position = petsList.indexOf(pet);
+                        selected = true;
+                    }
+                }
+                if (selected && position >= 0) {
+                    Pet pet = petsList.get(position);
 
+                    try {
+                        Intent whatsappIntent = new Intent(Intent.ACTION_SEND).setType("text/plain").setPackage("com.whatsapp").putExtra(Intent.EXTRA_TEXT, pet.toString());
+                        startActivity(whatsappIntent);
+                    } catch (android.content.ActivityNotFoundException ex) {
+                        Toast.makeText(SeeListOfPetsActivity.this, "Whatsapp have not been installed.", Toast.LENGTH_SHORT).show();
+                    }
+                }
+                else {
+                    Toast.makeText(SeeListOfPetsActivity.this, "Select pet by long touching it", Toast.LENGTH_SHORT).show();
+                }
             }
         });
 
@@ -186,6 +245,7 @@ public class SeeListOfPetsActivity extends AppCompatActivity {
     }
 
     private void getPetDataFromDatabase() {
+
         petReference.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
@@ -198,6 +258,7 @@ public class SeeListOfPetsActivity extends AppCompatActivity {
                 }
 
                 customAdapter = new CustomListOfPetsAdapter(SeeListOfPetsActivity.this, R.layout.custom_pet_view_layout, petsList);
+                customAdapter.notifyDataSetChanged();
                 gridView.setAdapter(customAdapter);
             }
 
@@ -206,6 +267,7 @@ public class SeeListOfPetsActivity extends AppCompatActivity {
 
             }
         });
+
     }
 
     private void setOnItemClickListeners() {
@@ -228,6 +290,20 @@ public class SeeListOfPetsActivity extends AppCompatActivity {
                 intent.putExtra("favorite", pet.isFavorite());
                 intent.putExtra("petKey", petKeys.get(position));
                 startActivity(intent);
+            }
+        });
+
+        gridView.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
+            @Override
+            public boolean onItemLongClick(AdapterView<?> adapterView, View view, int i, long l) {
+                boolean isSelected = Boolean.parseBoolean(petsList.get(i).isSelected());
+//                Toast.makeText(SeeListOfPetsActivity.this, String.valueOf(isSelected), Toast.LENGTH_SHORT).show();
+                petsList.get(i).setSelected(String.valueOf(!isSelected));
+                petReference.child(petKeys.get(i)).child("selected").setValue(String.valueOf(isSelected));
+                customAdapter.notifyDataSetChanged();
+                Toast.makeText(SeeListOfPetsActivity.this, petsList.get(i).getName() + " is selected", Toast.LENGTH_SHORT).show();
+
+                return true;
             }
         });
     }

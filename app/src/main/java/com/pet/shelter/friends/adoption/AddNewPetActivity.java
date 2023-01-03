@@ -336,7 +336,9 @@ public class AddNewPetActivity extends AppCompatActivity {
                                             petBreed,
                                             petSex,
                                             petDescription,
-                                            "false"));
+                                            "false",
+                                            "false",
+                                            petType));
                                 }
                             });
                         }

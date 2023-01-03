@@ -179,5 +179,7 @@
     <string name="select_color">Select color</string>
     <string name="select_pet_type">Select pet type</string>
     <string name="favorite_pets">Favorite pets</string>
+    <string name="search_label">Search</string>
+    <string name="search_hint">Search by pet name</string>
 
 </resources>

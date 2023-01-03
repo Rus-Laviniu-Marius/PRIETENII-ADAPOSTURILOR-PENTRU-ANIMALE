@@ -1,5 +1,7 @@
 package com.pet.shelter.friends.adoption.model;
 
+import androidx.annotation.NonNull;
+
 public class Pet {
 
     private String backgroundColor;
@@ -11,10 +13,12 @@ public class Pet {
     private String sex;
     private String description;
     private String favorite;
+    private String selected;
+    private String type;
     private int age;
     private double weight;
 
-    public Pet(String backgroundColor, String imageDownloadLink, String name, int age, double weight, String location, String size, String breed, String sex, String description, String favorite) {
+    public Pet(String backgroundColor, String imageDownloadLink, String name, int age, double weight, String location, String size, String breed, String sex, String description, String favorite, String selected, String type) {
         this.backgroundColor = backgroundColor;
         this.imageDownloadLink = imageDownloadLink;
         this.name = name;
@@ -26,10 +30,48 @@ public class Pet {
         this.sex = sex;
         this.description = description;
         this.favorite = favorite;
+        this.selected = selected;
+        this.type = type;
     }
 //
     public Pet() {
 
+    }
+
+//    @Override
+//    public String toString() {
+//        return "Pet{" +
+//                "backgroundColor='" + backgroundColor + '\'' +
+//                ", imageDownloadLink='" + imageDownloadLink + '\'' +
+//                ", name='" + name + '\'' +
+//                ", location='" + location + '\'' +
+//                ", size='" + size + '\'' +
+//                ", breed='" + breed + '\'' +
+//                ", sex='" + sex + '\'' +
+//                ", description='" + description + '\'' +
+//                ", favorite='" + favorite + '\'' +
+//                ", selected='" + selected + '\'' +
+//                ", type='" + type + '\'' +
+//                ", age=" + age +
+//                ", weight=" + weight +
+//                '}';
+//    }
+
+    @Override
+    public String toString() {
+        return name + " is a " + type.toLowerCase() + " of around " + age + " years old. " +
+                "It is a " + size.toLowerCase() + " size, " + sex.toLowerCase() + ", " + breed + " breed " +
+                type.toLowerCase() + ". " + name + " description: " + description + ". If you happen to be around the city of " +
+                location + ", you can meet " + name + " at the local shelter." + "\n\n" +
+                "In the mean time you can see it by clicking the following link: \n" + imageDownloadLink;
+    }
+
+    public String getType() {
+        return type;
+    }
+
+    public void setType(String type) {
+        this.type = type;
     }
 
     public String isFavorite() {
@@ -39,6 +81,15 @@ public class Pet {
     public void setFavorite(String favorite) {
         this.favorite = favorite;
     }
+
+    public String isSelected() {
+        return selected;
+    }
+
+    public void setSelected(String selected) {
+        this.selected = selected;
+    }
+
 
     public String getDescription() {
         return description;
