@@ -1,4 +1,4 @@
-package com.pet.shelter.friends.adoption;
+package com.pet.shelter.friends.adoption.form;
 
 import androidx.appcompat.app.AppCompatActivity;
 

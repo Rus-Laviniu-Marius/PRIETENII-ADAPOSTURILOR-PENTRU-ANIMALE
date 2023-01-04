@@ -144,7 +144,7 @@
                         android:drawablePadding="10dp"
                         app:drawableStartCompat="@drawable/card4_paws_print" />
                     <TextView
-                        android:id="@+id/petDetailsContentGender_textView"
+                        android:id="@+id/petDetailsContentSex_textView"
                         android:layout_marginTop="10dp"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
@@ -256,6 +256,16 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="@string/adopt"
+                android:layout_margin="20dp"
+                android:backgroundTint="@color/yellow_crayola"
+                android:textColor="@color/black" />
+
+            <Button
+                android:id="@+id/petDetailsSeeActivePetAdoptionRequests_button"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:visibility="gone"
+                android:text="@string/see_adoption_requests"
                 android:layout_margin="20dp"
                 android:backgroundTint="@color/yellow_crayola"
                 android:textColor="@color/black" />

@@ -5,7 +5,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".adoption.SeeListOfFavoritePetsActivity"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    android:background="@color/main_background">
 
     <ImageView
         android:id="@+id/favoritePetsBack_imageView"
@@ -32,8 +33,9 @@
         android:layout_height="wrap_content"
         android:clipToPadding="false"
         android:padding="@dimen/padding"
+        android:layout_margin="20dp"
         android:layout_gravity="center"
-        android:textAlignment="center"
+
         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
         tools:context="com.pet.shelter.friends.adoption.SeeListOfFavoritePetsActivity"
         tools:listitem="@layout/custom_pet_view_layout" />

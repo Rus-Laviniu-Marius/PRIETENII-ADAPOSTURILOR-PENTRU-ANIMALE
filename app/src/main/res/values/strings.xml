@@ -181,5 +181,12 @@
     <string name="favorite_pets">Favorite pets</string>
     <string name="search_label">Search</string>
     <string name="search_hint">Search by pet name</string>
+    <string name="see_adoption_requests">See adoption requests</string>
+    <string name="user_name">User name</string>
+    <string name="rating">Rating</string>
+    <string name="personal_data">Personal data</string>
+    <string name="history_events">History events</string>
+    <string name="log_out">Log out</string>
+    <string name="pet_preferences">Pet preferences</string>
 
 </resources>

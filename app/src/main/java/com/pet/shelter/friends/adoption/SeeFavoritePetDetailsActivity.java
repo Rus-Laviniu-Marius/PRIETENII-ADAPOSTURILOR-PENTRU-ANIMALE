@@ -16,6 +16,7 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.pet.shelter.friends.HomeActivity;
 import com.pet.shelter.friends.R;
+import com.pet.shelter.friends.adoption.form.AdoptPetActivity;
 import com.squareup.picasso.Picasso;
 
 public class SeeFavoritePetDetailsActivity extends AppCompatActivity {

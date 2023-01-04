@@ -21,6 +21,13 @@
         android:theme="@style/Theme.PetShelterFriends"
         tools:targetApi="31">
         <activity
+            android:name=".authentication.ViewProfileActivity"
+            android:exported="false">
+            <meta-data
+                android:name="android.app.lib_name"
+                android:value="" />
+        </activity>
+        <activity
             android:name=".adoption.SeeFavoritePetDetailsActivity"
             android:exported="false">
             <meta-data
@@ -42,7 +49,7 @@
                 android:value="" />
         </activity>
         <activity
-            android:name=".adoption.GenerateAdoptionPapersPDFActivity"
+            android:name=".adoption.form.GenerateAdoptionPapersPDFActivity"
             android:exported="true">
             <meta-data
                 android:name="android.app.lib_name"
@@ -55,35 +62,35 @@
             <!-- </intent-filter> -->
         </activity>
         <activity
-            android:name=".adoption.CompletePersonalReferencesInformationActivity"
+            android:name=".adoption.form.CompletePersonalReferencesInformationActivity"
             android:exported="false">
             <meta-data
                 android:name="android.app.lib_name"
                 android:value="" />
         </activity>
         <activity
-            android:name=".adoption.CompleteAboutThePetInformationActivity"
+            android:name=".adoption.form.CompleteAboutThePetInformationActivity"
             android:exported="false">
             <meta-data
                 android:name="android.app.lib_name"
                 android:value="" />
         </activity>
         <activity
-            android:name=".adoption.CompleteVeterinarianInformationActivity"
+            android:name=".adoption.form.CompleteVeterinarianInformationActivity"
             android:exported="false">
             <meta-data
                 android:name="android.app.lib_name"
                 android:value="" />
         </activity>
         <activity
-            android:name=".adoption.CompleteOtherPetsInformationActivity"
+            android:name=".adoption.form.CompleteOtherPetsInformationActivity"
             android:exported="false">
             <meta-data
                 android:name="android.app.lib_name"
                 android:value="" />
         </activity>
         <activity
-            android:name=".adoption.CompleteFamilyAndHousingInformationActivity"
+            android:name=".adoption.form.CompleteFamilyAndHousingInformationActivity"
             android:exported="false">
             <meta-data
                 android:name="android.app.lib_name"
@@ -101,7 +108,7 @@
         </provider>
 
         <activity
-            android:name=".adoption.CompleteContactInformationActivity"
+            android:name=".adoption.form.CompleteContactInformationActivity"
             android:exported="false">
             <meta-data
                 android:name="android.app.lib_name"
@@ -116,7 +123,7 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".adoption.AdoptPetActivity"
+            android:name=".adoption.form.AdoptPetActivity"
             android:exported="false"
             android:windowSoftInputMode="adjustNothing">
             <meta-data
@@ -136,13 +143,16 @@
             <meta-data
                 android:name="android.app.lib_name"
                 android:value="" />
+
             <intent-filter>
                 <action android:name="android.intent.action.SEARCH" />
+
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
-            <meta-data                android:name="android.app.searchable"
-                android:resource="@xml/searchable" />
 
+            <meta-data
+                android:name="android.app.searchable"
+                android:resource="@xml/searchable" />
         </activity>
         <activity
             android:name=".adoption.FilterPetPreferencesActivity"

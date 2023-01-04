@@ -1,0 +1,121 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".authentication.ViewProfileActivity"
+    android:background="@color/main_background">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical" >
+
+        <ImageView
+            android:id="@+id/viewProfileBack_imageView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/back_64"
+            android:contentDescription="@string/back"
+            android:layout_margin="@dimen/margin"
+            android:padding="@dimen/padding"/>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical" >
+
+            <ImageView
+                android:id="@+id/viewProfileUser_imageView"
+                android:layout_width="150dp"
+                android:layout_height="150dp"
+                android:src="@drawable/user_profile"
+                android:contentDescription="@string/user_profile"
+                android:layout_gravity="center"
+                android:layout_margin="@dimen/margin"
+                android:padding="@dimen/padding"/>
+            <TextView
+                android:id="@+id/viewProfileUserName_textView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/user_name"
+                android:textAlignment="center"
+                android:textSize="@dimen/large_text_view_size"
+                android:layout_margin="@dimen/margin"
+                android:padding="@dimen/padding"/>
+            <ImageView
+                android:id="@+id/viewProfileRating_imageView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:src="@drawable/rating_5_stars_128"
+                android:contentDescription="@string/rating"                />
+        </LinearLayout>
+        
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical" >
+            <TextView
+                android:id="@+id/viewProfileSeeFavoritePets_textView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textSize="@dimen/medium_text_view_size"
+                android:text="@string/favorite_pets"
+                android:textAlignment="center"
+                app:drawableStartCompat="@drawable/heart_32"
+                app:drawableEndCompat="@drawable/next_right_32"
+                android:padding="@dimen/padding"
+                android:layout_margin="@dimen/margin_horizontal"
+                android:background="@drawable/white_rounded_corners_text_view_button_background"/>
+            <TextView
+                android:id="@+id/viewProfileSeePersonalData_textView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textSize="@dimen/medium_text_view_size"
+                android:text="@string/personal_data"
+                android:textAlignment="center"
+                app:drawableStartCompat="@drawable/user_profile_32"
+                app:drawableEndCompat="@drawable/next_right_32"
+                android:padding="@dimen/padding"
+                android:layout_margin="@dimen/margin_horizontal"
+                android:background="@drawable/white_rounded_corners_text_view_button_background"/>
+            <TextView
+                android:id="@+id/viewProfileSeeHistoryEvents_textView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textSize="@dimen/medium_text_view_size"
+                android:text="@string/history_events"
+                android:textAlignment="center"
+                app:drawableStartCompat="@drawable/history_events_32"
+                app:drawableEndCompat="@drawable/next_right_32"
+                android:padding="@dimen/padding"
+                android:layout_margin="@dimen/margin_horizontal"
+                android:background="@drawable/white_rounded_corners_text_view_button_background"/>
+            <TextView
+                android:id="@+id/viewProfileSeePetPreferences_textView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textSize="@dimen/medium_text_view_size"
+                android:text="@string/pet_preferences"
+                android:textAlignment="center"
+                app:drawableStartCompat="@drawable/filter_32"
+                app:drawableEndCompat="@drawable/next_right_32"
+                android:padding="@dimen/padding"
+                android:layout_margin="@dimen/margin_horizontal"
+                android:background="@drawable/white_rounded_corners_text_view_button_background"/>
+        </LinearLayout>
+        
+        <Button
+            android:id="@+id/viewProfileLogout_button"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/margin"
+            android:text="@string/log_out"
+            android:textColor="@color/black"
+            android:padding="@dimen/padding"
+            android:textSize="@dimen/medium_text_view_size"/>
+
+    </LinearLayout>
+
+</ScrollView>

@@ -8,7 +8,9 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.Toast;
 
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -19,23 +21,25 @@ import com.pet.shelter.friends.adoption.adapter.FavoritePetsAdapter;
 import com.pet.shelter.friends.adoption.model.Pet;
 
 import java.util.ArrayList;
+import java.util.Objects;
 
 public class SeeListOfFavoritePetsActivity extends AppCompatActivity {
 
     private RecyclerView favoritePetsRecyclerView;
-    private final ArrayList<Pet> petsArrayList = new ArrayList<>();
-    private ImageView back;
+    private final ArrayList<Pet> favoritePetsArrayList = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_see_list_of_favorite_pets);
 
-        DatabaseReference petsReference = FirebaseDatabase.getInstance().getReference("pets");
+        DatabaseReference favoritePetsReference = FirebaseDatabase.getInstance().getReference("favoritePets");
+
+        String loggedUserId = Objects.requireNonNull(FirebaseAuth.getInstance().getCurrentUser()).getUid();
 
         favoritePetsRecyclerView = findViewById(R.id.favoritePets_recyclerView);
 
-        back = findViewById(R.id.favoritePetsBack_imageView);
+        ImageView back = findViewById(R.id.favoritePetsBack_imageView);
         back.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -43,20 +47,20 @@ public class SeeListOfFavoritePetsActivity extends AppCompatActivity {
             }
         });
 
-        petsReference.addListenerForSingleValueEvent(new ValueEventListener() {
+        Toast.makeText(this, loggedUserId, Toast.LENGTH_SHORT).show();
+
+        favoritePetsReference.child(loggedUserId).addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
-                petsArrayList.clear();
+                favoritePetsArrayList.clear();
                 for (DataSnapshot petDataSnapshot : snapshot.getChildren()) {
                     Pet pet = petDataSnapshot.getValue(Pet.class);
-                    if (pet != null && Boolean.parseBoolean(pet.isFavorite()))
-                        petsArrayList.add(pet);
+                    favoritePetsArrayList.add(pet);
                 }
-
                 FavoritePetsAdapter.OnRecyclerViewItemClickListener petsListCallback = new FavoritePetsAdapter.OnRecyclerViewItemClickListener() {
                     @Override
                     public void onRecyclerViewItemClick(int position) {
-                        Pet pet = petsArrayList.get(position);
+                        Pet pet = favoritePetsArrayList.get(position);
 
                         Intent intent = new Intent(SeeListOfFavoritePetsActivity.this,SeeFavoritePetDetailsActivity.class);
 
@@ -74,8 +78,7 @@ public class SeeListOfFavoritePetsActivity extends AppCompatActivity {
                         startActivity(intent);
                     }
                 };
-                FavoritePetsAdapter favoritePetsAdapter = new FavoritePetsAdapter(petsArrayList, petsListCallback);
-                favoritePetsAdapter.notifyDataSetChanged();
+                FavoritePetsAdapter favoritePetsAdapter = new FavoritePetsAdapter(favoritePetsArrayList, petsListCallback);
                 favoritePetsRecyclerView.setAdapter(favoritePetsAdapter);
             }
 

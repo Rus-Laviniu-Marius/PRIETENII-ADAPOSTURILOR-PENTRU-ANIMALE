@@ -53,7 +53,7 @@ public class AddNewPetActivity extends AppCompatActivity {
             breedEditText, descriptionEditText, sizeEditText;
     private TextView nameTextView, ageTextView, weightTextView, locationTextView, sexTextView,
             breedTextView, descriptionTextView, sizeTextView;
-    private ImageView petImageView;
+    private ImageView petImageView, back;
     private Button cancelButton, addButton;
 
     private Uri selectedImage;
@@ -108,6 +108,7 @@ public class AddNewPetActivity extends AppCompatActivity {
         descriptionTextView = findViewById(R.id.addNewPetDescription_textView);
 
         petImageView = findViewById(R.id.addNewPet_imageView);
+        back = findViewById(R.id.addNewPetBack_imageView);
 
         addButton = findViewById(R.id.addNewPetAdd_button);
         cancelButton = findViewById(R.id.addNewPetCancel_button);
@@ -230,6 +231,12 @@ public class AddNewPetActivity extends AppCompatActivity {
     }
 
     private void setOnClickListeners() {
+        back.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(AddNewPetActivity.this, SeeListOfPetsActivity.class));
+            }
+        });
         addButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

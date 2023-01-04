@@ -5,6 +5,8 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Looper;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.Button;
@@ -36,15 +38,13 @@ public class SeeListOfPetsActivity extends AppCompatActivity {
     private ImageView back, filter, search, favorites, send, home;
     private Button addNewPetButton;
     private GridView gridView;
-    private EditText searchEditText;
     private SearchView searchView;
 
-    private DatabaseReference filtersReference, usersReference, petReference;
+    private DatabaseReference filtersReference, usersReference, petsReference, favoritePetsReference;
 
     private final ArrayList<Pet> petsList = new ArrayList<>();
+    private final ArrayList<Pet> favoritePetsList = new ArrayList<>();
     private CustomListOfPetsAdapter customAdapter;
-    private CustomListOfPetsAdapter searchAdapter;
-
     private final ArrayList<String> petKeys = new ArrayList<>();
 
     @Override
@@ -56,9 +56,9 @@ public class SeeListOfPetsActivity extends AppCompatActivity {
         FirebaseDatabase firebaseDatabase = FirebaseDatabase.getInstance();
         filtersReference = firebaseDatabase.getReference("filters");
         usersReference = firebaseDatabase.getReference("shelterAdmin");
-        petReference = firebaseDatabase.getReference("pets");
+        petsReference = firebaseDatabase.getReference("pets");
+        favoritePetsReference = firebaseDatabase.getReference("favoritePets");
 
-        searchEditText = findViewById(R.id.listOfPetsSearch_editText);
         searchView = findViewById(R.id.listOfPetsName_searchView);
 
         back = findViewById(R.id.listOfPetsTopBarBack_imageView);
@@ -88,9 +88,15 @@ public class SeeListOfPetsActivity extends AppCompatActivity {
 
         removeActiveFilters();
 
-        getPetDataFromDatabase();
+        getPetDataFromDatabase(loggedUid);
+
+        updateGridView();
 
         setOnItemClickListeners();
+    }
+
+    private void updateGridView() {
+
     }
 
     private void setOnClickListeners() {
@@ -244,9 +250,21 @@ public class SeeListOfPetsActivity extends AppCompatActivity {
         });
     }
 
-    private void getPetDataFromDatabase() {
+    public void refresh()
+    {
+        new Handler(Looper.getMainLooper()).post(new Runnable() {
+            @Override
+            public void run() {
+                customAdapter.notifyDataSetChanged();
+                gridView.invalidate();
+            }
+        });
 
-        petReference.addListenerForSingleValueEvent(new ValueEventListener() {
+    }
+
+    private void getPetDataFromDatabase(String loggedUid) {
+
+        petsReference.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 petsList.clear();
@@ -259,14 +277,16 @@ public class SeeListOfPetsActivity extends AppCompatActivity {
 
                 customAdapter = new CustomListOfPetsAdapter(SeeListOfPetsActivity.this, R.layout.custom_pet_view_layout, petsList);
                 customAdapter.notifyDataSetChanged();
+                refresh();
                 gridView.setAdapter(customAdapter);
             }
 
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
-
+                System.out.println("The read failed: " + error.getMessage());
             }
         });
+
 
     }
 
@@ -285,9 +305,11 @@ public class SeeListOfPetsActivity extends AppCompatActivity {
                 intent.putExtra("petLocation", pet.getLocation());
                 intent.putExtra("petSize", pet.getSize());
                 intent.putExtra("petBreed", pet.getBreed());
-                intent.putExtra("petGender", pet.getSex());
+                intent.putExtra("petSex", pet.getSex());
                 intent.putExtra("petDescription", pet.getDescription());
                 intent.putExtra("favorite", pet.isFavorite());
+                intent.putExtra("selected", pet.isSelected());
+                intent.putExtra("petType", pet.getType());
                 intent.putExtra("petKey", petKeys.get(position));
                 startActivity(intent);
             }
@@ -297,9 +319,8 @@ public class SeeListOfPetsActivity extends AppCompatActivity {
             @Override
             public boolean onItemLongClick(AdapterView<?> adapterView, View view, int i, long l) {
                 boolean isSelected = Boolean.parseBoolean(petsList.get(i).isSelected());
-//                Toast.makeText(SeeListOfPetsActivity.this, String.valueOf(isSelected), Toast.LENGTH_SHORT).show();
                 petsList.get(i).setSelected(String.valueOf(!isSelected));
-                petReference.child(petKeys.get(i)).child("selected").setValue(String.valueOf(isSelected));
+                petsReference.child(petKeys.get(i)).child("selected").setValue(String.valueOf(isSelected));
                 customAdapter.notifyDataSetChanged();
                 Toast.makeText(SeeListOfPetsActivity.this, petsList.get(i).getName() + " is selected", Toast.LENGTH_SHORT).show();
 
@@ -315,6 +336,7 @@ public class SeeListOfPetsActivity extends AppCompatActivity {
                 String uId = Objects.requireNonNull(snapshot.child("uId").getValue()).toString();
                 if (loggedUid.equals(uId)) {
                     addNewPetButton.setVisibility(View.VISIBLE);
+//                    favorites.setVisibility(View.GONE);
                 }
             }
 

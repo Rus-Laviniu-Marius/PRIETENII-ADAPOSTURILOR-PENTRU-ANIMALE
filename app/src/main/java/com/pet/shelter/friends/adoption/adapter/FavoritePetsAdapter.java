@@ -24,11 +24,11 @@ public class FavoritePetsAdapter extends RecyclerView.Adapter<FavoritePetsAdapte
         void onRecyclerViewItemClick(int position);
     }
 
-    private final List<Pet> petsList;
+    private final List<Pet> favoritePetsList;
     private final OnRecyclerViewItemClickListener itemClickListener;
 
-    public FavoritePetsAdapter(List<Pet> petsList, OnRecyclerViewItemClickListener itemClickListener) {
-        this.petsList = petsList;
+    public FavoritePetsAdapter(List<Pet> favoritePetsList, OnRecyclerViewItemClickListener itemClickListener) {
+        this.favoritePetsList = favoritePetsList;
         this.itemClickListener = itemClickListener;
     }
 
@@ -44,12 +44,13 @@ public class FavoritePetsAdapter extends RecyclerView.Adapter<FavoritePetsAdapte
     @Override
     public void onBindViewHolder(@NonNull FavoritePetsAdapter.PetViewHolder holder, int position) {
 
-        Pet pet = petsList.get(holder.getAdapterPosition());
+        Pet pet = favoritePetsList.get(holder.getAdapterPosition());
+        String age = pet.getAge() + " years";
 
         Picasso.get().load(pet.getImageDownloadLink()).into(holder.getPetImageView());
         holder.getNameTextView().setText(pet.getName());
         holder.getNameTextView().setCompoundDrawablesWithIntrinsicBounds(0, 0, R.drawable.filled_heart_32, 0);
-        holder.getAgeTextView().setText(String.valueOf(pet.getAge()));
+        holder.getAgeTextView().setText(age);
         holder.getSizeTextView().setText(pet.getSize());
         holder.getSexTextView().setText(pet.getSex());
         holder.getLocationTextView().setText(pet.getLocation());
@@ -86,7 +87,7 @@ public class FavoritePetsAdapter extends RecyclerView.Adapter<FavoritePetsAdapte
 
     @Override
     public int getItemCount() {
-        return petsList.size();
+        return favoritePetsList.size();
     }
 
     // HOLDER

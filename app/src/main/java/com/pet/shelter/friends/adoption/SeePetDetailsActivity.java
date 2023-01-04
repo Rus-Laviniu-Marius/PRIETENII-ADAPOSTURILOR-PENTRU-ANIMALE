@@ -1,5 +1,6 @@
 package com.pet.shelter.friends.adoption;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.content.res.AppCompatResources;
 
@@ -12,35 +13,53 @@ import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 import com.pet.shelter.friends.R;
+import com.pet.shelter.friends.adoption.form.AdoptPetActivity;
+import com.pet.shelter.friends.adoption.model.Pet;
 import com.squareup.picasso.Picasso;
+
+import java.util.Objects;
 
 public class SeePetDetailsActivity extends AppCompatActivity {
 
+    private FirebaseAuth firebaseAuth;
     private FirebaseDatabase firebaseDatabase;
-    private DatabaseReference favoritePetsReference, petsReference;
+    private DatabaseReference favoritePetsReference, petsReference, shelterAdminReference;
 
     private RelativeLayout mainContainer;
     private ImageView petImage, back, love;
-    private TextView petName, petAge, petWeight, petLocation, petSize, petBreed, petGender,
+    private TextView petName, petAge, petWeight, petLocation, petSize, petBreed, petSex,
             petDescription, veterinarianData, descriptionTextView;
-    private Button adoptPet;
+    private Button adoptPet, seeActivePetAdoptionRequests;
     private Bundle bundle;
+
+    private Pet pet;
+    private String currentLoggedUserId;
+    private String petKey = "";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_see_pet_details);
 
+        firebaseAuth = FirebaseAuth.getInstance();
         firebaseDatabase = FirebaseDatabase.getInstance();
         favoritePetsReference = firebaseDatabase.getReference("favoritePets");
         petsReference = firebaseDatabase.getReference("pets");
+        shelterAdminReference = firebaseDatabase.getReference("shelterAdmin");
+
+        currentLoggedUserId = Objects.requireNonNull(firebaseAuth.getCurrentUser()).getUid();
 
         back = findViewById(R.id.petDetailsTopBarBack_imageView);
         love = findViewById(R.id.petDetailsTopBarLove_imageView);
         adoptPet = findViewById(R.id.petDetailsAdopt_button);
+        seeActivePetAdoptionRequests = findViewById(R.id.petDetailsSeeActivePetAdoptionRequests_button);
 
         mainContainer = findViewById(R.id.petDetailsContainer_relativeLayout);
         petImage = findViewById(R.id.petDetailsContentPet_imageView);
@@ -50,33 +69,68 @@ public class SeePetDetailsActivity extends AppCompatActivity {
         petLocation = findViewById(R.id.petDetailsContentLocation_textView);
         petSize = findViewById(R.id.petDetailsContentSize_textView);
         petBreed = findViewById(R.id.petDetailsContentBreed_textView);
-        petGender = findViewById(R.id.petDetailsContentGender_textView);
+        petSex = findViewById(R.id.petDetailsContentSex_textView);
         petDescription = findViewById(R.id.petDetailsDescriptionContent_textView);
         veterinarianData = findViewById(R.id.petDetailsContentVeterinarianData_textView);
         descriptionTextView = findViewById(R.id.petDetailsDescription_textView);
 
         bundle = getIntent().getExtras();
 
-        String color = bundle.getString("backgroundColor");
-        String age = "" + bundle.getInt("petAge") + " years";
-        String weight = "" + bundle.getDouble("petWeight") + " KG";
+        String backgroundColor = bundle.getString("backgroundColor");
+        String downloadLink = bundle.getString("imageDownloadLink");
+        String name = bundle.getString("petName");
+        int age = bundle.getInt("petAge");
+        double weight = bundle.getDouble("petWeight");
+        String locationString = bundle.getString("petLocation");
+        String size = bundle.getString("petSize");
+        String breed = bundle.getString("petBreed");
+        String sex = bundle.getString("petSex");
+        String description = bundle.getString("petDescription");
+        String favorite = bundle.getString("favorite");
+        String selected = bundle.getString("selected");
+        String petType = bundle.getString("petType");
+        petKey = bundle.getString("petKey");
+
+
+        pet = new Pet(backgroundColor, downloadLink, name, age, weight, locationString, size, breed, sex, description, favorite, selected, petType);
+
+
+        String ageString = "" + bundle.getInt("petAge") + " years";
+        String weightString = "" + bundle.getDouble("petWeight") + " KG";
 
         Drawable birthdayCake, fullSize, gender, location, pawsPrint, weightingScale;
 
-        Picasso.get().load(bundle.getString("imageDownloadLink")).into(petImage);
-        petName.setText(bundle.getString("petName"));
-        petAge.setText(age);
-        petWeight.setText(weight);
-        petLocation.setText(bundle.getString("petLocation"));
-        petSize.setText(bundle.getString("petSize"));
-        petBreed.setText(bundle.getString("petBreed"));
-        petGender.setText(bundle.getString("petGender"));
-        petDescription.setText(bundle.getString("petDescription"));
+        Picasso.get().load(downloadLink).into(petImage);
+        petName.setText(name);
+        petAge.setText(ageString);
+        petWeight.setText(weightString);
+        petLocation.setText(locationString);
+        petSize.setText(size);
+        petBreed.setText(breed);
+        petSex.setText(sex);
+        petDescription.setText(description);
 
-        if (Boolean.parseBoolean(bundle.getString("favorite")))
-            love.setImageResource(R.drawable.filled_heart_64);
+        favoritePetsReference.child(currentLoggedUserId).child(petKey).child("favorite").addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                if(snapshot.getValue() != null && Boolean.parseBoolean(snapshot.getValue().toString())) {
+                    love.setImageResource(R.drawable.filled_heart_64);
+                }
+                else {
+                    love.setImageResource(R.drawable.heart_64);
+                }
+            }
 
-        switch (color) {
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+
+//        if (Boolean.parseBoolean(bundle.getString("favorite")))
+//            love.setImageResource(R.drawable.filled_heart_64);
+
+        switch (backgroundColor) {
             case "linen":
                 mainContainer.setBackgroundColor(getResources().getColor(R.color.linen));
                 petName.setTextColor(getResources().getColor(R.color.linen));
@@ -85,7 +139,7 @@ public class SeePetDetailsActivity extends AppCompatActivity {
                 petLocation.setTextColor(getResources().getColor(R.color.linen));
                 petSize.setTextColor(getResources().getColor(R.color.linen));
                 petBreed.setTextColor(getResources().getColor(R.color.linen));
-                petGender.setTextColor(getResources().getColor(R.color.linen));
+                petSex.setTextColor(getResources().getColor(R.color.linen));
                 petDescription.setTextColor(getResources().getColor(R.color.linen));
                 descriptionTextView.setTextColor(getResources().getColor(R.color.linen));
                 veterinarianData.setTextColor(getResources().getColor(R.color.linen));
@@ -101,7 +155,7 @@ public class SeePetDetailsActivity extends AppCompatActivity {
                 pawsPrint = AppCompatResources.getDrawable(SeePetDetailsActivity.this, R.drawable.card1_paws_print);
                 petBreed.setCompoundDrawablesWithIntrinsicBounds(pawsPrint, null, null, null);
                 gender = AppCompatResources.getDrawable(SeePetDetailsActivity.this, R.drawable.card1_gender);
-                petGender.setCompoundDrawablesWithIntrinsicBounds(gender, null, null, null);
+                petSex.setCompoundDrawablesWithIntrinsicBounds(gender, null, null, null);
                 break;
             case "water":
                 mainContainer.setBackgroundColor(getResources().getColor(R.color.water));
@@ -111,7 +165,7 @@ public class SeePetDetailsActivity extends AppCompatActivity {
                 petLocation.setTextColor(getResources().getColor(R.color.water));
                 petSize.setTextColor(getResources().getColor(R.color.water));
                 petBreed.setTextColor(getResources().getColor(R.color.water));
-                petGender.setTextColor(getResources().getColor(R.color.water));
+                petSex.setTextColor(getResources().getColor(R.color.water));
                 petDescription.setTextColor(getResources().getColor(R.color.water));
                 descriptionTextView.setTextColor(getResources().getColor(R.color.water));
                 veterinarianData.setTextColor(getResources().getColor(R.color.water));
@@ -127,7 +181,7 @@ public class SeePetDetailsActivity extends AppCompatActivity {
                 pawsPrint = AppCompatResources.getDrawable(SeePetDetailsActivity.this, R.drawable.card2_paws_print);
                 petBreed.setCompoundDrawablesWithIntrinsicBounds(pawsPrint, null, null, null);
                 gender = AppCompatResources.getDrawable(SeePetDetailsActivity.this, R.drawable.card2_gender);
-                petGender.setCompoundDrawablesWithIntrinsicBounds(gender, null, null, null);
+                petSex.setCompoundDrawablesWithIntrinsicBounds(gender, null, null, null);
                 break;
             case "magic_mint":
                 mainContainer.setBackgroundColor(getResources().getColor(R.color.magic_mint));
@@ -137,7 +191,7 @@ public class SeePetDetailsActivity extends AppCompatActivity {
                 petLocation.setTextColor(getResources().getColor(R.color.magic_mint));
                 petSize.setTextColor(getResources().getColor(R.color.magic_mint));
                 petBreed.setTextColor(getResources().getColor(R.color.magic_mint));
-                petGender.setTextColor(getResources().getColor(R.color.magic_mint));
+                petSex.setTextColor(getResources().getColor(R.color.magic_mint));
                 petDescription.setTextColor(getResources().getColor(R.color.magic_mint));
                 descriptionTextView.setTextColor(getResources().getColor(R.color.magic_mint));
                 veterinarianData.setTextColor(getResources().getColor(R.color.magic_mint));
@@ -153,7 +207,7 @@ public class SeePetDetailsActivity extends AppCompatActivity {
                 pawsPrint = AppCompatResources.getDrawable(SeePetDetailsActivity.this, R.drawable.card3_paws_print);
                 petBreed.setCompoundDrawablesWithIntrinsicBounds(pawsPrint, null, null, null);
                 gender = AppCompatResources.getDrawable(SeePetDetailsActivity.this, R.drawable.card3_gender);
-                petGender.setCompoundDrawablesWithIntrinsicBounds(gender, null, null, null);
+                petSex.setCompoundDrawablesWithIntrinsicBounds(gender, null, null, null);
                 break;
             case "yellow_crayola":
                 mainContainer.setBackgroundColor(getResources().getColor(R.color.yellow_crayola));
@@ -163,7 +217,7 @@ public class SeePetDetailsActivity extends AppCompatActivity {
                 petLocation.setTextColor(getResources().getColor(R.color.yellow_crayola));
                 petSize.setTextColor(getResources().getColor(R.color.yellow_crayola));
                 petBreed.setTextColor(getResources().getColor(R.color.yellow_crayola));
-                petGender.setTextColor(getResources().getColor(R.color.yellow_crayola));
+                petSex.setTextColor(getResources().getColor(R.color.yellow_crayola));
                 petDescription.setTextColor(getResources().getColor(R.color.yellow_crayola));
                 descriptionTextView.setTextColor(getResources().getColor(R.color.yellow_crayola));
                 veterinarianData.setTextColor(getResources().getColor(R.color.yellow_crayola));
@@ -179,7 +233,7 @@ public class SeePetDetailsActivity extends AppCompatActivity {
                 pawsPrint = AppCompatResources.getDrawable(SeePetDetailsActivity.this, R.drawable.card4_paws_print);
                 petBreed.setCompoundDrawablesWithIntrinsicBounds(pawsPrint, null, null, null);
                 gender = AppCompatResources.getDrawable(SeePetDetailsActivity.this, R.drawable.card4_gender);
-                petGender.setCompoundDrawablesWithIntrinsicBounds(gender, null, null, null);
+                petSex.setCompoundDrawablesWithIntrinsicBounds(gender, null, null, null);
                 break;
             default:
                 break;
@@ -187,12 +241,15 @@ public class SeePetDetailsActivity extends AppCompatActivity {
 
 
         adoptPet.setBackgroundColor(getResources().getColor(R.color.main_background));
+        seeActivePetAdoptionRequests.setBackgroundColor(getResources().getColor(R.color.main_background));
 
-        setOnClickListeners();
+        checkIfCurrentUserIsShelterAdmin(currentLoggedUserId);
+
+        setOnClickListeners(currentLoggedUserId);
 
     }
 
-    private void setOnClickListeners() {
+    private void setOnClickListeners(String currentLoggedUserUid) {
         back.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -201,18 +258,20 @@ public class SeePetDetailsActivity extends AppCompatActivity {
             }
         });
 
-
         love.setOnClickListener(new View.OnClickListener() {
             boolean isPressed = false;
             @Override
             public void onClick(View v) {
                 if (isPressed) {
                     love.setImageResource(R.drawable.filled_heart_64);
-                    petsReference.child(bundle.getString("petKey")).child("favorite").setValue("true");
+                    pet.setFavorite("true");
+//                    petsReference.child(bundle.getString("petKey")).child("favorite").setValue("true");
+                    favoritePetsReference.child(currentLoggedUserUid).child(petKey).setValue(pet);
                 }
                 else {
                     love.setImageResource(R.drawable.heart_64);
                     petsReference.child(bundle.getString("petKey")).child("favorite").setValue("false");
+                    favoritePetsReference.child(currentLoggedUserUid).child(petKey).removeValue();
                 }
                 isPressed = !isPressed;
             }
@@ -223,6 +282,33 @@ public class SeePetDetailsActivity extends AppCompatActivity {
             public void onClick(View v) {
                 Intent intent = new Intent(SeePetDetailsActivity.this, AdoptPetActivity.class);
                 startActivity(intent);
+            }
+        });
+
+        seeActivePetAdoptionRequests.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+            }
+        });
+    }
+
+    private void checkIfCurrentUserIsShelterAdmin(String loggedUid) {
+        shelterAdminReference.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                String uId = Objects.requireNonNull(snapshot.child("uId").getValue()).toString();
+                if (loggedUid.equals(uId)) {
+//                    love.setVisibility(View.GONE);
+                    adoptPet.setVisibility(View.GONE);
+                    seeActivePetAdoptionRequests.setVisibility(View.VISIBLE);
+
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
             }
         });
     }

@@ -33,29 +33,10 @@ public class Pet {
         this.selected = selected;
         this.type = type;
     }
-//
+
     public Pet() {
 
     }
-
-//    @Override
-//    public String toString() {
-//        return "Pet{" +
-//                "backgroundColor='" + backgroundColor + '\'' +
-//                ", imageDownloadLink='" + imageDownloadLink + '\'' +
-//                ", name='" + name + '\'' +
-//                ", location='" + location + '\'' +
-//                ", size='" + size + '\'' +
-//                ", breed='" + breed + '\'' +
-//                ", sex='" + sex + '\'' +
-//                ", description='" + description + '\'' +
-//                ", favorite='" + favorite + '\'' +
-//                ", selected='" + selected + '\'' +
-//                ", type='" + type + '\'' +
-//                ", age=" + age +
-//                ", weight=" + weight +
-//                '}';
-//    }
 
     @Override
     public String toString() {
@@ -79,7 +60,8 @@ public class Pet {
     }
 
     public void setFavorite(String favorite) {
-        this.favorite = favorite;
+        if (favorite.equals("false") || favorite.equals("true"))
+                this.favorite = favorite;
     }
 
     public String isSelected() {

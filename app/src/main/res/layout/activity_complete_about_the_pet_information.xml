@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/main_background"
-    tools:context=".adoption.CompleteAboutThePetInformationActivity">
+    tools:context=".adoption.form.CompleteAboutThePetInformationActivity">
 
     <RelativeLayout
         android:id="@+id/completeAboutThePetInformationTopBar_relativeLayout"

@@ -8,18 +8,11 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.ImageView;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.cardview.widget.CardView;
 
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.ValueEventListener;
 import com.pet.shelter.friends.R;
 import com.pet.shelter.friends.adoption.model.Pet;
 import com.squareup.picasso.Picasso;
@@ -29,20 +22,20 @@ import java.util.List;
 
 public class CustomListOfPetsAdapter extends ArrayAdapter<Pet> {
 
-    private List<Pet> petList;
+    private List<Pet> petsList;
+//    private List<Pet> favoritePetsList;
     private final int custom_pet_view_layout_id;
-
-    private DatabaseReference favoritePetsReference = FirebaseDatabase.getInstance().getReference("favoritePets");
 
     public CustomListOfPetsAdapter(@NonNull Context context, int resource, @NonNull List<Pet> objects) {
         super(context, resource, objects);
-        petList = objects;
+        petsList = objects;
+//        favoritePetsList = favoriteObjects;
         custom_pet_view_layout_id = resource;
     }
 
     @Override
     public int getCount() {
-        return petList.size();
+        return petsList.size();
     }
 
     @NonNull
@@ -68,7 +61,7 @@ public class CustomListOfPetsAdapter extends ArrayAdapter<Pet> {
         CardView containerPetView = v.findViewById(R.id.customPetViewContainer_relativeLayout);
 
         // get the item using the position param
-        Pet pet = petList.get(position);
+        Pet pet = petsList.get(position);
 
             Picasso.get().load(pet.getImageDownloadLink()).into(petImageView);
             String age = pet.getAge() + " years";
@@ -106,8 +99,8 @@ public class CustomListOfPetsAdapter extends ArrayAdapter<Pet> {
     }
 
     public void upToDate(List<Pet> newList){
-        petList = new ArrayList<>();
-        petList.addAll(newList);
+        petsList = new ArrayList<>();
+        petsList.addAll(newList);
         notifyDataSetChanged();
     }
 }
