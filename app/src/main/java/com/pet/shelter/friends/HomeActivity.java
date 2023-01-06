@@ -16,14 +16,15 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.pet.shelter.friends.adoption.FilterPetPreferencesActivity;
-import com.pet.shelter.friends.authentication.ViewProfileActivity;
+import com.pet.shelter.friends.adoption.profile.CreateProfileActivity;
+import com.pet.shelter.friends.adoption.profile.ViewProfileActivity;
 
 import java.util.Objects;
 
 public class HomeActivity extends AppCompatActivity {
 
     private FirebaseAuth firebaseAuth;
-    private DatabaseReference activeUsersReference, shelterAdminReference;
+    private DatabaseReference activeUsersReference, shelterAdminReference, databaseReference;
     private TextView bottomBarHome, bottomBarAdopt, bottomBarDonate, bottomBarProfile;
     private RelativeLayout contentTopLeftAdopt, contentTopRightSponsor, contentBottomLeftVolunteer, contentBottomRightMaterialSupport;
 
@@ -36,6 +37,7 @@ public class HomeActivity extends AppCompatActivity {
         FirebaseDatabase firebaseDatabase = FirebaseDatabase.getInstance();
         activeUsersReference = firebaseDatabase.getReference("activeUsers");
         shelterAdminReference = firebaseDatabase.getReference("shelterAdmin");
+        databaseReference = firebaseDatabase.getReference();
 
         bottomBarHome = findViewById(R.id.homeScreenBottomBarHome_textView);
         bottomBarAdopt = findViewById(R.id.homeScreenBottomBarAdopt_textView);
@@ -75,8 +77,23 @@ public class HomeActivity extends AppCompatActivity {
         bottomBarProfile.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(HomeActivity.this, ViewProfileActivity.class);
-                startActivity(intent);
+                databaseReference.addValueEventListener(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot snapshot) {
+                        if (snapshot.hasChild("users")) {
+                            Intent intent = new Intent(HomeActivity.this, ViewProfileActivity.class);
+                            startActivity(intent);
+                        } else {
+                            Intent intent = new Intent(HomeActivity.this, CreateProfileActivity.class);
+                            startActivity(intent);
+                        }
+                    }
+
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError error) {
+
+                    }
+                });
             }
         });
 

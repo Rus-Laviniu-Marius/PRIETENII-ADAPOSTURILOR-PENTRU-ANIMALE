@@ -3,7 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/main_background"
+    android:background="@color/aero_blue"
     tools:context=".adoption.FilterPetPreferencesActivity">
 
     <TextView
@@ -43,7 +43,7 @@
         android:layout_height="wrap_content"
         android:layout_below="@id/filterDescription_textView"
         android:text="@string/skip"
-        android:backgroundTint="@color/buttons_general"
+        android:backgroundTint="@color/light_silver"
         android:textColor="@color/black"
         android:layout_margin="10dp"/>
 
@@ -586,7 +586,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="@string/search"
-                android:backgroundTint="@color/buttons_general"
+                android:backgroundTint="@color/light_silver"
                 android:textColor="@color/black"
                 android:layout_margin="10dp"/>
         </LinearLayout>

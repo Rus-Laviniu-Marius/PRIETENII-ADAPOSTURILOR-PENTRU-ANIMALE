@@ -240,8 +240,8 @@ public class SeePetDetailsActivity extends AppCompatActivity {
         }
 
 
-        adoptPet.setBackgroundColor(getResources().getColor(R.color.main_background));
-        seeActivePetAdoptionRequests.setBackgroundColor(getResources().getColor(R.color.main_background));
+        adoptPet.setBackgroundColor(getResources().getColor(R.color.aero_blue));
+        seeActivePetAdoptionRequests.setBackgroundColor(getResources().getColor(R.color.aero_blue));
 
         checkIfCurrentUserIsShelterAdmin(currentLoggedUserId);
 

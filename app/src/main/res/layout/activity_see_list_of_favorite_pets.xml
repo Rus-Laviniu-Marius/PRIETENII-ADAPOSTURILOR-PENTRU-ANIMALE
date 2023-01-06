@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     tools:context=".adoption.SeeListOfFavoritePetsActivity"
     android:orientation="vertical"
-    android:background="@color/main_background">
+    android:background="@color/aero_blue">
 
     <ImageView
         android:id="@+id/favoritePetsBack_imageView"

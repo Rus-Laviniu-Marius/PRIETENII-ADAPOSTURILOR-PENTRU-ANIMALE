@@ -23,7 +23,7 @@
                 android:topRightRadius="50dp"
                 android:bottomRightRadius="50dp"
                 android:bottomLeftRadius="50dp" />
-            <solid android:color="@color/buttons_group" />
+            <solid android:color="@color/pear" />
         </shape>
     </item>
 </selector>

@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".authentication.RegisterActivity"
-    android:background="@color/main_background" >
+    android:background="@color/aero_blue" >
 
     <RelativeLayout
         android:layout_width="wrap_content"

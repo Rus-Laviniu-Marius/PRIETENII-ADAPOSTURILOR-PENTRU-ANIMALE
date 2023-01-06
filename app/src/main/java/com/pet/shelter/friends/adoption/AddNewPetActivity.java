@@ -83,6 +83,8 @@ public class AddNewPetActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_new_pet);
 
+
+
         firebaseAuth = FirebaseAuth.getInstance();
         FirebaseDatabase firebaseDatabase = FirebaseDatabase.getInstance();
         petsReference = firebaseDatabase.getReference("pets");
@@ -311,7 +313,7 @@ public class AddNewPetActivity extends AppCompatActivity {
 
         // Defining the child of storageReference
         StorageReference ref = storageReference
-                .child("user")
+                .child("pet")
                 .child(Objects.requireNonNull(firebaseAuth.getCurrentUser()).getUid())
                 .child("images/" + petName + "_" + petType);
 

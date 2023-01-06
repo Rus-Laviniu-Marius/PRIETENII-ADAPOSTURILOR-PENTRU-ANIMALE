@@ -47,7 +47,7 @@ public class SeeListOfFavoritePetsActivity extends AppCompatActivity {
             }
         });
 
-        Toast.makeText(this, loggedUserId, Toast.LENGTH_SHORT).show();
+//        Toast.makeText(this, loggedUserId, Toast.LENGTH_SHORT).show();
 
         favoritePetsReference.child(loggedUserId).addValueEventListener(new ValueEventListener() {
             @Override

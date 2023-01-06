@@ -1,4 +1,4 @@
-package com.pet.shelter.friends.authentication;
+package com.pet.shelter.friends.adoption.profile;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -18,7 +18,10 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.pet.shelter.friends.HomeActivity;
 import com.pet.shelter.friends.R;
+import com.pet.shelter.friends.adoption.FilterPetPreferencesActivity;
 import com.pet.shelter.friends.adoption.SeeListOfFavoritePetsActivity;
+import com.pet.shelter.friends.authentication.LoginActivity;
+import com.squareup.picasso.Picasso;
 
 import java.util.Objects;
 
@@ -27,11 +30,14 @@ public class ViewProfileActivity extends AppCompatActivity {
 
     private FirebaseAuth firebaseAuth;
     FirebaseDatabase firebaseDatabase;
-    DatabaseReference activeUsersReference, shelterAdminReference;
+    DatabaseReference activeUsersReference, shelterAdminReference, usersReference, databaseReference;
 
     private TextView userNameTextView, userPersonalDataTextView, favoritePetsTextView, historyEventsTextView, petPreferencesTextView;
     private ImageView userProfileImageView, userRatingImageView, back;
     private Button logoutButton;
+
+    private String loggedUserId;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,6 +48,10 @@ public class ViewProfileActivity extends AppCompatActivity {
         firebaseDatabase = FirebaseDatabase.getInstance();
         activeUsersReference = firebaseDatabase.getReference("activeUsers");
         shelterAdminReference = firebaseDatabase.getReference("shelterAdmin");
+        usersReference = firebaseDatabase.getReference("users");
+        databaseReference = firebaseDatabase.getReference();
+
+        loggedUserId = Objects.requireNonNull(firebaseAuth.getCurrentUser()).getUid();
 
         userNameTextView = findViewById(R.id.viewProfileUserName_textView);
         favoritePetsTextView = findViewById(R.id.viewProfileSeeFavoritePets_textView);
@@ -55,7 +65,42 @@ public class ViewProfileActivity extends AppCompatActivity {
 
         logoutButton = findViewById(R.id.viewProfileLogout_button);
 
+        readDataFromDatabase();
+
         setOnClickListeners();
+    }
+
+    private void readDataFromDatabase() {
+
+        databaseReference.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                if (snapshot.hasChild("users")) {
+                    usersReference.child(loggedUserId).addValueEventListener(new ValueEventListener() {
+                        @Override
+                        public void onDataChange(@NonNull DataSnapshot snapshot) {
+                            String profileImageDownloadLink = Objects.requireNonNull(snapshot.child("profileImageDownloadLink").getValue()).toString();
+                            String name = Objects.requireNonNull(snapshot.child("name").getValue()).toString();
+
+                            Picasso.get().load(profileImageDownloadLink).into(userProfileImageView);
+                            userNameTextView.setText(name);
+                        }
+
+                        @Override
+                        public void onCancelled(@NonNull DatabaseError error) {
+
+                        }
+                    });
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+
+
     }
 
     private void setOnClickListeners() {
@@ -70,7 +115,7 @@ public class ViewProfileActivity extends AppCompatActivity {
         userPersonalDataTextView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
+                startActivity(new Intent(ViewProfileActivity.this, UserPersonalDataActivity.class));
             }
         });
 
@@ -84,7 +129,8 @@ public class ViewProfileActivity extends AppCompatActivity {
         petPreferencesTextView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
+                Intent intent = new Intent(ViewProfileActivity.this, FilterPetPreferencesActivity.class);
+                startActivity(intent);
             }
         });
 
@@ -107,7 +153,6 @@ public class ViewProfileActivity extends AppCompatActivity {
 
     private void removeConnectedUserFromActiveUsers() {
 
-        String loggedUserId = Objects.requireNonNull(firebaseAuth.getCurrentUser()).getUid();
         firebaseDatabase.getReference().addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
@@ -121,19 +166,5 @@ public class ViewProfileActivity extends AppCompatActivity {
 
             }
         });
-//        shelterAdminReference.addValueEventListener(new ValueEventListener() {
-//            @Override
-//            public void onDataChange(@NonNull DataSnapshot snapshot) {
-//                String shelterAdminId = Objects.requireNonNull(snapshot.child("uId").getValue()).toString();
-//                if (!shelterAdminId.equals(loggedUserId)) {
-//
-//                }
-//            }
-//
-//            @Override
-//            public void onCancelled(@NonNull DatabaseError error) {
-//
-//            }
-//        });
     }
 }

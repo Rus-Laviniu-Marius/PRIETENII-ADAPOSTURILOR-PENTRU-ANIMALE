@@ -185,7 +185,7 @@ public class SeeFavoritePetDetailsActivity extends AppCompatActivity {
                 break;
         }
 
-        adoptPet.setBackgroundColor(getResources().getColor(R.color.main_background));
+        adoptPet.setBackgroundColor(getResources().getColor(R.color.aero_blue));
 
         setOnClickListeners();
 

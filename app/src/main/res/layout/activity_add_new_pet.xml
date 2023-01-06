@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".adoption.AddNewPetActivity"
-    android:background="@color/main_background">
+    android:background="@color/aero_blue">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -286,7 +286,7 @@
                 android:textColor="@color/black"
                 android:layout_weight="1"
                 android:layout_margin="10dp"
-                android:backgroundTint="@color/buttons_general"
+                android:backgroundTint="@color/light_silver"
                 style="?android:attr/buttonBarButtonStyle" />
             <Button
                 android:id="@+id/addNewPetAdd_button"
@@ -296,7 +296,7 @@
                 android:textColor="@color/black"
                 android:layout_weight="1"
                 android:layout_margin="10dp"
-                android:backgroundTint="@color/buttons_general"
+                android:backgroundTint="@color/light_silver"
                 style="?android:attr/buttonBarButtonStyle" />
         </LinearLayout>
 

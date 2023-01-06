@@ -188,5 +188,11 @@
     <string name="history_events">History events</string>
     <string name="log_out">Log out</string>
     <string name="pet_preferences">Pet preferences</string>
+    <string name="open_gallery">Open gallery</string>
+    <string name="open_camera">Open camera</string>
+    <string name="update">Update</string>
+    <string name="edit_user_profile">Edit user profile</string>
+    <string name="create">Create</string>
+    <string name="past_events">Past events</string>
 
 </resources>
