@@ -9,6 +9,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.RadioButton;
+import android.widget.TextView;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DatabaseReference;
@@ -20,9 +21,9 @@ import java.util.Objects;
 public class CompleteAboutThePetInformationActivity extends AppCompatActivity {
 
     private FirebaseAuth firebaseAuth;
-    private FirebaseDatabase firebaseDatabase;
-    private DatabaseReference aboutPetInformationReference;
-    private EditText daytimePlaceDescription, nightTimePlaceDescription, numberOfHoursPetIsAlone, petName;
+    private DatabaseReference adoptionFormReference;
+    private TextView petNameTextView, numberOfHoursPetIsAloneTextView;
+    private EditText daytimePlaceDescription, nightTimePlaceDescription, numberOfHoursPetIsAloneEditText, petNameEditText;
     private RadioButton regularHealthCare, noRegularHealthCare, contactForSurrender, noContactForSurrender;
     private ImageView backButton, nextButton;
     private Button submitButton;
@@ -33,13 +34,15 @@ public class CompleteAboutThePetInformationActivity extends AppCompatActivity {
         setContentView(R.layout.activity_complete_about_the_pet_information);
 
         firebaseAuth = FirebaseAuth.getInstance();
-        firebaseDatabase = FirebaseDatabase.getInstance();
-        aboutPetInformationReference = firebaseDatabase.getReference("aboutPet");
+        FirebaseDatabase firebaseDatabase = FirebaseDatabase.getInstance();
+        adoptionFormReference = firebaseDatabase.getReference("adoptionForm");
 
         daytimePlaceDescription = findViewById(R.id.dayTimePlaceDescription_editText);
         nightTimePlaceDescription = findViewById(R.id.nightTimePlaceDescription_editText);
-        numberOfHoursPetIsAlone = findViewById(R.id.numberOfHoursPetIsALone_editText);
-        petName = findViewById(R.id.aboutPetName_editText);
+        numberOfHoursPetIsAloneTextView = findViewById(R.id.numberOfHoursPetIsALone_textView);
+        petNameTextView = findViewById(R.id.aboutPetName_textView);
+        numberOfHoursPetIsAloneEditText = findViewById(R.id.numberOfHoursPetIsALone_editText);
+        petNameEditText = findViewById(R.id.aboutPetName_editText);
         regularHealthCare = findViewById(R.id.regularHealthCareYes_radioButton);
         noRegularHealthCare = findViewById(R.id.regularHealthCareNo_radioButton);
         contactForSurrender = findViewById(R.id.contactForSurrenderYes_radioButton);
@@ -49,6 +52,30 @@ public class CompleteAboutThePetInformationActivity extends AppCompatActivity {
         nextButton = findViewById(R.id.completeAboutThePetInformationNext_button);
         submitButton = findViewById(R.id.completeAboutThePetInformationSubmit_button);
 
+        setOnFocusChangeListeners();
+        setOnClickListeners();
+
+    }
+
+    private void setOnFocusChangeListeners() {
+        petNameEditText.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View view, boolean b) {
+                petNameEditText.setHint("");
+                petNameTextView.setVisibility(View.VISIBLE);
+            }
+        });
+
+        numberOfHoursPetIsAloneEditText.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View view, boolean b) {
+                numberOfHoursPetIsAloneEditText.setHint("");
+                numberOfHoursPetIsAloneTextView.setVisibility(View.VISIBLE);
+            }
+        });
+    }
+
+    private void setOnClickListeners() {
         submitButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -76,23 +103,23 @@ public class CompleteAboutThePetInformationActivity extends AppCompatActivity {
     private void writeToDatabase() {
         String currentFirebaseUserUid = Objects.requireNonNull(firebaseAuth.getCurrentUser()).getUid();
 
-        aboutPetInformationReference.child(currentFirebaseUserUid).child("petName").setValue(petName.getText().toString());
-        aboutPetInformationReference.child(currentFirebaseUserUid).child("daytimePlace").setValue(daytimePlaceDescription.getText().toString());
-        aboutPetInformationReference.child(currentFirebaseUserUid).child("nighttimePlace").setValue(nightTimePlaceDescription.getText().toString());
-        aboutPetInformationReference.child(currentFirebaseUserUid).child("aloneHours").setValue(numberOfHoursPetIsAlone.getText().toString());
+        adoptionFormReference.child(currentFirebaseUserUid).child("aboutPetInformation").child("petName").setValue(petNameEditText.getText().toString().trim());
+        adoptionFormReference.child(currentFirebaseUserUid).child("aboutPetInformation").child("daytimePlace").setValue(daytimePlaceDescription.getText().toString().trim());
+        adoptionFormReference.child(currentFirebaseUserUid).child("aboutPetInformation").child("nighttimePlace").setValue(nightTimePlaceDescription.getText().toString().trim());
+        adoptionFormReference.child(currentFirebaseUserUid).child("aboutPetInformation").child("aloneHours").setValue(numberOfHoursPetIsAloneEditText.getText().toString().trim());
 
         if (regularHealthCare.isChecked()) {
-            aboutPetInformationReference.child(currentFirebaseUserUid).child("regularHealthCare").setValue("yes");
+            adoptionFormReference.child(currentFirebaseUserUid).child("aboutPetInformation").child("regularHealthCare").setValue("yes");
         }
         if (noRegularHealthCare.isChecked()) {
-            aboutPetInformationReference.child(currentFirebaseUserUid).child("regularHealthCare").setValue("no");
+            adoptionFormReference.child(currentFirebaseUserUid).child("aboutPetInformation").child("regularHealthCare").setValue("no");
         }
 
         if (contactForSurrender.isChecked()) {
-            aboutPetInformationReference.child(currentFirebaseUserUid).child("contactForSurrender").setValue("yes");
+            adoptionFormReference.child(currentFirebaseUserUid).child("aboutPetInformation").child("contactForSurrender").setValue("yes");
         }
         if (noContactForSurrender.isChecked()) {
-            aboutPetInformationReference.child(currentFirebaseUserUid).child("contactForSurrender").setValue("no");
+            adoptionFormReference.child(currentFirebaseUserUid).child("aboutPetInformation").child("contactForSurrender").setValue("no");
         }
     }
 

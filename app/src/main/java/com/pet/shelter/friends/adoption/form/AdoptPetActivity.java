@@ -32,6 +32,10 @@ public class AdoptPetActivity extends AppCompatActivity {
         buttonBack = findViewById(R.id.adoptPetBack_button);
         buttonNext = findViewById(R.id.adoptPetNext_button);
 
+        setOnClickListeners();
+    }
+
+    private void setOnClickListeners() {
         completeContactInformation.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -43,7 +47,7 @@ public class AdoptPetActivity extends AppCompatActivity {
         completeFamilyAndHousingInformation.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(AdoptPetActivity.this, CompleteFamilyAndHousingInformationActivity.class);
+                Intent intent = new Intent(AdoptPetActivity.this, CompleteFamilyAndHouseholdInformationActivity.class);
                 startActivity(intent);
             }
         });
@@ -95,6 +99,5 @@ public class AdoptPetActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
-
     }
 }

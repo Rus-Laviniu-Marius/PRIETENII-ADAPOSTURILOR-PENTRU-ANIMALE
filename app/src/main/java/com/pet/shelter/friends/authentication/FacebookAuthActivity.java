@@ -1,11 +1,9 @@
 package com.pet.shelter.friends.authentication;
 
 import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.widget.Toast;
 
 import com.facebook.AccessToken;

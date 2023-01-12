@@ -10,7 +10,6 @@ import android.os.Looper;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.Button;
-import android.widget.EditText;
 import android.widget.GridView;
 import android.widget.ImageView;
 import android.widget.SearchView;
@@ -46,6 +45,7 @@ public class SeeListOfPetsActivity extends AppCompatActivity {
     private final ArrayList<Pet> favoritePetsList = new ArrayList<>();
     private CustomListOfPetsAdapter customAdapter;
     private final ArrayList<String> petKeys = new ArrayList<>();
+    private String size = "", age = "", sex = "", fitForChildren = "", fitForGuarding = "";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -210,7 +210,6 @@ public class SeeListOfPetsActivity extends AppCompatActivity {
         filtersReference.child(loggedUid).addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
-                String size, age, sex, fitForChildren, fitForGuarding;
 
                 size = Objects.requireNonNull(snapshot.child("size").getValue()).toString();
                 if (size.equals("don't care"))
@@ -271,6 +270,10 @@ public class SeeListOfPetsActivity extends AppCompatActivity {
                 petKeys.clear();
                 for (DataSnapshot petSnapshot : snapshot.getChildren()) {
                     Pet pet = petSnapshot.getValue(Pet.class);
+//                  based on selected filters the pets are added to the list
+//                    if (size.equals("small") && !age.equals("young") && !sex.equals("female") && !fitForChildren.equals("no") && !fitForGuarding.equals("no")) {
+//
+//                    }
                     petsList.add(pet);
                     petKeys.add(petSnapshot.getKey());
                 }
@@ -286,8 +289,6 @@ public class SeeListOfPetsActivity extends AppCompatActivity {
                 System.out.println("The read failed: " + error.getMessage());
             }
         });
-
-
     }
 
     private void setOnItemClickListeners() {
@@ -336,7 +337,7 @@ public class SeeListOfPetsActivity extends AppCompatActivity {
                 String uId = Objects.requireNonNull(snapshot.child("uId").getValue()).toString();
                 if (loggedUid.equals(uId)) {
                     addNewPetButton.setVisibility(View.VISIBLE);
-//                    favorites.setVisibility(View.GONE);
+                    favorites.setVisibility(View.GONE);
                 }
             }
 

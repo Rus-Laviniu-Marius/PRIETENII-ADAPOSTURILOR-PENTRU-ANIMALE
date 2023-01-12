@@ -4,15 +4,15 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/aero_blue"
-    tools:context=".adoption.form.CompleteFamilyAndHousingInformationActivity">
+    tools:context=".adoption.form.CompleteFamilyAndHouseholdInformationActivity">
 
     <RelativeLayout
         android:id="@+id/completeFamilyAndHousingInformationTopBar_relativeLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:padding="20dp"
         android:layout_alignParentTop="true"
-        android:layout_centerInParent="true">
+        android:layout_centerInParent="true"
+        android:padding="@dimen/medium_padding">
 
         <ImageView
             android:id="@+id/completeFamilyAndHousingInformationBack_button"
@@ -28,8 +28,8 @@
             android:id="@+id/completeFamilyAndHousingInformationNext_button"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignParentEnd="true"
             android:layout_alignParentTop="true"
+            android:layout_alignParentEnd="true"
             android:layout_centerInParent="true"
             android:contentDescription="@string/next"
             android:src="@drawable/next_right_32" />
@@ -43,87 +43,136 @@
         android:layout_height="wrap_content"
         android:layout_centerInParent="true"
         android:layout_below="@+id/completeFamilyAndHousingInformationTopBar_relativeLayout"
-        android:layout_marginStart="10dp"
-        android:layout_marginTop="10dp"
-        android:layout_marginEnd="10dp"
-        android:layout_marginBottom="10dp"
+        android:layout_margin="@dimen/small_margin"
         android:text="@string/complete_information_description"
-        android:textSize="30sp" />
+        android:textSize="@dimen/large_text_size" />
 
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_centerInParent="true"
-        android:layout_margin="10dp"
+        android:layout_margin="@dimen/small_margin"
         android:layout_below="@+id/completeFamilyAndHousingInformationDescription_textView">
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical">
-            <EditText
-                android:id="@+id/familyAndHousingAdultsNumber_editText"
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:inputType="number"
-                android:hint="@string/how_many_adults"
-                android:autofillHints="adults number"
-                android:layout_margin="10dp"
-                android:drawableStart="@drawable/adults_32"
-                android:background="@drawable/veterinarian_data_background"
-                android:padding="10dp"
-                android:gravity="center"
-                android:textSize="20sp"/>
-            
-            <EditText
-                android:id="@+id/familyAndHousingChildrenNumber_editText"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:inputType="number"
-                android:hint="@string/how_many_children"
-                android:autofillHints="children number"
-                android:layout_margin="10dp"
-                android:drawableStart="@drawable/children_32"
-                android:background="@drawable/veterinarian_data_background"
-                android:padding="10dp"
-                android:gravity="center"
-                android:textSize="20sp"/>
-
-            <EditText
-                android:id="@+id/familyAndHousingHomeType_editText"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:inputType="text"
-                android:hint="@string/what_type_of_home_do_you_live_in"
-                android:autofillHints="home type"
-                android:layout_margin="10dp"
-                android:drawableStart="@drawable/home_type_32"
-                android:background="@drawable/veterinarian_data_background"
-                android:padding="10dp"
-                android:gravity="center"
-                android:textSize="20sp"/>
-
-            <EditText
-                android:id="@+id/familyAndHousingHomeDescription_editText"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:inputType="text|textImeMultiLine"
-                android:hint="@string/please_describe_your_home"
-                android:autofillHints="home description"
-                android:layout_margin="10dp"
-                android:background="@drawable/veterinarian_data_background"
-                android:drawableStart="@drawable/house_design_32"
-                android:padding="10dp"
-                android:gravity="center"
-                android:textSize="20sp"/>
+                android:orientation="vertical"
+                android:layout_margin="@dimen/small_margin">
+                <TextView
+                    android:id="@+id/familyAndHousingAdultsNumber_textView"
+                    android:visibility="gone"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/how_many_adults"
+                    android:textSize="@dimen/medium_text_size"/>
+                <EditText
+                    android:id="@+id/familyAndHousingAdultsNumber_editText"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="number"
+                    android:maxLength="3"
+                    android:hint="@string/how_many_adults"
+                    android:autofillHints="number"
+                    android:drawableStart="@drawable/adults_32"
+                    android:background="@drawable/edittext_background"
+                    android:padding="@dimen/small_padding"
+                    android:gravity="center"
+                    android:textSize="@dimen/medium_text_size"/>
+            </LinearLayout>
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="vertical">
+                android:orientation="vertical"
+                android:layout_margin="@dimen/small_margin">
+                <TextView
+                    android:id="@+id/familyAndHousingChildrenNumber_textView"
+                    android:visibility="gone"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/how_many_children"
+                    android:textSize="@dimen/medium_text_size"/>
+                <EditText
+                    android:id="@+id/familyAndHousingChildrenNumber_editText"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="number"
+                    android:maxLength="3"
+                    android:hint="@string/how_many_children"
+                    android:autofillHints="children number"
+                    android:drawableStart="@drawable/children_32"
+                    android:background="@drawable/edittext_background"
+                    android:padding="@dimen/small_padding"
+                    android:gravity="center"
+                    android:textSize="@dimen/medium_text_size"/>
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:layout_margin="@dimen/small_margin">
+                <TextView
+                    android:id="@+id/familyAndHousingHomeType_textView"
+                    android:visibility="gone"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/what_type_of_home_do_you_live_in"
+                    android:textSize="@dimen/medium_text_size"/>
+                <EditText
+                    android:id="@+id/familyAndHousingHomeType_editText"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="text"
+                    android:maxLength="100"
+                    android:hint="@string/home_type"
+                    android:autofillHints="home type"
+                    android:drawableStart="@drawable/home_type_32"
+                    android:background="@drawable/edittext_background"
+                    android:padding="@dimen/small_padding"
+                    android:gravity="center"
+                    android:textSize="@dimen/medium_text_size"/>
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:layout_margin="@dimen/small_margin">
+                <TextView
+                    android:id="@+id/familyAndHousingHomeDescription_textView"
+                    android:visibility="gone"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/home_description"
+                    android:textSize="@dimen/medium_text_size"/>
+                <EditText
+                    android:id="@+id/familyAndHousingHomeDescription_editText"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="textMultiLine"
+                    android:maxLength="500"
+                    android:hint="@string/please_describe_your_home"
+                    android:autofillHints="home description"
+                    android:background="@drawable/edittext_background"
+                    android:drawableStart="@drawable/house_design_32"
+                    android:padding="@dimen/small_padding"
+                    android:gravity="center"
+                    android:textSize="@dimen/medium_text_size"/>
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:layout_margin="@dimen/small_margin">
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:textSize="20sp"
+                    android:textSize="@dimen/medium_text_size"
                     android:text="@string/does_a_family_member_have_a_known_allergy_to_pets"/>
                 <RadioGroup
                     android:layout_width="match_parent"
@@ -136,10 +185,10 @@
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
                         android:text="@string/no"
-                        android:textSize="20sp"
+                        android:textSize="@dimen/medium_text_size"
                         android:button="@null"
-                        android:padding="10dp"
-                        android:drawablePadding="10dp"
+                        android:padding="@dimen/small_padding"
+                        android:drawablePadding="@dimen/small_padding"
                         android:drawableStart="@android:drawable/btn_radio"/>
                     <RadioButton
                         android:id="@+id/knownAllergyYes_radioButton"
@@ -147,10 +196,10 @@
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
                         android:text="@string/yes"
-                        android:textSize="20sp"
+                        android:textSize="@dimen/medium_text_size"
                         android:button="@null"
-                        android:padding="10dp"
-                        android:drawablePadding="10dp"
+                        android:padding="@dimen/small_padding"
+                        android:drawablePadding="@dimen/small_padding"
                         android:drawableStart="@android:drawable/btn_radio"/>
                 </RadioGroup>
             </LinearLayout>
@@ -158,11 +207,12 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="vertical">
+                android:orientation="vertical"
+                android:layout_margin="@dimen/small_margin">
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:textSize="20sp"
+                    android:textSize="@dimen/medium_text_size"
                     android:text="@string/is_everyone_in_agreement_with_the_decision_to_adopt_a_pet"/>
                 <RadioGroup
                     android:layout_width="match_parent"
@@ -175,10 +225,10 @@
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
                         android:text="@string/no"
-                        android:textSize="20sp"
+                        android:textSize="@dimen/medium_text_size"
                         android:button="@null"
-                        android:padding="10dp"
-                        android:drawablePadding="10dp"
+                        android:padding="@dimen/small_padding"
+                        android:drawablePadding="@dimen/small_padding"
                         android:drawableStart="@android:drawable/btn_radio"/>
                     <RadioButton
                         android:id="@+id/agreementDecisionYes_radioButton"
@@ -186,10 +236,10 @@
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
                         android:text="@string/yes"
-                        android:textSize="20sp"
+                        android:textSize="@dimen/medium_text_size"
                         android:button="@null"
-                        android:padding="10dp"
-                        android:drawablePadding="10dp"
+                        android:padding="@dimen/small_padding"
+                        android:drawablePadding="@dimen/small_padding"
                         android:drawableStart="@android:drawable/btn_radio"/>
                 </RadioGroup>
             </LinearLayout>
@@ -197,11 +247,12 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="vertical">
+                android:orientation="vertical"
+                android:layout_margin="@dimen/small_margin">
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:textSize="20sp"
+                    android:textSize="@dimen/medium_text_size"
                     android:text="@string/do_you_have_time_to_provide_adequate_love_and_attention"/>
                 <RadioGroup
                     android:layout_width="match_parent"
@@ -214,10 +265,10 @@
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
                         android:text="@string/no"
-                        android:textSize="20sp"
+                        android:textSize="@dimen/medium_text_size"
                         android:button="@null"
-                        android:padding="10dp"
-                        android:drawablePadding="10dp"
+                        android:padding="@dimen/small_padding"
+                        android:drawablePadding="@dimen/small_padding"
                         android:drawableStart="@android:drawable/btn_radio"/>
                     <RadioButton
                         android:id="@+id/adequateLoveAndAttentionYes_radioButton"
@@ -225,45 +276,46 @@
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
                         android:text="@string/yes"
-                        android:textSize="20sp"
+                        android:textSize="@dimen/medium_text_size"
                         android:button="@null"
-                        android:padding="10dp"
-                        android:drawablePadding="10dp"
+                        android:padding="@dimen/small_padding"
+                        android:drawablePadding="@dimen/small_padding"
                         android:drawableStart="@android:drawable/btn_radio"/>
                 </RadioGroup>
             </LinearLayout>
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="vertical">
+                android:orientation="vertical"
+                android:layout_margin="@dimen/small_margin">
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:textSize="20sp"
+                    android:textSize="@dimen/medium_text_size"
                     android:text="@string/if_you_rent_please_give_the_rules_governing_pets_and_the_landlord_s_name_and_number"/>
-
                 <EditText
                     android:id="@+id/rentingRulesRegardingPetOwnership_editText"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:autofillHints="text"
-                    android:textSize="20sp"
+                    android:textSize="@dimen/medium_text_size"
                     android:hint="@string/rules_name_and_phone_number"
+                    android:maxLength="100"
                     android:gravity="center"
-                    android:inputType="text|textMultiLine"
+                    android:inputType="textMultiLine"
                     android:drawableStart="@drawable/renting_rules_32"
-                    android:background="@drawable/veterinarian_data_background"
-                    android:padding="10dp"/>
-
+                    android:background="@drawable/edittext_background"
+                    android:padding="@dimen/small_padding"/>
             </LinearLayout>
             <Button
                 android:id="@+id/completeFamilyAndHousingInformationSubmit_button"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="@drawable/bottom_bar"
+                android:background="@drawable/button_general"
                 android:text="@string/submit"
-                android:textSize="20sp"
-                android:layout_margin="20dp"/>
+                android:textColor="@color/black"
+                android:textSize="@dimen/medium_text_size"
+                android:layout_margin="@dimen/medium_margin"/>
         </LinearLayout>
     </ScrollView>
 

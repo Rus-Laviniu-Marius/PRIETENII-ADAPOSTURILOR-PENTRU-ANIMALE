@@ -1,6 +1,7 @@
 plugins {
     id 'com.android.application'
     id 'com.google.gms.google-services'
+    id 'com.google.firebase.firebase-perf'
 }
 
 android {
@@ -23,6 +24,14 @@ android {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
+        debug {
+            FirebasePerformance {
+                // Set this flag to 'false' to disable @AddTrace annotation processing and
+                // automatic monitoring of HTTP/S network requests
+                // for a specific build variant at compile time.
+                instrumentationEnabled true
+            }
+        }
     }
     compileOptions {
         sourceCompatibility JavaVersion.VERSION_11
@@ -42,12 +51,12 @@ dependencies {
     implementation 'androidx.constraintlayout:constraintlayout:2.1.4'
     implementation 'com.squareup.picasso:picasso:2.71828'
 
-    implementation 'com.google.firebase:firebase-analytics:21.2.0'
     implementation platform('com.google.firebase:firebase-bom:31.1.0')
+    implementation 'com.google.firebase:firebase-analytics'
     implementation 'com.google.firebase:firebase-auth'
-    implementation 'com.google.firebase:firebase-auth:21.1.0'
-    implementation 'com.google.firebase:firebase-storage:20.1.0'
-    implementation 'com.google.firebase:firebase-database:20.1.0'
+    implementation 'com.google.firebase:firebase-storage'
+    implementation 'com.google.firebase:firebase-database'
+    implementation 'com.google.firebase:firebase-perf'
 
     implementation 'com.google.android.gms:play-services-auth:20.4.0'
     implementation 'com.facebook.android:facebook-android-sdk:latest.release'

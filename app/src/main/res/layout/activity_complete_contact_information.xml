@@ -12,7 +12,7 @@
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
         android:layout_centerInParent="true"
-        android:padding="20dp">
+        android:padding="@dimen/medium_padding">
 
         <ImageView
             android:id="@+id/completeContactInformationBack_button"
@@ -43,126 +43,207 @@
         android:layout_height="wrap_content"
         android:layout_centerInParent="true"
         android:layout_below="@+id/completeContactInformationTopBar_relativeLayout"
-        android:layout_marginStart="10dp"
-        android:layout_marginTop="10dp"
-        android:layout_marginEnd="10dp"
-        android:layout_marginBottom="10dp"
+        android:layout_margin="@dimen/small_margin"
         android:text="@string/complete_information_description"
-        android:textSize="30sp" />
+        android:textSize="@dimen/large_text_view_size" />
 
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_centerInParent="true"
-        android:layout_margin="20dp"
+        android:layout_margin="@dimen/medium_margin"
         android:layout_below="@id/completeContactInformationDescription_textView" >
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical">
-            <EditText
-                android:id="@+id/completeContactInformationFullName_editText"
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:autofillHints="Full name"
-                android:inputType="textPersonName"
-                android:hint="@string/full_name"
-                android:textSize="24sp"
-                android:layout_margin="10dp"
-                android:drawableStart="@drawable/full_name_32"
-                android:textAlignment="center"
-                android:background="@drawable/veterinarian_data_background"
-                android:padding="10dp"/>
-            <EditText
-                android:id="@+id/completeContactInformationOccupation_editText"
+                android:orientation="vertical"
+                android:layout_margin="10dp">
+                <TextView
+                    android:id="@+id/completeContactInformationFullName_textView"
+                    android:visibility="gone"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/full_name"
+                    android:textSize="@dimen/medium_text_view_size"/>
+                <EditText
+                    android:id="@+id/completeContactInformationFullName_editText"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:autofillHints="Full name"
+                    android:inputType="textPersonName"
+                    android:hint="@string/full_name"
+                    android:textSize="@dimen/medium_text_view_size"
+                    android:drawableStart="@drawable/full_name_32"
+                    android:textAlignment="center"
+                    android:background="@drawable/edittext_background"
+                    android:padding="@dimen/small_padding"/>
+            </LinearLayout>
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:autofillHints="student, seller, driver, construction worker, street-sweeper"
-                android:inputType="text"
-                android:hint="@string/occupation"
-                android:textSize="24sp"
-                android:layout_margin="10dp"
-                android:textAlignment="center"
-                android:background="@drawable/veterinarian_data_background"
-                android:padding="10dp"
-                android:drawableStart="@drawable/briefcase_filled_32"/>
-            <EditText
-                android:id="@+id/completeContactInformationAddress_editText"
+                android:orientation="vertical"
+                android:layout_margin="@dimen/small_margin" >
+                <TextView
+                    android:id="@+id/completeContactInformationOccupation_textView"
+                    android:visibility="gone"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/occupation"
+                    android:textSize="@dimen/medium_text_view_size"/>
+                <EditText
+                    android:id="@+id/completeContactInformationOccupation_editText"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:autofillHints="student, seller, driver, construction worker, street-sweeper"
+                    android:inputType="text"
+                    android:hint="@string/occupation"
+                    android:textSize="@dimen/medium_text_view_size"
+                    android:textAlignment="center"
+                    android:background="@drawable/edittext_background"
+                    android:padding="@dimen/small_padding"
+                    android:drawableStart="@drawable/briefcase_filled_32"/>
+            </LinearLayout>
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:autofillHints="postalAddress"
-                android:inputType="text"
-                android:hint="@string/address"
-                android:textSize="24sp"
-                android:layout_margin="10dp"
-                android:textAlignment="center"
-                android:background="@drawable/veterinarian_data_background"
-                android:padding="10dp"
-                android:drawableStart="@drawable/home_address_32"/>
+                android:orientation="vertical"
+                android:layout_margin="@dimen/small_margin" >
+                <TextView
+                    android:id="@+id/completeContactInformationAddress_textView"
+                    android:visibility="gone"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/address"
+                    android:textSize="@dimen/medium_text_view_size"/>
+                <EditText
+                    android:id="@+id/completeContactInformationAddress_editText"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:autofillHints="postalAddress"
+                    android:inputType="textPostalAddress"
+                    android:hint="@string/address"
+                    android:textSize="@dimen/medium_text_view_size"
+                    android:textAlignment="center"
+                    android:background="@drawable/edittext_background"
+                    android:padding="@dimen/small_padding"
+                    android:drawableStart="@drawable/home_address_32"/>
+            </LinearLayout>
 
-            <EditText
-                android:id="@+id/completeContactInformationSittingTime_editText"
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_margin="10dp"
-                android:autofillHints="Full name"
-                android:background="@drawable/veterinarian_data_background"
-                android:drawableStart="@drawable/calendar_32"
-                android:hint="@string/time_at_this_address"
-                android:inputType="textPersonName"
-                android:padding="10dp"
-                android:textAlignment="center"
-                android:textSize="24sp" />
+                android:orientation="vertical"
+                android:layout_margin="@dimen/small_margin" >
+                <TextView
+                    android:id="@+id/completeContactInformationSittingTime_textView"
+                    android:visibility="gone"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/time_at_this_address"
+                    android:textSize="@dimen/medium_text_view_size"/>
+                <EditText
+                    android:id="@+id/completeContactInformationSittingTime_editText"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:autofillHints="date"
+                    android:background="@drawable/edittext_background"
+                    android:drawableStart="@drawable/calendar_32"
+                    android:hint="@string/time_at_this_address"
+                    android:inputType="date"
+                    android:padding="@dimen/small_padding"
+                    android:textAlignment="center"
+                    android:textSize="@dimen/medium_text_view_size" />
+            </LinearLayout>
 
-            <EditText
-                android:id="@+id/completeContactInformationPhoneNumber_editText"
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:autofillHints="Occupation"
-                android:inputType="phone"
-                android:hint="@string/phone_number"
-                android:textSize="24sp"
-                android:layout_margin="10dp"
-                android:textAlignment="center"
-                android:background="@drawable/veterinarian_data_background"
-                android:padding="10dp"
-                android:drawableStart="@drawable/telephone_call_32"/>
-            <EditText
-                android:id="@+id/completeContactInformationEmailAddress_editText"
+                android:orientation="vertical"
+                android:layout_margin="@dimen/small_margin">
+                <TextView
+                    android:id="@+id/completeContactInformationPhoneNumber_textView"
+                    android:visibility="gone"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/phone_number"
+                    android:textSize="@dimen/medium_text_view_size"/>
+                <EditText
+                    android:id="@+id/completeContactInformationPhoneNumber_editText"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:autofillHints="phone"
+                    android:inputType="phone"
+                    android:hint="@string/phone_number"
+                    android:textSize="@dimen/medium_text_view_size"
+                    android:textAlignment="center"
+                    android:background="@drawable/edittext_background"
+                    android:padding="@dimen/small_padding"
+                    android:drawableStart="@drawable/telephone_call_32"/>
+            </LinearLayout>
+
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:autofillHints="Occupation"
-                android:inputType="textEmailAddress"
-                android:hint="@string/email"
-                android:textSize="24sp"
-                android:layout_margin="10dp"
-                android:textAlignment="center"
-                android:background="@drawable/veterinarian_data_background"
-                android:padding="10dp"
-                android:drawableStart="@drawable/email_address_32"/>
-            <EditText
-                android:id="@+id/completeContactInformationBestTimeToCall_editText"
+                android:orientation="vertical"
+                android:layout_margin="@dimen/small_margin">
+                <TextView
+                    android:id="@+id/completeContactInformationEmailAddress_textView"
+                    android:visibility="gone"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/email"
+                    android:textSize="@dimen/medium_text_view_size"/>
+                <EditText
+                    android:id="@+id/completeContactInformationEmailAddress_editText"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:autofillHints="emailAddress"
+                    android:inputType="textEmailAddress"
+                    android:hint="@string/email"
+                    android:textSize="@dimen/medium_text_view_size"
+                    android:textAlignment="center"
+                    android:background="@drawable/edittext_background"
+                    android:padding="@dimen/small_padding"
+                    android:drawableStart="@drawable/email_address_32"/>
+            </LinearLayout>
+
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:autofillHints="Occupation"
-                android:inputType="textEmailAddress"
-                android:hint="@string/best_time_to_call"
-                android:textSize="24sp"
-                android:layout_margin="10dp"
-                android:textAlignment="center"
-                android:background="@drawable/veterinarian_data_background"
-                android:padding="10dp"
-                android:drawableStart="@drawable/time_call_32"/>
+                android:orientation="vertical"
+                android:layout_margin="@dimen/small_margin">
+                <TextView
+                    android:id="@+id/completeContactInformationBestTimeToCall_textView"
+                    android:visibility="gone"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/best_time_to_call"
+                    android:textSize="@dimen/medium_text_view_size"/>
+                <EditText
+                    android:id="@+id/completeContactInformationBestTimeToCall_editText"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:autofillHints="time interval"
+                    android:inputType="time"
+                    android:hint="@string/best_time_to_call"
+                    android:textSize="@dimen/medium_text_view_size"
+                    android:textAlignment="center"
+                    android:background="@drawable/edittext_background"
+                    android:padding="@dimen/small_padding"
+                    android:drawableStart="@drawable/time_call_32"/>
+            </LinearLayout>
             <Button
                 android:id="@+id/completeContactInformationSubmit_button"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="@drawable/bottom_bar"
                 android:text="@string/submit"
-                android:textSize="20sp"
-                android:layout_margin="20dp"/>
+                android:textSize="@dimen/medium_text_view_size"
+                android:layout_margin="@dimen/medium_margin"/>
         </LinearLayout>
     </ScrollView>
-
-
 </RelativeLayout>

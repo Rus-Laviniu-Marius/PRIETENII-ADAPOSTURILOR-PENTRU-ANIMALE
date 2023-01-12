@@ -194,5 +194,8 @@
     <string name="edit_user_profile">Edit user profile</string>
     <string name="create">Create</string>
     <string name="past_events">Past events</string>
+    <string name="past_attended_events">Past attended events</string>
+    <string name="home_type">Home type</string>
+    <string name="home_description">Home description</string>
 
 </resources>

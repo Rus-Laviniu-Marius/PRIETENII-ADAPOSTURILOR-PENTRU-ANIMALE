@@ -20,8 +20,7 @@ import java.util.Objects;
 public class CompleteVeterinarianInformationActivity extends AppCompatActivity {
 
     private FirebaseAuth firebaseAuth;
-    private FirebaseDatabase firebaseDatabase;
-    private DatabaseReference veterinarianInformationReference;
+    private DatabaseReference adoptionFormReference;
     private RadioButton regularVeterinarian, noRegularVeterinarian;
     private EditText veterinarianName, veterinarianClinicName, veterinarianClinicAddress, veterinarianClinicPhoneNumber;
     private ImageView backButton, nextButton;
@@ -33,8 +32,8 @@ public class CompleteVeterinarianInformationActivity extends AppCompatActivity {
         setContentView(R.layout.activity_complete_veterinarian_information);
 
         firebaseAuth = FirebaseAuth.getInstance();
-        firebaseDatabase = FirebaseDatabase.getInstance();
-        veterinarianInformationReference = firebaseDatabase.getReference("regularVeterinarian");
+        FirebaseDatabase firebaseDatabase = FirebaseDatabase.getInstance();
+        adoptionFormReference = firebaseDatabase.getReference("regularVeterinarian");
 
         regularVeterinarian = findViewById(R.id.regularVeterinarianYes_radioButton);
         noRegularVeterinarian = findViewById(R.id.regularVeterinarianNo_radioButton);
@@ -47,6 +46,10 @@ public class CompleteVeterinarianInformationActivity extends AppCompatActivity {
         nextButton = findViewById(R.id.completeVeterinarianInformationNext_button);
         submitButton = findViewById(R.id.completeVeterinarianInformationSubmit_button);
 
+        setOnClickListeners();
+    }
+
+    private void setOnClickListeners() {
         submitButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -75,16 +78,16 @@ public class CompleteVeterinarianInformationActivity extends AppCompatActivity {
         String currentFirebaseUserUid = Objects.requireNonNull(firebaseAuth.getCurrentUser()).getUid();
 
         if (regularVeterinarian.isChecked()) {
-            veterinarianInformationReference.child(currentFirebaseUserUid).child("regularVeterinarian").setValue("yes");
+            adoptionFormReference.child(currentFirebaseUserUid).child("veterinarian").child("regularVeterinarian").setValue("yes");
         }
         if (noRegularVeterinarian.isChecked()) {
-            veterinarianInformationReference.child(currentFirebaseUserUid).child("regularVeterinarian").setValue("no");
+            adoptionFormReference.child(currentFirebaseUserUid).child("veterinarian").child("regularVeterinarian").setValue("no");
         }
 
-        veterinarianInformationReference.child(currentFirebaseUserUid).child("veterinarianName").setValue(veterinarianName.getText().toString());
-        veterinarianInformationReference.child(currentFirebaseUserUid).child("veterinarianClinicName").setValue(veterinarianClinicName.getText().toString());
-        veterinarianInformationReference.child(currentFirebaseUserUid).child("veterinarianClinicAddress").setValue(veterinarianClinicAddress.getText().toString());
-        veterinarianInformationReference.child(currentFirebaseUserUid).child("veterinarianClinicPhoneNumber").setValue(veterinarianClinicPhoneNumber.getText().toString());
+        adoptionFormReference.child(currentFirebaseUserUid).child("veterinarian").child("veterinarianName").setValue(veterinarianName.getText().toString());
+        adoptionFormReference.child(currentFirebaseUserUid).child("veterinarian").child("veterinarianClinicName").setValue(veterinarianClinicName.getText().toString());
+        adoptionFormReference.child(currentFirebaseUserUid).child("veterinarian").child("veterinarianClinicAddress").setValue(veterinarianClinicAddress.getText().toString());
+        adoptionFormReference.child(currentFirebaseUserUid).child("veterinarian").child("veterinarianClinicPhoneNumber").setValue(veterinarianClinicPhoneNumber.getText().toString());
     }
 
     private void sendToNextActivity() {

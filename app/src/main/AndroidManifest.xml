@@ -105,7 +105,7 @@
                 android:value="" />
         </activity>
         <activity
-            android:name=".adoption.form.CompleteFamilyAndHousingInformationActivity"
+            android:name=".adoption.form.CompleteFamilyAndHouseholdInformationActivity"
             android:exported="false">
             <meta-data
                 android:name="android.app.lib_name"

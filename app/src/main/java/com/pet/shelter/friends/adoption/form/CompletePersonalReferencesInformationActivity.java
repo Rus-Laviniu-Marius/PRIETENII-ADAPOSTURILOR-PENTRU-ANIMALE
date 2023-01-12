@@ -19,8 +19,7 @@ import java.util.Objects;
 public class CompletePersonalReferencesInformationActivity extends AppCompatActivity {
 
     private FirebaseAuth firebaseAuth;
-    private FirebaseDatabase firebaseDatabase;
-    private DatabaseReference personalReference;
+    private DatabaseReference adoptionFormReference;
     private EditText referenceNameEditText, referenceAddressEditText, referencePhoneNumberEditText, referenceRelationshipEditText;
     private ImageView backButton, nextButton;
     private Button submitButton;
@@ -31,8 +30,8 @@ public class CompletePersonalReferencesInformationActivity extends AppCompatActi
         setContentView(R.layout.activity_complete_personal_references_information);
 
         firebaseAuth = FirebaseAuth.getInstance();
-        firebaseDatabase = FirebaseDatabase.getInstance();
-        personalReference = firebaseDatabase.getReference("personalReference");
+        FirebaseDatabase firebaseDatabase = FirebaseDatabase.getInstance();
+        adoptionFormReference = firebaseDatabase.getReference("adoptionForm");
 
         referenceNameEditText = findViewById(R.id.personalReferenceName_editText);
         referenceAddressEditText = findViewById(R.id.personalReferenceAddress_editText);
@@ -43,6 +42,11 @@ public class CompletePersonalReferencesInformationActivity extends AppCompatActi
         nextButton = findViewById(R.id.completePersonalReferencesInformationNext_button);
         submitButton = findViewById(R.id.completePersonalReferencesInformationSubmit_button);
 
+        setOnClickListeners();
+
+    }
+
+    private void setOnClickListeners() {
         submitButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -70,10 +74,10 @@ public class CompletePersonalReferencesInformationActivity extends AppCompatActi
     private void writeToDatabase() {
         String currentFirebaseUserUid = Objects.requireNonNull(firebaseAuth.getCurrentUser()).getUid();
 
-        personalReference.child(currentFirebaseUserUid).child("referenceName").setValue(referenceNameEditText.getText().toString());
-        personalReference.child(currentFirebaseUserUid).child("referenceAddress").setValue(referenceAddressEditText.getText().toString());
-        personalReference.child(currentFirebaseUserUid).child("referencePhoneNumber").setValue(referencePhoneNumberEditText.getText().toString());
-        personalReference.child(currentFirebaseUserUid).child("referenceRelationship").setValue(referenceRelationshipEditText.getText().toString());
+        adoptionFormReference.child(currentFirebaseUserUid).child("personalReferences").child("referenceName").setValue(referenceNameEditText.getText().toString());
+        adoptionFormReference.child(currentFirebaseUserUid).child("personalReferences").child("referenceAddress").setValue(referenceAddressEditText.getText().toString());
+        adoptionFormReference.child(currentFirebaseUserUid).child("personalReferences").child("referencePhoneNumber").setValue(referencePhoneNumberEditText.getText().toString());
+        adoptionFormReference.child(currentFirebaseUserUid).child("personalReferences").child("referenceRelationship").setValue(referenceRelationshipEditText.getText().toString());
 
 
     }
