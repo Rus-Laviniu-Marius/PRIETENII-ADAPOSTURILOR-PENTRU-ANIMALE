@@ -1,0 +1,132 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/aero_blue"
+    tools:context=".adoption.form.CompletePersonalReferencesInformationActivity">
+
+    <RelativeLayout
+        android:id="@+id/completePersonalReferencesInformationTopBar_relativeLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="20dp"
+        android:layout_alignParentTop="true"
+        android:layout_centerInParent="true">
+
+        <ImageView
+            android:id="@+id/completePersonalReferencesInformationBack_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentTop="true"
+            android:layout_centerInParent="true"
+            android:contentDescription="@string/back"
+            android:src="@drawable/back_left_32" />
+
+        <ImageView
+            android:id="@+id/completePersonalReferencesInformationNext_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentTop="true"
+            android:layout_centerInParent="true"
+            android:contentDescription="@string/next"
+            android:src="@drawable/next_right_32" />
+
+
+    </RelativeLayout>
+
+    <TextView
+        android:id="@+id/completeAboutThePetInformationDescription_textView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:layout_below="@+id/completePersonalReferencesInformationTopBar_relativeLayout"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginEnd="10dp"
+        android:layout_marginBottom="10dp"
+        android:text="@string/complete_information_description"
+        android:textSize="30sp" />
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:layout_margin="10dp"
+        android:layout_below="@+id/completeAboutThePetInformationDescription_textView">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <EditText
+                android:id="@+id/personalReferenceName_editText"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:autofillHints="text"
+                android:textSize="20sp"
+                android:inputType="text|textMultiLine"
+                android:hint="@string/name"
+                android:padding="10dp"
+                android:layout_margin="10dp"
+                android:gravity="center"
+                android:background="@drawable/veterinarian_data_background"
+                android:drawableStart="@drawable/full_name_32"/>
+
+            <EditText
+                android:id="@+id/personalReferenceAddress_editText"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:autofillHints="text"
+                android:textSize="20sp"
+                android:inputType="text|textMultiLine"
+                android:hint="@string/address"
+                android:padding="10dp"
+                android:layout_margin="10dp"
+                android:gravity="center"
+                android:background="@drawable/veterinarian_data_background"
+                android:drawableStart="@drawable/home_address_32"/>
+
+            <EditText
+                android:id="@+id/personalReferencePhoneNumber_editText"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="@string/phone_number"
+                android:inputType="phone"
+                android:autofillHints="hours"
+                android:padding="10dp"
+                android:layout_margin="10dp"
+                android:gravity="center"
+                android:background="@drawable/veterinarian_data_background"
+                android:drawableStart="@drawable/telephone_call_32"/>
+
+            <EditText
+                android:id="@+id/personalReferenceRelationship_editText"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:autofillHints="relative|neighbor|friend"
+                android:textSize="20sp"
+                android:inputType="text|textMultiLine"
+                android:hint="@string/relationship_relative_neighbor_etc"
+                android:padding="10dp"
+                android:layout_margin="10dp"
+                android:gravity="center"
+                android:background="@drawable/veterinarian_data_background"
+                android:drawableStart="@drawable/friends_32"/>
+
+            <Button
+                android:id="@+id/completePersonalReferencesInformationSubmit_button"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/bottom_bar"
+                android:text="@string/submit"
+                android:textSize="20sp"
+                android:layout_margin="20dp"/>
+
+        </LinearLayout>
+
+    </ScrollView>
+
+</RelativeLayout>

@@ -7,5 +7,13 @@
     <color name="teal_700">#FF018786</color>
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
-    <color name="main_background">#D8FDE0</color>
+    <color name="aero_blue">#D8FDE0</color> main background
+    <color name="pear">#DED726</color> 4 home buttons group
+    <color name="light_silver">#D9D9D9</color> buttons general
+    <color name="linen">#FDEAE8</color> card1
+    <color name="water">#C6F6F4</color> card2
+    <color name="magic_mint">#A3FFDC</color> card3
+    <color name="yellow_crayola">#FFF087</color> card4
+    <color name="deep_koamaru">#2E3656</color> card background
+    <color name="soap">#CED5F1</color> bottom bar
 </resources>

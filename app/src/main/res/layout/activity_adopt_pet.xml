@@ -1,0 +1,149 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".adoption.form.AdoptPetActivity">
+
+    <RelativeLayout
+        android:id="@+id/adoptPetTopBar_relativeLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="20dp"
+        android:layout_alignParentTop="true"
+        android:layout_centerInParent="true">
+
+        <ImageView
+            android:id="@+id/adoptPetBack_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentTop="true"
+            android:layout_centerInParent="true"
+            android:contentDescription="@string/back"
+            android:src="@drawable/back_left_32" />
+
+        <ImageView
+            android:id="@+id/adoptPetNext_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentEnd="true"
+            android:layout_centerInParent="true"
+            android:contentDescription="@string/next"
+            android:src="@drawable/next_right_32" />
+
+
+    </RelativeLayout>
+
+    <TextView
+        android:id="@+id/adoptPetDescription_textView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/adoptPetTopBar_relativeLayout"
+        android:layout_centerHorizontal="true"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginEnd="10dp"
+        android:layout_marginBottom="10dp"
+        android:padding="10dp"
+        android:text="@string/complete_information_description"
+        android:textSize="36sp" />
+
+    <ScrollView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/adoptPetDescription_textView"
+        android:layout_centerInParent="true">
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_margin="20dp">
+            <TextView
+                android:id="@+id/completeContactInformation_textView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/contact_information"
+                android:background = "@drawable/veterinarian_data_background"
+                android:backgroundTint="@color/aero_blue"
+                android:textColor="@color/black"
+                android:gravity="center"
+                android:layout_margin="10dp"
+                android:padding="20dp"
+                android:textSize="20sp"
+                app:drawableStartCompat="@drawable/contact_information_32" />
+            <TextView
+                android:id="@+id/completeFamilyAndHousingInformation_textView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/family_and_housing"
+                android:background = "@drawable/veterinarian_data_background"
+                android:textColor="@color/black"
+                android:backgroundTint="@color/aero_blue"
+                android:gravity="center"
+                android:layout_margin="10dp"
+                android:padding="20dp"
+                android:textSize="20sp"
+                app:drawableStartCompat="@drawable/family_house_32" />
+            <TextView
+                android:id="@+id/completeOtherPetsInformation_textView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/other_pets"
+                android:background = "@drawable/veterinarian_data_background"
+                android:backgroundTint="@color/aero_blue"
+                android:gravity="center"
+                android:textColor="@color/black"
+                android:layout_margin="10dp"
+                android:padding="20dp"
+                android:textSize="20sp"
+                app:drawableStartCompat="@drawable/pets_32" />
+            <TextView
+                android:id="@+id/completeVeterinarianInformation_textView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/veterinarian"
+                android:background = "@drawable/veterinarian_data_background"
+                android:backgroundTint="@color/aero_blue"
+                android:gravity="center"
+                android:textColor="@color/black"
+                android:layout_margin="10dp"
+                android:padding="20dp"
+                android:textSize="20sp"
+                app:drawableStartCompat="@drawable/veterinarian_32" />
+            <TextView
+                android:id="@+id/completeAboutThePetInformation_textView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/about_the_pet_you_wish_to_adopt"
+                android:background = "@drawable/veterinarian_data_background"
+                android:backgroundTint="@color/aero_blue"
+                android:textColor="@color/black"
+                android:gravity="center"
+                android:layout_margin="10dp"
+                android:padding="20dp"
+                android:textSize="20sp"
+                app:drawableStartCompat="@drawable/pet_details_32" />
+
+            <TextView
+                android:id="@+id/completePersonalReferencesInformation_textView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/personal_references"
+                android:background = "@drawable/veterinarian_data_background"
+                android:backgroundTint="@color/aero_blue"
+                android:textColor="@color/black"
+                android:layout_margin="10dp"
+                android:gravity="center"
+                android:padding="20dp"
+                android:textSize="20sp"
+                app:drawableStartCompat="@drawable/personal_reference_32" />
+
+            </LinearLayout>
+    </ScrollView>
+
+
+
+</RelativeLayout>

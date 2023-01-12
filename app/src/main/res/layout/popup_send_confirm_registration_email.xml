@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="350dp"
-    android:layout_height="350dp"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
     android:layout_gravity="center"
     android:background="@drawable/popup_frame">
 
@@ -16,11 +16,14 @@
 
     <TextView
         android:id="@+id/popUpConfirmEmailTitle_textView"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="@string/confirmation_email"
         android:textStyle="bold"
         android:textSize="24sp"
+        android:padding="10dp"
+        android:gravity="center"
+        android:layout_centerHorizontal="true"
         android:layout_below="@id/popUpConfirmEmailClose_imageView"
         android:layout_margin="5dp"/>
 
@@ -28,17 +31,21 @@
         android:id="@+id/popUpConfirmEmailDescription_textView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/we_have_sent_you_an_email_to_confirm_your_account"
         android:layout_below="@+id/popUpConfirmEmailTitle_textView"
-        android:layout_marginTop="20dp"
-        android:textSize="20sp"
-        android:layout_margin="5dp"/>
+        android:layout_marginStart="5dp"
+        android:layout_marginTop="5dp"
+        android:layout_marginEnd="5dp"
+        android:layout_marginBottom="5dp"
+        android:padding="10dp"
+        android:layout_centerHorizontal="true"
+        android:text="@string/we_have_sent_you_an_email_to_confirm_your_account"
+        android:textSize="20sp" />
 
     <ImageView
         android:id="@+id/popUpConfirmEmailPaperPlane_imageView"
         android:layout_width="75dp"
         android:layout_height="75dp"
-        android:src="@drawable/paper_airplane"
+        android:src="@drawable/paper_airplane_64"
         android:layout_below="@id/popUpConfirmEmailDescription_textView"
         android:layout_marginTop="30dp"
         android:layout_centerHorizontal="true"
@@ -52,6 +59,7 @@
         android:layout_below="@+id/popUpConfirmEmailPaperPlane_imageView"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="30dp"
-        android:textSize="20sp"/>
+        android:textSize="20sp"
+        android:textColor="@color/black"/>
 
 </RelativeLayout>

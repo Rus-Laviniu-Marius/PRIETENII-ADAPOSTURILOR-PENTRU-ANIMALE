@@ -1,0 +1,250 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".adoption.profile.ViewProfileActivity">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical" >
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:background="@drawable/profile">
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <ImageView
+                    android:id="@+id/userPersonalDataBack_imageView"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentStart="true"
+                    android:layout_centerInParent="true"
+                    android:layout_margin="@dimen/small_margin"
+                    android:contentDescription="@string/back"
+                    android:padding="@dimen/small_padding"
+                    android:src="@drawable/back_64" />
+
+                <ImageView
+                    android:id="@+id/userPersonalDataEdit_imageView"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentEnd="true"
+                    android:layout_centerInParent="true"
+                    android:layout_marginStart="@dimen/small_margin"
+                    android:layout_marginTop="@dimen/small_margin"
+                    android:layout_marginEnd="@dimen/small_margin"
+                    android:layout_marginBottom="@dimen/small_margin"
+                    android:contentDescription="@string/edit_user_profile"
+                    android:padding="@dimen/small_padding"
+                    android:src="@drawable/edit_user_profile_64" />
+            </RelativeLayout>
+
+            <de.hdodenhof.circleimageview.CircleImageView
+                android:id="@+id/userPersonalDataProfile_imageView"
+                android:layout_width="200dp"
+                android:layout_height="200dp"
+                android:src="@drawable/user_profile"
+                android:contentDescription="@string/user_profile"
+                android:layout_gravity="center" />
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" >
+                <ImageView
+                    android:id="@+id/userPersonalDataOpenGallery_imageView"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/gallery_64"
+                    android:contentDescription="@string/open_gallery"
+                    android:layout_gravity="center"
+                    android:layout_margin="@dimen/small_margin"
+                    android:padding="@dimen/small_padding"
+                    android:layout_alignParentStart="true"
+                    android:layout_centerVertical="true"
+                    android:layout_centerHorizontal="true"/>
+
+                <ImageView
+                    android:id="@+id/userPersonalDataOpenCamera_imageView"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/camera_64"
+                    android:layout_margin="@dimen/small_margin"
+                    android:padding="@dimen/small_padding"
+                    android:contentDescription="@string/open_camera"
+                    android:layout_alignParentEnd="true"
+                    android:layout_centerHorizontal="true"
+                    android:layout_centerVertical="true"/>
+            </RelativeLayout>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="@dimen/small_padding"
+            android:layout_margin="@dimen/small_margin">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:padding="@dimen/small_padding"
+                android:layout_margin="@dimen/small_margin">
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textSize="@dimen/medium_text_view_size"
+                    android:text="@string/name"
+                    app:drawableStartCompat="@drawable/user_profile_32"
+                    android:drawablePadding="@dimen/small_padding"/>
+                <TextView
+                    android:id="@+id/userPersonalDataName_textView"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/user_name"
+                    android:textSize="@dimen/medium_text_view_size"
+                    android:paddingHorizontal="42dp"
+                    android:layout_marginVertical="@dimen/small_margin" />
+                <EditText
+                    android:id="@+id/userPersonalDataName_editText"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textSize="@dimen/medium_text_view_size"
+                    android:textAlignment="center"
+                    android:hint="@string/name"
+                    android:autofillHints="username"
+                    android:inputType="textPersonName"
+                    android:visibility="gone" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:padding="@dimen/small_padding"
+                android:layout_margin="@dimen/small_margin">
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/email"
+                    android:textSize="@dimen/medium_text_view_size"
+                    app:drawableStartCompat="@drawable/email_address_32"
+                    android:drawablePadding="@dimen/small_padding"/>
+
+                <TextView
+                    android:id="@+id/userPersonalDataEmail_textView"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textSize="@dimen/medium_text_view_size"
+                    android:text="@string/email"
+                    android:paddingHorizontal="42dp"/>
+                <EditText
+                    android:id="@+id/userPersonalDataEmail_editText"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textSize="@dimen/medium_text_view_size"
+                    android:textAlignment="center"
+                    android:hint="@string/email"
+                    android:autofillHints="emailAddress"
+                    android:inputType="textEmailAddress"
+                    android:visibility="gone"/>
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:padding="@dimen/small_padding"
+                android:layout_margin="@dimen/small_margin" >
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/location"
+                    android:textSize="@dimen/medium_text_view_size"
+                    app:drawableStartCompat="@drawable/location_32"
+                    android:drawablePadding="10dp"/>
+
+                <TextView
+                    android:id="@+id/userPersonalDataLocation_textView"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textSize="@dimen/medium_text_view_size"
+                    android:text="@string/location"
+                    android:paddingHorizontal="42dp"/>
+
+                <EditText
+                    android:id="@+id/userPersonalDataLocation_editText"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textSize="@dimen/medium_text_view_size"
+                    android:textAlignment="center"
+                    android:hint="@string/location"
+                    android:autofillHints="postalAddress"
+                    android:inputType="textPostalAddress"
+                    android:visibility="gone" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:padding="@dimen/small_padding"
+                android:layout_margin="@dimen/small_margin" >
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/phone_number"
+                    android:textSize="@dimen/medium_text_view_size"
+                    android:drawablePadding="10dp"
+                    app:drawableStartCompat="@drawable/telephone_call_32" />
+
+                <TextView
+                    android:id="@+id/userPersonalDataPhoneNumber_textView"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textSize="@dimen/medium_text_view_size"
+                    android:text="@string/phone_number"
+                    android:paddingHorizontal="42dp" />
+
+                <EditText
+                    android:id="@+id/userPersonalDataPhoneNumber_editText"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textSize="@dimen/medium_text_view_size"
+                    android:textAlignment="center"
+                    android:hint="@string/phone_number"
+                    android:autofillHints="phone"
+                    android:inputType="phone"
+                    android:visibility="gone" />
+            </LinearLayout>
+
+
+            </LinearLayout>
+
+        <Button
+            android:id="@+id/userPersonalDataUpdate_button"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/small_margin"
+            android:text="@string/update"
+            android:textColor="@color/black"
+            android:backgroundTint="@color/aero_blue"
+            android:padding="@dimen/small_padding"
+            android:textSize="@dimen/medium_text_view_size"
+            android:visibility="gone" />
+
+    </LinearLayout>
+
+</ScrollView>

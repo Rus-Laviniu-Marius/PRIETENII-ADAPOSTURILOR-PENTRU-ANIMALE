@@ -1,0 +1,266 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/favoritePetDetailsContainer_linearLayout"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".adoption.SeePetDetailsActivity"
+    android:background="@color/yellow_crayola"
+    android:orientation="vertical">
+
+    <RelativeLayout
+        android:id="@+id/favoritePetDetailsTopBar_relativeLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginEnd="10dp"
+        android:layout_marginBottom="10dp">
+
+        <ImageView
+            android:id="@+id/favoritePetDetailsTopBarBack_imageView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentStart="true"
+            android:layout_centerHorizontal="true"
+            android:layout_centerVertical="true"
+            android:layout_alignParentTop="true"
+            android:contentDescription="@string/back"
+            android:src="@drawable/back_64" />
+
+        <ImageView
+            android:id="@+id/favoritePetDetailsTopBarHome_imageView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentEnd="true"
+            android:layout_centerHorizontal="true"
+            android:layout_centerVertical="true"
+            android:layout_marginEnd="10dp"
+            android:contentDescription="@string/home"
+            android:src="@drawable/home_64" />
+
+    </RelativeLayout>
+
+    <ImageView
+        android:id="@+id/favoritePetDetailsContentPet_imageView"
+        android:layout_width="200dp"
+        android:layout_height="250dp"
+        android:layout_gravity="center"
+        android:contentDescription="@string/a_dog_named_oscar"
+        android:src="@drawable/oscar_dog" />
+
+    <ScrollView
+        android:id="@+id/favoritePetDetailsContentContainer_scrollView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:id="@+id/favoritePetDetailsContent_linearLayout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:background="@drawable/pet_details_background" >
+
+            <TextView
+                android:id="@+id/favoritePetDetailsContentName_textView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/oscar"
+                android:textSize="36sp"
+                android:textColor="@color/yellow_crayola"
+                android:layout_margin="30dp" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:baselineAligned="false">
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:layout_weight="1"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_margin="10dp"
+                    android:padding="10dp">
+                    <TextView
+                        android:id="@+id/favoritePetDetailsContentAge_textView"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="@string/_2_years"
+                        android:textColor="@color/yellow_crayola"
+                        android:textSize="22sp"
+                        android:drawablePadding="10dp"
+                        app:drawableStartCompat="@drawable/card4_birthday_cake" />
+                    <TextView
+                        android:id="@+id/favoritePetDetailsContentWeight_textView"
+                        android:layout_marginTop="10dp"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="@string/_6_7_kg"
+                        android:textSize="22sp"
+                        android:textColor="@color/yellow_crayola"
+                        android:drawablePadding="10dp"
+                        app:drawableStartCompat="@drawable/card4_weighting_scale" />
+                    <TextView
+                        android:id="@+id/favoritePetDetailsContentLocation_textView"
+                        android:layout_marginTop="10dp"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="@string/timisoara"
+                        android:textSize="22sp"
+                        android:textColor="@color/yellow_crayola"
+                        android:drawablePadding="10dp"
+                        app:drawableStartCompat="@drawable/card4_location" />
+                </LinearLayout>
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:layout_weight="1"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_margin="10dp"
+                    android:padding="10dp">
+                    <TextView
+                        android:id="@+id/favoritePetDetailsContentSize_textView"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="@string/medium"
+                        android:textColor="@color/yellow_crayola"
+                        android:textSize="22sp"
+                        android:drawablePadding="10dp"
+                        app:drawableStartCompat="@drawable/card4_full_size" />
+                    <TextView
+                        android:id="@+id/favoritePetDetailsContentBreed_textView"
+                        android:layout_marginTop="10dp"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="@string/fox_terrier"
+                        android:textSize="22sp"
+                        android:textColor="@color/yellow_crayola"
+                        android:drawablePadding="10dp"
+                        app:drawableStartCompat="@drawable/card4_paws_print" />
+                    <TextView
+                        android:id="@+id/favoritePetDetailsContentGender_textView"
+                        android:layout_marginTop="10dp"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="@string/male"
+                        android:textSize="22sp"
+                        android:textColor="@color/yellow_crayola"
+                        android:drawablePadding="10dp"
+                        app:drawableStartCompat="@drawable/card4_gender" />
+                </LinearLayout>
+            </LinearLayout>
+
+            <TextView
+                android:id="@+id/favoritePetDetailsContentVeterinarianData_textView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/veterinarian_data"
+                android:textSize="26sp"
+                android:textColor="@color/yellow_crayola"
+                android:layout_marginStart="30dp" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:baselineAligned="false">
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:layout_weight="1"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_margin="10dp"
+                    android:padding="10dp"
+                    android:gravity="center">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/id"
+                        android:textColor="@color/black"
+                        android:textSize="20sp"
+                        android:gravity="center"
+                        android:background="@drawable/veterinarian_data_background"
+                        app:drawableEndCompat="@drawable/tick_pet_details_background" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/sterilized"
+                        android:textColor="@color/black"
+                        android:textSize="20sp"
+                        android:textAlignment="center"
+                        android:gravity="center"
+                        app:drawableEndCompat="@drawable/tick_pet_details_background"
+                        android:background="@drawable/veterinarian_data_background" />
+
+                </LinearLayout>
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:layout_weight="1"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_margin="10dp"
+                    android:padding="10dp">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/dewormed"
+                        android:textColor="@color/black"
+                        android:textSize="20sp"
+                        android:gravity="center"
+                        app:drawableEndCompat="@drawable/tick_pet_details_background"
+                        android:background="@drawable/veterinarian_data_background" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/vaccines"
+                        android:textColor="@color/black"
+                        android:textSize="20sp"
+                        android:gravity="center"
+                        app:drawableEndCompat="@drawable/tick_pet_details_background"
+                        android:background="@drawable/veterinarian_data_background" />
+                </LinearLayout>
+
+            </LinearLayout>
+
+            <TextView
+                android:id="@+id/favoritePetDetailsDescription_textView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/description"
+                android:textSize="26sp"
+                android:layout_marginStart="30dp"
+                android:textColor="@color/yellow_crayola" />
+            <TextView
+                android:id="@+id/favoritePetDetailsDescriptionContent_textView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/oscar_dog_description"
+                android:layout_margin="10dp"
+                android:textSize="22sp"
+                android:textColor="@color/yellow_crayola" />
+
+            <Button
+                android:id="@+id/favoritePetDetailsAdopt_button"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/adopt"
+                android:layout_margin="20dp"
+                android:backgroundTint="@color/yellow_crayola"
+                android:textColor="@color/black" />
+        </LinearLayout>
+
+    </ScrollView>
+
+</LinearLayout>

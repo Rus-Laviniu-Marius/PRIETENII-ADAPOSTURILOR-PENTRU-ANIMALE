@@ -9,11 +9,11 @@ import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -21,16 +21,15 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
-import com.pet.shelter.friends.HomeActivity;
 import com.pet.shelter.friends.R;
 
 public class RegisterActivity extends AppCompatActivity {
 
-    private static final String TAG = "RegisterActivity";
     private FirebaseAuth mAuth;
     private FirebaseUser mUser;
     private EditText nameEditText, emailEditText, passwordEditText, confirmPasswordEditText;
     private Button registerButton;
+    private TextView login;
     private String emailPattern = "[a-zA-Z0-9._-]+@[a-z]+\\.+[a-z]+";
     private ProgressDialog progressDialog;
     private Dialog dialog;
@@ -47,6 +46,7 @@ public class RegisterActivity extends AppCompatActivity {
         emailEditText = findViewById(R.id.registerEmail_editText);
         passwordEditText = findViewById(R.id.registerPassword_editText);
         confirmPasswordEditText = findViewById(R.id.registerConfirmPassword_editText);
+        login = findViewById(R.id.loginRegister_textView);
 
         progressDialog = new ProgressDialog(this);
         dialog = new Dialog(this);
@@ -56,6 +56,13 @@ public class RegisterActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 registerNewlyCreatedUser();
+            }
+        });
+
+        login.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(RegisterActivity.this, LoginActivity.class));
             }
         });
     }
@@ -88,7 +95,6 @@ public class RegisterActivity extends AppCompatActivity {
 
                         progressDialog.dismiss();
                         openSendConfirmRegistrationEmailPopUp();
-//                        sendUserToNextActivity();
                         Toast.makeText(RegisterActivity.this, "Registration Successfully", Toast.LENGTH_SHORT).show();
                     } else {
                         progressDialog.dismiss();
@@ -109,7 +115,7 @@ public class RegisterActivity extends AppCompatActivity {
         acceptButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                sendUserToNextActivity();
+                sendUserToLoginActivity();
             }
         });
 
@@ -117,6 +123,7 @@ public class RegisterActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 dialog.dismiss();
+                sendUserToLoginActivity();
                 Toast.makeText(RegisterActivity.this, "Dialog Close", Toast.LENGTH_SHORT).show();
             }
         });
@@ -124,7 +131,7 @@ public class RegisterActivity extends AppCompatActivity {
         dialog.show();
     }
 
-    private void sendUserToNextActivity() {
+    private void sendUserToLoginActivity() {
         Intent intent = new Intent(RegisterActivity.this, LoginActivity.class);
         intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK| Intent.FLAG_ACTIVITY_NEW_TASK);
         startActivity(intent);

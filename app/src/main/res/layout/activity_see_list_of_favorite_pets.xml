@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".adoption.SeeListOfFavoritePetsActivity"
+    android:orientation="vertical"
+    android:background="@color/aero_blue">
+
+    <ImageView
+        android:id="@+id/favoritePetsBack_imageView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/back_64"
+        android:contentDescription="@string/back"
+        android:padding="@dimen/padding"
+        android:layout_margin="10dp"/>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/favorite_pets"
+        android:textAlignment="center"
+        android:layout_marginVertical="@dimen/margin_vertical"
+        android:layout_marginHorizontal="@dimen/margin_horizontal"
+        android:padding="@dimen/padding"
+        android:textSize="@dimen/large_text_view_size" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/favoritePets_recyclerView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:clipToPadding="false"
+        android:padding="@dimen/padding"
+        android:layout_margin="20dp"
+        android:layout_gravity="center"
+
+        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+        tools:context="com.pet.shelter.friends.adoption.SeeListOfFavoritePetsActivity"
+        tools:listitem="@layout/custom_pet_view_layout" />
+
+
+</LinearLayout>

@@ -4,13 +4,193 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".HomeActivity">
+    tools:context=".HomeActivity"
+    android:background="@color/aero_blue">
 
-    <TextView
-        android:layout_width="wrap_content"
+    <LinearLayout
+        android:id="@+id/homeScreenTopBar_linearLayout"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_centerInParent="true"
-        android:text="@string/app_name"
-        android:textSize="50sp"/>
+        android:orientation="horizontal"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentStart="true"
+        android:layout_marginTop="30dp"
+        android:layout_marginStart="10dp"
+        android:layout_marginEnd="10dp">
+        <ImageView
+            android:id="@+id/homeScreenTopBarOpenMenu_imageView"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:contentDescription="@string/open_menu"
+            android:src="@drawable/open_menu"
+            android:layout_weight="1"
+            android:layout_gravity="center"/>
+        <ImageView
+            android:id="@+id/homeScreenTopBarLogo_imageview"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:contentDescription="@string/cat_dog_bird_tree_image"
+            android:src="@drawable/launcher_logo"
+            android:layout_weight="2"
+            android:layout_gravity="center"/>
+        <ImageView
+            android:id="@+id/homeScreenTopBarNotification_imageView"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:contentDescription="@string/notification_bell"
+            android:src="@drawable/notification"
+            android:layout_weight="1"
+            android:layout_gravity="center"/>
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/homeScreenContent"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_centerInParent="true" >
+        <TextView
+            android:id="@+id/homeScreenContentTitle_textView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/how_to_help_actions"
+            android:textSize="24sp"
+            android:textAlignment="center"
+            android:textStyle="bold" />
+            <LinearLayout
+                android:id="@+id/homeScreenContentFirstRowOfButtons_linearLayout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_margin="5dp"
+                android:baselineAligned="false">
+                <RelativeLayout
+                    android:id="@+id/homeScreenContentTopLeft_button"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/button_top_left"
+                    android:layout_weight="1"
+                    android:layout_margin="5dp" >
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/adopt_a_pet"
+                        android:textSize="24sp"
+                        app:drawableStartCompat="@drawable/paw_print" />
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:id="@+id/homeScreenContentTopRight_button"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/button_top_right"
+                    android:layout_weight="3"
+                    android:layout_margin="5dp" >
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/become_a_sponsor"
+                        android:textSize="24sp"
+                        app:drawableEndCompat="@drawable/charity"
+                        android:textAlignment="center"/>
+                </RelativeLayout>
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/homeScreenContentSecondRowOfButtons_linearLayout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_margin="5dp"
+                android:baselineAligned="false">
+                <RelativeLayout
+                    android:id="@+id/homeScreenContentBottomLeft_button"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/button_bottom_left"
+                    android:layout_weight="2"
+                    android:layout_margin="5dp" >
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/become_a_volunteer"
+                        app:drawableStartCompat="@drawable/volunteer"
+                        android:textSize="20sp"
+                        android:textAlignment="textStart"/>
+                </RelativeLayout>
+                <RelativeLayout
+                    android:id="@+id/homeScreenContentBottomRight_button"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/button_bottom_right"
+                    android:layout_weight="1"
+                    android:layout_margin="5dp" >
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/material_support"
+                        android:textSize="24sp"
+                        app:drawableEndCompat="@drawable/trolley"
+                        android:textAlignment="center"/>
+                </RelativeLayout>
+            </LinearLayout>
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/homeScreenBottomBar_linearLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_alignParentBottom="true"
+        android:layout_marginStart="10dp"
+        android:layout_marginEnd="10dp"
+        android:layout_marginBottom="20dp">
+
+        <TextView
+            android:id="@+id/homeScreenBottomBarHome_textView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/home"
+            android:textSize="20sp"
+            android:textAlignment="center"
+            android:layout_gravity="center"
+            app:drawableTopCompat="@drawable/home_64"
+            android:layout_weight="1" />
+
+        <TextView
+            android:id="@+id/homeScreenBottomBarAdopt_textView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/adopt"
+            android:textSize="20sp"
+            android:textAlignment="center"
+            android:layout_gravity="center"
+            app:drawableTopCompat="@drawable/paw_print"
+            android:layout_weight="1"/>
+
+        <TextView
+            android:id="@+id/homeScreenBottomBarDonate_textView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/donate"
+            android:textSize="20sp"
+            android:layout_gravity="center"
+            android:textAlignment="center"
+            app:drawableTopCompat="@drawable/charity"
+            android:layout_weight="1"/>
+
+        <TextView
+            android:id="@+id/homeScreenBottomBarProfile_textView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/profile"
+            android:textSize="20sp"
+            android:layout_gravity="center"
+            android:textAlignment="center"
+            app:drawableTopCompat="@drawable/user_profile"
+            android:layout_weight="1"/>
+
+        </LinearLayout>
 
 </RelativeLayout>
