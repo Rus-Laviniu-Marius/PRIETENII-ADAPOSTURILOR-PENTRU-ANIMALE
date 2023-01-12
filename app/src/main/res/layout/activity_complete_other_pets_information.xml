@@ -76,13 +76,13 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:autofillHints="text"
-                    android:textSize="20sp"
-                    android:inputType="text|textMultiLine"
-                    android:hint="@string/specify_type_and_number"
-                    android:padding="10dp"
-                    android:gravity="center"
+                    android:background="@drawable/veterinarian_data_background"
                     android:drawableStart="@drawable/pet_details_32"
-                    android:background="@drawable/veterinarian_data_background"/>
+                    android:gravity="center"
+                    android:hint="@string/specify_type_and_number"
+                    android:inputType="text|textMultiLine"
+                    android:padding="10dp"
+                    android:textSize="20sp" />
 
             </LinearLayout>
 

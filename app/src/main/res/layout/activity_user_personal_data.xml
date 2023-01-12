@@ -102,7 +102,7 @@
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:textSize="@dimen/medium_text_view_size"
+                    android:textSize="@dimen/medium_text_size"
                     android:text="@string/name"
                     app:drawableStartCompat="@drawable/user_profile_32"
                     android:drawablePadding="@dimen/small_padding"/>
@@ -111,14 +111,14 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="@string/user_name"
-                    android:textSize="@dimen/medium_text_view_size"
+                    android:textSize="@dimen/medium_text_size"
                     android:paddingHorizontal="42dp"
                     android:layout_marginVertical="@dimen/small_margin" />
                 <EditText
                     android:id="@+id/userPersonalDataName_editText"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:textSize="@dimen/medium_text_view_size"
+                    android:textSize="@dimen/medium_text_size"
                     android:textAlignment="center"
                     android:hint="@string/name"
                     android:autofillHints="username"
@@ -136,7 +136,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="@string/email"
-                    android:textSize="@dimen/medium_text_view_size"
+                    android:textSize="@dimen/medium_text_size"
                     app:drawableStartCompat="@drawable/email_address_32"
                     android:drawablePadding="@dimen/small_padding"/>
 
@@ -144,14 +144,14 @@
                     android:id="@+id/userPersonalDataEmail_textView"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:textSize="@dimen/medium_text_view_size"
+                    android:textSize="@dimen/medium_text_size"
                     android:text="@string/email"
                     android:paddingHorizontal="42dp"/>
                 <EditText
                     android:id="@+id/userPersonalDataEmail_editText"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:textSize="@dimen/medium_text_view_size"
+                    android:textSize="@dimen/medium_text_size"
                     android:textAlignment="center"
                     android:hint="@string/email"
                     android:autofillHints="emailAddress"
@@ -170,7 +170,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="@string/location"
-                    android:textSize="@dimen/medium_text_view_size"
+                    android:textSize="@dimen/medium_text_size"
                     app:drawableStartCompat="@drawable/location_32"
                     android:drawablePadding="10dp"/>
 
@@ -178,7 +178,7 @@
                     android:id="@+id/userPersonalDataLocation_textView"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:textSize="@dimen/medium_text_view_size"
+                    android:textSize="@dimen/medium_text_size"
                     android:text="@string/location"
                     android:paddingHorizontal="42dp"/>
 
@@ -186,7 +186,7 @@
                     android:id="@+id/userPersonalDataLocation_editText"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:textSize="@dimen/medium_text_view_size"
+                    android:textSize="@dimen/medium_text_size"
                     android:textAlignment="center"
                     android:hint="@string/location"
                     android:autofillHints="postalAddress"
@@ -206,7 +206,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="@string/phone_number"
-                    android:textSize="@dimen/medium_text_view_size"
+                    android:textSize="@dimen/medium_text_size"
                     android:drawablePadding="10dp"
                     app:drawableStartCompat="@drawable/telephone_call_32" />
 
@@ -214,7 +214,7 @@
                     android:id="@+id/userPersonalDataPhoneNumber_textView"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:textSize="@dimen/medium_text_view_size"
+                    android:textSize="@dimen/medium_text_size"
                     android:text="@string/phone_number"
                     android:paddingHorizontal="42dp" />
 
@@ -222,7 +222,7 @@
                     android:id="@+id/userPersonalDataPhoneNumber_editText"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:textSize="@dimen/medium_text_view_size"
+                    android:textSize="@dimen/medium_text_size"
                     android:textAlignment="center"
                     android:hint="@string/phone_number"
                     android:autofillHints="phone"
@@ -242,7 +242,7 @@
             android:textColor="@color/black"
             android:backgroundTint="@color/aero_blue"
             android:padding="@dimen/small_padding"
-            android:textSize="@dimen/medium_text_view_size"
+            android:textSize="@dimen/medium_text_size"
             android:visibility="gone" />
 
     </LinearLayout>

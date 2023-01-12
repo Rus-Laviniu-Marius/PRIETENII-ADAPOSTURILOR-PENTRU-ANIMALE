@@ -68,7 +68,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="@string/user_name"
-                android:textSize="@dimen/small_text_view_size"
+                android:textSize="@dimen/small_text_size"
                 android:paddingHorizontal="@dimen/small_padding"
                 android:layout_marginVertical="@dimen/margin_vertical"
                 android:visibility="gone" />
@@ -76,7 +76,7 @@
                 android:id="@+id/createProfileUserName_editText"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:textSize="@dimen/medium_text_view_size"
+                android:textSize="@dimen/medium_text_size"
                 android:textAlignment="center"
                 android:hint="@string/name"
                 android:autofillHints="name"
@@ -94,7 +94,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="@string/email"
-                android:textSize="@dimen/small_text_view_size"
+                android:textSize="@dimen/small_text_size"
                 android:paddingHorizontal="@dimen/small_padding"
                 android:layout_marginVertical="@dimen/margin_vertical"
                 android:visibility="gone" />
@@ -102,7 +102,7 @@
                 android:id="@+id/createProfileUserEmail_editText"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:textSize="@dimen/medium_text_view_size"
+                android:textSize="@dimen/medium_text_size"
                 android:textAlignment="center"
                 android:hint="@string/email"
                 android:autofillHints="emailAddress"
@@ -120,7 +120,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="@string/location"
-                android:textSize="@dimen/small_text_view_size"
+                android:textSize="@dimen/small_text_size"
                 android:paddingHorizontal="@dimen/small_padding"
                 android:layout_marginVertical="@dimen/margin_vertical"
                 android:visibility="gone" />
@@ -128,7 +128,7 @@
                 android:id="@+id/createProfileUserLocation_editText"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:textSize="@dimen/medium_text_view_size"
+                android:textSize="@dimen/medium_text_size"
                 android:textAlignment="center"
                 android:hint="@string/location"
                 android:autofillHints="postalAddress"
@@ -146,7 +146,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="@string/phone_number"
-                android:textSize="@dimen/small_text_view_size"
+                android:textSize="@dimen/small_text_size"
                 android:paddingHorizontal="@dimen/small_padding"
                 android:layout_marginVertical="@dimen/margin_vertical"
                 android:visibility="gone" />
@@ -154,7 +154,7 @@
                 android:id="@+id/createProfileUserPhoneNumber_editText"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:textSize="@dimen/medium_text_view_size"
+                android:textSize="@dimen/medium_text_size"
                 android:textAlignment="center"
                 android:hint="@string/phone_number"
                 android:autofillHints="phone"
@@ -170,7 +170,7 @@
             android:textColor="@color/black"
             android:backgroundTint="@color/aero_blue"
             android:padding="@dimen/small_padding"
-            android:textSize="@dimen/medium_text_view_size"/>
+            android:textSize="@dimen/medium_text_size"/>
     </LinearLayout>
 
 

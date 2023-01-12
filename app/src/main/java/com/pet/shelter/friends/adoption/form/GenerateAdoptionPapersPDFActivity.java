@@ -14,6 +14,7 @@ import android.os.Bundle;
 import android.os.Environment;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.google.firebase.auth.FirebaseAuth;
@@ -40,6 +41,7 @@ import com.itextpdf.layout.element.Text;
 import com.itextpdf.layout.property.HorizontalAlignment;
 import com.itextpdf.layout.property.TextAlignment;
 import com.pet.shelter.friends.BuildConfig;
+import com.pet.shelter.friends.HomeActivity;
 import com.pet.shelter.friends.R;
 
 import java.io.ByteArrayOutputStream;
@@ -61,6 +63,7 @@ public class GenerateAdoptionPapersPDFActivity extends AppCompatActivity {
             referenceAddress, referenceName, referencePhoneNumber, referenceRelationship;
 
     private Button generatePDF;
+    private ImageView homeImageView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -72,7 +75,7 @@ public class GenerateAdoptionPapersPDFActivity extends AppCompatActivity {
         databaseReference = firebaseDatabase.getReference();
 
         generatePDF = findViewById(R.id.generatePDF_button);
-
+        homeImageView = findViewById(R.id.generatePDFHome_imageView);
         readDataFromFirebase();
 
         generatePDF.setOnClickListener(new View.OnClickListener() {
@@ -84,6 +87,13 @@ public class GenerateAdoptionPapersPDFActivity extends AppCompatActivity {
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
+            }
+        });
+
+        homeImageView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(GenerateAdoptionPapersPDFActivity.this, HomeActivity.class));
             }
         });
     }

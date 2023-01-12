@@ -6,6 +6,15 @@
     android:layout_height="match_parent"
     tools:context=".adoption.form.GenerateAdoptionPapersPDFActivity">
 
+    <ImageView
+        android:id="@+id/generatePDFHome_imageView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/home_64"
+        android:contentDescription="@string/home"
+        android:layout_centerHorizontal="true"
+        android:layout_alignParentBottom="true"
+        android:layout_margin="@dimen/large_margin" />
     <Button
         android:id="@+id/generatePDF_button"
         android:layout_width="match_parent"
