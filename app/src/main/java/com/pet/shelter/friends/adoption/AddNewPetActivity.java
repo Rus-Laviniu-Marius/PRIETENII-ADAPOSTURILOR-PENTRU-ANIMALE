@@ -6,13 +6,16 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.ContextCompat;
 
+import android.Manifest;
 import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.content.res.Resources;
 import android.graphics.BitmapFactory;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
@@ -58,32 +61,34 @@ public class AddNewPetActivity extends AppCompatActivity {
 
     private Uri selectedImage;
 
-    private final ActivityResultLauncher<Intent> someActivityResultLauncher = registerForActivityResult(
-            new ActivityResultContracts.StartActivityForResult(),
-            result -> {
-                if (result.getResultCode() == Activity.RESULT_OK) {
-                    // There are no request codes
-                    // doSomeOperations();
-                    Intent data = result.getData();
-                    selectedImage = Objects.requireNonNull(data).getData();
-                    InputStream imageStream = null;
-                    try {
-                        imageStream = getContentResolver().openInputStream(selectedImage);
-                    } catch (FileNotFoundException e) {
-                        e.printStackTrace();
-                    }
-                    BitmapFactory.decodeStream(imageStream);
+    private static final int PICK_FROM_GALLERY = 1889;
 
-                    petImageView.setImageURI(selectedImage);// To display selected image in image view
-                }
-            });
+    private ActivityResultLauncher<Intent> galleryActivityResultLauncher;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_new_pet);
 
+        galleryActivityResultLauncher = registerForActivityResult(
+                new ActivityResultContracts.StartActivityForResult(),
+                result -> {
+                    if (result.getResultCode() == Activity.RESULT_OK) {
+                        // There are no request codes
+                        // doSomeOperations();
+                        Intent data = result.getData();
+                        selectedImage = Objects.requireNonNull(data).getData();
+                        InputStream imageStream = null;
+                        try {
+                            imageStream = getContentResolver().openInputStream(selectedImage);
+                        } catch (FileNotFoundException e) {
+                            e.printStackTrace();
+                        }
+                        BitmapFactory.decodeStream(imageStream);
 
+                        petImageView.setImageURI(selectedImage);// To display selected image in image view
+                    }
+                });
 
         firebaseAuth = FirebaseAuth.getInstance();
         FirebaseDatabase firebaseDatabase = FirebaseDatabase.getInstance();
@@ -229,7 +234,6 @@ public class AddNewPetActivity extends AppCompatActivity {
                 }
             }
         });
-
     }
 
     private void setOnClickListeners() {
@@ -258,12 +262,17 @@ public class AddNewPetActivity extends AppCompatActivity {
         petImageView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent photoPickerIntent = new Intent(Intent.ACTION_PICK);
-                photoPickerIntent.setType("image/*");
-                someActivityResultLauncher.launch(photoPickerIntent);
-            }
+//                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+//                    if (checkSelfPermission(Manifest.permission.READ_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
+//                        requestPermissions(new String[]{Manifest.permission.READ_EXTERNAL_STORAGE, Manifest.permission.WRITE_EXTERNAL_STORAGE}, PICK_FROM_GALLERY);
+//                    }
+//                } else {
+                    Intent photoPickerIntent = new Intent(Intent.ACTION_PICK);
+                    photoPickerIntent.setType("image/*");
+                    galleryActivityResultLauncher.launch(photoPickerIntent);
+//                }
+            }   
         });
-
     }
 
     private void savePetDataToDatabase() {
