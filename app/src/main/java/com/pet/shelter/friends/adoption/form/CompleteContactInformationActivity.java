@@ -35,7 +35,7 @@ public class CompleteContactInformationActivity extends AppCompatActivity {
 
         firebaseAuth = FirebaseAuth.getInstance();
         FirebaseDatabase database = FirebaseDatabase.getInstance();
-        adoptionFormReference = database.getReference().child("adoptionForm");
+        adoptionFormReference = database.getReference().child("adoptionForms");
 
         fullNameTextView = findViewById(R.id.completeContactInformationFullName_textView);
         occupationTextView = findViewById(R.id.completeContactInformationOccupation_textView);
@@ -119,14 +119,24 @@ public class CompleteContactInformationActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 writeToDatabase();
-                sendToNextActivity();
+//                if (!fullNameEditText.requestFocus() && !occupationEditText.requestFocus()
+//                        && !addressEditText.requestFocus() && !timeAtThisAddressEditText.requestFocus()
+//                        && !phoneNumberEditText.requestFocus() && !emailEditText.requestFocus()
+//                        && !bestTimeToCallEditText.requestFocus()) {
+                    sendToNextActivity();
+//                }
             }
         });
 
         nextButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                sendToNextActivity();
+//                if (!fullNameEditText.requestFocus() && !occupationEditText.requestFocus()
+//                        && !addressEditText.requestFocus() && !timeAtThisAddressEditText.requestFocus()
+//                        && !phoneNumberEditText.requestFocus() && !emailEditText.requestFocus()
+//                        && !bestTimeToCallEditText.requestFocus()) {
+                    sendToNextActivity();
+//                }
             }
         });
 
@@ -141,18 +151,66 @@ public class CompleteContactInformationActivity extends AppCompatActivity {
 
     private void writeToDatabase() {
         String currentFirebaseUserUid = Objects.requireNonNull(firebaseAuth.getCurrentUser()).getUid();
+        String fullName = fullNameEditText.getText().toString().trim();
+        String occupation = occupationEditText.getText().toString().trim();
+        String address = addressEditText.getText().toString().trim();
+        String sittingTime = timeAtThisAddressEditText.getText().toString().trim();
+        String phoneNumber = phoneNumberEditText.getText().toString().trim();
+        String emailAddress = emailEditText.getText().toString().trim();
+        String bestTimeToCall = bestTimeToCallEditText.getText().toString().trim();
 
-        adoptionFormReference.child(currentFirebaseUserUid).child("applicantContactInformation").child("fullName").setValue(fullNameEditText.getText().toString());
-        adoptionFormReference.child(currentFirebaseUserUid).child("applicantContactInformation").child("occupation").setValue(occupationEditText.getText().toString());
-        adoptionFormReference.child(currentFirebaseUserUid).child("applicantContactInformation").child("address").setValue(addressEditText.getText().toString());
-        adoptionFormReference.child(currentFirebaseUserUid).child("applicantContactInformation").child("sittingTime").setValue(timeAtThisAddressEditText.getText().toString());
-        adoptionFormReference.child(currentFirebaseUserUid).child("applicantContactInformation").child("phoneNumber").setValue(phoneNumberEditText.getText().toString());
-        adoptionFormReference.child(currentFirebaseUserUid).child("applicantContactInformation").child("emailAddress").setValue(emailEditText.getText().toString());
-        adoptionFormReference.child(currentFirebaseUserUid).child("applicantContactInformation").child("bestTimeToCall").setValue(bestTimeToCallEditText.getText().toString());
+
+        if (fullName.isEmpty()) {
+            fullNameEditText.setError("You need to enter your name");
+            fullNameEditText.requestFocus();
+        } else {
+            adoptionFormReference.child(currentFirebaseUserUid).child("applicantContactInformation").child("fullName").setValue(fullName);
+        }
+        if (occupation.isEmpty()) {
+            occupationEditText.setError("You need to enter your occupation");
+            occupationEditText.requestFocus();
+        } else {
+            adoptionFormReference.child(currentFirebaseUserUid).child("applicantContactInformation").child("occupation").setValue(occupation);
+        }
+        if (address.isEmpty()) {
+            addressEditText.setError("You need to enter your address");
+            addressEditText.requestFocus();
+        } else {
+            adoptionFormReference.child(currentFirebaseUserUid).child("applicantContactInformation").child("address").setValue(address);
+        }
+        if (sittingTime.isEmpty()) {
+            timeAtThisAddressEditText.setError("You need to enter how long you live there");
+            timeAtThisAddressEditText.requestFocus();
+        } else {
+            adoptionFormReference.child(currentFirebaseUserUid).child("applicantContactInformation").child("sittingTime").setValue(sittingTime);
+        }
+        if (phoneNumber.isEmpty()) {
+            phoneNumberEditText.setError("You need to enter your phone number");
+            phoneNumberEditText.requestFocus();
+        } else {
+            adoptionFormReference.child(currentFirebaseUserUid).child("applicantContactInformation").child("phoneNumber").setValue(phoneNumber);
+        }
+        if (emailAddress.isEmpty()) {
+            emailEditText.setError("You need to enter your email address");
+            emailEditText.requestFocus();
+        } else {
+            adoptionFormReference.child(currentFirebaseUserUid).child("applicantContactInformation").child("emailAddress").setValue(emailAddress);
+        }
+        if (bestTimeToCall.isEmpty()) {
+            bestTimeToCallEditText.setError("You need to enter the best time to be called");
+            bestTimeToCallEditText.requestFocus();
+        } else {
+            adoptionFormReference.child(currentFirebaseUserUid).child("applicantContactInformation").child("bestTimeToCall").setValue(bestTimeToCall);
+        }
     }
 
     private void sendToNextActivity() {
         Intent intent = new Intent(CompleteContactInformationActivity.this, CompleteFamilyAndHouseholdInformationActivity.class);
-        startActivity(intent);
+//        if (!fullNameEditText.requestFocus() && !occupationEditText.requestFocus()
+//                        && !addressEditText.requestFocus() && !timeAtThisAddressEditText.requestFocus()
+//                        && !phoneNumberEditText.requestFocus() && !emailEditText.requestFocus()
+//                        && !bestTimeToCallEditText.requestFocus()) {
+            startActivity(intent);
+//        }
     }
 }

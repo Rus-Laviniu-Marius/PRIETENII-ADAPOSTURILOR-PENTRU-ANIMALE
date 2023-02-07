@@ -72,7 +72,7 @@ public class CreateProfileActivity extends AppCompatActivity {
 
         firebaseAuth = FirebaseAuth.getInstance();
         firebaseDatabase = FirebaseDatabase.getInstance();
-        usersReference = firebaseDatabase.getReference("users");
+        usersReference = firebaseDatabase.getReference("profiles");
         firebaseStorage = FirebaseStorage.getInstance();
         userProfileImageStorage = firebaseStorage.getReference();
 

@@ -5,7 +5,7 @@
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
     android:background="@color/linen"
-    android:layout_margin="10dp">
+    android:layout_margin="@dimen/small_margin">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -14,61 +14,70 @@
             android:gravity="center">
                 <TextView
                     android:id="@+id/customPetViewName_textView"
-                    android:layout_width="wrap_content"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="10dp"
-                    android:layout_marginTop="10dp"
-                    android:layout_marginEnd="10dp"
-                    android:layout_marginBottom="10dp"
-                    android:drawablePadding="40dp"
+                    android:layout_margin="@dimen/small_margin"
+                    android:drawablePadding="@dimen/large_padding"
                     android:text="@string/milo"
                     android:gravity="center"
-                    android:textSize="26sp"
+                    android:textSize="@dimen/medium_text_size"
                     app:drawableEndCompat="@drawable/heart_32" />
-
-                <TextView
-                    android:id="@+id/customPetViewAge_textView"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/_3_years"
-                    android:textSize="20sp"
-                    android:layout_margin="10dp" />
 
                 <TextView
                     android:id="@+id/customPetViewSize_textView"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/small"
-                    android:textSize="20sp"
-                    android:layout_margin="10dp"/>
+                    android:textSize="@dimen/medium_text_size"
+                    android:layout_margin="@dimen/small_margin"/>
+
+                <TextView
+                    android:id="@+id/customPetViewAge_textView"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/_3_years"
+                    android:textSize="@dimen/medium_text_size"
+                    android:layout_margin="@dimen/small_margin" />
 
                 <TextView
                     android:id="@+id/customPetViewSex_textView"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/male"
-                    android:textSize="20sp"
-                    android:layout_margin="10dp"/>
+                    android:textSize="@dimen/medium_text_size"
+                    android:layout_margin="@dimen/small_margin"/>
+
+                <TextView
+                    android:id="@+id/customPetViewFitForChildren_textView"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/fit_for_children"
+                    android:textSize="@dimen/medium_text_size"
+                    android:layout_margin="@dimen/small_margin" />
+
+                <TextView
+                    android:id="@+id/customPetViewFitForGuarding_textView"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/fit_for_guarding"
+                    android:textSize="@dimen/medium_text_size"
+                    android:layout_margin="@dimen/small_margin"/>
 
                 <TextView
                     android:id="@+id/customPetViewLocation_textView"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/timisoara"
-                    android:textSize="20sp"
-                    android:layout_margin="10dp" />
+                    android:textSize="@dimen/medium_text_size"
+                    android:layout_margin="@dimen/small_margin" />
+
                 <ImageView
                     android:id="@+id/customPetView_imageView"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="10dp"
-                    android:layout_marginTop="10dp"
-                    android:layout_marginEnd="10dp"
-                    android:layout_marginBottom="10dp"
+                    android:layout_width="200dp"
+                    android:layout_height="200dp"
+                    android:layout_margin="@dimen/small_margin"
                     android:contentDescription="@string/a_dog_named_milo"
                     android:src="@drawable/milo_dog" />
         </LinearLayout>
-
-
 
 </androidx.cardview.widget.CardView>

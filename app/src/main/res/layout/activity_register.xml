@@ -14,27 +14,21 @@
             android:id="@+id/registerTitle_textView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_centerHorizontal="true"
+            android:layout_centerInParent="true"
             android:layout_alignParentTop="true"
-            android:layout_marginStart="10dp"
-            android:layout_marginTop="10dp"
-            android:layout_marginEnd="10dp"
-            android:layout_marginBottom="10dp"
+            android:layout_margin="@dimen/small_margin"
             android:text="@string/register"
-            android:textSize="32sp" />
+            android:textSize="@dimen/large_text_size" />
 
         <TextView
             android:id="@+id/registerSubTitle_textView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@+id/registerTitle_textView"
-            android:layout_centerHorizontal="true"
-            android:layout_marginStart="10dp"
-            android:layout_marginTop="10dp"
-            android:layout_marginEnd="10dp"
-            android:layout_marginBottom="10dp"
+            android:layout_centerInParent="true"
+            android:layout_margin="@dimen/small_margin"
             android:text="@string/fill_in_your_details_to_get_started"
-            android:textSize="20sp" />
+            android:textSize="@dimen/medium_text_size" />
 
         <RelativeLayout
             android:id="@+id/login_relativeLayout"
@@ -50,12 +44,13 @@
                 android:layout_height="wrap_content"
                 android:autofillHints="name"
                 android:inputType="textPersonName"
-                android:layout_centerHorizontal="true"
+                android:layout_centerInParent="true"
+                android:layout_alignParentTop="true"
                 android:hint="@string/name"
                 android:gravity="center"
-                android:padding="10dp"
-                android:textSize="20sp"
-                android:layout_marginTop="10dp"
+                android:padding="@dimen/small_padding"
+                android:textSize="@dimen/medium_text_size"
+                android:layout_marginTop="@dimen/small_margin"
                 android:drawableStart="@drawable/full_name_32"/>
             <EditText
                 android:id="@+id/registerEmail_editText"
@@ -64,12 +59,13 @@
                 android:autofillHints="emailAddress"
                 android:inputType="textEmailAddress"
                 android:hint="@string/email"
-                android:textSize="20sp"
-                android:layout_centerHorizontal="true"
+                android:textSize="@dimen/medium_text_size"
+                android:layout_centerInParent="true"
+                android:layout_alignParentTop="true"
                 android:drawableStart="@drawable/email_address_32"
-                android:padding="10dp"
+                android:padding="@dimen/small_padding"
                 android:gravity="center"
-                android:layout_marginTop="10dp"
+                android:layout_marginTop="@dimen/small_margin"
                 android:layout_below="@+id/registerName_editText"/>
             <EditText
                 android:id="@+id/registerPassword_editText"
@@ -78,13 +74,13 @@
                 android:autofillHints="password"
                 android:inputType="textPassword"
                 android:hint="@string/password"
-                android:textSize="20sp"
-                android:layout_centerHorizontal="true"
-                android:padding="10dp"
+                android:textSize="@dimen/medium_text_size"
+                android:padding="@dimen/small_padding"
                 android:drawableStart="@drawable/lock_32"
                 android:gravity="center"
+                android:layout_centerInParent="true"
                 android:layout_below="@+id/registerEmail_editText"
-                android:layout_marginTop="10dp"/>
+                android:layout_marginTop="@dimen/small_margin"/>
             <EditText
                 android:id="@+id/registerConfirmPassword_editText"
                 android:layout_width="match_parent"
@@ -92,13 +88,13 @@
                 android:autofillHints="password"
                 android:inputType="textPassword"
                 android:hint="@string/confirm_password"
-                android:textSize="20sp"
-                android:layout_centerHorizontal="true"
-                android:padding="10dp"
+                android:textSize="@dimen/medium_text_size"
+                android:padding="@dimen/small_padding"
+                android:layout_centerInParent="true"
                 android:drawableStart="@drawable/lock_32"
                 android:gravity="center"
                 android:layout_below="@+id/registerPassword_editText"
-                android:layout_marginTop="10dp"/>
+                android:layout_marginTop="@dimen/medium_margin"/>
 
             <Button
                 android:id="@+id/register_button"
@@ -106,10 +102,10 @@
                 android:layout_height="wrap_content"
                 android:text="@string/register"
                 android:layout_below="@id/registerConfirmPassword_editText"
-                android:layout_centerHorizontal="true"
-                android:textSize="24sp"
+                android:layout_centerInParent="true"
+                android:textSize="@dimen/medium_text_size"
                 android:textColor="@color/black"
-                android:layout_marginTop="30dp"/>
+                android:layout_marginTop="@dimen/large_margin"/>
 
         </RelativeLayout>
 
@@ -119,16 +115,15 @@
             android:layout_height="wrap_content"
             android:layout_below="@id/login_relativeLayout"
             android:orientation="horizontal"
-            android:layout_marginTop="20dp"
-            android:layout_marginLeft="10dp"
-            android:layout_marginRight="10dp"
+            android:layout_marginTop="@dimen/large_margin"
+            android:layout_marginHorizontal="@dimen/small_margin"
             android:layout_centerHorizontal="true">
             <TextView
                 android:id="@+id/account_textView"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/i_already_have_an_account"
-                android:textSize="18sp"
+                android:text="@string/already_have_an_account"
+                android:textSize="@dimen/small_text_size"
                 android:layout_weight="1"
                 android:layout_gravity="center" />
             <TextView
@@ -136,7 +131,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/log_in"
-                android:textSize="20sp"
+                android:textSize="@dimen/medium_text_size"
                 android:textColor="@color/black"
                 android:textStyle="bold"
                 android:layout_weight="1" />

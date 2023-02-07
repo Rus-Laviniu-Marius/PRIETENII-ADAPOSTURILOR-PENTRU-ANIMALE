@@ -170,11 +170,13 @@
                 android:orientation="vertical"
                 android:layout_margin="@dimen/small_margin">
                 <TextView
+                    android:id="@+id/knownAllergy_textView"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:textSize="@dimen/medium_text_size"
                     android:text="@string/does_a_family_member_have_a_known_allergy_to_pets"/>
                 <RadioGroup
+                    android:id="@+id/knownAllergy_radioGroup"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="horizontal"
@@ -215,6 +217,7 @@
                     android:textSize="@dimen/medium_text_size"
                     android:text="@string/is_everyone_in_agreement_with_the_decision_to_adopt_a_pet"/>
                 <RadioGroup
+                    android:id="@+id/agreementDecision_radioGroup"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="horizontal"
@@ -255,6 +258,7 @@
                     android:textSize="@dimen/medium_text_size"
                     android:text="@string/do_you_have_time_to_provide_adequate_love_and_attention"/>
                 <RadioGroup
+                    android:id="@+id/adequateLoveAndAttention_radioGroup"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="horizontal"

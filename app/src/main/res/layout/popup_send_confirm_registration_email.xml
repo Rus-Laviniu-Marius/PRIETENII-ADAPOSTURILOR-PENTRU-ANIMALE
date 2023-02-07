@@ -7,12 +7,12 @@
 
     <ImageView
         android:id="@+id/popUpConfirmEmailClose_imageView"
-        android:layout_width="40dp"
-        android:layout_height="40dp"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
         android:src="@drawable/cancel"
         android:layout_alignParentEnd="true"
-        android:layout_marginEnd="10dp"
-        android:layout_marginTop="10dp" />
+        android:layout_alignParentTop="true"
+        android:layout_margin="@dimen/small_margin" />
 
     <TextView
         android:id="@+id/popUpConfirmEmailTitle_textView"
@@ -20,35 +20,32 @@
         android:layout_height="wrap_content"
         android:text="@string/confirmation_email"
         android:textStyle="bold"
-        android:textSize="24sp"
-        android:padding="10dp"
+        android:textSize="@dimen/medium_text_size"
+        android:padding="@dimen/small_padding"
         android:gravity="center"
-        android:layout_centerHorizontal="true"
+        android:layout_centerInParent="true"
         android:layout_below="@id/popUpConfirmEmailClose_imageView"
-        android:layout_margin="5dp"/>
+        android:layout_margin="@dimen/small_margin"/>
 
     <TextView
         android:id="@+id/popUpConfirmEmailDescription_textView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@+id/popUpConfirmEmailTitle_textView"
-        android:layout_marginStart="5dp"
-        android:layout_marginTop="5dp"
-        android:layout_marginEnd="5dp"
-        android:layout_marginBottom="5dp"
-        android:padding="10dp"
-        android:layout_centerHorizontal="true"
+        android:layout_margin="@dimen/small_margin"
+        android:padding="@dimen/small_padding"
+        android:layout_centerInParent="true"
         android:text="@string/we_have_sent_you_an_email_to_confirm_your_account"
-        android:textSize="20sp" />
+        android:textSize="@dimen/medium_text_size" />
 
     <ImageView
         android:id="@+id/popUpConfirmEmailPaperPlane_imageView"
-        android:layout_width="75dp"
-        android:layout_height="75dp"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
         android:src="@drawable/paper_airplane_64"
         android:layout_below="@id/popUpConfirmEmailDescription_textView"
-        android:layout_marginTop="30dp"
-        android:layout_centerHorizontal="true"
+        android:layout_marginTop="@dimen/large_margin"
+        android:layout_centerInParent="true"
         android:contentDescription="@string/flying_paper_plane" />
 
     <Button
@@ -57,9 +54,9 @@
         android:layout_height="wrap_content"
         android:text="@string/accept"
         android:layout_below="@+id/popUpConfirmEmailPaperPlane_imageView"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="30dp"
-        android:textSize="20sp"
+        android:layout_centerInParent="true"
+        android:layout_marginTop="@dimen/large_margin"
+        android:textSize="@dimen/medium_text_size"
         android:textColor="@color/black"/>
 
 </RelativeLayout>

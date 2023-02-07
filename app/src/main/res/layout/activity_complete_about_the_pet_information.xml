@@ -45,7 +45,7 @@
         android:layout_centerInParent="true"
         android:layout_margin="@dimen/small_margin"
         android:text="@string/complete_information_description"
-        android:textSize="@dimen/large_text_view_size" />
+        android:textSize="@dimen/large_text_size" />
 
     <ScrollView
         android:layout_width="match_parent"
@@ -70,14 +70,14 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="@string/pet_name"
-                    android:textSize="@dimen/medium_text_view_size"/>
+                    android:textSize="@dimen/medium_text_size"/>
 
                 <EditText
                     android:id="@+id/aboutPetName_editText"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:padding="@dimen/small_padding"
-                    android:textSize="@dimen/medium_text_view_size"
+                    android:textSize="@dimen/medium_text_size"
                     android:inputType="textPersonName"
                     android:hint="@string/pet_name"
                     android:autofillHints="pet name"
@@ -96,7 +96,7 @@
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:textSize="@dimen/medium_text_view_size"
+                    android:textSize="@dimen/medium_text_size"
                     android:text="@string/where_will_the_pet_spend_the_day"/>
 
                 <EditText
@@ -104,7 +104,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:autofillHints="text"
-                    android:textSize="@dimen/medium_text_view_size"
+                    android:textSize="@dimen/medium_text_size"
                     android:inputType="textMultiLine"
                     android:maxLength="500"
                     android:hint="@string/please_describe"
@@ -122,7 +122,7 @@
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:textSize="@dimen/medium_text_view_size"
+                    android:textSize="@dimen/medium_text_size"
                     android:text="@string/where_will_the_pet_spend_the_night"/>
 
                 <EditText
@@ -130,7 +130,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:autofillHints="text"
-                    android:textSize="@dimen/medium_text_view_size"
+                    android:textSize="@dimen/medium_text_size"
                     android:inputType="textMultiLine"
                     android:maxLength="500"
                     android:hint="@string/please_describe"
@@ -152,7 +152,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="@string/number_of_hours_that_pet_will_spend_alone"
-                    android:textSize="@dimen/medium_text_view_size"/>
+                    android:textSize="@dimen/medium_text_size"/>
 
                 <EditText
                     android:id="@+id/numberOfHoursPetIsALone_editText"
@@ -164,7 +164,7 @@
                     android:padding="@dimen/small_padding"
                     android:gravity="center"
                     android:background="@drawable/edittext_background"
-                    android:textSize="@dimen/small_text_view_size" />
+                    android:textSize="@dimen/small_text_size" />
 
             </LinearLayout>
 
@@ -176,7 +176,7 @@
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:textSize="@dimen/medium_text_view_size"
+                    android:textSize="@dimen/medium_text_size"
                     android:text="@string/do_you_agree_to_provide_regular_health_care_by_a_licensed_veterinarian"/>
                 <RadioGroup
                     android:layout_width="match_parent"
@@ -189,7 +189,7 @@
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
                         android:text="@string/no"
-                        android:textSize="@dimen/medium_text_view_size"
+                        android:textSize="@dimen/medium_text_size"
                         android:button="@null"
                         android:padding="@dimen/small_padding"
                         android:drawablePadding="@dimen/small_padding"
@@ -200,7 +200,7 @@
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
                         android:text="@string/yes"
-                        android:textSize="@dimen/medium_text_view_size"
+                        android:textSize="@dimen/medium_text_size"
                         android:button="@null"
                         android:padding="@dimen/small_padding"
                         android:drawablePadding="@dimen/small_padding"
@@ -216,7 +216,7 @@
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:textSize="@dimen/medium_text_view_size"
+                    android:textSize="@dimen/medium_text_size"
                     android:text="@string/do_you_agree_to_contact_us_if_you_can_no_longer_keep_this_pet"/>
 
                 <RadioGroup
@@ -230,7 +230,7 @@
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
                         android:text="@string/no"
-                        android:textSize="@dimen/medium_text_view_size"
+                        android:textSize="@dimen/medium_text_size"
                         android:button="@null"
                         android:padding="@dimen/small_padding"
                         android:drawablePadding="@dimen/small_padding"
@@ -241,7 +241,7 @@
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
                         android:text="@string/yes"
-                        android:textSize="@dimen/medium_text_view_size"
+                        android:textSize="@dimen/medium_text_size"
                         android:button="@null"
                         android:padding="@dimen/small_padding"
                         android:drawablePadding="@dimen/small_padding"
@@ -256,7 +256,7 @@
                 android:layout_height="wrap_content"
                 android:background="@drawable/bottom_bar"
                 android:text="@string/submit"
-                android:textSize="@dimen/medium_text_view_size"
+                android:textSize="@dimen/medium_text_size"
                 android:layout_margin="@dimen/medium_margin"/>
 
         </LinearLayout>

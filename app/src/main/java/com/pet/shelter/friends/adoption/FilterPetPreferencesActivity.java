@@ -6,8 +6,10 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.LinearLayout;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
+import android.widget.RelativeLayout;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DatabaseReference;
@@ -19,7 +21,10 @@ import java.util.Objects;
 public class FilterPetPreferencesActivity extends AppCompatActivity {
 
     private Button skipFiltersButton, searchFiltersButton;
-    private RadioGroup sizeFilter, ageFilter, genderFilter, fitForChildrenFilter, fitForGuardingFilter;
+    private LinearLayout filterSizeLinearLayout, filterAgeLinearLayout, filterSexLinearLayout,
+                        filterFitForChildrenLinearLayout, filterFitForGuardingLinearLayout;
+    private RadioGroup sizeFilterRadioGroup, ageFilterRadioGroup, sexFilterRadioGroup,
+            fitForChildrenFilterRadioGroup, fitForGuardingFilterRadioGroup;
     private RadioButton smallSize, mediumSize, bigSize, young, middleAge, old, female, male,
             notFitForChildren, fitForChildren, notFitForGuarding, fitForGuarding;
 
@@ -32,6 +37,14 @@ public class FilterPetPreferencesActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_filter_pet_preferences);
 
+        initialization();
+
+        setOnClickListeners();
+
+        setOnCheckedChangeListeners();
+    }
+
+    private void initialization() {
         firebaseAuth = FirebaseAuth.getInstance();
         firebaseDatabase = FirebaseDatabase.getInstance();
         filtersReference = firebaseDatabase.getReference("filters");
@@ -39,11 +52,17 @@ public class FilterPetPreferencesActivity extends AppCompatActivity {
         skipFiltersButton = findViewById(R.id.skipFilter_button);
         searchFiltersButton = findViewById(R.id.searchFilters_button);
 
-        sizeFilter = findViewById(R.id.filterSize_radioGroup);
-        ageFilter = findViewById(R.id.filterAge_radioGroup);
-        genderFilter = findViewById(R.id.filterGender_radioGroup);
-        fitForChildrenFilter = findViewById(R.id.filterFitForChildren_radioGroup);
-        fitForGuardingFilter = findViewById(R.id.filterFitForGuarding_radioGroup);
+        filterSizeLinearLayout = findViewById(R.id.filterSize_linearLayout);
+        filterAgeLinearLayout = findViewById(R.id.filterAge_linearLayout);
+        filterSexLinearLayout = findViewById(R.id.filterSex_linearLayout);
+        filterFitForChildrenLinearLayout = findViewById(R.id.filterFitForChildren_linearLayout);
+        filterFitForGuardingLinearLayout = findViewById(R.id.filterFitForGuarding_linearLayout);
+
+        sizeFilterRadioGroup = findViewById(R.id.filterSize_radioGroup);
+        ageFilterRadioGroup = findViewById(R.id.filterAge_radioGroup);
+        sexFilterRadioGroup = findViewById(R.id.filterSex_radioGroup);
+        fitForChildrenFilterRadioGroup = findViewById(R.id.filterFitForChildren_radioGroup);
+        fitForGuardingFilterRadioGroup = findViewById(R.id.filterFitForGuarding_radioGroup);
 
         smallSize = findViewById(R.id.filterSizeSmall_radioButton);
         mediumSize = findViewById(R.id.filterSizeMedium_radioButton);
@@ -61,7 +80,44 @@ public class FilterPetPreferencesActivity extends AppCompatActivity {
 
         notFitForGuarding = findViewById(R.id.filterNotFitForGuarding_radioButton);
         fitForGuarding = findViewById(R.id.filterFitForGuarding_radioButton);
+    }
 
+    private void setOnCheckedChangeListeners() {
+        sizeFilterRadioGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(RadioGroup radioGroup, int i) {
+                if (filterAgeLinearLayout.getVisibility() == View.GONE) {
+                    filterAgeLinearLayout.setVisibility(View.VISIBLE);
+                }
+            }
+        });
+        ageFilterRadioGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(RadioGroup radioGroup, int i) {
+                if (filterSexLinearLayout.getVisibility() == View.GONE) {
+                    filterSexLinearLayout.setVisibility(View.VISIBLE);
+                }
+            }
+        });
+        sexFilterRadioGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(RadioGroup radioGroup, int i) {
+                if (filterFitForChildrenLinearLayout.getVisibility() == View.GONE) {
+                    filterFitForChildrenLinearLayout.setVisibility(View.VISIBLE);
+                }
+            }
+        });
+        fitForChildrenFilterRadioGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(RadioGroup radioGroup, int i) {
+                if (filterFitForGuardingLinearLayout.getVisibility() == View.GONE) {
+                    filterFitForGuardingLinearLayout.setVisibility(View.VISIBLE);
+                }
+            }
+        });
+    }
+
+    private void setOnClickListeners() {
         skipFiltersButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

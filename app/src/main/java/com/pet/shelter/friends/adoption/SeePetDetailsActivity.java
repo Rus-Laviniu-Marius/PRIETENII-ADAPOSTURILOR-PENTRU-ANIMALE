@@ -10,6 +10,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
@@ -30,10 +31,10 @@ public class SeePetDetailsActivity extends AppCompatActivity {
 
     private FirebaseAuth firebaseAuth;
     private FirebaseDatabase firebaseDatabase;
-    private DatabaseReference favoritePetsReference, petsReference, shelterAdminReference;
+    private DatabaseReference favoritePetsReference, petsReference, shelterAdminReference, toBeAdoptedPets;
 
-    private RelativeLayout mainContainer;
-    private ImageView petImage, back, love;
+    private LinearLayout mainContainer;
+    private ImageView petImage, back, love, editPetProfileImageView;
     private TextView petName, petAge, petWeight, petLocation, petSize, petBreed, petSex,
             petDescription, veterinarianData, descriptionTextView;
     private Button adoptPet, seeActivePetAdoptionRequests;
@@ -53,15 +54,17 @@ public class SeePetDetailsActivity extends AppCompatActivity {
         favoritePetsReference = firebaseDatabase.getReference("favoritePets");
         petsReference = firebaseDatabase.getReference("pets");
         shelterAdminReference = firebaseDatabase.getReference("shelterAdmin");
+        toBeAdoptedPets = firebaseDatabase.getReference("toBeAdoptedPets");
 
         currentLoggedUserId = Objects.requireNonNull(firebaseAuth.getCurrentUser()).getUid();
 
         back = findViewById(R.id.petDetailsTopBarBack_imageView);
         love = findViewById(R.id.petDetailsTopBarLove_imageView);
+        editPetProfileImageView = findViewById(R.id.petDetailsTopBarEdit_imageView);
         adoptPet = findViewById(R.id.petDetailsAdopt_button);
         seeActivePetAdoptionRequests = findViewById(R.id.petDetailsSeeActivePetAdoptionRequests_button);
 
-        mainContainer = findViewById(R.id.petDetailsContainer_relativeLayout);
+        mainContainer = findViewById(R.id.petDetailsContainer_linearLayout);
         petImage = findViewById(R.id.petDetailsContentPet_imageView);
         petName = findViewById(R.id.petDetailsContentName_textView);
         petAge = findViewById(R.id.petDetailsContentAge_textView);
@@ -90,9 +93,11 @@ public class SeePetDetailsActivity extends AppCompatActivity {
         String selected = bundle.getString("selected");
         String petType = bundle.getString("petType");
         petKey = bundle.getString("petKey");
+        boolean fitForChildren = bundle.getBoolean("fitForChildren");
+        boolean fitForGuarding = bundle.getBoolean("fitForGuarding");
 
 
-        pet = new Pet(backgroundColor, downloadLink, name, age, weight, locationString, size, breed, sex, description, favorite, selected, petType);
+        pet = new Pet(backgroundColor, downloadLink, name, age, weight, locationString, size, breed, sex, description, favorite, selected, petType, fitForChildren, fitForGuarding);
 
 
         String ageString = "" + bundle.getInt("petAge") + " years";
@@ -265,11 +270,12 @@ public class SeePetDetailsActivity extends AppCompatActivity {
                 if (isPressed) {
                     love.setImageResource(R.drawable.filled_heart_64);
                     pet.setFavorite("true");
-//                    petsReference.child(bundle.getString("petKey")).child("favorite").setValue("true");
+                    petsReference.child(bundle.getString("petKey")).child("favorite").setValue("true");
                     favoritePetsReference.child(currentLoggedUserUid).child(petKey).setValue(pet);
                 }
                 else {
                     love.setImageResource(R.drawable.heart_64);
+                    pet.setFavorite("false");
                     petsReference.child(bundle.getString("petKey")).child("favorite").setValue("false");
                     favoritePetsReference.child(currentLoggedUserUid).child(petKey).removeValue();
                 }
@@ -280,6 +286,12 @@ public class SeePetDetailsActivity extends AppCompatActivity {
         adoptPet.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                toBeAdoptedPets.child(currentLoggedUserUid).child(bundle.getString("petKey"))
+                        .child("petImageLink").setValue(bundle.getString("imageDownloadLink"));
+                toBeAdoptedPets.child(currentLoggedUserUid).child(bundle.getString("petKey"))
+                        .child("petName").setValue(bundle.getString("petName"));
+                toBeAdoptedPets.child(currentLoggedUserUid).child(bundle.getString("petKey"))
+                        .child("toBeAdopted").setValue("true");
                 Intent intent = new Intent(SeePetDetailsActivity.this, AdoptPetActivity.class);
                 startActivity(intent);
             }
@@ -299,9 +311,10 @@ public class SeePetDetailsActivity extends AppCompatActivity {
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 String uId = Objects.requireNonNull(snapshot.child("uId").getValue()).toString();
                 if (loggedUid.equals(uId)) {
-//                    love.setVisibility(View.GONE);
-                    adoptPet.setVisibility(View.GONE);
-                    seeActivePetAdoptionRequests.setVisibility(View.VISIBLE);
+                    love.setVisibility(View.VISIBLE);
+                    editPetProfileImageView.setVisibility(View.GONE);
+                    adoptPet.setVisibility(View.VISIBLE);
+                    seeActivePetAdoptionRequests.setVisibility(View.GONE);
 
                 }
             }

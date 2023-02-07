@@ -14,6 +14,8 @@ import android.os.Bundle;
 import android.os.Environment;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.firebase.auth.FirebaseAuth;
@@ -40,7 +42,9 @@ import com.itextpdf.layout.element.Text;
 import com.itextpdf.layout.property.HorizontalAlignment;
 import com.itextpdf.layout.property.TextAlignment;
 import com.pet.shelter.friends.BuildConfig;
+import com.pet.shelter.friends.HomeActivity;
 import com.pet.shelter.friends.R;
+import com.squareup.picasso.Picasso;
 
 import java.io.ByteArrayOutputStream;
 import java.io.File;
@@ -51,7 +55,7 @@ public class GenerateAdoptionPapersPDFActivity extends AppCompatActivity {
 
     private FirebaseAuth firebaseAuth;
     private FirebaseDatabase firebaseDatabase;
-    private DatabaseReference databaseReference;
+    private DatabaseReference databaseReference, toBeAdoptedPetsReference;
 
     private String fullName, address, occupation, sittingTime, phoneNumber, emailAddress, bestTimeToCall,
             aloneHours, contactForSurrender, daytimePlace, nighttimePlace, regularHealthCare, petName,
@@ -60,7 +64,10 @@ public class GenerateAdoptionPapersPDFActivity extends AppCompatActivity {
             regularVeterinarian, veterinarianClinicName, veterinarianClinicAddress, veterinarianClinicPhoneNumber, veterinarianName,
             referenceAddress, referenceName, referencePhoneNumber, referenceRelationship;
 
+    private ImageView toBeAdoptedPetImageView, back, home;
+    private TextView toBeAdoptedPetNameTextView;
     private Button generatePDF;
+    private String loggedUid;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -69,9 +76,18 @@ public class GenerateAdoptionPapersPDFActivity extends AppCompatActivity {
 
         firebaseAuth = FirebaseAuth.getInstance();
         firebaseDatabase = FirebaseDatabase.getInstance();
-        databaseReference = firebaseDatabase.getReference();
+        databaseReference = firebaseDatabase.getReference("adoptionForms");
+        toBeAdoptedPetsReference = firebaseDatabase.getReference("toBeAdoptedPets");
+
+        toBeAdoptedPetImageView = findViewById(R.id.generatePDFPet_imageView);
+        toBeAdoptedPetNameTextView = findViewById(R.id.generatePDFPetName_textView);
+
+        back = findViewById(R.id.generatePDFBack_imageView);
+        home = findViewById(R.id.generatePDFHome_imageView);
 
         generatePDF = findViewById(R.id.generatePDF_button);
+
+        loggedUid = Objects.requireNonNull(firebaseAuth.getCurrentUser()).getUid();
 
         readDataFromFirebase();
 
@@ -86,12 +102,53 @@ public class GenerateAdoptionPapersPDFActivity extends AppCompatActivity {
                 }
             }
         });
+
+        back.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(GenerateAdoptionPapersPDFActivity.this,
+                        CompletePersonalReferencesInformationActivity.class));
+            }
+        });
+
+        home.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(GenerateAdoptionPapersPDFActivity.this,
+                        HomeActivity.class));
+            }
+        });
     }
 
     private void readDataFromFirebase() {
         String currentFirebaseUserUid = Objects.requireNonNull(firebaseAuth.getCurrentUser()).getUid();
 
-        databaseReference.child("contactInformation").child(currentFirebaseUserUid).addValueEventListener(new ValueEventListener() {
+//        toBeAdoptedPetsReference.child(currentFirebaseUserUid).addValueEventListener(new ValueEventListener() {
+//            @Override
+//            public void onDataChange(@NonNull DataSnapshot snapshot) {
+//                String toBeAdopted = "";
+//                String downloadImage = "";
+//                String petNameToBeDisplayed = "";
+//                for (DataSnapshot petKey : snapshot.getChildren()) {
+//                    if (petKey.hasChild("toBeAdopted")) {
+//                        toBeAdopted = Objects.requireNonNull(snapshot.child("toBeAdopted").getValue()).toString();
+//                        if (Boolean.parseBoolean(toBeAdopted)) {
+//                            downloadImage = Objects.requireNonNull(snapshot.child("petImageLink").getValue()).toString();
+//                            petNameToBeDisplayed = Objects.requireNonNull(snapshot.child("petName").getValue()).toString();
+//                        }
+//                    }
+//                }
+//                Picasso.get().load(downloadImage).into(toBeAdoptedPetImageView);
+//                toBeAdoptedPetNameTextView.setText(petNameToBeDisplayed);
+//            }
+//
+//            @Override
+//            public void onCancelled(@NonNull DatabaseError error) {
+//
+//            }
+//        });
+
+        databaseReference.child(currentFirebaseUserUid).child("applicantContactInformation").addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 fullName = Objects.requireNonNull(snapshot.child("fullName").getValue()).toString();
@@ -109,7 +166,7 @@ public class GenerateAdoptionPapersPDFActivity extends AppCompatActivity {
             }
         });
 
-        databaseReference.child("aboutPet").child(currentFirebaseUserUid).addValueEventListener(new ValueEventListener() {
+        databaseReference.child(currentFirebaseUserUid).child("aboutPetInformation").addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 aloneHours = Objects.requireNonNull(snapshot.child("aloneHours").getValue()).toString();
@@ -126,7 +183,7 @@ public class GenerateAdoptionPapersPDFActivity extends AppCompatActivity {
             }
         });
 
-        databaseReference.child("familyAndHousing").child(currentFirebaseUserUid).addValueEventListener(new ValueEventListener() {
+        databaseReference.child(currentFirebaseUserUid).child("familyAndHousehold").addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 adultsNumber = Objects.requireNonNull(snapshot.child("adultsNumber").getValue()).toString();
@@ -145,7 +202,7 @@ public class GenerateAdoptionPapersPDFActivity extends AppCompatActivity {
             }
         });
 
-        databaseReference.child("otherPets").child(currentFirebaseUserUid).addValueEventListener(new ValueEventListener() {
+        databaseReference.child(currentFirebaseUserUid).child("otherOwnedPets").addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 euthanizedPet = Objects.requireNonNull(snapshot.child("euthanizedPet").getValue()).toString();
@@ -162,7 +219,7 @@ public class GenerateAdoptionPapersPDFActivity extends AppCompatActivity {
             }
         });
 
-        databaseReference.child("regularVeterinarian").child(currentFirebaseUserUid).addValueEventListener(new ValueEventListener() {
+        databaseReference.child(currentFirebaseUserUid).child("veterinarian").addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 regularVeterinarian = Objects.requireNonNull(snapshot.child("regularVeterinarian").getValue()).toString();
@@ -178,7 +235,7 @@ public class GenerateAdoptionPapersPDFActivity extends AppCompatActivity {
             }
         });
 
-        databaseReference.child("personalReference").child(currentFirebaseUserUid).addValueEventListener(new ValueEventListener() {
+        databaseReference.child(currentFirebaseUserUid).child("personalReferences").addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 referenceAddress = Objects.requireNonNull(snapshot.child("referenceAddress").getValue()).toString();

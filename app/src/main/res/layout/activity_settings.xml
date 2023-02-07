@@ -1,0 +1,181 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".SettingsActivity"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:id="@+id/settingsScreenTopBar_linearLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:background="@drawable/top_bar">
+        <ImageView
+            android:id="@+id/settingsScreenTopBarBack_imageView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/back_64"
+            android:layout_margin="@dimen/medium_margin"
+            android:padding="@dimen/small_padding"
+            android:contentDescription="@string/back" />
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/settings"
+            android:textSize="@dimen/extra_large_text_size"
+            android:layout_margin="@dimen/medium_margin"
+            android:padding="@dimen/medium_padding"/>
+
+    </LinearLayout>
+
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <LinearLayout
+            android:id="@+id/settingsAccountInfo_linearLayout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical" >
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/account"
+                android:textSize="@dimen/medium_text_size"
+                android:layout_margin="@dimen/medium_margin"
+                android:padding="@dimen/medium_padding"/>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal" >
+                <de.hdodenhof.circleimageview.CircleImageView
+                    android:id="@+id/settingsScreenContentAccountUserProfile_circleImageView"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/outline_user_image_128"
+                    android:contentDescription="@string/user_profile_image"
+                    android:layout_weight="1"/>
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:layout_weight="2"
+                    android:layout_gravity="center">
+                    <TextView
+                        android:id="@+id/settingsScreenContentAccountUserName_textView"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/user_name"
+                        android:textSize="@dimen/large_text_size"
+                        android:gravity="center"/>
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/personal_info"
+                        android:textSize="@dimen/medium_text_size"
+                        android:gravity="center"/>
+                </LinearLayout>
+                <ImageView
+                    android:id="@+id/settingsScreenContentAccountNext_imageView"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/next_64"
+                    android:contentDescription="@string/next"
+                    android:layout_weight="1"
+                    android:layout_gravity="center"/>
+            </LinearLayout>
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/settings"
+                android:textSize="@dimen/medium_text_size"
+                android:layout_margin="@dimen/medium_margin"
+                android:padding="@dimen/medium_padding"/>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:layout_margin="@dimen/medium_margin">
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:padding="@dimen/small_padding">
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="@string/language"
+                        android:textSize="@dimen/medium_text_size"
+                        android:layout_weight="1"
+                        android:gravity="center"
+                        android:drawablePadding="@dimen/small_padding"
+                        app:drawableStartCompat="@drawable/outline_worldwide_64" />
+                    <TextView
+                        android:id="@+id/settingsScreenContentSettingsActiveSelectedLanguage_textView"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="@string/language"
+                        android:textSize="@dimen/small_text_size"
+                        android:textAlignment="textEnd"
+                        android:gravity="center"
+                        android:layout_weight="1.25"
+                        app:drawableEndCompat="@drawable/next_64" />
+                </LinearLayout>
+                <TextView
+                    android:id="@+id/settingsScreenContentSettingsNotifications_textView"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/notifications"
+                    android:gravity="center"
+                    android:padding="@dimen/small_padding"
+                    android:textSize="@dimen/medium_text_size"
+                    app:drawableStartCompat="@drawable/notification"
+                    app:drawableEndCompat="@drawable/next_64" />
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:padding="@dimen/small_padding">
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="@string/dark_mode"
+                        android:padding="@dimen/small_padding"
+                        android:textSize="@dimen/medium_text_size"
+                        android:layout_weight="1"
+                        android:gravity="center"
+                        android:drawablePadding="@dimen/small_padding"
+                        app:drawableStartCompat="@drawable/outline_day_and_night_64" />
+                    <androidx.appcompat.widget.SwitchCompat
+                        android:id="@+id/settingsScreenContentSettingsDarkOrLightMode_switchCompat"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="@string/off"
+                        android:layout_weight="1.5"
+                        android:textSize="@dimen/small_text_size"
+                        android:gravity="center"/>
+
+                </LinearLayout>
+
+                <TextView
+                    android:id="@+id/settingsScreenContentSettingsHelp_textView"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/help"
+                    android:gravity="center"
+                    android:padding="@dimen/small_padding"
+                    android:textSize="@dimen/medium_text_size"
+                    app:drawableStartCompat="@drawable/outline_help_64"
+                    app:drawableEndCompat="@drawable/next_64" />
+
+
+            </LinearLayout>
+
+        </LinearLayout>
+    </ScrollView>
+
+
+</LinearLayout>

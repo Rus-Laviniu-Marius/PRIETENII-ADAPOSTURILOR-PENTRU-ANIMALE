@@ -107,7 +107,7 @@ public class UserPersonalDataActivity extends AppCompatActivity {
 
         firebaseAuth = FirebaseAuth.getInstance();
         FirebaseDatabase firebaseDatabase = FirebaseDatabase.getInstance();
-        usersReference = firebaseDatabase.getReference("users");
+        usersReference = firebaseDatabase.getReference("profiles");
         databaseReference = firebaseDatabase.getReference();
         FirebaseStorage firebaseStorage = FirebaseStorage.getInstance();
         userProfileImageStorage = firebaseStorage.getReference();

@@ -48,7 +48,7 @@ public class ViewProfileActivity extends AppCompatActivity {
         firebaseDatabase = FirebaseDatabase.getInstance();
         activeUsersReference = firebaseDatabase.getReference("activeUsers");
         shelterAdminReference = firebaseDatabase.getReference("shelterAdmin");
-        usersReference = firebaseDatabase.getReference("users");
+        usersReference = firebaseDatabase.getReference("profiles");
         databaseReference = firebaseDatabase.getReference();
 
         loggedUserId = Objects.requireNonNull(firebaseAuth.getCurrentUser()).getUid();
@@ -75,7 +75,7 @@ public class ViewProfileActivity extends AppCompatActivity {
         databaseReference.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
-                if (snapshot.hasChild("users")) {
+                if (snapshot.hasChild("profiles")) {
                     usersReference.child(loggedUserId).addValueEventListener(new ValueEventListener() {
                         @Override
                         public void onDataChange(@NonNull DataSnapshot snapshot) {
@@ -137,7 +137,7 @@ public class ViewProfileActivity extends AppCompatActivity {
         logoutButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                removeConnectedUserFromActiveUsers();
+//                removeConnectedUserFromActiveUsers();
                 firebaseAuth.signOut();
                 startActivity(new Intent(ViewProfileActivity.this, LoginActivity.class));
             }

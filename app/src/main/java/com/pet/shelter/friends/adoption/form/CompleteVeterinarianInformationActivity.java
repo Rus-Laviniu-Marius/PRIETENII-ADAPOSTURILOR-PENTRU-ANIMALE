@@ -33,7 +33,7 @@ public class CompleteVeterinarianInformationActivity extends AppCompatActivity {
 
         firebaseAuth = FirebaseAuth.getInstance();
         FirebaseDatabase firebaseDatabase = FirebaseDatabase.getInstance();
-        adoptionFormReference = firebaseDatabase.getReference("regularVeterinarian");
+        adoptionFormReference = firebaseDatabase.getReference("adoptionForms");
 
         regularVeterinarian = findViewById(R.id.regularVeterinarianYes_radioButton);
         noRegularVeterinarian = findViewById(R.id.regularVeterinarianNo_radioButton);

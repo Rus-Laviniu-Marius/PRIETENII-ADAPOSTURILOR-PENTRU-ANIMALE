@@ -13,184 +13,377 @@
         android:layout_height="wrap_content"
         android:orientation="horizontal"
         android:layout_alignParentTop="true"
-        android:layout_alignParentEnd="true"
-        android:layout_alignParentStart="true"
-        android:layout_marginTop="30dp"
-        android:layout_marginStart="10dp"
-        android:layout_marginEnd="10dp">
+        android:layout_centerInParent="true"
+        android:layout_marginTop="@dimen/large_margin"
+        android:layout_marginHorizontal="@dimen/small_margin">
         <ImageView
             android:id="@+id/homeScreenTopBarOpenMenu_imageView"
-            android:layout_width="50dp"
-            android:layout_height="50dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:contentDescription="@string/open_menu"
             android:src="@drawable/open_menu"
             android:layout_weight="1"
             android:layout_gravity="center"/>
         <ImageView
             android:id="@+id/homeScreenTopBarLogo_imageview"
-            android:layout_width="100dp"
-            android:layout_height="100dp"
+            android:layout_width="150dp"
+            android:layout_height="150dp"
             android:contentDescription="@string/cat_dog_bird_tree_image"
             android:src="@drawable/launcher_logo"
             android:layout_weight="2"
             android:layout_gravity="center"/>
         <ImageView
             android:id="@+id/homeScreenTopBarNotification_imageView"
-            android:layout_width="50dp"
-            android:layout_height="50dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:contentDescription="@string/notification_bell"
             android:src="@drawable/notification"
             android:layout_weight="1"
             android:layout_gravity="center"/>
     </LinearLayout>
 
+
     <LinearLayout
-        android:id="@+id/homeScreenContent"
+        android:id="@+id/userHomeScreenContent_linearLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
         android:orientation="vertical"
-        android:layout_centerInParent="true" >
+        android:visibility="gone">
+
         <TextView
-            android:id="@+id/homeScreenContentTitle_textView"
+            android:id="@+id/userHomeScreenContentTitle_textView"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:gravity="center"
             android:text="@string/how_to_help_actions"
-            android:textSize="24sp"
-            android:textAlignment="center"
+            android:textSize="@dimen/medium_text_size"
             android:textStyle="bold" />
-            <LinearLayout
-                android:id="@+id/homeScreenContentFirstRowOfButtons_linearLayout"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:layout_margin="5dp"
-                android:baselineAligned="false">
-                <RelativeLayout
-                    android:id="@+id/homeScreenContentTopLeft_button"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:background="@drawable/button_top_left"
-                    android:layout_weight="1"
-                    android:layout_margin="5dp" >
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="@string/adopt_a_pet"
-                        android:textSize="24sp"
-                        app:drawableStartCompat="@drawable/paw_print" />
-                </RelativeLayout>
 
-                <RelativeLayout
-                    android:id="@+id/homeScreenContentTopRight_button"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:background="@drawable/button_top_right"
-                    android:layout_weight="3"
-                    android:layout_margin="5dp" >
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="@string/become_a_sponsor"
-                        android:textSize="24sp"
-                        app:drawableEndCompat="@drawable/charity"
-                        android:textAlignment="center"/>
-                </RelativeLayout>
-            </LinearLayout>
+        <LinearLayout
+            android:id="@+id/userHomeScreenContentFirstRowOfButtons_linearLayout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:baselineAligned="false"
+            android:orientation="horizontal">
 
-            <LinearLayout
-                android:id="@+id/homeScreenContentSecondRowOfButtons_linearLayout"
-                android:layout_width="match_parent"
+            <RelativeLayout
+                android:id="@+id/userHomeScreenContentTopLeft_relativeLayout"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:layout_margin="5dp"
-                android:baselineAligned="false">
-                <RelativeLayout
-                    android:id="@+id/homeScreenContentBottomLeft_button"
+                android:layout_margin="@dimen/small_margin"
+                android:layout_weight="1"
+                android:background="@drawable/button_top_left">
+
+                <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:background="@drawable/button_bottom_left"
-                    android:layout_weight="2"
-                    android:layout_margin="5dp" >
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="@string/become_a_volunteer"
-                        app:drawableStartCompat="@drawable/volunteer"
-                        android:textSize="20sp"
-                        android:textAlignment="textStart"/>
-                </RelativeLayout>
-                <RelativeLayout
-                    android:id="@+id/homeScreenContentBottomRight_button"
+                    android:layout_centerInParent="true"
+                    android:drawablePadding="@dimen/small_padding"
+                    android:padding="@dimen/small_padding"
+                    android:text="@string/adopt_a_pet"
+                    android:textSize="@dimen/medium_text_size"
+                    app:drawableStartCompat="@drawable/outline_paw_print_64" />
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/userHomeScreenContentTopRight_relativeLayout"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/small_margin"
+                android:layout_weight="1"
+                android:background="@drawable/button_top_right">
+
+                <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:background="@drawable/button_bottom_right"
-                    android:layout_weight="1"
-                    android:layout_margin="5dp" >
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="@string/material_support"
-                        android:textSize="24sp"
-                        app:drawableEndCompat="@drawable/trolley"
-                        android:textAlignment="center"/>
-                </RelativeLayout>
-            </LinearLayout>
+                    android:layout_centerInParent="true"
+                    android:drawablePadding="@dimen/small_padding"
+                    android:gravity="center"
+                    android:text="@string/donate"
+                    android:textSize="@dimen/medium_text_size"
+                    app:drawableEndCompat="@drawable/outline_charity_old_64" />
+            </RelativeLayout>
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/userHomeScreenContentSecondRowOfButtons_linearLayout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:baselineAligned="false"
+            android:orientation="horizontal">
+
+            <RelativeLayout
+                android:id="@+id/userHomeScreenContentBottomLeft_relativeLayout"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/small_margin"
+                android:layout_weight="1"
+                android:background="@drawable/button_bottom_left">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerInParent="true"
+                    android:gravity="center"
+                    android:text="@string/volunteer"
+                    android:textSize="@dimen/medium_text_size"
+                    app:drawableStartCompat="@drawable/volunteer" />
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/userHomeScreenContentBottomRight_relativeLayout"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/small_margin"
+                android:layout_weight="1"
+                android:background="@drawable/button_bottom_right">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerInParent="true"
+                    android:drawablePadding="@dimen/small_padding"
+                    android:gravity="end"
+                    android:text="@string/material_support"
+                    android:textSize="@dimen/medium_text_size"
+                    app:drawableEndCompat="@drawable/trolley" />
+            </RelativeLayout>
+        </LinearLayout>
     </LinearLayout>
 
     <LinearLayout
-        android:id="@+id/homeScreenBottomBar_linearLayout"
+        android:id="@+id/adminHomeScreenContent_linearLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:orientation="vertical"
+        android:visibility="gone">
+
+        <TextView
+            android:id="@+id/adminHomeScreenContentTitle_textView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:text="@string/available_actions"
+            android:textSize="@dimen/medium_text_size"
+            android:textStyle="bold" />
+
+        <LinearLayout
+            android:id="@+id/adminHomeScreenContentFirstRowOfButtons_linearLayout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:baselineAligned="false"
+            android:orientation="horizontal">
+
+            <RelativeLayout
+                android:id="@+id/adminHomeScreenContentTopLeft_relativeLayout"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/small_margin"
+                android:layout_weight="1"
+                android:background="@drawable/button_top_left">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerInParent="true"
+                    android:drawablePadding="@dimen/small_padding"
+                    android:gravity="center"
+                    android:padding="@dimen/small_padding"
+                    android:text="@string/add_pet"
+                    android:textSize="@dimen/medium_text_size"
+                    app:drawableStartCompat="@drawable/outline_paw_print_64" />
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/adminHomeScreenContentTopRight_relativeLayout"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/small_margin"
+                android:layout_weight="1"
+                android:background="@drawable/button_top_right">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerInParent="true"
+                    android:drawablePadding="@dimen/small_padding"
+                    android:gravity="center"
+                    android:text="@string/donation_request"
+                    android:textSize="@dimen/medium_text_size"
+                    app:drawableEndCompat="@drawable/outline_charity_old_64" />
+            </RelativeLayout>
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/adminHomeScreenContentSecondRowOfButtons_linearLayout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:baselineAligned="false"
+            android:orientation="horizontal">
+
+            <RelativeLayout
+                android:id="@+id/adminHomeScreenContentBottomLeft_relativeLayout"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/small_margin"
+                android:layout_weight="1"
+                android:background="@drawable/button_bottom_left">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerInParent="true"
+                    android:gravity="center"
+                    android:text="@string/volunteer_request"
+                    android:textSize="@dimen/medium_text_size"
+                    app:drawableStartCompat="@drawable/volunteer" />
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/adminHomeScreenContentBottomRight_relativeLayout"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/small_margin"
+                android:layout_weight="1"
+                android:background="@drawable/button_bottom_right">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerInParent="true"
+                    android:drawablePadding="@dimen/small_padding"
+                    android:gravity="end"
+                    android:text="@string/support_request"
+                    android:textSize="@dimen/medium_text_size"
+                    app:drawableEndCompat="@drawable/trolley" />
+            </RelativeLayout>
+        </LinearLayout>
+    </LinearLayout>
+
+
+    <LinearLayout
+        android:id="@+id/userHomeScreenBottomBar_linearLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
         android:layout_alignParentBottom="true"
-        android:layout_marginStart="10dp"
-        android:layout_marginEnd="10dp"
-        android:layout_marginBottom="20dp">
+        android:layout_centerInParent="true"
+        android:layout_marginHorizontal="@dimen/small_margin"
+        android:layout_marginBottom="@dimen/medium_margin"
+        android:visibility="gone">
 
         <TextView
-            android:id="@+id/homeScreenBottomBarHome_textView"
-            android:layout_width="wrap_content"
+            android:id="@+id/userHomeScreenBottomBarHome_textView"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="@string/home"
-            android:textSize="20sp"
-            android:textAlignment="center"
-            android:layout_gravity="center"
+            android:textSize="@dimen/small_text_size"
+            android:gravity="center"
             app:drawableTopCompat="@drawable/home_64"
             android:layout_weight="1" />
 
         <TextView
-            android:id="@+id/homeScreenBottomBarAdopt_textView"
-            android:layout_width="wrap_content"
+            android:id="@+id/userHomeScreenBottomBarAdopt_textView"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="center"
             android:text="@string/adopt"
-            android:textSize="20sp"
-            android:textAlignment="center"
-            android:layout_gravity="center"
-            app:drawableTopCompat="@drawable/paw_print"
-            android:layout_weight="1"/>
+            android:textSize="@dimen/small_text_size"
+            app:drawableTopCompat="@drawable/outline_paw_print_64" />
 
         <TextView
-            android:id="@+id/homeScreenBottomBarDonate_textView"
-            android:layout_width="wrap_content"
+            android:id="@+id/userHomeScreenBottomBarDonate_textView"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="@string/donate"
-            android:textSize="20sp"
-            android:layout_gravity="center"
-            android:textAlignment="center"
-            app:drawableTopCompat="@drawable/charity"
+            android:textSize="@dimen/small_text_size"
+            android:gravity="center"
+            app:drawableTopCompat="@drawable/outline_charity_64"
             android:layout_weight="1"/>
 
         <TextView
-            android:id="@+id/homeScreenBottomBarProfile_textView"
-            android:layout_width="wrap_content"
+            android:id="@+id/userHomeScreenBottomBarMaterialSupport_textView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:textSize="@dimen/small_text_size"
+            android:text="@string/support"
+            app:drawableTopCompat="@drawable/outline_push_cart_64" />
+
+        <TextView
+            android:id="@+id/userHomeScreenBottomBarProfile_textView"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="@string/profile"
-            android:textSize="20sp"
-            android:layout_gravity="center"
-            android:textAlignment="center"
-            app:drawableTopCompat="@drawable/user_profile"
+            android:textSize="@dimen/small_text_size"
+            android:gravity="center"
+            app:drawableTopCompat="@drawable/outline_user_profile_64"
             android:layout_weight="1"/>
+    </LinearLayout>
 
-        </LinearLayout>
+    <LinearLayout
+        android:id="@+id/adminHomeScreenBottomBar_linearLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_centerInParent="true"
+        android:layout_marginHorizontal="@dimen/small_margin"
+        android:layout_marginBottom="@dimen/medium_margin"
+        android:orientation="horizontal"
+        android:visibility="gone">
 
+        <TextView
+            android:id="@+id/adminHomeScreenBottomBarHome_textView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:textSize="@dimen/small_text_size"
+            android:text="@string/home"
+            app:drawableTopCompat="@drawable/home_64" />
+
+        <TextView
+            android:id="@+id/adminHomeScreenBottomBarViewPets_textView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:textSize="@dimen/small_text_size"
+            android:text="@string/pets"
+            app:drawableTopCompat="@drawable/outline_paw_print_64" />
+
+        <TextView
+            android:id="@+id/adminHomeScreenBottomBarViewDonations_textView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:textSize="@dimen/small_text_size"
+            android:text="@string/donations"
+            app:drawableTopCompat="@drawable/outline_charity_64" />
+
+        <TextView
+            android:id="@+id/adminHomeScreenBottomBarViewNeededMaterialSupport_textView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:textSize="@dimen/small_text_size"
+            android:text="@string/support"
+            app:drawableTopCompat="@drawable/outline_push_cart_64" />
+
+        <TextView
+            android:id="@+id/adminHomeScreenBottomBarProfile_textView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:text="@string/profile"
+            android:textSize="@dimen/small_text_size"
+            app:drawableTopCompat="@drawable/outline_user_profile_64" />
+    </LinearLayout>
 </RelativeLayout>

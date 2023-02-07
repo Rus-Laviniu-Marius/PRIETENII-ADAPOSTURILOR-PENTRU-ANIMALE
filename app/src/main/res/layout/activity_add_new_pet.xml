@@ -11,59 +11,76 @@
         android:layout_height="wrap_content"
         android:orientation="vertical">
 
-        <ImageView
-            android:id="@+id/addNewPetBack_imageView"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:src="@drawable/back_64"
-            android:contentDescription="@string/back"
-            android:layout_margin="10dp"
-            android:padding="@dimen/padding" />
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" >
+            <ImageView
+                android:id="@+id/addNewPetBack_imageView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/back_64"
+                android:contentDescription="@string/back"
+                android:layout_margin="@dimen/small_margin"
+                android:padding="@dimen/small_padding"
+                android:layout_alignParentStart="true"
+                android:layout_alignParentTop="true"/>
+
+            <ImageView
+                android:id="@+id/addNewPetCamera_imageView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentTop="true"
+                android:layout_alignParentEnd="true"
+                android:layout_marginStart="@dimen/small_margin"
+                android:layout_marginTop="@dimen/small_margin"
+                android:layout_marginEnd="@dimen/small_margin"
+                android:layout_marginBottom="@dimen/small_margin"
+                android:contentDescription="@string/open_camera"
+                android:padding="@dimen/small_padding"
+                android:src="@drawable/camera_64" />
+        </RelativeLayout>
+
 
         <ImageView
             android:id="@+id/addNewPet_imageView"
-            android:layout_width="200dp"
-            android:layout_height="200dp"
+            android:layout_width="250dp"
+            android:layout_height="250dp"
             android:src="@drawable/add_image_128"
             android:layout_gravity="center"
-            android:layout_margin="20dp"
+            android:layout_margin="@dimen/large_margin"
             android:contentDescription="@string/new_pet_image_view" />
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
-            android:layout_marginHorizontal="@dimen/margin_horizontal"
-            android:layout_marginVertical="@dimen/margin_vertical"
-            android:padding="@dimen/padding">
+            android:layout_margin="@dimen/small_margin"
+            android:padding="@dimen/small_padding">
             <TextView
                 android:id="@+id/addNewPetType_textView"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="@string/select_pet_type"
-                android:textSize="@dimen/small_text_view_size"
-                />
+                android:textSize="@dimen/small_text_size" />
             <Spinner
                 android:id="@+id/addNewPetType_spinner"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:textAlignment="center" />
-
         </LinearLayout>
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
-            android:layout_marginHorizontal="@dimen/margin_horizontal"
-            android:layout_marginVertical="@dimen/margin_vertical"
-            android:padding="@dimen/padding">
+            android:layout_margin="@dimen/small_margin"
+            android:padding="@dimen/small_padding">
             <TextView
                 android:id="@+id/addNewPetName_textView"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="@string/name"
-                android:textSize="@dimen/small_text_view_size"
+                android:textSize="@dimen/small_text_size"
                 android:visibility="gone"/>
             <EditText
                 android:id="@+id/addNewPetName_editText"
@@ -72,7 +89,7 @@
                 android:autofillHints="username"
                 android:inputType="textPersonName"
                 android:hint="@string/name"
-                android:textSize="@dimen/edit_text_size" />
+                android:textSize="@dimen/medium_text_size" />
 
         </LinearLayout>
 
@@ -80,15 +97,14 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
-            android:layout_marginHorizontal="@dimen/margin_horizontal"
-            android:layout_marginVertical="@dimen/margin_vertical"
-            android:padding="@dimen/padding" >
+            android:layout_margin="@dimen/small_margin"
+            android:padding="@dimen/small_padding" >
             <TextView
                 android:id="@+id/addNewPetAge_textView"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="@string/age"
-                android:textSize="@dimen/small_text_view_size"
+                android:textSize="@dimen/small_text_size"
                 android:visibility="gone"/>
             <EditText
                 android:id="@+id/addNewPetAge_editText"
@@ -97,7 +113,7 @@
                 android:autofillHints="age"
                 android:inputType="number"
                 android:hint="@string/age"
-                android:textSize="@dimen/edit_text_size" />
+                android:textSize="@dimen/medium_text_size" />
 
         </LinearLayout>
 
@@ -105,15 +121,14 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
-            android:layout_marginHorizontal="@dimen/margin_horizontal"
-            android:layout_marginVertical="@dimen/margin_vertical"
-            android:padding="@dimen/padding" >
+            android:layout_margin="@dimen/small_margin"
+            android:padding="@dimen/small_padding" >
             <TextView
                 android:id="@+id/addNewPetWeight_textView"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="@string/weight"
-                android:textSize="@dimen/small_text_view_size"
+                android:textSize="@dimen/small_text_size"
                 android:visibility="gone"/>
             <EditText
                 android:id="@+id/addNewPetWeight_editText"
@@ -122,7 +137,7 @@
                 android:autofillHints="weight"
                 android:inputType="numberDecimal"
                 android:hint="@string/weight"
-                android:textSize="@dimen/edit_text_size" />
+                android:textSize="@dimen/medium_text_size" />
 
         </LinearLayout>
 
@@ -130,15 +145,14 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
-            android:layout_marginHorizontal="@dimen/margin_horizontal"
-            android:layout_marginVertical="@dimen/margin_vertical"
-            android:padding="@dimen/padding">
+            android:layout_margin="@dimen/small_margin"
+            android:padding="@dimen/small_padding">
             <TextView
                 android:id="@+id/addNewPetLocation_textView"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="@string/location"
-                android:textSize="@dimen/small_text_view_size"
+                android:textSize="@dimen/small_text_size"
                 android:visibility="gone"/>
             <EditText
                 android:id="@+id/addNewPetLocation_editText"
@@ -147,7 +161,7 @@
                 android:autofillHints="postalAddress"
                 android:inputType="textPostalAddress"
                 android:hint="@string/location"
-                android:textSize="@dimen/edit_text_size" />
+                android:textSize="@dimen/medium_text_size" />
 
         </LinearLayout>
 
@@ -155,15 +169,14 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
-            android:layout_marginHorizontal="@dimen/margin_horizontal"
-            android:layout_marginVertical="@dimen/margin_vertical"
-            android:padding="@dimen/padding">
+            android:layout_margin="@dimen/small_margin"
+            android:padding="@dimen/small_padding">
             <TextView
                 android:id="@+id/addNewPetSize_textView"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="@string/size"
-                android:textSize="@dimen/small_text_view_size"
+                android:textSize="@dimen/small_text_size"
                 android:visibility="gone"/>
             <EditText
                 android:id="@+id/addNewPetSize_editText"
@@ -172,7 +185,7 @@
                 android:autofillHints="size"
                 android:inputType="text"
                 android:hint="@string/size"
-                android:textSize="@dimen/edit_text_size"
+                android:textSize="@dimen/medium_text_size"
                 tools:ignore="TextFields" />
 
         </LinearLayout>
@@ -181,15 +194,14 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
-            android:layout_marginHorizontal="@dimen/margin_horizontal"
-            android:layout_marginVertical="@dimen/margin_vertical"
-            android:padding="@dimen/padding">
+            android:layout_margin="@dimen/small_margin"
+            android:padding="@dimen/small_padding">
             <TextView
                 android:id="@+id/addNewPetBreed_textView"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="@string/breed"
-                android:textSize="@dimen/small_text_view_size"
+                android:textSize="@dimen/small_text_size"
                 android:visibility="gone"/>
             <EditText
                 android:id="@+id/addNewPetBreed_editText"
@@ -198,7 +210,7 @@
                 android:autofillHints="breed"
                 android:inputType="text"
                 android:hint="@string/breed"
-                android:textSize="@dimen/edit_text_size" />
+                android:textSize="@dimen/medium_text_size" />
 
         </LinearLayout>
 
@@ -206,15 +218,14 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
-            android:layout_marginHorizontal="@dimen/margin_horizontal"
-            android:layout_marginVertical="@dimen/margin_vertical"
-            android:padding="@dimen/padding">
+            android:layout_margin="@dimen/small_margin"
+            android:padding="@dimen/small_padding">
             <TextView
                 android:id="@+id/addNewPetSex_textView"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="@string/sex"
-                android:textSize="@dimen/small_text_view_size"
+                android:textSize="@dimen/small_text_size"
                 android:visibility="gone"/>
             <EditText
                 android:id="@+id/addNewPetSex_editText"
@@ -223,7 +234,7 @@
                 android:autofillHints="sex"
                 android:inputType="text"
                 android:hint="@string/sex"
-                android:textSize="@dimen/edit_text_size" />
+                android:textSize="@dimen/medium_text_size" />
 
         </LinearLayout>
 
@@ -231,15 +242,14 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
-            android:layout_marginHorizontal="@dimen/margin_horizontal"
-            android:layout_marginVertical="@dimen/margin_vertical"
-            android:padding="@dimen/padding">
+            android:layout_margin="@dimen/small_margin"
+            android:padding="@dimen/small_padding">
             <TextView
                 android:id="@+id/addNewPetDescription_textView"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="@string/description"
-                android:textSize="@dimen/small_text_view_size"
+                android:textSize="@dimen/small_text_size"
                 android:visibility="gone"/>
             <EditText
                 android:id="@+id/addNewPetDescription_editText"
@@ -247,8 +257,10 @@
                 android:layout_height="wrap_content"
                 android:autofillHints="pet description"
                 android:inputType="textMultiLine"
+                android:maxLines="10"
+                android:maxLength="500"
                 android:hint="@string/description"
-                android:textSize="@dimen/edit_text_size"/>
+                android:textSize="@dimen/medium_text_size"/>
 
         </LinearLayout>
 
@@ -256,9 +268,95 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
-            android:layout_marginHorizontal="@dimen/margin_horizontal"
-            android:layout_marginVertical="@dimen/margin_vertical"
-            android:padding="@dimen/padding">
+            android:layout_margin="@dimen/small_margin"
+            android:padding="@dimen/small_padding">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/fit_for_children"
+                android:textSize="@dimen/medium_text_size" />
+
+            <RadioGroup
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+                <RadioButton
+                    android:id="@+id/addNewPetNotFitForChildren_radioButton"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="@string/no"
+                    android:textSize="@dimen/medium_text_size"
+                    android:button="@null"
+                    android:padding="@dimen/small_padding"
+                    android:drawablePadding="@dimen/small_padding"
+                    android:drawableStart="@android:drawable/btn_radio"/>
+                <RadioButton
+                    android:id="@+id/addNewPetFitForChildren_radioButton"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="@string/yes"
+                    android:textSize="@dimen/medium_text_size"
+                    android:button="@null"
+                    android:padding="@dimen/small_padding"
+                    android:drawablePadding="@dimen/small_padding"
+                    android:drawableStart="@android:drawable/btn_radio"/>
+            </RadioGroup>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_margin="@dimen/small_margin"
+            android:padding="@dimen/small_padding">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/fit_for_guarding"
+                android:textSize="@dimen/medium_text_size" />
+
+            <RadioGroup
+                android:id="@+id/addNewPetFitForGuarding_radioGroup"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+                <RadioButton
+                    android:id="@+id/addNewPetNotFitForGuarding_radioButton"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="@string/no"
+                    android:textSize="@dimen/medium_text_size"
+                    android:button="@null"
+                    android:padding="@dimen/small_padding"
+                    android:drawablePadding="@dimen/small_padding"
+                    android:drawableStart="@android:drawable/btn_radio"/>
+                <RadioButton
+                    android:id="@+id/addNewPetFitForGuarding_radioButton"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="@string/yes"
+                    android:textSize="@dimen/medium_text_size"
+                    android:button="@null"
+                    android:padding="@dimen/small_padding"
+                    android:drawablePadding="@dimen/small_padding"
+                    android:drawableStart="@android:drawable/btn_radio"/>
+            </RadioGroup>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_margin="@dimen/small_margin"
+            android:padding="@dimen/small_padding">
 
             <TextView
                 android:layout_width="match_parent"
@@ -276,7 +374,7 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_margin="20dp">
+            android:layout_margin="@dimen/medium_margin">
 
             <Button
                 android:id="@+id/addNewPetCancel_button"
@@ -285,7 +383,7 @@
                 android:text="@string/text_cancel"
                 android:textColor="@color/black"
                 android:layout_weight="1"
-                android:layout_margin="10dp"
+                android:layout_margin="@dimen/small_margin"
                 android:backgroundTint="@color/light_silver"
                 style="?android:attr/buttonBarButtonStyle" />
             <Button
@@ -295,7 +393,7 @@
                 android:text="@string/add"
                 android:textColor="@color/black"
                 android:layout_weight="1"
-                android:layout_margin="10dp"
+                android:layout_margin="@dimen/small_margin"
                 android:backgroundTint="@color/light_silver"
                 style="?android:attr/buttonBarButtonStyle" />
         </LinearLayout>
