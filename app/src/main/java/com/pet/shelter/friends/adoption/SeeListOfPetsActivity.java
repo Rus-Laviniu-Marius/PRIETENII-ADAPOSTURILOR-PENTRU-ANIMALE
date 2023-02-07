@@ -3,10 +3,12 @@ package com.pet.shelter.friends.adoption;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.app.Dialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
+import android.util.Log;
 import android.view.View;
 import android.widget.AbsListView;
 import android.widget.AdapterView;
@@ -17,6 +19,8 @@ import android.widget.SearchView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.android.gms.common.ConnectionResult;
+import com.google.android.gms.common.GoogleApiAvailability;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -28,11 +32,13 @@ import com.pet.shelter.friends.R;
 import com.pet.shelter.friends.adoption.adapter.CustomListOfPetsAdapter;
 import com.pet.shelter.friends.adoption.model.Pet;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Objects;
 
 public class SeeListOfPetsActivity extends AppCompatActivity {
+
+    private static final String TAG = "SeeListOfPetsActivity";
+    private static final int ERROR_DIALOG_REQUEST = 9001;
 
     private TextView sizeActiveFilter, ageActiveFilter, sexActiveFilter,
             fitForChildrenActiveFilter, fitForGuardingActiveFilter, locationTextView;
@@ -99,6 +105,28 @@ public class SeeListOfPetsActivity extends AppCompatActivity {
         setOnItemClickListeners();
 
         setOnScrollListeners();
+    }
+
+    private boolean isServiceOK() {
+        Log.d(TAG, "isServiceOK: checking google services version");
+
+        int available = GoogleApiAvailability.getInstance().isGooglePlayServicesAvailable(SeeListOfPetsActivity.this);
+
+        if (available == ConnectionResult.SUCCESS) {
+            // everything is fine and the user can make map requests
+            Log.d(TAG, "isServiceOK: Google Play Services is working");
+            return true;
+        } else if (GoogleApiAvailability.getInstance().isUserResolvableError(available)) {
+            // an error occurred but we can resolve it
+            Log.d(TAG, "isServiceOK: an error occurred but we can fix it");
+            Dialog dialog = GoogleApiAvailability.getInstance().getErrorDialog(SeeListOfPetsActivity.this, available, ERROR_DIALOG_REQUEST);
+            if (dialog != null)
+                dialog.show();
+        } else {
+            Toast.makeText(this, "You can't make map requests", Toast.LENGTH_SHORT).show();
+        }
+
+        return false;
     }
 
     private void setOnScrollListeners() {
@@ -241,13 +269,15 @@ public class SeeListOfPetsActivity extends AppCompatActivity {
             }
         });
 
-        locationTextView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(SeeListOfPetsActivity.this, MapActivity.class);
-                startActivity(intent);
-            }
-        });
+        if (isServiceOK()) {
+            locationTextView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    Intent intent = new Intent(SeeListOfPetsActivity.this, MapActivity.class);
+                    startActivity(intent);
+                }
+            });
+        }
     }
 
     private void setFilters(String loggedUid) {
@@ -303,8 +333,7 @@ public class SeeListOfPetsActivity extends AppCompatActivity {
         });
     }
 
-    public void refresh()
-    {
+    public void refresh() {
         new Handler(Looper.getMainLooper()).post(new Runnable() {
             @Override
             public void run() {

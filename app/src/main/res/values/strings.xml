@@ -225,9 +225,11 @@
     <string name="help">Help</string>
     <string name="dark_mode">Dark mode</string>
     <string name="off">Off</string>
-    <string name="ok">Ok</string>
+    <string name="ok">OK</string>
     <string name="title_location_permission">Location permission</string>
     <string name="text_location_permission">Select</string>
     <string name="edit_pet_profile">Edit pet profile</string>
+    <string name="enter_address_city_or_zip_code">Enter Address, City or Zip Code</string>
+    <string name="gps">GPS</string>
 
 </resources>

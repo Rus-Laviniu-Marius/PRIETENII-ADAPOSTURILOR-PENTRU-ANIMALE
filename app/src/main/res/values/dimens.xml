@@ -16,4 +16,6 @@
     <dimen name="large_padding">30dp</dimen>
     <dimen name="padding_vertical">5dp</dimen>
     <dimen name="padding_horizontal">10dp</dimen>
+
+    <dimen name="small_elevation">10dp</dimen>
 </resources>
