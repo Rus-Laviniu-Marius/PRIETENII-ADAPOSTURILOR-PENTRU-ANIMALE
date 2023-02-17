@@ -10,7 +10,7 @@
         android:id="@+id/completeVeterinarianInformationTopBar_relativeLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:padding="20dp"
+        android:padding="@dimen/medium_padding"
         android:layout_alignParentTop="true"
         android:layout_centerInParent="true">
 
@@ -43,18 +43,15 @@
         android:layout_height="wrap_content"
         android:layout_centerInParent="true"
         android:layout_below="@+id/completeVeterinarianInformationTopBar_relativeLayout"
-        android:layout_marginStart="10dp"
-        android:layout_marginTop="10dp"
-        android:layout_marginEnd="10dp"
-        android:layout_marginBottom="10dp"
+        android:layout_margin="@dimen/small_margin"
         android:text="@string/complete_information_description"
-        android:textSize="30sp" />
+        android:textSize="@dimen/large_text_size" />
 
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_centerInParent="true"
-        android:layout_margin="20dp"
+        android:layout_margin="@dimen/medium_margin"
         android:layout_below="@+id/completeVeterinarianInformationDescription_textView">
         <LinearLayout
             android:layout_width="match_parent"
@@ -68,7 +65,7 @@
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:textSize="20sp"
+                    android:textSize="@dimen/medium_text_size"
                     android:text="@string/do_you_have_a_regular_veterinarian"/>
                 <RadioGroup
                     android:layout_width="match_parent"
@@ -81,10 +78,10 @@
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
                         android:text="@string/no"
-                        android:textSize="20sp"
+                        android:textSize="@dimen/medium_text_size"
                         android:button="@null"
-                        android:padding="10dp"
-                        android:drawablePadding="10dp"
+                        android:padding="@dimen/small_padding"
+                        android:drawablePadding="@dimen/small_padding"
                         android:drawableStart="@android:drawable/btn_radio"/>
                     <RadioButton
                         android:id="@+id/regularVeterinarianYes_radioButton"
@@ -92,10 +89,10 @@
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
                         android:text="@string/yes"
-                        android:textSize="20sp"
+                        android:textSize="@dimen/medium_text_size"
                         android:button="@null"
-                        android:padding="10dp"
-                        android:drawablePadding="10dp"
+                        android:padding="@dimen/small_padding"
+                        android:drawablePadding="@dimen/small_padding"
                         android:drawableStart="@android:drawable/btn_radio"/>
                 </RadioGroup>
             </LinearLayout>
@@ -107,10 +104,10 @@
                 android:inputType="textPersonName"
                 android:hint="@string/veterinarian_name"
                 android:autofillHints="adults number"
-                android:layout_margin="10dp"
-                android:padding="10dp"
+                android:layout_margin="@dimen/small_margin"
+                android:padding="@dimen/small_padding"
                 android:gravity="center"
-                android:textSize="20sp"
+                android:textSize="@dimen/medium_text_size"
                 android:background="@drawable/veterinarian_data_background"
                 android:drawableStart="@drawable/full_name_32"/>
 
@@ -121,10 +118,10 @@
                 android:inputType="text"
                 android:hint="@string/clinic_name"
                 android:autofillHints="children number"
-                android:layout_margin="10dp"
-                android:padding="10dp"
+                android:layout_margin="@dimen/small_margin"
+                android:padding="@dimen/small_padding"
                 android:gravity="center"
-                android:textSize="20sp"
+                android:textSize="@dimen/medium_text_size"
                 android:background="@drawable/veterinarian_data_background"
                 android:drawableStart="@drawable/veterinary_clinic_32"/>
 
@@ -135,10 +132,10 @@
                 android:inputType="textPostalAddress"
                 android:hint="@string/clinic_address"
                 android:autofillHints="home type"
-                android:layout_margin="10dp"
-                android:padding="10dp"
+                android:layout_margin="@dimen/small_margin"
+                android:padding="@dimen/small_padding"
                 android:gravity="center"
-                android:textSize="20sp"
+                android:textSize="@dimen/medium_text_size"
                 android:background="@drawable/veterinarian_data_background"
                 android:drawableStart="@drawable/clinic_address"/>
 
@@ -149,17 +146,17 @@
                 android:inputType="phone"
                 android:hint="@string/clinic_phone"
                 android:autofillHints="home description"
-                android:layout_margin="10dp"
-                android:padding="10dp"
+                android:layout_margin="@dimen/small_margin"
+                android:padding="@dimen/small_padding"
                 android:gravity="center"
-                android:textSize="20sp"
+                android:textSize="@dimen/medium_text_size"
                 android:background="@drawable/veterinarian_data_background"
                 android:drawableStart="@drawable/veterinary_phone_32"/>
 
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:textSize="20sp"
+                android:textSize="@dimen/medium_text_size"
                 android:text="@string/veterinarian_rgpd_description" />
             <Button
                 android:id="@+id/completeVeterinarianInformationSubmit_button"
@@ -167,9 +164,8 @@
                 android:layout_height="wrap_content"
                 android:background="@drawable/bottom_bar"
                 android:text="@string/submit"
-                android:textSize="20sp"
-                android:layout_margin="20dp"
-                />
+                android:textSize="@dimen/medium_text_size"
+                android:layout_margin="@dimen/medium_margin" />
         </LinearLayout>
     </ScrollView>
 

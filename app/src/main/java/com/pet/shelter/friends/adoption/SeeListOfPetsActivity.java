@@ -3,11 +3,14 @@ package com.pet.shelter.friends.adoption;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.app.Dialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
+import android.util.Log;
 import android.view.View;
+import android.widget.AbsListView;
 import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.GridView;
@@ -16,6 +19,8 @@ import android.widget.SearchView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.android.gms.common.ConnectionResult;
+import com.google.android.gms.common.GoogleApiAvailability;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -32,8 +37,11 @@ import java.util.Objects;
 
 public class SeeListOfPetsActivity extends AppCompatActivity {
 
+    private static final String TAG = "SeeListOfPetsActivity";
+    private static final int ERROR_DIALOG_REQUEST = 9001;
+
     private TextView sizeActiveFilter, ageActiveFilter, sexActiveFilter,
-            fitForChildrenActiveFilter, fitForGuardingActiveFilter;
+            fitForChildrenActiveFilter, fitForGuardingActiveFilter, locationTextView;
     private ImageView back, filter, search, favorites, send, home;
     private Button addNewPetButton;
     private GridView gridView;
@@ -76,6 +84,8 @@ public class SeeListOfPetsActivity extends AppCompatActivity {
         fitForChildrenActiveFilter = findViewById(R.id.listOfPetsContentFitForChildrenActiveFilter_textView);
         fitForGuardingActiveFilter = findViewById(R.id.listOfPetsContentFitForGuardingActiveFilter_textView);
 
+        locationTextView = findViewById(R.id.listOfPetsContentLocation_textView);
+
         gridView = findViewById(R.id.listOfPetsContentPets_gridView);
 
         String loggedUid = Objects.requireNonNull(firebaseAuth.getCurrentUser()).getUid();
@@ -93,10 +103,62 @@ public class SeeListOfPetsActivity extends AppCompatActivity {
         updateGridView();
 
         setOnItemClickListeners();
+
+        setOnScrollListeners();
+    }
+
+    private boolean isServiceOK() {
+        Log.d(TAG, "isServiceOK: checking google services version");
+
+        int available = GoogleApiAvailability.getInstance().isGooglePlayServicesAvailable(SeeListOfPetsActivity.this);
+
+        if (available == ConnectionResult.SUCCESS) {
+            // everything is fine and the user can make map requests
+            Log.d(TAG, "isServiceOK: Google Play Services is working");
+            return true;
+        } else if (GoogleApiAvailability.getInstance().isUserResolvableError(available)) {
+            // an error occurred but we can resolve it
+            Log.d(TAG, "isServiceOK: an error occurred but we can fix it");
+            Dialog dialog = GoogleApiAvailability.getInstance().getErrorDialog(SeeListOfPetsActivity.this, available, ERROR_DIALOG_REQUEST);
+            if (dialog != null)
+                dialog.show();
+        } else {
+            Toast.makeText(this, "You can't make map requests", Toast.LENGTH_SHORT).show();
+        }
+
+        return false;
+    }
+
+    private void setOnScrollListeners() {
+        gridView.setOnScrollListener(new AbsListView.OnScrollListener() {
+            @Override
+            public void onScrollStateChanged(AbsListView absListView, int i) {
+//                //Algorithm to check if the last item is visible or not
+//                final int lastItem = firstVisibleItem + visibleItemCount;
+//                if(lastItem == totalItemCount){
+//                    // here you have reached end of list, load more data
+//                    fetchMoreItems();
+//                }
+            }
+
+            @Override
+            public void onScroll(AbsListView absListView, int i, int i1, int i2) {
+
+            }
+        });
     }
 
     private void updateGridView() {
 
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        for (Pet pet : petsList) {
+            pet.setSelected("false");
+            customAdapter.notifyDataSetChanged();
+        }
     }
 
     private void setOnClickListeners() {
@@ -166,25 +228,27 @@ public class SeeListOfPetsActivity extends AppCompatActivity {
 
             @Override
             public void onClick(View view) {
-                int position = -1;
+                ArrayList<Integer> position = new ArrayList<>();
                 boolean selected = false;
                 for (Pet pet : petsList) {
                     if (Boolean.parseBoolean(pet.isSelected())) {
-                        position = petsList.indexOf(pet);
+                        position.add(petsList.indexOf(pet));
                         selected = true;
                     }
                 }
-                if (selected && position >= 0) {
-                    Pet pet = petsList.get(position);
-
+                if (selected) {
                     try {
-                        Intent whatsappIntent = new Intent(Intent.ACTION_SEND).setType("text/plain").setPackage("com.whatsapp").putExtra(Intent.EXTRA_TEXT, pet.toString());
+                        Intent whatsappIntent = new Intent(Intent.ACTION_SEND)
+                                .setType("text/plain")
+                                .setPackage("com.whatsapp");
+                        for (Integer i : position) {
+                            whatsappIntent.putExtra(Intent.EXTRA_TEXT, petsList.get(i).toString());
+                        }
                         startActivity(whatsappIntent);
                     } catch (android.content.ActivityNotFoundException ex) {
                         Toast.makeText(SeeListOfPetsActivity.this, "Whatsapp have not been installed.", Toast.LENGTH_SHORT).show();
                     }
-                }
-                else {
+                } else {
                     Toast.makeText(SeeListOfPetsActivity.this, "Select pet by long touching it", Toast.LENGTH_SHORT).show();
                 }
             }
@@ -204,19 +268,38 @@ public class SeeListOfPetsActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+
+        if (isServiceOK()) {
+            locationTextView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    Intent intent = new Intent(SeeListOfPetsActivity.this, MapActivity.class);
+                    startActivity(intent);
+                }
+            });
+        }
     }
 
     private void setFilters(String loggedUid) {
+        ArrayList<Pet> filteredPetsList = new ArrayList<>();
         filtersReference.child(loggedUid).addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
-
                 size = Objects.requireNonNull(snapshot.child("size").getValue()).toString();
                 if (size.equals("don't care"))
                     sizeActiveFilter.setVisibility(View.GONE);
-                else
+                else {
                     sizeActiveFilter.setText(size);
-
+                    if (sizeActiveFilter.getVisibility() == View.VISIBLE) {
+                        for (Pet pet : petsList) {
+                            if (size.contains(pet.getSize())) {
+                                filteredPetsList.add(pet);
+                            }
+                        }
+                        if (filteredPetsList.size() != 0)
+                            customAdapter.upToDate(filteredPetsList);
+                    }
+                }
                 age = Objects.requireNonNull(snapshot.child("age").getValue()).toString();
                 if (age.equals("don't care"))
                     ageActiveFilter.setVisibility(View.GONE);
@@ -240,6 +323,7 @@ public class SeeListOfPetsActivity extends AppCompatActivity {
                     fitForGuardingActiveFilter.setVisibility(View.GONE);
                 else
                     fitForGuardingActiveFilter.setText(fitForGuarding);
+
             }
 
             @Override
@@ -249,8 +333,7 @@ public class SeeListOfPetsActivity extends AppCompatActivity {
         });
     }
 
-    public void refresh()
-    {
+    public void refresh() {
         new Handler(Looper.getMainLooper()).post(new Runnable() {
             @Override
             public void run() {
@@ -312,19 +395,28 @@ public class SeeListOfPetsActivity extends AppCompatActivity {
                 intent.putExtra("selected", pet.isSelected());
                 intent.putExtra("petType", pet.getType());
                 intent.putExtra("petKey", petKeys.get(position));
+                intent.putExtra("fitForChildren", pet.isFitForChildren());
+                intent.putExtra("fitForGuarding", pet.isFitForGuarding());
                 startActivity(intent);
             }
         });
 
         gridView.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
+            boolean isSelected = false;
             @Override
             public boolean onItemLongClick(AdapterView<?> adapterView, View view, int i, long l) {
-                boolean isSelected = Boolean.parseBoolean(petsList.get(i).isSelected());
-                petsList.get(i).setSelected(String.valueOf(!isSelected));
-                petsReference.child(petKeys.get(i)).child("selected").setValue(String.valueOf(isSelected));
-                customAdapter.notifyDataSetChanged();
-                Toast.makeText(SeeListOfPetsActivity.this, petsList.get(i).getName() + " is selected", Toast.LENGTH_SHORT).show();
+                if (isSelected) {
+                    petsReference.child(petKeys.get(i)).child("selected").setValue("true");
+                    customAdapter.notifyDataSetChanged();
+                    Toast.makeText(SeeListOfPetsActivity.this, petsList.get(i).getName() + " is selected", Toast.LENGTH_SHORT).show();
 
+                } else {
+                    petsReference.child(petKeys.get(i)).child("selected").setValue("false");
+                    customAdapter.notifyDataSetChanged();
+                    Toast.makeText(SeeListOfPetsActivity.this, petsList.get(i).getName() + " has been deselected", Toast.LENGTH_SHORT).show();
+
+                }
+                isSelected = !isSelected;
                 return true;
             }
         });
@@ -337,7 +429,7 @@ public class SeeListOfPetsActivity extends AppCompatActivity {
                 String uId = Objects.requireNonNull(snapshot.child("uId").getValue()).toString();
                 if (loggedUid.equals(uId)) {
                     addNewPetButton.setVisibility(View.VISIBLE);
-                    favorites.setVisibility(View.GONE);
+                    favorites.setVisibility(View.VISIBLE);
                 }
             }
 

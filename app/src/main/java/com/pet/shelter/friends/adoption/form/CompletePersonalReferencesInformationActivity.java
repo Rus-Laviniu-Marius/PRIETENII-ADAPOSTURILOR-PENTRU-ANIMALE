@@ -31,7 +31,7 @@ public class CompletePersonalReferencesInformationActivity extends AppCompatActi
 
         firebaseAuth = FirebaseAuth.getInstance();
         FirebaseDatabase firebaseDatabase = FirebaseDatabase.getInstance();
-        adoptionFormReference = firebaseDatabase.getReference("adoptionForm");
+        adoptionFormReference = firebaseDatabase.getReference("adoptionForms");
 
         referenceNameEditText = findViewById(R.id.personalReferenceName_editText);
         referenceAddressEditText = findViewById(R.id.personalReferenceAddress_editText);

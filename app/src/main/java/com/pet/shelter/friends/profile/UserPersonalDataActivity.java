@@ -1,4 +1,4 @@
-package com.pet.shelter.friends.adoption.profile;
+package com.pet.shelter.friends.profile;
 
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
@@ -107,7 +107,7 @@ public class UserPersonalDataActivity extends AppCompatActivity {
 
         firebaseAuth = FirebaseAuth.getInstance();
         FirebaseDatabase firebaseDatabase = FirebaseDatabase.getInstance();
-        usersReference = firebaseDatabase.getReference("users");
+        usersReference = firebaseDatabase.getReference("profiles");
         databaseReference = firebaseDatabase.getReference();
         FirebaseStorage firebaseStorage = FirebaseStorage.getInstance();
         userProfileImageStorage = firebaseStorage.getReference();

@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".adoption.profile.ViewProfileActivity">
+    tools:context=".profile.ViewProfileActivity">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -15,7 +15,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
-            android:background="@drawable/profile">
+            android:background="@drawable/top_bar">
 
             <RelativeLayout
                 android:layout_width="match_parent"
@@ -51,7 +51,7 @@
                 android:id="@+id/userPersonalDataProfile_imageView"
                 android:layout_width="200dp"
                 android:layout_height="200dp"
-                android:src="@drawable/user_profile"
+                android:src="@drawable/outline_user_profile_64"
                 android:contentDescription="@string/user_profile"
                 android:layout_gravity="center" />
 
@@ -104,7 +104,7 @@
                     android:layout_height="wrap_content"
                     android:textSize="@dimen/medium_text_size"
                     android:text="@string/name"
-                    app:drawableStartCompat="@drawable/user_profile_32"
+                    app:drawableStartCompat="@drawable/outline_user_profile_32"
                     android:drawablePadding="@dimen/small_padding"/>
                 <TextView
                     android:id="@+id/userPersonalDataName_textView"

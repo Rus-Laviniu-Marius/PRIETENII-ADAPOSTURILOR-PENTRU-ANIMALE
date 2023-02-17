@@ -6,6 +6,8 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
@@ -15,9 +17,13 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.pet.shelter.friends.adoption.AddNewPetActivity;
 import com.pet.shelter.friends.adoption.FilterPetPreferencesActivity;
-import com.pet.shelter.friends.adoption.profile.CreateProfileActivity;
-import com.pet.shelter.friends.adoption.profile.ViewProfileActivity;
+import com.pet.shelter.friends.adoption.SeeListOfPetsActivity;
+import com.pet.shelter.friends.profile.CreateProfileActivity;
+import com.pet.shelter.friends.profile.ViewProfileActivity;
+import com.r0adkll.slidr.Slidr;
+import com.r0adkll.slidr.model.SlidrInterface;
 
 import java.util.Objects;
 
@@ -25,34 +31,73 @@ public class HomeActivity extends AppCompatActivity {
 
     private FirebaseAuth firebaseAuth;
     private DatabaseReference activeUsersReference, shelterAdminReference, databaseReference;
-    private TextView bottomBarHome, bottomBarAdopt, bottomBarDonate, bottomBarProfile;
-    private RelativeLayout contentTopLeftAdopt, contentTopRightSponsor, contentBottomLeftVolunteer, contentBottomRightMaterialSupport;
+    private ImageView menuImageView, notificationsImageView;
+    private TextView userBottomBarHomeTextView, userBottomBarAdoptTextView, userBottomBarDonateTextView,
+            userBottomBarSupplyTextView, userBottomBarProfileTextView, adminBottomBarHomeTextView,
+            adminBottomBarPetsTextView, adminBottomBarDonationRequestsTextView,
+            adminBottomBarSupplyRequestsTextView, adminBottomBarProfileTextView;
+    private LinearLayout userHomeScreenContentLinearLayout, adminHomeScreenContentLinearLayout,
+            userHomeScreenBottomBarLinearLayout, adminHomeScreenBottomBarLinearLayout;
+    private RelativeLayout userContentTopLeftAdoptRelativeLayout, userContentTopRightSponsorRelativeLayout,
+            userContentBottomLeftVolunteerRelativeLayout, userContentBottomRightMaterialSupportRelativeLayout,
+            adminContentTopLeftAddRelativeLayout, adminContentTopRightDonationRequestRelativeLayout,
+            adminContentBottomLeftVolunteerRequestRelativeLayout, adminContentBottomRightMaterialSupportRelativeLayout;
+
+    private SlidrInterface slidrInterface;
+    private String loggedUid;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
 
+        initialization();
+
+        slidrInterface = Slidr.attach(this);
+
+        saveConnectedUserIdToDatabase();
+
+        setOnCLickListeners();
+
+    }
+
+    private void initialization() {
         firebaseAuth = FirebaseAuth.getInstance();
         FirebaseDatabase firebaseDatabase = FirebaseDatabase.getInstance();
         activeUsersReference = firebaseDatabase.getReference("activeUsers");
         shelterAdminReference = firebaseDatabase.getReference("shelterAdmin");
         databaseReference = firebaseDatabase.getReference();
 
-        bottomBarHome = findViewById(R.id.homeScreenBottomBarHome_textView);
-        bottomBarAdopt = findViewById(R.id.homeScreenBottomBarAdopt_textView);
-        bottomBarDonate = findViewById(R.id.homeScreenBottomBarDonate_textView);
-        bottomBarProfile = findViewById(R.id.homeScreenBottomBarProfile_textView);
-        contentTopLeftAdopt = findViewById(R.id.homeScreenContentTopLeft_button);
-        contentTopRightSponsor = findViewById(R.id.homeScreenContentTopRight_button);
-        contentBottomLeftVolunteer = findViewById(R.id.homeScreenContentBottomLeft_button);
-        contentBottomRightMaterialSupport = findViewById(R.id.homeScreenContentBottomRight_button);
+        loggedUid = Objects.requireNonNull(firebaseAuth.getCurrentUser()).getUid();
 
-        saveConnectedUserIdToDatabase();
+        menuImageView = findViewById(R.id.homeScreenTopBarOpenMenu_imageView);
 
-        setOnCLickListeners();
+        userHomeScreenContentLinearLayout = findViewById(R.id.userHomeScreenContent_linearLayout);
+        userContentTopLeftAdoptRelativeLayout = findViewById(R.id.userHomeScreenContentTopLeft_relativeLayout);
+        userContentTopRightSponsorRelativeLayout = findViewById(R.id.userHomeScreenContentTopRight_relativeLayout);
+        userContentBottomLeftVolunteerRelativeLayout = findViewById(R.id.userHomeScreenContentBottomLeft_relativeLayout);
+        userContentBottomRightMaterialSupportRelativeLayout = findViewById(R.id.userHomeScreenContentBottomRight_relativeLayout);
 
+        userHomeScreenBottomBarLinearLayout = findViewById(R.id.userHomeScreenBottomBar_linearLayout);
+        userBottomBarHomeTextView = findViewById(R.id.userHomeScreenBottomBarHome_textView);
+        userBottomBarAdoptTextView = findViewById(R.id.userHomeScreenBottomBarAdopt_textView);
+        userBottomBarDonateTextView = findViewById(R.id.userHomeScreenBottomBarDonate_textView);
+        userBottomBarSupplyTextView = findViewById(R.id.userHomeScreenBottomBarMaterialSupport_textView);
+        userBottomBarProfileTextView = findViewById(R.id.userHomeScreenBottomBarProfile_textView);
 
+        adminHomeScreenContentLinearLayout = findViewById(R.id.adminHomeScreenContent_linearLayout);
+        adminContentTopLeftAddRelativeLayout = findViewById(R.id.adminHomeScreenContentTopLeft_relativeLayout);
+        adminContentTopRightDonationRequestRelativeLayout = findViewById(R.id.adminHomeScreenContentTopRight_relativeLayout);
+        adminContentBottomLeftVolunteerRequestRelativeLayout = findViewById(R.id.adminHomeScreenContentBottomLeft_relativeLayout);
+        adminContentBottomRightMaterialSupportRelativeLayout = findViewById(R.id.adminHomeScreenContentBottomRight_relativeLayout);
+
+        adminHomeScreenBottomBarLinearLayout = findViewById(R.id.adminHomeScreenBottomBar_linearLayout);
+        adminBottomBarHomeTextView = findViewById(R.id.adminHomeScreenBottomBarHome_textView);
+        adminBottomBarPetsTextView = findViewById(R.id.adminHomeScreenBottomBarViewPets_textView);
+        adminBottomBarDonationRequestsTextView = findViewById(R.id.adminHomeScreenBottomBarViewDonations_textView);
+        adminBottomBarSupplyRequestsTextView = findViewById(R.id.adminHomeScreenBottomBarViewNeededMaterialSupport_textView);
+        adminBottomBarProfileTextView = findViewById(R.id.adminHomeScreenBottomBarProfile_textView);
     }
 
     private void saveConnectedUserIdToDatabase() {
@@ -61,8 +106,17 @@ public class HomeActivity extends AppCompatActivity {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 String shelterAdminId = Objects.requireNonNull(snapshot.child("uId").getValue()).toString();
-                if (!shelterAdminId.equals(uId)) {
+                if (shelterAdminId.equals(uId)) { // admin is connected
+                    adminHomeScreenContentLinearLayout.setVisibility(View.VISIBLE);
+                    adminHomeScreenBottomBarLinearLayout.setVisibility(View.VISIBLE);
+                    userHomeScreenContentLinearLayout.setVisibility(View.GONE);
+                    userHomeScreenBottomBarLinearLayout.setVisibility(View.GONE);
+                } else { // user is connected
                     activeUsersReference.child(uId).child("uId").setValue(uId);
+                    userHomeScreenContentLinearLayout.setVisibility(View.VISIBLE);
+                    userHomeScreenBottomBarLinearLayout.setVisibility(View.VISIBLE);
+                    adminHomeScreenContentLinearLayout.setVisibility(View.GONE);
+                    adminHomeScreenBottomBarLinearLayout.setVisibility(View.GONE);
                 }
             }
 
@@ -74,13 +128,139 @@ public class HomeActivity extends AppCompatActivity {
     }
 
     private void setOnCLickListeners() {
-        bottomBarProfile.setOnClickListener(new View.OnClickListener() {
+        final boolean[] filtersNodeHasLoggedUIdChild = {false};
+
+        databaseReference.child("filters").addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                filtersNodeHasLoggedUIdChild[0] = snapshot.hasChild(loggedUid);
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+
+        menuImageView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(HomeActivity.this, SettingsActivity.class);
+                startActivity(intent);
+            }
+        });
+
+        userContentTopLeftAdoptRelativeLayout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (filtersNodeHasLoggedUIdChild[0]) {
+                    sendUserToSeeListOfPetsActivity();
+                } else {
+                    sendUserToFilterActivity();
+                }
+            }
+        });
+
+        userContentTopRightSponsorRelativeLayout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+            }
+        });
+
+        userContentBottomLeftVolunteerRelativeLayout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+            }
+        });
+
+        userContentBottomRightMaterialSupportRelativeLayout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+            }
+        });
+
+        userBottomBarHomeTextView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                reloadScreen();
+            }
+        });
+
+        userBottomBarAdoptTextView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (filtersNodeHasLoggedUIdChild[0]) {
+                    sendUserToSeeListOfPetsActivity();
+                } else {
+                    sendUserToFilterActivity();
+                }
+            }
+        });
+
+        userBottomBarDonateTextView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+            }
+        });
+
+        userBottomBarSupplyTextView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+            }
+        });
+
+        userBottomBarProfileTextView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    databaseReference.addValueEventListener(new ValueEventListener() {
+                        @Override
+                        public void onDataChange(@NonNull DataSnapshot snapshot) {
+                            if (snapshot.child("profiles").hasChild(loggedUid)) {
+                                Intent intent = new Intent(HomeActivity.this, ViewProfileActivity.class);
+                                startActivity(intent);
+                            } else {
+                                Intent intent = new Intent(HomeActivity.this, CreateProfileActivity.class);
+                                startActivity(intent);
+                            }
+                        }
+
+                        @Override
+                        public void onCancelled(@NonNull DatabaseError error) {
+
+                        }
+                    });
+                }
+            });
+
+
+
+        adminContentTopLeftAddRelativeLayout.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    startActivity(new Intent(HomeActivity.this, AddNewPetActivity.class));
+                }
+        });
+
+        adminBottomBarPetsTextView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(HomeActivity.this, SeeListOfPetsActivity.class));
+            }
+        });
+
+        adminBottomBarProfileTextView.setOnClickListener(new View.OnClickListener() {
+
             @Override
             public void onClick(View view) {
                 databaseReference.addValueEventListener(new ValueEventListener() {
                     @Override
                     public void onDataChange(@NonNull DataSnapshot snapshot) {
-                        if (snapshot.hasChild("users")) {
+                        if (snapshot.child("profiles").hasChild(loggedUid)) {
                             Intent intent = new Intent(HomeActivity.this, ViewProfileActivity.class);
                             startActivity(intent);
                         } else {
@@ -97,26 +277,12 @@ public class HomeActivity extends AppCompatActivity {
             }
         });
 
-        bottomBarHome.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                reloadScreen();
-            }
-        });
 
-        bottomBarAdopt.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                sendUserToFilterActivity();
-            }
-        });
+    }
 
-        contentTopLeftAdopt.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                sendUserToFilterActivity();
-            }
-        });
+    private void sendUserToSeeListOfPetsActivity() {
+        Intent intent = new Intent(HomeActivity.this, SeeListOfPetsActivity.class);
+        startActivity(intent);
     }
 
     private void reloadScreen() {

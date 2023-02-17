@@ -16,13 +16,13 @@
     <!--    </item>-->
     <item >
         <shape android:shape="rectangle"  >
-            <size android:width="200dp"
-                android:height="75dp"/>
+            <size android:width="300dp"
+                android:height="100dp"/>
             <corners
                 android:topLeftRadius="50dp"
                 android:topRightRadius="50dp"
                 android:bottomRightRadius="50dp"
-                android:bottomLeftRadius="150dp" />
+                android:bottomLeftRadius="100dp" />
             <solid android:color="@color/pear" />
         </shape>
     </item>

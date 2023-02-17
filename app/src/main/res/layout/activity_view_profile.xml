@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".adoption.profile.ViewProfileActivity"
+    tools:context=".profile.ViewProfileActivity"
     android:background="@color/aero_blue">
 
     <LinearLayout
@@ -30,7 +30,7 @@
                 android:id="@+id/viewProfileUser_imageView"
                 android:layout_width="200dp"
                 android:layout_height="200dp"
-                android:src="@drawable/user_profile"
+                android:src="@drawable/outline_user_profile_64"
                 android:contentDescription="@string/user_profile"
                 android:layout_gravity="center"
                 android:layout_margin="@dimen/small_margin"
@@ -63,6 +63,7 @@
                 android:textSize="@dimen/medium_text_size"
                 android:text="@string/favorite_pets"
                 android:textAlignment="center"
+                android:drawablePadding="@dimen/medium_padding"
                 app:drawableStartCompat="@drawable/heart_32"
                 app:drawableEndCompat="@drawable/next_right_32"
                 android:padding="@dimen/small_padding"
@@ -75,7 +76,8 @@
                 android:textSize="@dimen/medium_text_size"
                 android:text="@string/personal_data"
                 android:textAlignment="center"
-                app:drawableStartCompat="@drawable/user_profile_32"
+                android:drawablePadding="@dimen/medium_padding"
+                app:drawableStartCompat="@drawable/outline_user_profile_32"
                 app:drawableEndCompat="@drawable/next_right_32"
                 android:padding="@dimen/small_padding"
                 android:layout_margin="@dimen/small_margin"
@@ -87,6 +89,7 @@
                 android:textSize="@dimen/medium_text_size"
                 android:text="@string/past_attended_events"
                 android:textAlignment="center"
+                android:drawablePadding="@dimen/medium_padding"
                 app:drawableStartCompat="@drawable/past_events_32"
                 app:drawableEndCompat="@drawable/next_right_32"
                 android:padding="@dimen/small_padding"
@@ -99,6 +102,7 @@
                 android:textSize="@dimen/medium_text_size"
                 android:text="@string/pet_preferences"
                 android:textAlignment="center"
+                android:drawablePadding="@dimen/medium_padding"
                 app:drawableStartCompat="@drawable/filter_32"
                 app:drawableEndCompat="@drawable/next_right_32"
                 android:padding="@dimen/small_padding"
@@ -110,12 +114,10 @@
             android:id="@+id/viewProfileLogout_button"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_margin="@dimen/small_margin"
+            android:layout_margin="@dimen/medium_margin"
             android:text="@string/log_out"
             android:textColor="@color/black"
             android:padding="@dimen/small_padding"
             android:textSize="@dimen/medium_text_size"/>
-
     </LinearLayout>
-
 </ScrollView>

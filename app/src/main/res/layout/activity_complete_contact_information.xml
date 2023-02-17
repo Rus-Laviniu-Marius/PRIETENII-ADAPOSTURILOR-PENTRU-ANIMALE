@@ -79,6 +79,7 @@
                     android:textSize="@dimen/medium_text_size"
                     android:drawableStart="@drawable/full_name_32"
                     android:textAlignment="center"
+                    android:drawablePadding="@dimen/small_padding"
                     android:background="@drawable/edittext_background"
                     android:padding="@dimen/small_padding"/>
             </LinearLayout>
@@ -105,6 +106,7 @@
                     android:textAlignment="center"
                     android:background="@drawable/edittext_background"
                     android:padding="@dimen/small_padding"
+                    android:drawablePadding="@dimen/small_padding"
                     android:drawableStart="@drawable/briefcase_filled_32"/>
             </LinearLayout>
             <LinearLayout
@@ -130,6 +132,7 @@
                     android:textAlignment="center"
                     android:background="@drawable/edittext_background"
                     android:padding="@dimen/small_padding"
+                    android:drawablePadding="@dimen/small_padding"
                     android:drawableStart="@drawable/home_address_32"/>
             </LinearLayout>
 
@@ -155,6 +158,7 @@
                     android:hint="@string/time_at_this_address"
                     android:inputType="date"
                     android:padding="@dimen/small_padding"
+                    android:drawablePadding="@dimen/small_padding"
                     android:textAlignment="center"
                     android:textSize="@dimen/medium_text_size" />
             </LinearLayout>
@@ -182,6 +186,7 @@
                     android:textAlignment="center"
                     android:background="@drawable/edittext_background"
                     android:padding="@dimen/small_padding"
+                    android:drawablePadding="@dimen/small_padding"
                     android:drawableStart="@drawable/telephone_call_32"/>
             </LinearLayout>
 
@@ -208,6 +213,7 @@
                     android:textAlignment="center"
                     android:background="@drawable/edittext_background"
                     android:padding="@dimen/small_padding"
+                    android:drawablePadding="@dimen/small_padding"
                     android:drawableStart="@drawable/email_address_32"/>
             </LinearLayout>
 
@@ -228,12 +234,13 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:autofillHints="time interval"
-                    android:inputType="time"
+                    android:inputType="text"
                     android:hint="@string/best_time_to_call"
                     android:textSize="@dimen/medium_text_size"
                     android:textAlignment="center"
                     android:background="@drawable/edittext_background"
                     android:padding="@dimen/small_padding"
+                    android:drawablePadding="@dimen/small_padding"
                     android:drawableStart="@drawable/time_call_32"/>
             </LinearLayout>
             <Button

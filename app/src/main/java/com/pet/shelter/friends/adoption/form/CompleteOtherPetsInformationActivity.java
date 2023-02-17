@@ -35,7 +35,7 @@ public class CompleteOtherPetsInformationActivity extends AppCompatActivity {
 
         firebaseAuth = FirebaseAuth.getInstance();
         FirebaseDatabase firebaseDatabase = FirebaseDatabase.getInstance();
-        adoptionFormReference = firebaseDatabase.getReference("adoptionForm");
+        adoptionFormReference = firebaseDatabase.getReference("adoptionForms");
 
         otherPetsDetailsEditText = findViewById(R.id.otherPetsDetails_editText);
         surrenderedPetDescription = findViewById(R.id.surrenderedPetDescription_editText);

@@ -1,10 +1,76 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/aero_blue"
+    android:orientation="vertical"
     tools:context=".adoption.form.GenerateAdoptionPapersPDFActivity">
+
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <ImageView
+            android:id="@+id/generatePDFBack_imageView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentTop="true"
+            android:layout_marginStart="@dimen/medium_margin"
+            android:layout_marginTop="@dimen/medium_margin"
+            android:layout_marginEnd="@dimen/medium_margin"
+            android:layout_marginBottom="@dimen/medium_margin"
+            android:contentDescription="@string/back"
+            android:src="@drawable/back_64" />
+
+        <ImageView
+            android:id="@+id/generatePDFHome_imageView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentTop="true"
+            android:layout_marginStart="@dimen/medium_margin"
+            android:layout_marginTop="@dimen/medium_margin"
+            android:layout_marginEnd="@dimen/medium_margin"
+            android:layout_marginBottom="@dimen/medium_margin"
+            android:contentDescription="@string/home"
+            android:src="@drawable/home_64" />
+    </RelativeLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:gravity="center">
+        <ImageView
+            android:visibility="gone"
+            android:id="@+id/generatePDFPet_imageView"
+            android:layout_width="250dp"
+            android:layout_height="250dp"
+            android:layout_margin="@dimen/small_margin"
+            android:contentDescription="@string/to_be_adopted_pet_image"
+            android:src="@drawable/add_image_128" />
+
+        <TextView
+            android:visibility="gone"
+            android:id="@+id/generatePDFPetName_textView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/pet_name"
+            android:textSize="@dimen/large_text_size" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:layout_margin="@dimen/small_margin"
+            android:padding="@dimen/small_padding"
+            android:text="@string/the_beginning_of_a_beautiful_friendship_is_one_click_away"
+            android:textSize="@dimen/medium_text_size" />
+    </LinearLayout>
+
 
     <ImageView
         android:id="@+id/generatePDFHome_imageView"
@@ -19,9 +85,15 @@
         android:id="@+id/generatePDF_button"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_centerInParent="true"
+        android:layout_marginStart="@dimen/large_margin"
+        android:layout_marginTop="@dimen/large_margin"
+        android:layout_marginEnd="@dimen/large_margin"
+        android:layout_marginBottom="@dimen/large_margin"
+        android:padding="@dimen/small_padding"
         android:text="@string/generate_pdf"
-        android:textColor="@color/black"/>
+        android:textColor="@color/black"
+        android:textSize="@dimen/medium_text_size" />
 
 
-</RelativeLayout>
+
+</LinearLayout>

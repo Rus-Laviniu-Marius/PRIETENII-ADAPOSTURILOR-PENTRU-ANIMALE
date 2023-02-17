@@ -9,6 +9,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.RadioButton;
+import android.widget.RadioGroup;
 import android.widget.TextView;
 
 import com.google.firebase.auth.FirebaseAuth;
@@ -23,13 +24,15 @@ public class CompleteFamilyAndHouseholdInformationActivity extends AppCompatActi
     private FirebaseAuth firebaseAuth;
     private DatabaseReference adoptionFormReference;
     private TextView adultsNumberTextView, childrenNumberTextView, homeTypeTextView,
-            homeDescriptionTextView;
+            homeDescriptionTextView, knownAllergyTextView;
     private EditText adultsNumberEditText, childrenNumberEditText, homeTypeEditText,
-            homeDescriptionEditText, rentingRulesRegardingPetOwnership;
+            homeDescriptionEditText, rentingRulesRegardingPetOwnershipEditText;
     private RadioButton knownAllergy, notKnownAllergy, familyAgrees, familyDoesNotAgree,
         adequateLoveAndAttention, notAdequateLoveAndAttention;
     private ImageView backButton, nextButton;
     private Button submitButton;
+    private RadioGroup knownAllergyRadioGroup, agreementDecisionRadioGroup,
+            adequateLoveAndAttentionRadioGroup;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,7 +41,13 @@ public class CompleteFamilyAndHouseholdInformationActivity extends AppCompatActi
 
         firebaseAuth = FirebaseAuth.getInstance();
         FirebaseDatabase firebaseDatabase = FirebaseDatabase.getInstance();
-        adoptionFormReference = firebaseDatabase.getReference("adoptionFormReference");
+        adoptionFormReference = firebaseDatabase.getReference("adoptionForms");
+
+        knownAllergyRadioGroup = findViewById(R.id.knownAllergy_radioGroup);
+        agreementDecisionRadioGroup = findViewById(R.id.agreementDecision_radioGroup);
+        adequateLoveAndAttentionRadioGroup = findViewById(R.id.adequateLoveAndAttention_radioGroup);
+
+        knownAllergyTextView = findViewById(R.id.knownAllergy_textView);
 
         adultsNumberTextView = findViewById(R.id.familyAndHousingAdultsNumber_textView);
         childrenNumberTextView = findViewById(R.id.familyAndHousingChildrenNumber_textView);
@@ -49,7 +58,7 @@ public class CompleteFamilyAndHouseholdInformationActivity extends AppCompatActi
         childrenNumberEditText = findViewById(R.id.familyAndHousingChildrenNumber_editText);
         homeTypeEditText = findViewById(R.id.familyAndHousingHomeType_editText);
         homeDescriptionEditText = findViewById(R.id.familyAndHousingHomeDescription_editText);
-        rentingRulesRegardingPetOwnership = findViewById(R.id.rentingRulesRegardingPetOwnership_editText);
+        rentingRulesRegardingPetOwnershipEditText = findViewById(R.id.rentingRulesRegardingPetOwnership_editText);
 
         knownAllergy = findViewById(R.id.knownAllergyYes_radioButton);
         notKnownAllergy = findViewById(R.id.knownAllergyNo_radioButton);
@@ -125,18 +134,51 @@ public class CompleteFamilyAndHouseholdInformationActivity extends AppCompatActi
     private void writeToDatabase() {
 
         String currentFirebaseUserUid = Objects.requireNonNull(firebaseAuth.getCurrentUser()).getUid();
+        String adultsNumber = adultsNumberEditText.getText().toString().trim();
+        String childrenNumber = childrenNumberEditText.getText().toString().trim();
+        String homeType = homeTypeEditText.getText().toString().trim();
+        String rentingRulesRegardingPetOwnership = rentingRulesRegardingPetOwnershipEditText.getText().toString().trim();
 
-        adoptionFormReference.child(currentFirebaseUserUid).child("familyAndHousehold").child("adultsNumber").setValue(adultsNumberEditText.getText().toString());
-        adoptionFormReference.child(currentFirebaseUserUid).child("familyAndHousehold").child("childrenNumber").setValue(childrenNumberEditText.getText().toString());
-        adoptionFormReference.child(currentFirebaseUserUid).child("familyAndHousehold").child("homeType").setValue(homeTypeEditText.getText().toString());
+        if (adultsNumber.isEmpty()) {
+            adultsNumberEditText.setError("You need to enter the adults number living there");
+            adultsNumberEditText.requestFocus();
+        } else {
+            adoptionFormReference.child(currentFirebaseUserUid).child("familyAndHousehold").child("adultsNumber").setValue(adultsNumber);
+        }
+
+        if (childrenNumber.isEmpty()) {
+            childrenNumberEditText.setError("You need to enter the children number living there");
+            childrenNumberEditText.requestFocus();
+        } else {
+            adoptionFormReference.child(currentFirebaseUserUid).child("familyAndHousehold").child("childrenNumber").setValue(childrenNumber);
+
+        }
+
+        if (homeType.isEmpty()) {
+            homeTypeEditText.setError("You need to enter the home type you live in");
+            homeTypeEditText.requestFocus();
+        } else {
+            adoptionFormReference.child(currentFirebaseUserUid).child("familyAndHousehold").child("homeType").setValue(homeType);
+        }
+
         adoptionFormReference.child(currentFirebaseUserUid).child("familyAndHousehold").child("homeDescription").setValue(homeDescriptionEditText.getText().toString());
-        adoptionFormReference.child(currentFirebaseUserUid).child("familyAndHousehold").child("rentingRulesRegardingPetOwnership").setValue(rentingRulesRegardingPetOwnership.getText().toString());
+
+        if (rentingRulesRegardingPetOwnership.isEmpty()) {
+            rentingRulesRegardingPetOwnershipEditText.setError("You have to conform to landlord rules regarding pet ownership");
+            rentingRulesRegardingPetOwnershipEditText.requestFocus();
+        } else {
+            adoptionFormReference.child(currentFirebaseUserUid).child("familyAndHousehold").child("rentingRulesRegardingPetOwnership").setValue(rentingRulesRegardingPetOwnership);
+        }
 
         if (knownAllergy.isChecked()) {
             adoptionFormReference.child(currentFirebaseUserUid).child("familyAndHousehold").child("knownAllergy").setValue("yes");
         }
         if (notKnownAllergy.isChecked()) {
             adoptionFormReference.child(currentFirebaseUserUid).child("familyAndHousehold").child("knownAllergy").setValue("no");
+        }
+        if (!knownAllergy.isChecked() && !notKnownAllergy.isChecked()) {
+            knownAllergyTextView.setError("Please select one");
+            knownAllergyTextView.requestFocus();
         }
 
         if (familyAgrees.isChecked()) {
@@ -157,6 +199,8 @@ public class CompleteFamilyAndHouseholdInformationActivity extends AppCompatActi
 
     private void sendToNextActivity() {
         Intent intent = new Intent(CompleteFamilyAndHouseholdInformationActivity.this, CompleteOtherPetsInformationActivity.class);
-        startActivity(intent);
+        if (!knownAllergyTextView.requestFocus()) {
+            startActivity(intent);
+        }
     }
 }

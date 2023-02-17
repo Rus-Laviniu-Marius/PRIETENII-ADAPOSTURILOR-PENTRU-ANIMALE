@@ -1,24 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/petDetailsContainer_relativeLayout"
+    android:id="@+id/petDetailsContainer_linearLayout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".adoption.SeePetDetailsActivity"
-    android:background="@color/yellow_crayola">
+    android:background="@color/yellow_crayola"
+    android:orientation="vertical">
 
     <RelativeLayout
         android:id="@+id/petDetailsTopBar_relativeLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentTop="true"
-        android:layout_alignParentEnd="true"
-        android:layout_marginStart="10dp"
-        android:layout_marginTop="10dp"
-        android:layout_marginEnd="10dp"
-        android:layout_marginBottom="10dp">
+        android:layout_margin="@dimen/small_margin">
 
         <ImageView
             android:id="@+id/petDetailsTopBarBack_imageView"
@@ -26,6 +21,7 @@
             android:layout_height="wrap_content"
             android:layout_alignParentStart="true"
             android:layout_alignParentTop="true"
+            android:layout_centerInParent="true"
             android:contentDescription="@string/back"
             android:src="@drawable/back_64" />
 
@@ -35,27 +31,36 @@
             android:layout_height="wrap_content"
             android:layout_alignParentTop="true"
             android:layout_alignParentEnd="true"
-            android:layout_marginEnd="10dp"
+            android:layout_centerInParent="true"
+            android:layout_marginEnd="@dimen/small_margin"
             android:contentDescription="@string/filter"
             android:src="@drawable/heart_64" />
+
+        <ImageView
+            android:id="@+id/petDetailsTopBarEdit_imageView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentEnd="true"
+            android:src="@drawable/edit_user_profile_64"
+            android:contentDescription="@string/edit_pet_profile"
+            android:visibility="gone"
+            android:layout_marginEnd="@dimen/small_margin"/>
 
     </RelativeLayout>
 
     <ImageView
         android:id="@+id/petDetailsContentPet_imageView"
-        android:layout_width="200dp"
+        android:layout_width="250dp"
         android:layout_height="250dp"
-        android:layout_below="@+id/petDetailsTopBar_relativeLayout"
-        android:layout_centerHorizontal="true"
+        android:layout_gravity="center"
         android:contentDescription="@string/a_dog_named_oscar"
         android:src="@drawable/oscar_dog" />
 
     <ScrollView
         android:id="@+id/petDetailsContentContainer_scrollView"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_centerInParent="true"
-        android:layout_below="@+id/petDetailsContentPet_imageView">
+        android:layout_height="match_parent" >
 
         <LinearLayout
             android:id="@+id/petDetailsContent_linearLayout"
@@ -69,9 +74,9 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/oscar"
-                android:textSize="36sp"
+                android:textSize="@dimen/extra_large_text_size"
                 android:textColor="@color/yellow_crayola"
-                android:layout_margin="30dp" />
+                android:layout_margin="@dimen/large_margin" />
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -84,36 +89,36 @@
                     android:orientation="vertical"
                     android:layout_weight="1"
                     android:layout_gravity="center_horizontal"
-                    android:layout_margin="10dp"
-                    android:padding="10dp">
+                    android:layout_margin="@dimen/small_margin"
+                    android:padding="@dimen/small_padding">
                     <TextView
                         android:id="@+id/petDetailsContentAge_textView"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:text="@string/_2_years"
                         android:textColor="@color/yellow_crayola"
-                        android:textSize="22sp"
-                        android:drawablePadding="10dp"
+                        android:textSize="@dimen/medium_text_size"
+                        android:drawablePadding="@dimen/small_padding"
                         app:drawableStartCompat="@drawable/card4_birthday_cake" />
                     <TextView
                         android:id="@+id/petDetailsContentWeight_textView"
-                        android:layout_marginTop="10dp"
+                        android:layout_marginTop="@dimen/small_margin"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:text="@string/_6_7_kg"
-                        android:textSize="22sp"
+                        android:textSize="@dimen/medium_text_size"
                         android:textColor="@color/yellow_crayola"
-                        android:drawablePadding="10dp"
+                        android:drawablePadding="@dimen/small_padding"
                         app:drawableStartCompat="@drawable/card4_weighting_scale" />
                     <TextView
                         android:id="@+id/petDetailsContentLocation_textView"
-                        android:layout_marginTop="10dp"
+                        android:layout_marginTop="@dimen/small_margin"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:text="@string/timisoara"
-                        android:textSize="22sp"
+                        android:textSize="@dimen/medium_text_size"
                         android:textColor="@color/yellow_crayola"
-                        android:drawablePadding="10dp"
+                        android:drawablePadding="@dimen/small_padding"
                         app:drawableStartCompat="@drawable/card4_location" />
                 </LinearLayout>
                 <LinearLayout
@@ -122,36 +127,36 @@
                     android:orientation="vertical"
                     android:layout_weight="1"
                     android:layout_gravity="center_horizontal"
-                    android:layout_margin="10dp"
-                    android:padding="10dp">
+                    android:layout_margin="@dimen/small_margin"
+                    android:padding="@dimen/small_padding">
                     <TextView
                         android:id="@+id/petDetailsContentSize_textView"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:text="@string/medium"
                         android:textColor="@color/yellow_crayola"
-                        android:textSize="22sp"
-                        android:drawablePadding="10dp"
+                        android:textSize="@dimen/medium_text_size"
+                        android:drawablePadding="@dimen/small_padding"
                         app:drawableStartCompat="@drawable/card4_full_size" />
                     <TextView
                         android:id="@+id/petDetailsContentBreed_textView"
-                        android:layout_marginTop="10dp"
+                        android:layout_marginTop="@dimen/small_margin"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:text="@string/fox_terrier"
-                        android:textSize="22sp"
+                        android:textSize="@dimen/medium_text_size"
                         android:textColor="@color/yellow_crayola"
-                        android:drawablePadding="10dp"
+                        android:drawablePadding="@dimen/small_padding"
                         app:drawableStartCompat="@drawable/card4_paws_print" />
                     <TextView
                         android:id="@+id/petDetailsContentSex_textView"
-                        android:layout_marginTop="10dp"
+                        android:layout_marginTop="@dimen/small_margin"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:text="@string/male"
-                        android:textSize="22sp"
+                        android:textSize="@dimen/medium_text_size"
                         android:textColor="@color/yellow_crayola"
-                        android:drawablePadding="10dp"
+                        android:drawablePadding="@dimen/small_padding"
                         app:drawableStartCompat="@drawable/card4_gender" />
                 </LinearLayout>
             </LinearLayout>
@@ -161,9 +166,9 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/veterinarian_data"
-                android:textSize="26sp"
+                android:textSize="@dimen/large_text_size"
                 android:textColor="@color/yellow_crayola"
-                android:layout_marginStart="30dp" />
+                android:layout_marginStart="@dimen/large_margin" />
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -176,8 +181,8 @@
                     android:orientation="vertical"
                     android:layout_weight="1"
                     android:layout_gravity="center_horizontal"
-                    android:layout_margin="10dp"
-                    android:padding="10dp"
+                    android:layout_margin="@dimen/small_margin"
+                    android:padding="@dimen/small_padding"
                     android:gravity="center">
 
                         <TextView
@@ -185,7 +190,7 @@
                             android:layout_height="wrap_content"
                             android:text="@string/id"
                             android:textColor="@color/black"
-                            android:textSize="20sp"
+                            android:textSize="@dimen/medium_text_size"
                             android:gravity="center"
                             android:background="@drawable/veterinarian_data_background"
                             app:drawableEndCompat="@drawable/tick_pet_details_background" />
@@ -195,7 +200,7 @@
                             android:layout_height="wrap_content"
                             android:text="@string/sterilized"
                             android:textColor="@color/black"
-                            android:textSize="20sp"
+                            android:textSize="@dimen/medium_text_size"
                             android:textAlignment="center"
                             android:gravity="center"
                             app:drawableEndCompat="@drawable/tick_pet_details_background"
@@ -208,15 +213,15 @@
                     android:orientation="vertical"
                     android:layout_weight="1"
                     android:layout_gravity="center_horizontal"
-                    android:layout_margin="10dp"
-                    android:padding="10dp">
+                    android:layout_margin="@dimen/small_margin"
+                    android:padding="@dimen/small_padding">
 
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="@string/dewormed"
                             android:textColor="@color/black"
-                            android:textSize="20sp"
+                            android:textSize="@dimen/medium_text_size"
                             android:gravity="center"
                             app:drawableEndCompat="@drawable/tick_pet_details_background"
                             android:background="@drawable/veterinarian_data_background" />
@@ -226,7 +231,7 @@
                             android:layout_height="wrap_content"
                             android:text="@string/vaccines"
                             android:textColor="@color/black"
-                            android:textSize="20sp"
+                            android:textSize="@dimen/medium_text_size"
                             android:gravity="center"
                             app:drawableEndCompat="@drawable/tick_pet_details_background"
                             android:background="@drawable/veterinarian_data_background" />
@@ -239,16 +244,16 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/description"
-                android:textSize="26sp"
-                android:layout_marginStart="30dp"
+                android:textSize="@dimen/large_text_size"
+                android:layout_marginStart="@dimen/large_margin"
                 android:textColor="@color/yellow_crayola" />
             <TextView
                 android:id="@+id/petDetailsDescriptionContent_textView"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/oscar_dog_description"
-                android:layout_margin="10dp"
-                android:textSize="22sp"
+                android:layout_margin="@dimen/small_margin"
+                android:textSize="@dimen/medium_text_size"
                 android:textColor="@color/yellow_crayola" />
 
             <Button
@@ -256,7 +261,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="@string/adopt"
-                android:layout_margin="20dp"
+                android:textSize="@dimen/medium_text_size"
+                android:layout_margin="@dimen/medium_margin"
                 android:backgroundTint="@color/yellow_crayola"
                 android:textColor="@color/black" />
 
@@ -266,11 +272,12 @@
                 android:layout_height="wrap_content"
                 android:visibility="gone"
                 android:text="@string/see_adoption_requests"
-                android:layout_margin="20dp"
+                android:textSize="@dimen/medium_text_size"
+                android:layout_margin="@dimen/medium_margin"
                 android:backgroundTint="@color/yellow_crayola"
                 android:textColor="@color/black" />
         </LinearLayout>
 
     </ScrollView>
 
-</RelativeLayout>
+</LinearLayout>

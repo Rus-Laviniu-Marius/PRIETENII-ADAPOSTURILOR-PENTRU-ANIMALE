@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent" >
+
+    <androidx.fragment.app.FragmentContainerView
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:id="@+id/map"
+        tools:context=".adoption.MapsActivity"
+        android:name="com.google.android.gms.maps.SupportMapFragment" />
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_margin="@dimen/small_margin"
+        android:elevation="@dimen/small_elevation"
+        android:background="@drawable/white_border"
+        android:id="@+id/mapSearchBar_relativeLayout">
+
+        <ImageView
+            android:layout_width="15dp"
+            android:layout_height="15dp"
+            android:id="@+id/mapSearch_imageView"
+            android:layout_centerVertical="true"
+            android:layout_marginStart="@dimen/small_margin"
+            android:src="@drawable/ic_magnify"
+            android:visibility="gone"
+            android:contentDescription="@string/search"/>
+
+        <AutoCompleteTextView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_toEndOf="@id/mapSearch_imageView"
+            android:layout_centerVertical="true"
+            android:textSize="@dimen/small_text_size"
+            android:textColor="@color/black"
+            android:id="@+id/mapSearch_autoCompleteTextView"
+            android:background="@null"
+            android:hint="@string/enter_address_city_or_zip_code"
+            android:imeOptions="actionSearch"
+            android:autofillHints="text"
+            android:inputType="text"
+            android:visibility="gone"/>
+
+        <androidx.fragment.app.FragmentContainerView
+            android:id="@+id/mapAutocomplete_fragment"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_toEndOf="@id/mapSearch_imageView"
+            android:layout_below="@id/mapSearch_autoCompleteTextView"
+            android:layout_marginHorizontal="@dimen/small_margin"
+            android:name="com.google.android.libraries.places.widget.AutocompleteSupportFragment" />
+    </RelativeLayout>
+
+    <ImageView
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:layout_below="@+id/mapSearchBar_relativeLayout"
+        android:layout_alignParentEnd="true"
+        android:layout_marginEnd="@dimen/small_margin"
+        android:layout_marginTop="@dimen/small_margin"
+        android:scaleType="centerCrop"
+        android:id="@+id/mapGPS_imageView"
+        android:src="@drawable/ic_gps"
+        android:contentDescription="@string/gps"/>
+</RelativeLayout>

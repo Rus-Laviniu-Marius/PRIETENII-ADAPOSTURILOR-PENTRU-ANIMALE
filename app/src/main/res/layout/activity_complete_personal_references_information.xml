@@ -10,7 +10,7 @@
         android:id="@+id/completePersonalReferencesInformationTopBar_relativeLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:padding="20dp"
+        android:padding="@dimen/medium_padding"
         android:layout_alignParentTop="true"
         android:layout_centerInParent="true">
 
@@ -43,18 +43,15 @@
         android:layout_height="wrap_content"
         android:layout_centerInParent="true"
         android:layout_below="@+id/completePersonalReferencesInformationTopBar_relativeLayout"
-        android:layout_marginStart="10dp"
-        android:layout_marginTop="10dp"
-        android:layout_marginEnd="10dp"
-        android:layout_marginBottom="10dp"
+        android:layout_margin="@dimen/small_margin"
         android:text="@string/complete_information_description"
-        android:textSize="30sp" />
+        android:textSize="@dimen/large_text_size" />
 
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_centerInParent="true"
-        android:layout_margin="10dp"
+        android:layout_margin="@dimen/small_margin"
         android:layout_below="@+id/completeAboutThePetInformationDescription_textView">
         <LinearLayout
             android:layout_width="match_parent"
@@ -66,11 +63,11 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:autofillHints="text"
-                android:textSize="20sp"
+                android:textSize="@dimen/medium_text_size"
                 android:inputType="text|textMultiLine"
                 android:hint="@string/name"
-                android:padding="10dp"
-                android:layout_margin="10dp"
+                android:padding="@dimen/small_padding"
+                android:layout_margin="@dimen/small_margin"
                 android:gravity="center"
                 android:background="@drawable/veterinarian_data_background"
                 android:drawableStart="@drawable/full_name_32"/>
@@ -80,11 +77,11 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:autofillHints="text"
-                android:textSize="20sp"
+                android:textSize="@dimen/medium_text_size"
                 android:inputType="text|textMultiLine"
                 android:hint="@string/address"
-                android:padding="10dp"
-                android:layout_margin="10dp"
+                android:padding="@dimen/small_padding"
+                android:layout_margin="@dimen/small_margin"
                 android:gravity="center"
                 android:background="@drawable/veterinarian_data_background"
                 android:drawableStart="@drawable/home_address_32"/>
@@ -95,9 +92,10 @@
                 android:layout_height="wrap_content"
                 android:hint="@string/phone_number"
                 android:inputType="phone"
+                android:textSize="@dimen/medium_text_size"
                 android:autofillHints="hours"
-                android:padding="10dp"
-                android:layout_margin="10dp"
+                android:padding="@dimen/small_padding"
+                android:layout_margin="@dimen/small_margin"
                 android:gravity="center"
                 android:background="@drawable/veterinarian_data_background"
                 android:drawableStart="@drawable/telephone_call_32"/>
@@ -107,11 +105,11 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:autofillHints="relative|neighbor|friend"
-                android:textSize="20sp"
+                android:textSize="@dimen/medium_text_size"
                 android:inputType="text|textMultiLine"
                 android:hint="@string/relationship_relative_neighbor_etc"
-                android:padding="10dp"
-                android:layout_margin="10dp"
+                android:padding="@dimen/small_padding"
+                android:layout_margin="@dimen/small_margin"
                 android:gravity="center"
                 android:background="@drawable/veterinarian_data_background"
                 android:drawableStart="@drawable/friends_32"/>
@@ -122,11 +120,8 @@
                 android:layout_height="wrap_content"
                 android:background="@drawable/bottom_bar"
                 android:text="@string/submit"
-                android:textSize="20sp"
-                android:layout_margin="20dp"/>
-
+                android:textSize="@dimen/medium_text_size"
+                android:layout_margin="@dimen/medium_margin"/>
         </LinearLayout>
-
     </ScrollView>
-
 </RelativeLayout>

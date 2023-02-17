@@ -13,16 +13,20 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.content.res.Resources;
+import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
+import android.provider.MediaStore;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.RadioButton;
+import android.widget.RadioGroup;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -41,6 +45,7 @@ import com.google.firebase.storage.UploadTask;
 import com.pet.shelter.friends.R;
 import com.pet.shelter.friends.adoption.model.Pet;
 
+import java.io.ByteArrayOutputStream;
 import java.io.FileNotFoundException;
 import java.io.InputStream;
 import java.util.Locale;
@@ -56,9 +61,17 @@ public class AddNewPetActivity extends AppCompatActivity {
             breedEditText, descriptionEditText, sizeEditText;
     private TextView nameTextView, ageTextView, weightTextView, locationTextView, sexTextView,
             breedTextView, descriptionTextView, sizeTextView;
-    private ImageView petImageView, back;
+    private ImageView petImageView, backImageView, cameraImageView;
     private Button cancelButton, addButton;
+    private RadioButton fitForGuardingRadioButton, fitForChildrenRadioButton;
+    private RadioGroup fitForGuardingRadioGroup;
 
+    private Uri gallerySelectedImageUri, cameraCapturedImageUri;
+    private Bitmap cameraCapturedImageBitmap;
+
+    private static final int MY_CAMERA_PERMISSION_CODE = 100;
+
+    private ActivityResultLauncher<Intent> galleryActivityResultLauncher, cameraActivityResultLauncher;
     private Uri selectedImage;
 
     private static final int PICK_FROM_GALLERY = 1889;
@@ -77,6 +90,10 @@ public class AddNewPetActivity extends AppCompatActivity {
                         // There are no request codes
                         // doSomeOperations();
                         Intent data = result.getData();
+                        gallerySelectedImageUri = Objects.requireNonNull(data).getData();
+                        InputStream imageStream = null;
+                        try {
+                            imageStream = getContentResolver().openInputStream(gallerySelectedImageUri);
                         selectedImage = Objects.requireNonNull(data).getData();
                         InputStream imageStream = null;
                         try {
@@ -86,6 +103,19 @@ public class AddNewPetActivity extends AppCompatActivity {
                         }
                         BitmapFactory.decodeStream(imageStream);
 
+                        petImageView.setImageURI(gallerySelectedImageUri);// To display selected image in image view
+                    }
+                });
+
+        cameraActivityResultLauncher = registerForActivityResult(
+                new ActivityResultContracts.StartActivityForResult(),
+                result -> {
+                    if (result.getResultCode() == Activity.RESULT_OK && result.getData() != null) {
+                        Bundle bundle = result.getData().getExtras();
+                        cameraCapturedImageBitmap = (Bitmap) bundle.get("data");
+//                        petImageView.setImageBitmap(cameraCapturedImageBitmap);
+                        cameraCapturedImageUri = getImageUri(this, cameraCapturedImageBitmap);
+                        petImageView.setImageURI(cameraCapturedImageUri);
                         petImageView.setImageURI(selectedImage);// To display selected image in image view
                     }
                 });
@@ -95,6 +125,17 @@ public class AddNewPetActivity extends AppCompatActivity {
         petsReference = firebaseDatabase.getReference("pets");
         FirebaseStorage firebaseStorage = FirebaseStorage.getInstance();
         storageReference = firebaseStorage.getReference();
+
+        petImageView = findViewById(R.id.addNewPet_imageView);
+        backImageView = findViewById(R.id.addNewPetBack_imageView);
+        cameraImageView = findViewById(R.id.addNewPetCamera_imageView);
+
+        petTypeSpinner = findViewById(R.id.addNewPetType_spinner);
+        ArrayAdapter<CharSequence> petsAdapter = ArrayAdapter.createFromResource(this,
+                R.array.pet_types_array,
+                android.R.layout.simple_spinner_item);
+        petsAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        petTypeSpinner.setAdapter(petsAdapter);
 
         nameEditText = findViewById(R.id.addNewPetName_editText);
         ageEditText = findViewById(R.id.addNewPetAge_editText);
@@ -114,11 +155,17 @@ public class AddNewPetActivity extends AppCompatActivity {
         sizeTextView = findViewById(R.id.addNewPetSize_textView);
         descriptionTextView = findViewById(R.id.addNewPetDescription_textView);
 
-        petImageView = findViewById(R.id.addNewPet_imageView);
-        back = findViewById(R.id.addNewPetBack_imageView);
-
         addButton = findViewById(R.id.addNewPetAdd_button);
         cancelButton = findViewById(R.id.addNewPetCancel_button);
+
+        fitForGuardingRadioGroup = findViewById(R.id.addNewPetFitForGuarding_radioGroup);
+
+        fitForChildrenRadioButton = findViewById(R.id.addNewPetFitForChildren_radioButton);
+        fitForGuardingRadioButton = findViewById(R.id.addNewPetFitForGuarding_radioButton);
+
+        if (!petTypeSpinner.getSelectedItem().toString().equals("Dog")) {
+            fitForGuardingRadioGroup.setVisibility(View.GONE);
+        }
 
         cardBackgroundColorSpinner = findViewById(R.id.addNewPetCardBackgroundColor_spinner);
         ArrayAdapter<CharSequence> colorsAdapter = ArrayAdapter.createFromResource(this,
@@ -148,13 +195,6 @@ public class AddNewPetActivity extends AppCompatActivity {
 
             }
         });
-
-        petTypeSpinner = findViewById(R.id.addNewPetType_spinner);
-        ArrayAdapter<CharSequence> petsAdapter = ArrayAdapter.createFromResource(this,
-                R.array.pet_types_array,
-                android.R.layout.simple_spinner_item);
-        petsAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        petTypeSpinner.setAdapter(petsAdapter);
 
         setOnFocusListeners();
         setOnClickListeners();
@@ -237,7 +277,7 @@ public class AddNewPetActivity extends AppCompatActivity {
     }
 
     private void setOnClickListeners() {
-        back.setOnClickListener(new View.OnClickListener() {
+        backImageView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 startActivity(new Intent(AddNewPetActivity.this, SeeListOfPetsActivity.class));
@@ -262,6 +302,31 @@ public class AddNewPetActivity extends AppCompatActivity {
         petImageView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                Intent photoPickerIntent = new Intent(Intent.ACTION_PICK);
+                photoPickerIntent.setType("image/*");
+                galleryActivityResultLauncher.launch(photoPickerIntent);
+            }
+        });
+
+        cameraImageView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+                    if (checkSelfPermission(Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED)
+                    {
+                        requestPermissions(new String[]{Manifest.permission.CAMERA}, MY_CAMERA_PERMISSION_CODE);
+                    }
+                    else
+                    {
+                        Intent cameraIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+                        if (cameraIntent.resolveActivity(getPackageManager()) != null) {
+                            cameraActivityResultLauncher.launch(cameraIntent);
+                        } else {
+                            Toast.makeText(AddNewPetActivity.this, "There is no app that supports this action", Toast.LENGTH_SHORT).show();
+                        }
+                    }
+                }
+            }
 //                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
 //                    if (checkSelfPermission(Manifest.permission.READ_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
 //                        requestPermissions(new String[]{Manifest.permission.READ_EXTERNAL_STORAGE, Manifest.permission.WRITE_EXTERNAL_STORAGE}, PICK_FROM_GALLERY);
@@ -286,6 +351,10 @@ public class AddNewPetActivity extends AppCompatActivity {
         String petSex = sexEditText.getText().toString().trim();
         String petDescription = descriptionEditText.getText().toString().trim();
         String petCardBackgroundColor = cardBackgroundColorSpinner.getSelectedItem().toString().toLowerCase(Locale.ROOT).trim().replace(" ", "_");
+        boolean fitForChildren = fitForChildrenRadioButton.isChecked();
+        boolean fitForGuarding = false;
+        if (fitForGuardingRadioGroup.getVisibility() == View.VISIBLE)
+            fitForGuarding = fitForGuardingRadioButton.isChecked();
 
         if (petName.isEmpty()) {
             nameEditText.setError("You need to enter a name");
@@ -326,14 +395,15 @@ public class AddNewPetActivity extends AppCompatActivity {
                 .child(Objects.requireNonNull(firebaseAuth.getCurrentUser()).getUid())
                 .child("images/" + petName + "_" + petType);
 
-        if (selectedImage != null) {
+        if (gallerySelectedImageUri != null) {
             // Code for showing progress dialog while uploading
             ProgressDialog progressDialog = new ProgressDialog(this);
             progressDialog.setTitle("Uploading...");
             progressDialog.show();
 
             // Adding listeners on upload or failure of image
-            UploadTask uploadTask = ref.putFile(selectedImage);
+            UploadTask uploadTask = ref.putFile(gallerySelectedImageUri);
+            boolean finalFitForGuarding = fitForGuarding;
             uploadTask.addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
                         @Override
                         public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
@@ -356,7 +426,9 @@ public class AddNewPetActivity extends AppCompatActivity {
                                             petDescription,
                                             "false",
                                             "false",
-                                            petType));
+                                            petType,
+                                            fitForChildren,
+                                            finalFitForGuarding));
                                 }
                             });
                         }
@@ -380,5 +452,12 @@ public class AddNewPetActivity extends AppCompatActivity {
     private void sendToSeeListOfPetsActivity() {
         Intent intent = new Intent(AddNewPetActivity.this, SeeListOfPetsActivity.class);
         startActivity(intent);
+    }
+
+    public Uri getImageUri(Context inContext, Bitmap inImage) {
+        ByteArrayOutputStream bytes = new ByteArrayOutputStream();
+        inImage.compress(Bitmap.CompressFormat.JPEG, 100, bytes);
+        String path = MediaStore.Images.Media.insertImage(inContext.getContentResolver(), inImage, "Title", null);
+        return Uri.parse(path);
     }
 }
