@@ -62,11 +62,14 @@
                 android:layout_height="wrap_content"
                 android:text="@string/select_pet_type"
                 android:textSize="@dimen/small_text_size" />
+
             <Spinner
                 android:id="@+id/addNewPetType_spinner"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:textAlignment="center" />
+                android:minHeight="48dp"
+                android:textAlignment="center"
+                android:contentDescription="@string/type"/>
         </LinearLayout>
 
         <LinearLayout
@@ -82,13 +85,15 @@
                 android:text="@string/name"
                 android:textSize="@dimen/small_text_size"
                 android:visibility="gone"/>
+
             <EditText
                 android:id="@+id/addNewPetName_editText"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:autofillHints="username"
-                android:inputType="textPersonName"
                 android:hint="@string/name"
+                android:inputType="textPersonName"
+                android:textColorHint="#009688"
                 android:textSize="@dimen/medium_text_size" />
 
         </LinearLayout>

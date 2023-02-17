@@ -100,12 +100,12 @@
                 android:id="@+id/register_button"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="@string/register"
                 android:layout_below="@id/registerConfirmPassword_editText"
                 android:layout_centerInParent="true"
-                android:textSize="@dimen/medium_text_size"
+                android:layout_marginTop="@dimen/large_margin"
+                android:text="@string/create_account"
                 android:textColor="@color/black"
-                android:layout_marginTop="@dimen/large_margin"/>
+                android:textSize="@dimen/medium_text_size" />
 
         </RelativeLayout>
 

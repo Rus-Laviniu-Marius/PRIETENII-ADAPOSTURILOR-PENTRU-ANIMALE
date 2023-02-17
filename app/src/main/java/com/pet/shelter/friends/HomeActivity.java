@@ -5,7 +5,6 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.provider.Settings;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -21,8 +20,8 @@ import com.google.firebase.database.ValueEventListener;
 import com.pet.shelter.friends.adoption.AddNewPetActivity;
 import com.pet.shelter.friends.adoption.FilterPetPreferencesActivity;
 import com.pet.shelter.friends.adoption.SeeListOfPetsActivity;
-import com.pet.shelter.friends.adoption.profile.CreateProfileActivity;
-import com.pet.shelter.friends.adoption.profile.ViewProfileActivity;
+import com.pet.shelter.friends.profile.CreateProfileActivity;
+import com.pet.shelter.friends.profile.ViewProfileActivity;
 import com.r0adkll.slidr.Slidr;
 import com.r0adkll.slidr.model.SlidrInterface;
 

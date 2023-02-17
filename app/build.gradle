@@ -2,7 +2,6 @@ plugins {
     id 'com.android.application'
     id 'com.google.gms.google-services'
     id 'com.google.firebase.firebase-perf'
-    id 'com.google.android.libraries.mapsplatform.secrets-gradle-plugin'
 }
 
 android {
@@ -10,6 +9,14 @@ android {
     compileSdk 33
 
     defaultConfig {
+
+        Properties properties = new Properties()
+
+        properties.load(project.rootProject.file('local.properties').newDataInputStream())
+        manifestPlaceholders = [MAPS_API_KEY: "${properties.getProperty('MAPS_API_KEY')}"]
+
+        buildConfigField "String", "MAPS_API_KEY", "\"${properties.getProperty("MAPS_API_KEY")}\""
+
         applicationId "com.pet.shelter.friends"
         minSdk 22
         targetSdk 33
@@ -51,7 +58,7 @@ dependencies {
 
     implementation 'androidx.appcompat:appcompat:1.6.0'
     implementation 'androidx.cardview:cardview:1.0.0'
-    implementation 'com.google.android.material:material:1.7.0'
+    implementation 'com.google.android.material:material:1.8.0'
     implementation 'androidx.constraintlayout:constraintlayout:2.1.4'
     implementation 'com.squareup.picasso:picasso:2.71828'
 
@@ -77,12 +84,9 @@ dependencies {
     // Profile CircleViewImage
     implementation 'de.hdodenhof:circleimageview:1.2.1'
 
-    // Slide between screens
-    implementation 'com.r0adkll:slidableactivity:2.1.0'
-
     // OkHttp & GSON
     implementation 'com.squareup.okhttp3:okhttp:4.4.0'
-    implementation 'com.google.code.gson:gson:2.8.9'
+    implementation 'com.google.code.gson:gson:2.9.0'
     implementation 'com.google.android.gms:play-services-maps:18.1.0'
 
     // Stripe SDK

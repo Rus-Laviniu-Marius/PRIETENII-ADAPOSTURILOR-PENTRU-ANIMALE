@@ -1,4 +1,4 @@
-package com.pet.shelter.friends.adoption.profile;
+package com.pet.shelter.friends.profile;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;

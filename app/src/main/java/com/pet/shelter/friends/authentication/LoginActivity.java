@@ -203,7 +203,7 @@ public class LoginActivity extends Activity {
                             if(mUser.isEmailVerified()) {
                                 sendUserToNextActivity();
                             } else {
-                                mUser.sendEmailVerification();
+//                                mUser.sendEmailVerification();
                                 Toast.makeText(LoginActivity.this, "Check your email to verify your account!",Toast.LENGTH_LONG).show();
                             }
                         }

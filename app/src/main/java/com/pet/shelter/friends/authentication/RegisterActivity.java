@@ -92,7 +92,6 @@ public class RegisterActivity extends AppCompatActivity {
                 @Override
                 public void onComplete(@NonNull Task<AuthResult> task) {
                     if(task.isSuccessful()) {
-
                         progressDialog.dismiss();
                         openSendConfirmRegistrationEmailPopUp();
                         Toast.makeText(RegisterActivity.this, "Registration Successfully", Toast.LENGTH_SHORT).show();
@@ -115,6 +114,7 @@ public class RegisterActivity extends AppCompatActivity {
         acceptButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                sendConfirmRegistrationEmail();
                 sendUserToLoginActivity();
             }
         });
@@ -123,12 +123,18 @@ public class RegisterActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 dialog.dismiss();
-                sendUserToLoginActivity();
+//                sendUserToLoginActivity();
                 Toast.makeText(RegisterActivity.this, "Dialog Close", Toast.LENGTH_SHORT).show();
             }
         });
 
         dialog.show();
+    }
+
+    private void sendConfirmRegistrationEmail() {
+        if (mUser != null) {
+            mUser.sendEmailVerification();
+        }
     }
 
     private void sendUserToLoginActivity() {

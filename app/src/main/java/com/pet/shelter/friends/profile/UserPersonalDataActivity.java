@@ -1,4 +1,4 @@
-package com.pet.shelter.friends.adoption.profile;
+package com.pet.shelter.friends.profile;
 
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;

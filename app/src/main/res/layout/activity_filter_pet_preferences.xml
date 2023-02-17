@@ -152,7 +152,6 @@
                         android:drawableStart="@android:drawable/btn_radio"
                         android:gravity="center"
                         android:text="@string/big"
-                        android:textAlignment="textEnd"
                         android:textSize="@dimen/medium_text_size" />
                 </RadioGroup>
             </LinearLayout>

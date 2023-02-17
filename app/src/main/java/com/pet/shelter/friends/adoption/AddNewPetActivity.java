@@ -44,7 +44,6 @@ import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 import com.pet.shelter.friends.R;
 import com.pet.shelter.friends.adoption.model.Pet;
-import com.pet.shelter.friends.adoption.profile.CreateProfileActivity;
 
 import java.io.ByteArrayOutputStream;
 import java.io.FileNotFoundException;

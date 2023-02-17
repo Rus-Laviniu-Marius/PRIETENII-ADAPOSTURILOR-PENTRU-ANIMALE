@@ -26,6 +26,7 @@
             android:layout_centerVertical="true"
             android:layout_marginStart="@dimen/small_margin"
             android:src="@drawable/ic_magnify"
+            android:visibility="gone"
             android:contentDescription="@string/search"/>
 
         <AutoCompleteTextView
@@ -35,19 +36,22 @@
             android:layout_centerVertical="true"
             android:textSize="@dimen/small_text_size"
             android:textColor="@color/black"
-            android:id="@+id/mapSearch_editText"
+            android:id="@+id/mapSearch_autoCompleteTextView"
             android:background="@null"
             android:hint="@string/enter_address_city_or_zip_code"
             android:imeOptions="actionSearch"
             android:autofillHints="text"
-            android:inputType="text"/>
-<!--        <fragment android:id="@+id/mapAutocomplete_fragment"-->
-<!--            android:layout_width="match_parent"-->
-<!--            android:layout_height="wrap_content"-->
-<!--            android:layout_toEndOf="@id/mapSearch_imageView"-->
-<!--            android:layout_marginHorizontal="@dimen/small_margin"-->
-<!--            android:name="com.google.android.libraries.places.widget.AutocompleteSupportFragment"-->
-<!--            />-->
+            android:inputType="text"
+            android:visibility="gone"/>
+
+        <androidx.fragment.app.FragmentContainerView
+            android:id="@+id/mapAutocomplete_fragment"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_toEndOf="@id/mapSearch_imageView"
+            android:layout_below="@id/mapSearch_autoCompleteTextView"
+            android:layout_marginHorizontal="@dimen/small_margin"
+            android:name="com.google.android.libraries.places.widget.AutocompleteSupportFragment" />
     </RelativeLayout>
 
     <ImageView
