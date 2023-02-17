@@ -40,6 +40,15 @@
                 android:src="@drawable/camera_64" />
         </RelativeLayout>
 
+        <ImageView
+            android:id="@+id/addNewPetBack_imageView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/back_64"
+            android:contentDescription="@string/back"
+            android:layout_margin="10dp"
+            android:padding="@dimen/small_padding" />
+
 
         <ImageView
             android:id="@+id/addNewPet_imageView"
@@ -55,6 +64,8 @@
             android:layout_height="wrap_content"
             android:orientation="vertical"
             android:layout_margin="@dimen/small_margin"
+            android:layout_marginHorizontal="@dimen/margin_horizontal"
+            android:layout_marginVertical="@dimen/margin_vertical"
             android:padding="@dimen/small_padding">
             <TextView
                 android:id="@+id/addNewPetType_textView"
@@ -77,6 +88,8 @@
             android:layout_height="wrap_content"
             android:orientation="vertical"
             android:layout_margin="@dimen/small_margin"
+            android:layout_marginHorizontal="@dimen/margin_horizontal"
+            android:layout_marginVertical="@dimen/margin_vertical"
             android:padding="@dimen/small_padding">
             <TextView
                 android:id="@+id/addNewPetName_textView"
@@ -103,6 +116,8 @@
             android:layout_height="wrap_content"
             android:orientation="vertical"
             android:layout_margin="@dimen/small_margin"
+            android:layout_marginHorizontal="@dimen/margin_horizontal"
+            android:layout_marginVertical="@dimen/margin_vertical"
             android:padding="@dimen/small_padding" >
             <TextView
                 android:id="@+id/addNewPetAge_textView"
@@ -127,6 +142,8 @@
             android:layout_height="wrap_content"
             android:orientation="vertical"
             android:layout_margin="@dimen/small_margin"
+            android:layout_marginHorizontal="@dimen/margin_horizontal"
+            android:layout_marginVertical="@dimen/margin_vertical"
             android:padding="@dimen/small_padding" >
             <TextView
                 android:id="@+id/addNewPetWeight_textView"
@@ -151,6 +168,8 @@
             android:layout_height="wrap_content"
             android:orientation="vertical"
             android:layout_margin="@dimen/small_margin"
+            android:layout_marginHorizontal="@dimen/margin_horizontal"
+            android:layout_marginVertical="@dimen/margin_vertical"
             android:padding="@dimen/small_padding">
             <TextView
                 android:id="@+id/addNewPetLocation_textView"
@@ -175,6 +194,8 @@
             android:layout_height="wrap_content"
             android:orientation="vertical"
             android:layout_margin="@dimen/small_margin"
+            android:layout_marginHorizontal="@dimen/margin_horizontal"
+            android:layout_marginVertical="@dimen/margin_vertical"
             android:padding="@dimen/small_padding">
             <TextView
                 android:id="@+id/addNewPetSize_textView"
@@ -200,6 +221,8 @@
             android:layout_height="wrap_content"
             android:orientation="vertical"
             android:layout_margin="@dimen/small_margin"
+            android:layout_marginHorizontal="@dimen/margin_horizontal"
+            android:layout_marginVertical="@dimen/margin_vertical"
             android:padding="@dimen/small_padding">
             <TextView
                 android:id="@+id/addNewPetBreed_textView"
@@ -224,6 +247,8 @@
             android:layout_height="wrap_content"
             android:orientation="vertical"
             android:layout_margin="@dimen/small_margin"
+            android:layout_marginHorizontal="@dimen/margin_horizontal"
+            android:layout_marginVertical="@dimen/margin_vertical"
             android:padding="@dimen/small_padding">
             <TextView
                 android:id="@+id/addNewPetSex_textView"
@@ -248,6 +273,8 @@
             android:layout_height="wrap_content"
             android:orientation="vertical"
             android:layout_margin="@dimen/small_margin"
+            android:layout_marginHorizontal="@dimen/margin_horizontal"
+            android:layout_marginVertical="@dimen/margin_vertical"
             android:padding="@dimen/small_padding">
             <TextView
                 android:id="@+id/addNewPetDescription_textView"
@@ -361,6 +388,8 @@
             android:layout_height="wrap_content"
             android:orientation="vertical"
             android:layout_margin="@dimen/small_margin"
+            android:layout_marginHorizontal="@dimen/margin_horizontal"
+            android:layout_marginVertical="@dimen/margin_vertical"
             android:padding="@dimen/small_padding">
 
             <TextView

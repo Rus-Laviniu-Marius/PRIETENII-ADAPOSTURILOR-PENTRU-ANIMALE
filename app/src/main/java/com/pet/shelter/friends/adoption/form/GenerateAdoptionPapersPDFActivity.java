@@ -68,6 +68,7 @@ public class GenerateAdoptionPapersPDFActivity extends AppCompatActivity {
     private TextView toBeAdoptedPetNameTextView;
     private Button generatePDF;
     private String loggedUid;
+    private ImageView homeImageView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -89,6 +90,7 @@ public class GenerateAdoptionPapersPDFActivity extends AppCompatActivity {
 
         loggedUid = Objects.requireNonNull(firebaseAuth.getCurrentUser()).getUid();
 
+        homeImageView = findViewById(R.id.generatePDFHome_imageView);
         readDataFromFirebase();
 
         generatePDF.setOnClickListener(new View.OnClickListener() {
@@ -116,6 +118,10 @@ public class GenerateAdoptionPapersPDFActivity extends AppCompatActivity {
             public void onClick(View view) {
                 startActivity(new Intent(GenerateAdoptionPapersPDFActivity.this,
                         HomeActivity.class));
+        homeImageView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(GenerateAdoptionPapersPDFActivity.this, HomeActivity.class));
             }
         });
     }

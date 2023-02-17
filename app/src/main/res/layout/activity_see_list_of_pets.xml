@@ -200,6 +200,7 @@
                 android:id="@+id/listOfPetsBottomBarSearch_imageView"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+
                 android:contentDescription="@string/search"
                 android:src="@drawable/search_64"
                 android:layout_weight="1"/>
@@ -232,3 +233,80 @@
     </RelativeLayout>
 
 </LinearLayout>
+                android:visibility="gone"
+                android:autofillHints="text"
+                android:inputType="textPersonName"
+                android:hint="@string/search_hint"
+                android:layout_marginHorizontal="@dimen/margin_horizontal"
+                android:layout_marginVertical="@dimen/margin_vertical"
+                android:padding="@dimen/small_padding"
+                android:backgroundTint="@color/white"
+                android:background="@color/white"
+                android:layout_centerHorizontal="true"
+                android:layout_above="@id/listOfPetsBottomBar"
+                android:textSize="@dimen/small_text_size"
+                android:textAlignment="center"/>
+
+
+        <EditText
+                    android:id="@+id/listOfPetsSearch_editText"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:visibility="gone"
+                    android:autofillHints="text"
+                    android:inputType="textPersonName"
+                    android:hint="@string/search_hint"
+                    android:layout_marginHorizontal="@dimen/margin_horizontal"
+                    android:layout_marginVertical="@dimen/margin_vertical"
+                    android:padding="@dimen/small_padding"
+                    android:background="@color/white"
+                    android:layout_centerHorizontal="true"
+                    android:layout_above="@id/listOfPetsBottomBar"
+                    android:textSize="@dimen/small_text_size"
+                    android:textAlignment="center" />
+
+                <LinearLayout
+                    android:id="@+id/listOfPetsBottomBar"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentBottom="true"
+                    android:orientation="horizontal"
+                    android:layout_centerHorizontal="true"
+                    android:background="@drawable/bottom_bar">
+
+                    <ImageView
+                        android:id="@+id/listOfPetsBottomBarSearch_imageView"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:contentDescription="@string/search"
+                        android:src="@drawable/search_64"
+                        android:layout_weight="1"/>
+
+                    <ImageView
+                        android:id="@+id/listOfPetsBottomBarHearth_imageView"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:src="@drawable/heart_64"
+                        android:contentDescription="@string/favorites"
+                        android:layout_weight="1"/>
+
+                    <ImageView
+                        android:id="@+id/listOfPetsBottomBarPaperAirplane_imageView"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:contentDescription="@string/flying_paper_plane"
+                        android:src="@drawable/paper_airplane_64"
+                        android:layout_weight="1"/>
+
+                    <ImageView
+                        android:id="@+id/listOfPetsBottomBarHome_imageView"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:contentDescription="@string/home"
+                        android:src="@drawable/home_64"
+                        android:layout_weight="1"/>
+
+                </LinearLayout>
+            </RelativeLayout>
+
+        </RelativeLayout>
