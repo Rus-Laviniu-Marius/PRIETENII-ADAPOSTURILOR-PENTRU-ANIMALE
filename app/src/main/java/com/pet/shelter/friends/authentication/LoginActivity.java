@@ -1,80 +1,68 @@
 package com.pet.shelter.friends.authentication;
 
 import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.Activity;
-import android.app.Dialog;
-import android.app.ProgressDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
-import android.graphics.Color;
-import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
-import android.util.Log;
+import android.text.Editable;
+import android.text.TextUtils;
+import android.text.TextWatcher;
 import android.util.Patterns;
+import android.view.LayoutInflater;
 import android.view.View;
-import android.widget.Button;
-import android.widget.EditText;
-import android.widget.ImageView;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
+import com.google.android.material.button.MaterialButton;
+import com.google.android.material.dialog.MaterialAlertDialogBuilder;
+import com.google.android.material.textfield.TextInputEditText;
+import com.google.android.material.textfield.TextInputLayout;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.pet.shelter.friends.ErrorSetter;
 import com.pet.shelter.friends.HomeActivity;
 import com.pet.shelter.friends.R;
+import com.pet.shelter.friends.ValidationManager;
 
-import org.w3c.dom.Text;
 
-public class LoginActivity extends Activity {
+import java.util.Objects;
+
+public class LoginActivity extends Activity implements TextWatcher, ErrorSetter {
 
     private FirebaseAuth mAuth;
     private FirebaseUser mUser;
-    private ProgressDialog progressDialog;
-    private final String TAG = "LoginActivity - ";
-    private EditText emailEditText, passwordEditText;
-    private Button loginButton, googleSignInButton, facebookSignInButton;
-    private TextView createAccount, forgottenPassword;
-    private String emailPattern = "[a-zA-Z0-9._-]+@[a-z]+\\.+[a-z]+";
-    private Dialog forgottenPasswordDialog, forgottenPasswordConfirmEmailSentDialog;
+    private TextInputLayout emailTextInputLayout, passwordTextInputLayout;
+    private TextInputEditText emailTextInputEditText, passwordTextInputEditText;
+    private MaterialButton loginMaterialButton, googleSignInMaterialButton, facebookSignInMaterialButton,
+            createAccountMaterialButton, forgottenPasswordMaterialButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
 
-        emailEditText = findViewById(R.id.loginEmail_editText);
-        passwordEditText = findViewById(R.id.loginPassword_editText);
-        loginButton = findViewById(R.id.login_button);
-        googleSignInButton = findViewById(R.id.googleSignIn_button);
-        facebookSignInButton = findViewById(R.id.facebookSignIn_button);
-        createAccount = findViewById(R.id.createAccount_textView);
-        forgottenPassword = findViewById(R.id.forgottenPassword_textView);
-        forgottenPasswordDialog = new Dialog(this);
-        forgottenPasswordConfirmEmailSentDialog = new Dialog(this);
+        emailTextInputEditText = findViewById(R.id.loginEmail_TextInputEditText);
+        passwordTextInputEditText = findViewById(R.id.loginPassword_TextInputEditText);
+        emailTextInputLayout = findViewById(R.id.loginEmail_TextInputLayout);
+        passwordTextInputLayout = findViewById(R.id.loginPassword_TextInputLayout);
+        loginMaterialButton = findViewById(R.id.login_materialButton);
+        googleSignInMaterialButton = findViewById(R.id.googleSignIn_button);
+        facebookSignInMaterialButton = findViewById(R.id.facebookSignIn_button);
+        createAccountMaterialButton = findViewById(R.id.createAccount_textView);
+        forgottenPasswordMaterialButton = findViewById(R.id.forgottenPassword_materialButton);
 
         mAuth = FirebaseAuth.getInstance();
-        progressDialog = new ProgressDialog(this);
 
-        createAccount.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(LoginActivity.this, RegisterActivity.class);
-                startActivity(intent);
-            }
-        });
+        setOnClickListeners();
 
-        loginButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                loginUser();
-            }
-        });
+    }
 
-        googleSignInButton.setOnClickListener(new View.OnClickListener() {
+    private void setOnClickListeners() {
+        googleSignInMaterialButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(LoginActivity.this, GoogleSignInActivity.class);
@@ -83,7 +71,7 @@ public class LoginActivity extends Activity {
             }
         });
 
-        facebookSignInButton.setOnClickListener(new View.OnClickListener() {
+        facebookSignInMaterialButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(LoginActivity.this, FacebookAuthActivity.class);
@@ -92,139 +80,135 @@ public class LoginActivity extends Activity {
             }
         });
 
-        forgottenPassword.setOnClickListener(new View.OnClickListener() {
+        createAccountMaterialButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                openForgottenPasswordPopUp();
+                Intent intent = new Intent(LoginActivity.this, RegisterActivity.class);
+                startActivity(intent);
             }
         });
-    }
 
-    private void openForgottenPasswordPopUp() {
-        forgottenPasswordDialog.setContentView(R.layout.popup_forgotten_password);
-        forgottenPasswordDialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
-
-        ImageView closeImageViewButton = forgottenPasswordDialog.findViewById(R.id.popUpForgottenPasswordClose_imageView);
-        Button sendButton = forgottenPasswordDialog.findViewById(R.id.popUpForgottenPasswordSend_button);
-
-
-        sendButton.setOnClickListener(new View.OnClickListener() {
+        loginMaterialButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                resetPassword();
+                loginUser();
             }
         });
 
-        closeImageViewButton.setOnClickListener(new View.OnClickListener() {
+        forgottenPasswordMaterialButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                forgottenPasswordDialog.dismiss();
-                Toast.makeText(LoginActivity.this, "Dialog Close", Toast.LENGTH_SHORT).show();
+
+                View viewTextInput = LayoutInflater.from(LoginActivity.this).inflate(R.layout.popup_forgotten_password_text_field, null, false);
+                final TextInputEditText emailTextInputEditTextPopUp = viewTextInput.findViewById(R.id.popUpInputEmail_textInputEditText);
+                final TextInputLayout emailTextInputLayoutPopUp = viewTextInput.findViewById(R.id.popUpInputEmail_textInputLayout);
+
+                MaterialAlertDialogBuilder materialAlertDialogBuilder = new MaterialAlertDialogBuilder(LoginActivity.this)
+                        .setTitle("Forgotten password?")
+                        .setMessage("Please enter your email address to receive the required steps " +
+                                "for resetting your password. Please enter a solid password which " +
+                                "has at least 14 characters and contains at least one digit " +
+                                "one lower character, one upper character and one special character. "+
+                                "Otherwise you have to keep resetting your password!")
+                        .setView(viewTextInput)
+                        .setCancelable(false)
+                        .setPositiveButton("Send", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialogInterface, int i) {
+                                String email = Objects.requireNonNull(emailTextInputEditTextPopUp.getText()).toString();
+
+                                if (!TextUtils.isEmpty(email)) {
+                                    emailTextInputLayoutPopUp.setError("Enter an email address");
+                                    emailTextInputLayoutPopUp.requestFocus();
+                                } else if (!Patterns.EMAIL_ADDRESS.matcher(email).matches()) {
+                                    emailTextInputLayoutPopUp.setError("Please provide a valid email!");
+                                    emailTextInputLayoutPopUp.requestFocus();
+                                }
+
+                                if (!email.isEmpty() && Patterns.EMAIL_ADDRESS.matcher(email).matches()) {
+                                    mAuth.sendPasswordResetEmail(email).addOnCompleteListener(new OnCompleteListener<Void>() {
+                                        @Override
+                                        public void onComplete(@NonNull Task<Void> task) {
+                                            if (task.isSuccessful()) {
+                                                Toast.makeText(LoginActivity.this, "Email sent", Toast.LENGTH_SHORT).show();
+                                                dialogInterface.dismiss();
+                                            }
+                                        }
+                                    });
+                                } else {
+                                    Toast.makeText(LoginActivity.this, "Please provide a valid email!", Toast.LENGTH_SHORT).show();
+                                }
+                            }
+                        })
+                        .setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialogInterface, int i) {
+                            }
+                        });
+                materialAlertDialogBuilder.create();
+                materialAlertDialogBuilder.show();
             }
         });
-        forgottenPasswordDialog.show();
-    }
-
-    private void resetPassword() {
-        EditText emailEditText = forgottenPasswordDialog.findViewById(R.id.popUpInputEmail_editText);
-
-        String email = emailEditText.getText().toString();
-
-        if (email.isEmpty()) {
-            emailEditText.setError("Email is required!");
-            emailEditText.requestFocus();
-        }
-
-        if (!Patterns.EMAIL_ADDRESS.matcher(email).matches()) {
-            emailEditText.setError("Please provide valid email!");
-            emailEditText.requestFocus();
-        }
-
-        mAuth.sendPasswordResetEmail(email).addOnCompleteListener(new OnCompleteListener<Void>() {
-            @Override
-            public void onComplete(@NonNull Task<Void> task) {
-                if (task.isSuccessful()) {
-                    openConfirmForgottenPasswordPopUp();
-                }
-            }
-        });
-
-    }
-
-    private void openConfirmForgottenPasswordPopUp() {
-        forgottenPasswordConfirmEmailSentDialog.setContentView(R.layout.popup_forgotten_password_send_email_confirmation);
-        forgottenPasswordConfirmEmailSentDialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
-
-        ImageView closeImageViewButton = forgottenPasswordConfirmEmailSentDialog.findViewById(R.id.popUpForgottenPasswordConfirmationClose_imageView);
-        Button acceptButton = forgottenPasswordConfirmEmailSentDialog.findViewById(R.id.popUpForgottenPasswordConfirmationAccept_button);
-
-        acceptButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                sendUserToLoginActivity();
-            }
-        });
-
-        closeImageViewButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                forgottenPasswordConfirmEmailSentDialog.dismiss();
-                Toast.makeText(LoginActivity.this, "Dialog Close", Toast.LENGTH_SHORT).show();
-            }
-        });
-        forgottenPasswordConfirmEmailSentDialog.show();
-    }
-
-    private void sendUserToLoginActivity() {
-        Intent intent = new Intent(LoginActivity.this, LoginActivity.class);
-        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK| Intent.FLAG_ACTIVITY_NEW_TASK);
-        startActivity(intent);
     }
 
     private void loginUser() {
-        String email = emailEditText.getText().toString();
-        String password = passwordEditText.getText().toString();
+        String email = Objects.requireNonNull(emailTextInputEditText.getText()).toString();
+        String password = Objects.requireNonNull(passwordTextInputEditText.getText()).toString();
 
-        if (!email.matches(emailPattern)) {
-            emailEditText.setError("Enter a valid email address");
-            emailEditText.requestFocus();
-        } else if (password.isEmpty() || password.length() < 6) {
-            passwordEditText.setError("Enter a solid password");
-            passwordEditText.requestFocus();
-        } else {
-            progressDialog.setMessage("Please wait while logging in ...");
-            progressDialog.setTitle("Login");
-            progressDialog.setCanceledOnTouchOutside(false);
-            progressDialog.show();
-
+        ValidationManager.getInstance().doValidation(LoginActivity.this,
+                emailTextInputLayout).checkEmpty().checkEmail();
+        ValidationManager.getInstance().doValidation(LoginActivity.this,
+                passwordTextInputLayout).checkEmpty().checkStrongPassword();
+        if (ValidationManager.getInstance().isEmailAndPasswordValid()) {
             mAuth.signInWithEmailAndPassword(email, password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
                 @Override
                 public void onComplete(@NonNull Task<AuthResult> task) {
-                    if(task.isSuccessful()) {
+                    if (task.isSuccessful()) {
                         mUser = mAuth.getCurrentUser();
-                        if(mUser != null) {
-                            if(mUser.isEmailVerified()) {
+                        if (mUser != null) {
+                            if (mUser.isEmailVerified()) {
                                 sendUserToNextActivity();
                             } else {
-                                mUser.sendEmailVerification();
-                                Toast.makeText(LoginActivity.this, "Check your email to verify your account!",Toast.LENGTH_LONG).show();
+                                Toast.makeText(LoginActivity.this, "Check your email to verify your account!", Toast.LENGTH_LONG).show();
                             }
                         }
-                        progressDialog.dismiss();
-//                        sendUserToNextActivity();
                         Toast.makeText(LoginActivity.this, "Login Successfully", Toast.LENGTH_SHORT).show();
                     } else {
-                        progressDialog.dismiss();
-                        Toast.makeText(LoginActivity.this, ""+task.getException(), Toast.LENGTH_SHORT).show();
+                        Toast.makeText(LoginActivity.this, "" + task.getException(), Toast.LENGTH_SHORT).show();
                     }
                 }
             });
         }
     }
 
+
     private void sendUserToNextActivity() {
         Intent intent = new Intent(LoginActivity.this, HomeActivity.class);
         intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK| Intent.FLAG_ACTIVITY_NEW_TASK);
         startActivity(intent);
+    }
+
+    @Override
+    public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+    }
+
+    @Override
+    public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+    }
+
+    @Override
+    public void afterTextChanged(Editable editable) {
+        if (editable.hashCode() == Objects.requireNonNull(emailTextInputLayout.getEditText()).getText().hashCode()) {
+            emailTextInputLayout.setErrorEnabled(false);
+        } else if (editable.hashCode() == Objects.requireNonNull(passwordTextInputLayout.getEditText()).getText().hashCode()) {
+            passwordTextInputLayout.setErrorEnabled(false);
+        }
+    }
+
+    @Override
+    public void setError(TextInputLayout textInputLayout, String errorMessage) {
+        textInputLayout.setError(errorMessage);
     }
 }

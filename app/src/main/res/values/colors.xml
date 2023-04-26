@@ -1,11 +1,71 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="purple_200">#FFBB86FC</color>
-    <color name="purple_500">#FF6200EE</color>
-    <color name="purple_700">#FF3700B3</color>
-    <color name="teal_200">#FF03DAC5</color>
-    <color name="teal_700">#FF018786</color>
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
-    <color name="main_background">#D8FDE0</color>
+
+    <color name="primary_10">#21005D</color>
+    <color name="primary_20">#381E72</color>
+    <color name="primary_30">#4F378B</color>
+    <color name="primary_40">#6750A4</color>
+    <color name="primary_50">#7F67BE</color>
+    <color name="primary_60">#9A82DB</color>
+    <color name="primary_70">#B69DF8</color>
+    <color name="primary_80">#D0BCFF</color>
+    <color name="primary_90">#EADDFF</color>
+    <color name="primary_100">#ffffff</color>
+
+    <color name="secondary_10">#1D192B</color>
+    <color name="secondary_20">#332D41</color>
+    <color name="secondary_30">#4A4458</color>
+    <color name="secondary_40">#625B71</color>
+    <color name="secondary_50">#7A7289</color>
+    <color name="secondary_60">#958DA5</color>
+    <color name="secondary_70">#B0A7C0</color>
+    <color name="secondary_80">#CCC2DC</color>
+    <color name="secondary_90">#E8DEF8</color>
+    <color name="secondary_100">#ffffff</color>
+
+    <color name="tertiary_10">#31111D</color>
+    <color name="tertiary_20">#492532</color>
+    <color name="tertiary_30">#633B48</color>
+    <color name="tertiary_40">#7D5260</color>
+    <color name="tertiary_50">#986977</color>
+    <color name="tertiary_60">#B58392</color>
+    <color name="tertiary_70">#D29DAC</color>
+    <color name="tertiary_80">#EFB8C8</color>
+    <color name="tertiary_90">#FFD8E4</color>
+    <color name="tertiary_100">#ffffff</color>
+
+    <color name="error_10">#410E0B</color>
+    <color name="error_20">#601410</color>
+    <color name="error_30">#8C1D18</color>
+    <color name="error_40">#B3261E</color>
+    <color name="error_50">#DC362E</color>
+    <color name="error_60">#E46962</color>
+    <color name="error_70">#EC928E</color>
+    <color name="error_80">#F2B8B5</color>
+    <color name="error_90">#F9DEDC</color>
+    <color name="error_100">#ffffff</color>
+
+    <color name="neutral_10">#1C1B1F</color>
+    <color name="neutral_20">#313033</color>
+    <color name="neutral_30">#484649</color>
+    <color name="neutral_40">#605D62</color>
+    <color name="neutral_50">#787579</color>
+    <color name="neutral_60">#939094</color>
+    <color name="neutral_70">#AEAAAE</color>
+    <color name="neutral_80">#C9C5CA</color>
+    <color name="neutral_90">#E6E1E5</color>
+    <color name="neutral_99">#FFFBFE</color>
+
+    <color name="neutral_variant_10">#1D1A22</color>
+    <color name="neutral_variant_20">#322F37</color>
+    <color name="neutral_variant_30">#49454F</color>
+    <color name="neutral_variant_40">#605D66</color>
+    <color name="neutral_variant_50">#79747E</color>
+    <color name="neutral_variant_60">#938F99</color>
+    <color name="neutral_variant_70">#AEA9B4</color>
+    <color name="neutral_variant_80">#CAC4D0</color>
+    <color name="neutral_variant_90">#E7E0EC</color>
+
 </resources>

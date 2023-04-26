@@ -29,6 +29,9 @@
     <string name="send">Send</string>
     <string name="close">Close</string>
     <string name="we_have_sent_you_an_email_with_the_steps_you_must_follow_to_change_your_password">We have sent you an email with the steps you must follow to change your password.</string>
+    <string name="lets_start">Lets start</string>
+    <string name="welcome_back_dear_friend">Welcome back, dear Friend</string>
+    <string name="login_to_your_account">Login to your account</string>
 
 
 </resources>
