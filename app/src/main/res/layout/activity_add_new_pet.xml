@@ -14,16 +14,20 @@
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content" >
+
             <ImageView
                 android:id="@+id/addNewPetBack_imageView"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:src="@drawable/back_64"
-                android:contentDescription="@string/back"
-                android:layout_margin="@dimen/small_margin"
-                android:padding="@dimen/small_padding"
                 android:layout_alignParentStart="true"
-                android:layout_alignParentTop="true"/>
+                android:layout_alignParentTop="true"
+                android:layout_margin="@dimen/small_margin"
+                android:layout_marginStart="@dimen/small_margin"
+                android:layout_marginTop="@dimen/small_margin"
+                android:layout_marginEnd="@dimen/small_margin"
+                android:contentDescription="@string/back"
+                android:padding="@dimen/small_padding"
+                android:src="@drawable/back_64" />
 
             <ImageView
                 android:id="@+id/addNewPetCamera_imageView"
@@ -39,15 +43,6 @@
                 android:padding="@dimen/small_padding"
                 android:src="@drawable/camera_64" />
         </RelativeLayout>
-
-        <ImageView
-            android:id="@+id/addNewPetBack_imageView"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:src="@drawable/back_64"
-            android:contentDescription="@string/back"
-            android:layout_margin="10dp"
-            android:padding="@dimen/small_padding" />
 
 
         <ImageView

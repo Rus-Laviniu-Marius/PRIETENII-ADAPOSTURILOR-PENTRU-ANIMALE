@@ -22,8 +22,6 @@ import com.pet.shelter.friends.adoption.FilterPetPreferencesActivity;
 import com.pet.shelter.friends.adoption.SeeListOfPetsActivity;
 import com.pet.shelter.friends.profile.CreateProfileActivity;
 import com.pet.shelter.friends.profile.ViewProfileActivity;
-import com.r0adkll.slidr.Slidr;
-import com.r0adkll.slidr.model.SlidrInterface;
 
 import java.util.Objects;
 
@@ -43,7 +41,6 @@ public class HomeActivity extends AppCompatActivity {
             adminContentTopLeftAddRelativeLayout, adminContentTopRightDonationRequestRelativeLayout,
             adminContentBottomLeftVolunteerRequestRelativeLayout, adminContentBottomRightMaterialSupportRelativeLayout;
 
-    private SlidrInterface slidrInterface;
     private String loggedUid;
 
 
@@ -54,7 +51,6 @@ public class HomeActivity extends AppCompatActivity {
 
         initialization();
 
-        slidrInterface = Slidr.attach(this);
 
         saveConnectedUserIdToDatabase();
 

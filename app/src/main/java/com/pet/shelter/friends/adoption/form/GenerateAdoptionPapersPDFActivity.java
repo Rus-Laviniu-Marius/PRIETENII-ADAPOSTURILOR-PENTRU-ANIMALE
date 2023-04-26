@@ -118,10 +118,12 @@ public class GenerateAdoptionPapersPDFActivity extends AppCompatActivity {
             public void onClick(View view) {
                 startActivity(new Intent(GenerateAdoptionPapersPDFActivity.this,
                         HomeActivity.class));
-        homeImageView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                startActivity(new Intent(GenerateAdoptionPapersPDFActivity.this, HomeActivity.class));
+                homeImageView.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        startActivity(new Intent(GenerateAdoptionPapersPDFActivity.this, HomeActivity.class));
+                    }
+                });
             }
         });
     }
@@ -558,104 +560,7 @@ public class GenerateAdoptionPapersPDFActivity extends AppCompatActivity {
         signaturesTable.addCell(getCell(shelterAdministratorSignatureParagraph, TextAlignment.CENTER));
         signaturesTable.addCell(getCell(shelterVeterinarianSignatureParagraph, TextAlignment.RIGHT));
 
-//        signaturesTable.getCell(1,1).setPadding(0).setTextAlignment(TextAlignment.LEFT).setBorder(Border.NO_BORDER);
-//        signaturesTable.getCell(1,2).setPadding(0).setTextAlignment(TextAlignment.CENTER).setBorder(Border.NO_BORDER);
-//        signaturesTable.getCell(1,3).setPadding(0).setTextAlignment(TextAlignment.RIGHT).setBorder(Border.NO_BORDER);
-
         document.add(signaturesTable);
-
-//        Border border = new GrooveBorder(2);
-
-        // PARAGRAPHS
-//        Paragraph paragraph = new Paragraph("Thank you!");
-//
-//        Text text1 = new Text("Bold ").setBold();
-//        Text text2 = new Text("Italic ").setItalic();
-//        Text text3 = new Text("Underline ").setUnderline();
-//
-//        Paragraph paragraph1 = new Paragraph();
-//        paragraph1.add(text1)
-//                .add(text2)
-//                .add(text3);
-//
-//        document.add(paragraph);
-//        document.add(paragraph1);
-
-        // LISTS
-//        List list = new List();
-//        list.add("Android");
-//        list.add("Java");
-//        list.add("C++");
-//        list.add("Kotlin");
-//
-//        document.add(list);
-
-        // IMAGES
-//        Drawable d = getDrawable(R.drawable.launcher_logo);
-//        Bitmap bitmap = ((BitmapDrawable)d).getBitmap();
-//        ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
-//        bitmap.compress(Bitmap.CompressFormat.PNG, 100,byteArrayOutputStream);
-//        byte[] bitmapData = byteArrayOutputStream.toByteArray();
-//
-//        ImageData imageData = ImageDataFactory.create(bitmapData);
-//        Image image = new Image(imageData);
-
-//        image.setHeight(100);
-//        image.setWidth(100);
-//
-//        document.add(image);
-
-        // TABLES
-//        float[] columnWidth = {200f, 200f};
-//        Table table = new Table(columnWidth);
-//        table.addCell("Name");
-//        table.addCell("Age");
-
-//        table.addCell(new Cell(2,1).add(new Paragraph("Laviniu")));
-//        table.addCell(new Cell().setBackgroundColor(ColorConstants.GREEN).add(new Paragraph("Laviniu")));
-//        table.addCell(new Cell().setBackgroundColor(new DeviceRgb(244, 23, 213)).add(new Paragraph("Laviniu")));
-//        table.addCell("23");
-//
-//        table.addCell("Marius");
-//        table.addCell("23");
-//
-//        table.setBorder(border);
-//
-//        document.add(table);
-
-        // CHANGE LIST SYMBOL
-//        List list = new List();
-//        list.setListSymbol("\u00A5 ");
-
-//        Drawable d = getDrawable(R.drawable.yellow_tick_32);
-//        Bitmap bitmap = ((BitmapDrawable)d).getBitmap();
-//        ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
-//        bitmap.compress(Bitmap.CompressFormat.PNG, 100, byteArrayOutputStream);
-//        byte[] bitmapData = byteArrayOutputStream.toByteArray();
-//
-//        ImageData imageData = ImageDataFactory.create(bitmapData);
-//        Image image = new Image(imageData);
-
-//        image.setHeight("15");
-//        image.setWeight("15");
-//
-//        list.setListSymbol(image);
-//
-//        list.add("Apple");
-//        list.add("Banana");
-//        list.add("Strawberry");
-//        list.add("Blueberry");
-//        list.add("Peach");
-//
-//        document.add(list);
-
-//        BarcodeQRCode qrCode = new BarcodeQRCode("Hello Laviniu");
-//        BarcodeQRCode qrCode = new BarcodeQRCode("https://www.google.com/");
-//        BarcodeQRCode qrCode = new BarcodeQRCode("mailto:rusmarius0809@gmail.com?subject=Pet%20Adoption%20Papers%body=Please check the pet adoption papers");
-//        PdfFormXObject barcodeObject = qrCode.createFormXObject(ColorConstants.BLACK, pdfDocument);
-//        Image barcodeImage = new Image(barcodeObject).setWidth(100f).setHeight(100f);
-
-//        document.add(barcodeImage);
 
         document.close();
 

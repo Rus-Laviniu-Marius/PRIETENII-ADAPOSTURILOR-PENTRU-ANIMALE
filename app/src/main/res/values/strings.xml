@@ -231,5 +231,9 @@
     <string name="gps">GPS</string>
     <string name="create_account">Create Account</string>
     <string name="type">Type</string>
+    <string name="lets_start">Lets start</string>
+    <string name="welcome_back_dear_friend">Welcome back, dear Friend</string>
+    <string name="login_to_your_account">Login to your account</string>
+
 
 </resources>

@@ -76,8 +76,6 @@ public class AddNewPetActivity extends AppCompatActivity {
 
     private static final int PICK_FROM_GALLERY = 1889;
 
-    private ActivityResultLauncher<Intent> galleryActivityResultLauncher;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -94,8 +92,11 @@ public class AddNewPetActivity extends AppCompatActivity {
                         InputStream imageStream = null;
                         try {
                             imageStream = getContentResolver().openInputStream(gallerySelectedImageUri);
+                        } catch (FileNotFoundException e) {
+                            throw new RuntimeException(e);
+                        }
                         selectedImage = Objects.requireNonNull(data).getData();
-                        InputStream imageStream = null;
+                        imageStream = null;
                         try {
                             imageStream = getContentResolver().openInputStream(selectedImage);
                         } catch (FileNotFoundException e) {
@@ -327,16 +328,6 @@ public class AddNewPetActivity extends AppCompatActivity {
                     }
                 }
             }
-//                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-//                    if (checkSelfPermission(Manifest.permission.READ_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
-//                        requestPermissions(new String[]{Manifest.permission.READ_EXTERNAL_STORAGE, Manifest.permission.WRITE_EXTERNAL_STORAGE}, PICK_FROM_GALLERY);
-//                    }
-//                } else {
-                    Intent photoPickerIntent = new Intent(Intent.ACTION_PICK);
-                    photoPickerIntent.setType("image/*");
-                    galleryActivityResultLauncher.launch(photoPickerIntent);
-//                }
-            }   
         });
     }
 
