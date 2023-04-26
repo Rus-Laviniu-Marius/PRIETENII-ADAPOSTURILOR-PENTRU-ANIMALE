@@ -8,7 +8,7 @@ import android.view.WindowManager;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.Button;
-import android.widget.LinearLayout;
+import android.window.SplashScreen;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -22,26 +22,7 @@ public class SplashActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_splash);
 
-        getWindow().setFlags(
-                WindowManager.LayoutParams.FLAG_FULLSCREEN,
-                WindowManager.LayoutParams.FLAG_FULLSCREEN
-        );
-        LinearLayout splashContentLinearLayout = findViewById(R.id.splashScreenContent_linearLayout);
-        Animation slideAnimation = AnimationUtils.loadAnimation(this, R.anim.side_slide);
-        splashContentLinearLayout.startAnimation(slideAnimation);
-
-        Button proceedButton = findViewById(R.id.proceed_button);
-
-//        Runnable runnable = new Runnable() {
-//            @Override
-//            public void run() {
-//                proceedButton.setVisibility(View.VISIBLE);
-//            }
-//        };
-//        Handler.postDelayed(
-//                runnable
-//        , 1000);
-
+        Button proceedButton = findViewById(R.id.lets_start_materialButton);
         proceedButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
