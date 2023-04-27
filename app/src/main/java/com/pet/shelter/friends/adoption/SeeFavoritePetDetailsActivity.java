@@ -14,7 +14,7 @@ import android.widget.TextView;
 
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-import com.pet.shelter.friends.HomeActivity;
+import com.pet.shelter.friends.UserHomeActivity;
 import com.pet.shelter.friends.R;
 import com.pet.shelter.friends.adoption.form.AdoptPetActivity;
 import com.squareup.picasso.Picasso;
@@ -204,7 +204,7 @@ public class SeeFavoritePetDetailsActivity extends AppCompatActivity {
         home.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(SeeFavoritePetDetailsActivity.this, HomeActivity.class);
+                Intent intent = new Intent(SeeFavoritePetDetailsActivity.this, UserHomeActivity.class);
                 startActivity(intent);
             }
         });

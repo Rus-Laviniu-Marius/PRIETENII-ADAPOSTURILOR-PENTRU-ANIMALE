@@ -26,6 +26,9 @@
         android:theme="@style/Theme.PetShelterFriends"
         tools:targetApi="31">
         <activity
+            android:name=".WhoAreYouActivity"
+            android:exported="false" />
+        <activity
             android:name=".adoption.MapActivity"
             android:exported="false">
             <meta-data
@@ -72,7 +75,7 @@
                 android:value="" />
         </activity>
         <activity
-            android:name=".profile.CreateProfileActivity"
+            android:name=".profile.CreateUserProfileActivity"
             android:exported="false">
             <meta-data
                 android:name="android.app.lib_name"
@@ -222,7 +225,7 @@
                 android:value="" />
         </activity>
         <activity
-            android:name=".HomeActivity"
+            android:name=".UserHomeActivity"
             android:exported="false"
             android:theme="@style/Theme.PetShelterFriends.SlidrActivityTheme">
             <meta-data

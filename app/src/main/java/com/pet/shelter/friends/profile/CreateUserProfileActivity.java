@@ -42,7 +42,7 @@ import java.io.FileNotFoundException;
 import java.io.InputStream;
 import java.util.Objects;
 
-public class CreateProfileActivity extends AppCompatActivity {
+public class CreateUserProfileActivity extends AppCompatActivity {
 
     private FirebaseAuth firebaseAuth;
     private FirebaseDatabase firebaseDatabase;
@@ -68,7 +68,7 @@ public class CreateProfileActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_create_profile);
+        setContentView(R.layout.activity_create_user_profile);
 
         firebaseAuth = FirebaseAuth.getInstance();
         firebaseDatabase = FirebaseDatabase.getInstance();
@@ -188,7 +188,7 @@ public class CreateProfileActivity extends AppCompatActivity {
 
                 if (gallerySelectedImageUri != null) {
                     // Code for showing progress dialog while uploading
-                    ProgressDialog progressDialog = new ProgressDialog(CreateProfileActivity.this);
+                    ProgressDialog progressDialog = new ProgressDialog(CreateUserProfileActivity.this);
                     progressDialog.setTitle("Uploading...");
                     progressDialog.show();
 
@@ -201,7 +201,7 @@ public class CreateProfileActivity extends AppCompatActivity {
                                         @Override
                                         public void onComplete(@NonNull Task<Uri> task) {
                                             progressDialog.dismiss();
-                                            Toast.makeText(CreateProfileActivity.this, "Image uploaded", Toast.LENGTH_SHORT).show();
+                                            Toast.makeText(CreateUserProfileActivity.this, "Image uploaded", Toast.LENGTH_SHORT).show();
                                             String fileLink = task.getResult().toString();
 
                                             usersReference.child(loggedUserId).child("name").setValue(name);
@@ -216,7 +216,7 @@ public class CreateProfileActivity extends AppCompatActivity {
                             .addOnFailureListener(new OnFailureListener() {
                                 @Override
                                 public void onFailure(@NonNull Exception e) {
-                                    Toast.makeText(CreateProfileActivity.this, "Failed " + e.getMessage(), Toast.LENGTH_SHORT).show();
+                                    Toast.makeText(CreateUserProfileActivity.this, "Failed " + e.getMessage(), Toast.LENGTH_SHORT).show();
                                 }
                             })
                             .addOnProgressListener(new OnProgressListener<UploadTask.TaskSnapshot>() {
@@ -230,7 +230,7 @@ public class CreateProfileActivity extends AppCompatActivity {
 
                 if (cameraCapturedImageUri != null) {
                     // Code for showing progress dialog while uploading
-                    ProgressDialog progressDialog = new ProgressDialog(CreateProfileActivity.this);
+                    ProgressDialog progressDialog = new ProgressDialog(CreateUserProfileActivity.this);
                     progressDialog.setTitle("Uploading...");
                     progressDialog.show();
 
@@ -243,7 +243,7 @@ public class CreateProfileActivity extends AppCompatActivity {
                                         @Override
                                         public void onComplete(@NonNull Task<Uri> task) {
                                             progressDialog.dismiss();
-                                            Toast.makeText(CreateProfileActivity.this, "Image uploaded", Toast.LENGTH_SHORT).show();
+                                            Toast.makeText(CreateUserProfileActivity.this, "Image uploaded", Toast.LENGTH_SHORT).show();
                                             String fileLink = task.getResult().toString();
 
                                             usersReference.child(loggedUserId).child("name").setValue(name);
@@ -258,7 +258,7 @@ public class CreateProfileActivity extends AppCompatActivity {
                             .addOnFailureListener(new OnFailureListener() {
                                 @Override
                                 public void onFailure(@NonNull Exception e) {
-                                    Toast.makeText(CreateProfileActivity.this, "Failed " + e.getMessage(), Toast.LENGTH_SHORT).show();
+                                    Toast.makeText(CreateUserProfileActivity.this, "Failed " + e.getMessage(), Toast.LENGTH_SHORT).show();
                                 }
                             })
                             .addOnProgressListener(new OnProgressListener<UploadTask.TaskSnapshot>() {
@@ -300,7 +300,7 @@ public class CreateProfileActivity extends AppCompatActivity {
                         if (cameraIntent.resolveActivity(getPackageManager()) != null) {
                             cameraActivityResultLauncher.launch(cameraIntent);
                         } else {
-                            Toast.makeText(CreateProfileActivity.this, "There is no app that supports this action", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(CreateUserProfileActivity.this, "There is no app that supports this action", Toast.LENGTH_SHORT).show();
                         }
                     }
                 }

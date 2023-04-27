@@ -16,7 +16,7 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
-import com.pet.shelter.friends.HomeActivity;
+import com.pet.shelter.friends.UserHomeActivity;
 import com.pet.shelter.friends.R;
 import com.pet.shelter.friends.adoption.FilterPetPreferencesActivity;
 import com.pet.shelter.friends.adoption.SeeListOfFavoritePetsActivity;
@@ -146,7 +146,7 @@ public class ViewProfileActivity extends AppCompatActivity {
         back.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                startActivity(new Intent(ViewProfileActivity.this, HomeActivity.class));
+                startActivity(new Intent(ViewProfileActivity.this, UserHomeActivity.class));
             }
         });
     }

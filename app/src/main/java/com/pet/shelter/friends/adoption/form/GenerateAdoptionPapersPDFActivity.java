@@ -42,9 +42,8 @@ import com.itextpdf.layout.element.Text;
 import com.itextpdf.layout.property.HorizontalAlignment;
 import com.itextpdf.layout.property.TextAlignment;
 import com.pet.shelter.friends.BuildConfig;
-import com.pet.shelter.friends.HomeActivity;
+import com.pet.shelter.friends.UserHomeActivity;
 import com.pet.shelter.friends.R;
-import com.squareup.picasso.Picasso;
 
 import java.io.ByteArrayOutputStream;
 import java.io.File;
@@ -117,11 +116,11 @@ public class GenerateAdoptionPapersPDFActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 startActivity(new Intent(GenerateAdoptionPapersPDFActivity.this,
-                        HomeActivity.class));
+                        UserHomeActivity.class));
                 homeImageView.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
-                        startActivity(new Intent(GenerateAdoptionPapersPDFActivity.this, HomeActivity.class));
+                        startActivity(new Intent(GenerateAdoptionPapersPDFActivity.this, UserHomeActivity.class));
                     }
                 });
             }

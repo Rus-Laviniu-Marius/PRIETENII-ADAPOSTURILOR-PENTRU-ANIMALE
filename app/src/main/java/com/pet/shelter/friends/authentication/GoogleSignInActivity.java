@@ -19,8 +19,8 @@ import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.GoogleAuthProvider;
-import com.pet.shelter.friends.HomeActivity;
 import com.pet.shelter.friends.R;
+import com.pet.shelter.friends.WhoAreYouActivity;
 
 public class GoogleSignInActivity extends LoginActivity {
 
@@ -92,7 +92,7 @@ public class GoogleSignInActivity extends LoginActivity {
     }
 
     private void updateUI(FirebaseUser user) {
-        Intent intent = new Intent(GoogleSignInActivity.this, HomeActivity.class);
+        Intent intent = new Intent(GoogleSignInActivity.this, WhoAreYouActivity.class);
         intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK|Intent.FLAG_ACTIVITY_NEW_TASK);
         startActivity(intent);
     }

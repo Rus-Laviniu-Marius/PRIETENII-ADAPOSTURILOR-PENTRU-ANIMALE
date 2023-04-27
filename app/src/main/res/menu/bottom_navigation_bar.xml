@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/bottomNavigationBar_home"
+        android:icon="@drawable/home_filled_24px"
+        android:title="@string/home" />
+    <item
+        android:id="@+id/bottomNavigationBar_pets"
+        android:icon="@drawable/home_outlined_24px"
+        android:title="@string/pets" />
+    <item
+        android:id="@+id/bottomNavigationBar_donation"
+        android:icon="@drawable/home_filled_24px"
+        android:title="@string/donation" />
+    <item
+        android:id="@+id/bottomNavigationBar_volunteer"
+        android:icon="@drawable/home_outlined_24px"
+        android:title="@string/volunteer" />
+    <item
+        android:id="@+id/bottomNavigationBar_support"
+        android:icon="@drawable/trolley_outlined_24px"
+        android:title="@string/support" />
+</menu>

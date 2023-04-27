@@ -19,7 +19,7 @@ import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FacebookAuthProvider;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
-import com.pet.shelter.friends.HomeActivity;
+import com.pet.shelter.friends.WhoAreYouActivity;
 
 import java.util.Arrays;
 
@@ -90,7 +90,7 @@ public class FacebookAuthActivity extends LoginActivity {
     }
 
     private void updateUI(FirebaseUser user) {
-        Intent intent = new Intent(FacebookAuthActivity.this, HomeActivity.class);
+        Intent intent = new Intent(FacebookAuthActivity.this, WhoAreYouActivity.class);
         startActivity(intent);
     }
 }

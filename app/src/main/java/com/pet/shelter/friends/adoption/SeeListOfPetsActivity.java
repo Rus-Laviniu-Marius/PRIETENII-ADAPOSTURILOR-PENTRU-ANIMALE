@@ -27,7 +27,7 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
-import com.pet.shelter.friends.HomeActivity;
+import com.pet.shelter.friends.UserHomeActivity;
 import com.pet.shelter.friends.R;
 import com.pet.shelter.friends.adoption.adapter.CustomListOfPetsAdapter;
 import com.pet.shelter.friends.adoption.model.Pet;
@@ -165,7 +165,7 @@ public class SeeListOfPetsActivity extends AppCompatActivity {
         back.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(SeeListOfPetsActivity.this, HomeActivity.class));
+                startActivity(new Intent(SeeListOfPetsActivity.this, UserHomeActivity.class));
             }
         });
 
@@ -257,7 +257,7 @@ public class SeeListOfPetsActivity extends AppCompatActivity {
         home.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                startActivity(new Intent(SeeListOfPetsActivity.this, HomeActivity.class));
+                startActivity(new Intent(SeeListOfPetsActivity.this, UserHomeActivity.class));
             }
         });
 

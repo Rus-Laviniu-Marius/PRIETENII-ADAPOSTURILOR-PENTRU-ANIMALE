@@ -234,6 +234,16 @@
     <string name="lets_start">Lets start</string>
     <string name="welcome_back_dear_friend">Welcome back, dear Friend</string>
     <string name="login_to_your_account">Login to your account</string>
+    <string name="who_are_you">Who are you?</string>
+    <string name="user">User</string>
+    <string name="shelter_admin">Shelter admin</string>
+    <string name="pet_trainer">Pet trainer</string>
+    <string name="humbleness">Humbleness</string>
+    <string name="faith">Faith</string>
+    <string name="love">Love</string>
+    <string name="done">Done\n</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 
 
 </resources>
