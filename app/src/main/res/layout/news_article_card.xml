@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.google.android.material.card.MaterialCardView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    style="@style/Widget.Material3.CardView.Outlined">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center"
+            android:paddingVertical="@dimen/padding_vertical_header"
+            android:paddingHorizontal="@dimen/padding_horizontal">
+            <ImageView
+                android:id="@+id/newsArticleCardUserProfileImage_imageView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/avatar"
+                android:contentDescription="@string/user_profile_image"/>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:layout_marginStart="@dimen/horizontal_space_between_items">
+                <com.google.android.material.textview.MaterialTextView
+                    android:id="@+id/newsArticleCardAuthorUserName_materialTextView"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/user_name"
+                    android:textAppearance="@style/TextAppearance.Material3.LabelLarge"/>
+                <com.google.android.material.textview.MaterialTextView
+                    android:id="@+id/newsArticleCardSubcategory_materialTextView"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/vertical_space_between_items"
+                    android:text="@string/news_subcategory"
+                    android:textAppearance="@style/TextAppearance.Material3.BodyMedium"/>
+            </LinearLayout>
+        </LinearLayout>
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:src="@drawable/media"
+            android:contentDescription="@string/news_content_image"/>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:paddingVertical="@dimen/padding_vertical_text_content"
+            android:paddingHorizontal="@dimen/padding_horizontal">
+            <com.google.android.material.textview.MaterialTextView
+                android:id="@+id/newsArticleCardTitle_materialTextView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                style="@style/TextAppearance.Material3.LabelLarge"
+                android:text="@string/news_article_title"/>
+            <com.google.android.material.textview.MaterialTextView
+                android:id="@+id/newsArticleCardShortDescription_materialTextView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                style="@style/TextAppearance.Material3.LabelMedium"
+                android:layout_marginTop="@dimen/vertical_space_between_items"
+                android:text="@string/news_article_short_description"/>
+            <com.google.android.material.textview.MaterialTextView
+                android:id="@+id/newsArticleCardPostedDate_materialTextView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/vertical_space_between_items"
+                android:layout_gravity="end"
+                style="@style/TextAppearance.Material3.LabelSmall"
+                android:text="@string/dd_mm_yyyy"/>
+        </LinearLayout>
+    </LinearLayout>
+
+
+</com.google.android.material.card.MaterialCardView>
+
+

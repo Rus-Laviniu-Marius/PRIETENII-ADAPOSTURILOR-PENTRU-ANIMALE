@@ -7,35 +7,15 @@
     tools:context=".UserHomeActivity"
     android:background="@color/white">
 
-    <com.google.android.material.appbar.AppBarLayout
-        android:id="@+id/appBarLayout"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" >
-        <com.google.android.material.appbar.MaterialToolbar
-            android:id="@+id/userHomeScreenTop_materialToolbar"
-            android:layout_width="match_parent"
-            android:layout_height="?attr/actionBarSize"
-            app:layout_anchor="@+id/appBarLayout"
-            app:layout_anchorGravity="center"
-            app:menu="@menu/top_app_bar"
-            app:navigationIcon="@drawable/settings_filled_24"
-            app:title="@string/app_name"
-            app:titleCentered="true" />
-    </com.google.android.material.appbar.AppBarLayout>
-
     <FrameLayout
-        android:id="@+id/flFragment"
+        android:id="@+id/userHomeScreenHomeFragment_frameLayout"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintBottom_toTopOf="@+id/userHomeScreen_bottomNavigationView"
-        app:layout_constraintTop_toBottomOf="@+id/appBarLayout" />
+        app:layout_constraintTop_toTopOf="parent" />
 
     <com.google.android.material.bottomnavigation.BottomNavigationView
         android:id="@+id/userHomeScreen_bottomNavigationView"
@@ -46,7 +26,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/flFragment"/>
+        app:layout_constraintTop_toBottomOf="@+id/userHomeScreenHomeFragment_frameLayout"/>
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
