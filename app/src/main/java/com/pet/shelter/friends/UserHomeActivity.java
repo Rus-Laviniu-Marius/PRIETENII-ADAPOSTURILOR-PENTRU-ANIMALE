@@ -9,7 +9,7 @@ import android.view.MenuItem;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.navigation.NavigationBarView;
 import com.pet.shelter.friends.fragments.bottom_navigation_bar.BottomNavigationBarSupportFragment;
-import com.pet.shelter.friends.fragments.bottom_navigation_bar.BottomNavigationBarHomeFragment;
+import com.pet.shelter.friends.fragments.bottom_navigation_bar.home.BottomNavigationBarHomeFragment;
 import com.pet.shelter.friends.fragments.bottom_navigation_bar.BottomNavigationBarVolunteerFragment;
 import com.pet.shelter.friends.fragments.bottom_navigation_bar.BottomNavigationBarPetsFragment;
 import com.pet.shelter.friends.fragments.bottom_navigation_bar.BottomNavigationBarDonationsFragment;

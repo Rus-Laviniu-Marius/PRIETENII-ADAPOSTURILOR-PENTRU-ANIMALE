@@ -3,15 +3,12 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".fragments.bottom_navigation_bar.BottomNavigationBarSupportFragment">
+    tools:context=".fragments.bottom_navigation_bar.home.BottomNavigationBarHomeCaringNewsTabFragment">
 
     <!-- TODO: Update blank fragment layout -->
     <TextView
-        android:id="@+id/fifthFragment"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:gravity="center"
-        android:textSize="50sp"
-        android:text="@string/support" />
+        android:text="@string/caring" />
 
 </FrameLayout>
