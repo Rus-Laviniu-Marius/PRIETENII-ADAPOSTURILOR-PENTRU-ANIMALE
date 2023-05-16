@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    tools:context=".UserHomeActivity"
+    tools:context=".HomeActivity"
     android:orientation="vertical">
 
     <com.google.android.material.appbar.AppBarLayout
@@ -17,7 +17,7 @@
             android:layout_height="?attr/actionBarSize"
             app:layout_anchor="@+id/appBarLayout"
             app:layout_anchorGravity="center"
-            app:menu="@menu/top_app_bar"
+            app:menu="@menu/home_top_app_bar"
             app:navigationIcon="@drawable/settings_filled_24"
             app:title="@string/app_name"
             app:titleCentered="true" />

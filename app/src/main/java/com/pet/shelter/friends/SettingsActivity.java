@@ -51,7 +51,7 @@ public class SettingsActivity extends AppCompatActivity {
         backImageView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(SettingsActivity.this, UserHomeActivity.class);
+                Intent intent = new Intent(SettingsActivity.this, HomeActivity.class);
                 startActivity(intent);
             }
         });

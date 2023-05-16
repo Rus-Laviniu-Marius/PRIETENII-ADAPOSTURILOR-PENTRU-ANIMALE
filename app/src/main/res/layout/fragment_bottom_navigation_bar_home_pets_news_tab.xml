@@ -1,17 +1,34 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    tools:context=".fragments.bottom_navigation_bar.home.BottomNavigationBarHomePetsNewsTabFragment">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:context=".news.fragments.bottom_navigation_bar.home.BottomNavigationBarHomePetsNewsTabFragment">
 
-    <LinearLayout
+    <ListView
+        android:id="@+id/bottomNavigationBarHomePetsTabNews_listView"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical">
-        <include layout="@layout/news_article_card"/>
-        <include layout="@layout/news_article_card"/>
-        <include layout="@layout/news_article_card"/>
-    </LinearLayout>
+        android:layout_height="wrap_content" />
 
-</ScrollView>
+    <RelativeLayout
+        android:id="@+id/bottomNavigationBarHomePetsTabAddNews_relativeLayout"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:padding="@dimen/padding_small"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentEnd="true">
+        <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
+            android:id="@+id/bottomNavigationBarHomePetsTabAddNews_extendedFloatingActionButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:contentDescription="@string/add"
+            app:icon="@drawable/add_24px"
+            android:drawableStart="@drawable/add_24px"
+            android:text="@string/add_news"
+            style="@style/Widget.Material3.ExtendedFloatingActionButton.Primary"/>
+    </RelativeLayout>
+
+
+
+</RelativeLayout>

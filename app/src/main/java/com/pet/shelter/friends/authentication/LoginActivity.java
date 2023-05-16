@@ -59,6 +59,8 @@ public class LoginActivity extends Activity implements TextWatcher, ErrorSetter 
 
         setOnClickListeners();
 
+        setTextWatcher();
+
     }
 
     private void setOnClickListeners() {
@@ -149,6 +151,11 @@ public class LoginActivity extends Activity implements TextWatcher, ErrorSetter 
                 materialAlertDialogBuilder.show();
             }
         });
+    }
+
+    private void setTextWatcher() {
+        Objects.requireNonNull(emailTextInputLayout.getEditText()).addTextChangedListener(this);
+        Objects.requireNonNull(passwordTextInputLayout.getEditText()).addTextChangedListener(this);
     }
 
     private void loginUser() {

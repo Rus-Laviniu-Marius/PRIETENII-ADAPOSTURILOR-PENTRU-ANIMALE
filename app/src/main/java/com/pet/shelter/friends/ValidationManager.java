@@ -26,12 +26,15 @@ public class ValidationManager {
     private static final String ERROR_MESSAGE_CHECK_PASSWORD_WITH_NO_LOWER_CHARACTERS = "Include at least one lower character";
     private static final String ERROR_MESSAGE_CHECK_PASSWORD_WITH_NO_UPPER_CHARACTERS = "Include at least one upper character";
     private static final String ERROR_MESSAGE_CHECK_PASSWORD_WITH_NO_SPECIAL_CHARACTERS = "Include at least one special character";
+
+
     private boolean isEmpty = false;
     private boolean isEmptyValid = false;
     private boolean isEmailValid = false;
     private boolean isPhoneNumberValid = false;
     private boolean isPasswordValid = false;
     private boolean isPasswordMatchValid = false;
+    private boolean isIbanValid = false;
 
     /* implementation of singleton object creation pattern so this class has a single object through
     app lifecycle */
@@ -64,15 +67,13 @@ public class ValidationManager {
         return instance;
     }
 
-    public ValidationManager checkPhoneNumber() {
+    public void checkPhoneNumber() {
         if (!isEmpty && editText.getText().toString().length() != phoneNumberDigits) {
             errorSetter.setError(textInputLayout, ERROR_MESSAGE_CHECK_PHONE_NUMBER);
             isPasswordValid = false;
         } else {
             isPhoneNumberValid = true;
         }
-
-        return instance;
     }
 
     public void checkEmail() {
@@ -128,8 +129,7 @@ public class ValidationManager {
         }
     }
 
-    public void matchPassword(TextInputLayout firstPasswordLayout,
-                              TextInputLayout secondPasswordLayout) {
+    public void matchPassword(TextInputLayout firstPasswordLayout, TextInputLayout secondPasswordLayout) {
         if (!isEmpty && !Objects.requireNonNull(firstPasswordLayout.getEditText()).getText().toString()
                 .equals(Objects.requireNonNull(secondPasswordLayout.getEditText()).getText().toString())) {
             errorSetter.setError(textInputLayout, ERROR_MESSAGE_CHECK_MATCH_PASSWORD);
@@ -139,12 +139,57 @@ public class ValidationManager {
         }
     }
 
+    private void checkIbanValid(String iban) {
+
+        int IBAN_MIN_SIZE = 15;
+        int IBAN_MAX_SIZE = 34;
+        long IBAN_MAX = 999999999;
+        long IBAN_MODULUS = 97;
+
+        String trimmed = iban.trim();
+
+        if (trimmed.length() < IBAN_MIN_SIZE || trimmed.length() > IBAN_MAX_SIZE) {
+            isIbanValid = false;
+        }
+
+        String reformat = trimmed.substring(4) + trimmed.substring(0, 4);
+        long total = 0;
+
+        for (int i = 0; i < reformat.length(); i++) {
+
+            int charValue = Character.getNumericValue(reformat.charAt(i));
+
+            if (charValue < 0 || charValue > 35) {
+                isIbanValid = false;
+            }
+
+            total = (charValue > 9 ? total * 100 : total * 10) + charValue;
+
+            if (total > IBAN_MAX) {
+                total = (total % IBAN_MODULUS);
+            }
+        }
+
+        isIbanValid = (total % IBAN_MODULUS) == 1;
+    }
+
+    public boolean isNothingEmpty() {
+        return isEmptyValid;
+    }
     public boolean isEmailAndPasswordValid() {
         return isEmptyValid && isEmailValid && isPasswordValid;
     }
+
     public boolean isAllValid() {
 
         return isEmptyValid && isEmailValid && isPasswordMatchValid && isPasswordValid;
     }
 
+    public boolean isPhoneNumberValidAndNothingEmpty() {
+        return isEmptyValid && isPhoneNumberValid;
+    }
+
+    public boolean isAllValidForShelterProfile() {
+        return isEmptyValid && isIbanValid;
+    }
 }

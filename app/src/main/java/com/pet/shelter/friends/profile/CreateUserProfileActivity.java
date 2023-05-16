@@ -45,9 +45,7 @@ import java.util.Objects;
 public class CreateUserProfileActivity extends AppCompatActivity {
 
     private FirebaseAuth firebaseAuth;
-    private FirebaseDatabase firebaseDatabase;
     private DatabaseReference usersReference;
-    private FirebaseStorage firebaseStorage;
     private StorageReference userProfileImageStorage;
 
     private ImageView profileImageView, galleryImageView, cameraImageView;
@@ -61,7 +59,6 @@ public class CreateUserProfileActivity extends AppCompatActivity {
     private ActivityResultLauncher<Intent> galleryActivityResultLauncher, cameraActivityResultLauncher;
 
     private String loggedUserId;
-    private static final int CAMERA_REQUEST = 1888;
     private static final int PICK_FROM_GALLERY = 1889;
     private static final int MY_CAMERA_PERMISSION_CODE = 100;
 
@@ -71,9 +68,9 @@ public class CreateUserProfileActivity extends AppCompatActivity {
         setContentView(R.layout.activity_create_user_profile);
 
         firebaseAuth = FirebaseAuth.getInstance();
-        firebaseDatabase = FirebaseDatabase.getInstance();
+        FirebaseDatabase firebaseDatabase = FirebaseDatabase.getInstance();
         usersReference = firebaseDatabase.getReference("profiles");
-        firebaseStorage = FirebaseStorage.getInstance();
+        FirebaseStorage firebaseStorage = FirebaseStorage.getInstance();
         userProfileImageStorage = firebaseStorage.getReference();
 
         loggedUserId = Objects.requireNonNull(firebaseAuth.getCurrentUser()).getUid();
@@ -275,10 +272,8 @@ public class CreateUserProfileActivity extends AppCompatActivity {
         galleryImageView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-                    if (checkSelfPermission(Manifest.permission.READ_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
-                        requestPermissions(new String[]{Manifest.permission.READ_EXTERNAL_STORAGE, Manifest.permission.WRITE_EXTERNAL_STORAGE}, PICK_FROM_GALLERY);
-                    }
+                if (checkSelfPermission(Manifest.permission.READ_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
+                    requestPermissions(new String[]{Manifest.permission.READ_EXTERNAL_STORAGE, Manifest.permission.WRITE_EXTERNAL_STORAGE}, PICK_FROM_GALLERY);
                 }
                 Intent galleryPhotoPickerIntent = new Intent(Intent.ACTION_PICK);
                 galleryPhotoPickerIntent.setType("image/*");
@@ -289,19 +284,17 @@ public class CreateUserProfileActivity extends AppCompatActivity {
         cameraImageView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-                    if (checkSelfPermission(Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED)
-                    {
-                        requestPermissions(new String[]{Manifest.permission.CAMERA}, MY_CAMERA_PERMISSION_CODE);
-                    }
-                    else
-                    {
-                        Intent cameraIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-                        if (cameraIntent.resolveActivity(getPackageManager()) != null) {
-                            cameraActivityResultLauncher.launch(cameraIntent);
-                        } else {
-                            Toast.makeText(CreateUserProfileActivity.this, "There is no app that supports this action", Toast.LENGTH_SHORT).show();
-                        }
+                if (checkSelfPermission(Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED)
+                {
+                    requestPermissions(new String[]{Manifest.permission.CAMERA}, MY_CAMERA_PERMISSION_CODE);
+                }
+                else
+                {
+                    Intent cameraIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+                    if (cameraIntent.resolveActivity(getPackageManager()) != null) {
+                        cameraActivityResultLauncher.launch(cameraIntent);
+                    } else {
+                        Toast.makeText(CreateUserProfileActivity.this, "There is no app that supports this action", Toast.LENGTH_SHORT).show();
                     }
                 }
             }

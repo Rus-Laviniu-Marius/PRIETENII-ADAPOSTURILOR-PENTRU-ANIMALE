@@ -254,6 +254,19 @@
     <string name="dd_mm_yyyy">DD/MM/YYYY</string>
     <string name="caring">Caring</string>
     <string name="pets_news_articles">Pets news articles</string>
+    <string name="add_news">Add news</string>
+    <string name="create_profile">Create profile</string>
+    <string name="iban">IBAN</string>
+    <string name="latitude">Latitude</string>
+    <string name="longitude">Longitude</string>
+    <string name="web_page_link">Web page link</string>
+    <string name="our_mission">Our mission</string>
+    <string name="our_adoption_policy">Our adoption policy</string>
+    <string name="add_shelter">Add shelter</string>
+    <string name="shelter_logo">Shelter logo</string>
+    <string name="news_category">News category</string>
+    <string name="news_article_description">News article description</string>
+    <string name="post">Post</string>
 
 
 </resources>

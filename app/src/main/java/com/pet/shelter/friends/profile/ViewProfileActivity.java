@@ -16,10 +16,8 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
-import com.pet.shelter.friends.UserHomeActivity;
+import com.pet.shelter.friends.HomeActivity;
 import com.pet.shelter.friends.R;
-import com.pet.shelter.friends.adoption.FilterPetPreferencesActivity;
-import com.pet.shelter.friends.adoption.SeeListOfFavoritePetsActivity;
 import com.pet.shelter.friends.authentication.LoginActivity;
 import com.squareup.picasso.Picasso;
 
@@ -105,13 +103,6 @@ public class ViewProfileActivity extends AppCompatActivity {
 
     private void setOnClickListeners() {
 
-        favoritePetsTextView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                startActivity(new Intent(ViewProfileActivity.this, SeeListOfFavoritePetsActivity.class));
-            }
-        });
-
         userPersonalDataTextView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -123,14 +114,6 @@ public class ViewProfileActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
 
-            }
-        });
-
-        petPreferencesTextView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(ViewProfileActivity.this, FilterPetPreferencesActivity.class);
-                startActivity(intent);
             }
         });
 
@@ -146,7 +129,7 @@ public class ViewProfileActivity extends AppCompatActivity {
         back.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                startActivity(new Intent(ViewProfileActivity.this, UserHomeActivity.class));
+                startActivity(new Intent(ViewProfileActivity.this, HomeActivity.class));
             }
         });
     }
