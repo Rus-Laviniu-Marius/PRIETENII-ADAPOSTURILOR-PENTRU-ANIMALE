@@ -106,10 +106,7 @@ public class LoginActivity extends Activity implements TextWatcher, ErrorSetter 
                 MaterialAlertDialogBuilder materialAlertDialogBuilder = new MaterialAlertDialogBuilder(LoginActivity.this)
                         .setTitle("Forgotten password?")
                         .setMessage("Please enter your email address to receive the required steps " +
-                                "for resetting your password. Please enter a solid password which " +
-                                "has at least 14 characters and contains at least one digit " +
-                                "one lower character, one upper character and one special character. "+
-                                "Otherwise you have to keep resetting your password!")
+                                "for resetting your password.")
                         .setView(viewTextInput)
                         .setCancelable(false)
                         .setPositiveButton("Send", new DialogInterface.OnClickListener() {
