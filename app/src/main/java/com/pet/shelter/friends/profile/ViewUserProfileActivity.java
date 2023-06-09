@@ -24,7 +24,7 @@ import com.squareup.picasso.Picasso;
 import java.util.Objects;
 
 
-public class ViewProfileActivity extends AppCompatActivity {
+public class ViewUserProfileActivity extends AppCompatActivity {
 
     private FirebaseAuth firebaseAuth;
     FirebaseDatabase firebaseDatabase;
@@ -40,7 +40,7 @@ public class ViewProfileActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_view_profile);
+        setContentView(R.layout.activity_view_user_profile);
 
         firebaseAuth = FirebaseAuth.getInstance();
         firebaseDatabase = FirebaseDatabase.getInstance();
@@ -106,7 +106,7 @@ public class ViewProfileActivity extends AppCompatActivity {
         userPersonalDataTextView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                startActivity(new Intent(ViewProfileActivity.this, UserPersonalDataActivity.class));
+                startActivity(new Intent(ViewUserProfileActivity.this, UserPersonalDataActivity.class));
             }
         });
 
@@ -122,14 +122,14 @@ public class ViewProfileActivity extends AppCompatActivity {
             public void onClick(View view) {
 //                removeConnectedUserFromActiveUsers();
                 firebaseAuth.signOut();
-                startActivity(new Intent(ViewProfileActivity.this, LoginActivity.class));
+                startActivity(new Intent(ViewUserProfileActivity.this, LoginActivity.class));
             }
         });
 
         back.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                startActivity(new Intent(ViewProfileActivity.this, HomeActivity.class));
+                startActivity(new Intent(ViewUserProfileActivity.this, HomeActivity.class));
             }
         });
     }

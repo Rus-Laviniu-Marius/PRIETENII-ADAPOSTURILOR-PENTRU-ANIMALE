@@ -267,6 +267,9 @@
     <string name="news_category">News category</string>
     <string name="news_article_description">News article description</string>
     <string name="post">Post</string>
+    <string name="delete">Delete</string>
+    <string name="no_notifications">No notifications</string>
+    <string name="what_user_did_short_description">What user did short description</string>
 
 
 </resources>

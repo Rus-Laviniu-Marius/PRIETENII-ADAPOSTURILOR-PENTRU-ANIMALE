@@ -8,7 +8,7 @@
     android:orientation="vertical">
 
     <com.google.android.material.appbar.AppBarLayout
-        android:id="@+id/appBarLayout"
+        android:id="@+id/homeScreen_appBarLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content" >
         <com.google.android.material.appbar.MaterialToolbar
@@ -18,7 +18,7 @@
             app:layout_anchor="@+id/appBarLayout"
             app:layout_anchorGravity="center"
             app:menu="@menu/home_top_app_bar"
-            app:navigationIcon="@drawable/settings_filled_24"
+            app:navigationIcon="@drawable/profile_filled_24px"
             app:title="@string/app_name"
             app:titleCentered="true" />
     </com.google.android.material.appbar.AppBarLayout>

@@ -53,7 +53,10 @@ import com.pet.shelter.friends.profile.CreateUserProfileActivity;
 import java.io.ByteArrayOutputStream;
 import java.io.FileNotFoundException;
 import java.io.InputStream;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.Locale;
 import java.util.Objects;
 
 public class CreateNewsArticleActivity extends AppCompatActivity implements TextWatcher, ErrorSetter {
@@ -61,11 +64,7 @@ public class CreateNewsArticleActivity extends AppCompatActivity implements Text
     private TextInputLayout titleTextInputLayout, descriptionTextInputLayout;
     private TextInputEditText titleTextInputEditText, descriptionTextInputEditText;
 
-    private MaterialToolbar materialToolbar;
-    private FirebaseAuth firebaseAuth;
-    private FirebaseDatabase firebaseDatabase;
     private DatabaseReference newsArticlesReference;
-    private FirebaseStorage firebaseStorage;
     private StorageReference newsArticlesMediaContentReference;
 
     private ShapeableImageView articleMediaImage;
@@ -85,7 +84,7 @@ public class CreateNewsArticleActivity extends AppCompatActivity implements Text
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_create_news_article);
 
-        materialToolbar = findViewById(R.id.createNewsArticle_materialToolbar);
+        MaterialToolbar materialToolbar = findViewById(R.id.createNewsArticle_materialToolbar);
 
         materialToolbar.setOnMenuItemClickListener(new Toolbar.OnMenuItemClickListener() {
             @Override
@@ -116,10 +115,10 @@ public class CreateNewsArticleActivity extends AppCompatActivity implements Text
             }
         });
 
-        firebaseAuth = FirebaseAuth.getInstance();
-        firebaseDatabase = FirebaseDatabase.getInstance();
+        FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
+        FirebaseDatabase firebaseDatabase = FirebaseDatabase.getInstance();
         newsArticlesReference = firebaseDatabase.getReference("newsArticles");
-        firebaseStorage = FirebaseStorage.getInstance();
+        FirebaseStorage firebaseStorage = FirebaseStorage.getInstance();
         newsArticlesMediaContentReference = firebaseStorage.getReference();
 
         articleMediaImage = findViewById(R.id.createNewsArticle_shapeImageView);
@@ -242,14 +241,11 @@ public class CreateNewsArticleActivity extends AppCompatActivity implements Text
 
                 String title = Objects.requireNonNull(titleTextInputEditText.getText()).toString();
                 String description = Objects.requireNonNull(descriptionTextInputEditText.getText()).toString();
-                Date date = new Date();
-                String postedDate = date.toString();
+                DateFormat dateFormat;
+                dateFormat = DateFormat.getDateInstance(DateFormat.SHORT, Locale.ENGLISH);
+                String postedDate = dateFormat.toString();
 
                 String article = title + "_" + postedDate;
-
-
-
-
 
                 ValidationManager.getInstance().doValidation(CreateNewsArticleActivity.this,
                         titleTextInputLayout).checkEmpty();

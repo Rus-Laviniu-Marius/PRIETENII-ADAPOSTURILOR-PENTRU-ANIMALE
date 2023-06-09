@@ -23,8 +23,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:contentDescription="@string/add"
-            app:icon="@drawable/add_24px"
-            android:drawableStart="@drawable/add_24px"
+            app:icon="@drawable/add_24"
+            android:drawableStart="@drawable/add_24"
             android:text="@string/add_news"
             style="@style/Widget.Material3.ExtendedFloatingActionButton.Primary"/>
     </RelativeLayout>
