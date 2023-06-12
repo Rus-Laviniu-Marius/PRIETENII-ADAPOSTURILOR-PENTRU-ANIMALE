@@ -14,9 +14,13 @@
     <dimen name="small_padding">10dp</dimen>
     <dimen name="medium_padding">20dp</dimen>
     <dimen name="large_padding">30dp</dimen>
-    <dimen name="padding_vertical">5dp</dimen>
-    <dimen name="padding_horizontal">10dp</dimen>
 
     <dimen name="small_elevation">10dp</dimen>
     <dimen name="padding_small">10dp</dimen>
+
+    <dimen name="padding_vertical_header">12dp</dimen>
+    <dimen name="padding_vertical_text_content">16dp</dimen>
+    <dimen name="padding_horizontal">16dp</dimen>
+    <dimen name="horizontal_space_between_items">16dp</dimen>
+    <dimen name="vertical_space_between_items">10dp</dimen>
 </resources>

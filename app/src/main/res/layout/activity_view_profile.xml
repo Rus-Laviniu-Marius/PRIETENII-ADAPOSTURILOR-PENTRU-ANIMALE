@@ -1,123 +1,167 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".profile.ViewProfileActivity"
-    android:background="@color/aero_blue">
+    tools:context=".profile.ViewProfileActivity">
 
-    <LinearLayout
+    <com.google.android.material.appbar.AppBarLayout
+        android:id="@+id/viewProfile_appBarLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical" >
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
 
-        <ImageView
-            android:id="@+id/viewProfileBack_imageView"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:src="@drawable/back_64"
-            android:contentDescription="@string/back"
-            android:layout_margin="@dimen/small_margin"
-            android:padding="@dimen/small_padding"/>
+        <com.google.android.material.appbar.MaterialToolbar
+            android:id="@+id/viewProfileScreenTop_materialToolbar"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            app:layout_anchor="@+id/appBarLayout"
+            app:layout_anchorGravity="center"
+            app:menu="@menu/delete_top_app_bar_menu"
+            app:navigationIcon="@drawable/arrow_back_24"
+            app:title="@string/profile"
+            app:titleCentered="true" />
+    </com.google.android.material.appbar.AppBarLayout>
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical" >
+    <com.google.android.material.imageview.ShapeableImageView
+        android:id="@+id/viewProfileImage_shapeImageView"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:adjustViewBounds="true"
+        android:contentDescription="@string/user_profile_image"
+        android:maxHeight="200dp"
+        android:maxWidth="200dp"
+        android:scaleType="centerInside"
+        app:layout_constraintBottom_toTopOf="@+id/guideline12"
+        app:layout_constraintEnd_toStartOf="@+id/guideline18"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toEndOf="@+id/guideline17"
+        app:layout_constraintTop_toBottomOf="@+id/viewProfile_appBarLayout"
+        app:layout_constraintVertical_bias="0.485"
+        app:srcCompat="@drawable/add_image_100px" />
 
-            <de.hdodenhof.circleimageview.CircleImageView
-                android:id="@+id/viewProfileUser_imageView"
-                android:layout_width="200dp"
-                android:layout_height="200dp"
-                android:src="@drawable/outline_user_profile_64"
-                android:contentDescription="@string/user_profile"
-                android:layout_gravity="center"
-                android:layout_margin="@dimen/small_margin"
-                android:padding="@dimen/small_padding"/>
-            <TextView
-                android:id="@+id/viewProfileUserName_textView"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="@string/user_name"
-                android:textAlignment="center"
-                android:textSize="@dimen/large_text_size"
-                android:layout_margin="@dimen/small_margin"
-                android:padding="@dimen/small_padding"/>
-            <ImageView
-                android:id="@+id/viewProfileRating_imageView"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:src="@drawable/rating_5_stars_128"
-                android:contentDescription="@string/rating"                />
-        </LinearLayout>
-        
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical" >
-            <TextView
-                android:id="@+id/viewProfileSeeFavoritePets_textView"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:textSize="@dimen/medium_text_size"
-                android:text="@string/favorite_pets"
-                android:textAlignment="center"
-                android:drawablePadding="@dimen/medium_padding"
-                app:drawableStartCompat="@drawable/heart_32"
-                app:drawableEndCompat="@drawable/next_right_32"
-                android:padding="@dimen/small_padding"
-                android:layout_margin="@dimen/small_margin"
-                android:background="@drawable/white_rounded_corners_text_view_button_background"/>
-            <TextView
-                android:id="@+id/viewProfileSeePersonalData_textView"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:textSize="@dimen/medium_text_size"
-                android:text="@string/personal_data"
-                android:textAlignment="center"
-                android:drawablePadding="@dimen/medium_padding"
-                app:drawableStartCompat="@drawable/outline_user_profile_32"
-                app:drawableEndCompat="@drawable/next_right_32"
-                android:padding="@dimen/small_padding"
-                android:layout_margin="@dimen/small_margin"
-                android:background="@drawable/white_rounded_corners_text_view_button_background"/>
-            <TextView
-                android:id="@+id/viewProfileSeeHistoryEvents_textView"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:textSize="@dimen/medium_text_size"
-                android:text="@string/past_attended_events"
-                android:textAlignment="center"
-                android:drawablePadding="@dimen/medium_padding"
-                app:drawableStartCompat="@drawable/past_events_32"
-                app:drawableEndCompat="@drawable/next_right_32"
-                android:padding="@dimen/small_padding"
-                android:layout_margin="@dimen/small_margin"
-                android:background="@drawable/white_rounded_corners_text_view_button_background"/>
-            <TextView
-                android:id="@+id/viewProfileSeePetPreferences_textView"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:textSize="@dimen/medium_text_size"
-                android:text="@string/pet_preferences"
-                android:textAlignment="center"
-                android:drawablePadding="@dimen/medium_padding"
-                app:drawableStartCompat="@drawable/filter_32"
-                app:drawableEndCompat="@drawable/next_right_32"
-                android:padding="@dimen/small_padding"
-                android:layout_margin="@dimen/small_margin"
-                android:background="@drawable/white_rounded_corners_text_view_button_background"/>
-        </LinearLayout>
-        
-        <Button
-            android:id="@+id/viewProfileLogout_button"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_margin="@dimen/medium_margin"
-            android:text="@string/log_out"
-            android:textColor="@color/black"
-            android:padding="@dimen/small_padding"
-            android:textSize="@dimen/medium_text_size"/>
-    </LinearLayout>
-</ScrollView>
+    <com.google.android.material.textview.MaterialTextView
+        android:id="@+id/viewProfileName_materialTextView"
+        style="@style/TextAppearance.Material3.HeadlineLarge"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/small_margin"
+        android:text="@string/user_name"
+        android:textAlignment="center"
+        app:layout_constraintBottom_toTopOf="@+id/viewProfileSettings_materialButton"
+        app:layout_constraintEnd_toStartOf="@+id/guideline18"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/guideline17"
+        app:layout_constraintTop_toBottomOf="@+id/guideline12" />
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/viewProfileSettings_materialButton"
+        style="@style/Widget.Material3.Button.Icon"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="@string/settings"
+        app:icon="@drawable/settings_outline_24"
+        app:layout_constraintBottom_toTopOf="@+id/viewProfilePersonalData_materialButton"
+        app:layout_constraintEnd_toStartOf="@+id/guideline18"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/guideline17"
+        app:layout_constraintTop_toBottomOf="@+id/viewProfileName_materialTextView"
+        app:layout_constraintWidth_max="320dp" />
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/viewProfilePersonalData_materialButton"
+        style="@style/Widget.Material3.Button.Icon"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="@string/personal_data"
+        app:icon="@drawable/person_outline_24"
+        app:layout_constraintBottom_toTopOf="@+id/viewProfilePastAttendedEvents_materialButton"
+        app:layout_constraintEnd_toStartOf="@+id/guideline18"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/guideline17"
+        app:layout_constraintTop_toBottomOf="@+id/viewProfileSettings_materialButton"
+        app:layout_constraintWidth_max="320dp" />
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/viewProfilePastAttendedEvents_materialButton"
+        style="@style/Widget.Material3.Button.Icon"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="@string/past_attended_events"
+        app:icon="@drawable/history_24"
+        app:layout_constraintBottom_toTopOf="@+id/viewProfileActiveServices_materialButton"
+        app:layout_constraintEnd_toStartOf="@+id/guideline18"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/guideline17"
+        app:layout_constraintTop_toBottomOf="@+id/viewProfilePersonalData_materialButton"
+        app:layout_constraintWidth_max="320dp" />
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/viewProfileActiveServices_materialButton"
+        style="@style/Widget.Material3.Button.Icon"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="@string/active_services"
+        app:icon="@drawable/handshake_outline_24"
+        app:layout_constraintBottom_toTopOf="@+id/viewProfileLogout_materialButton"
+        app:layout_constraintEnd_toStartOf="@+id/guideline18"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/guideline17"
+        app:layout_constraintTop_toBottomOf="@+id/viewProfilePastAttendedEvents_materialButton"
+        app:layout_constraintWidth_max="320dp" />
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/viewProfileChangeRole_materialButton"
+        style="@style/Widget.Material3.Button.OutlinedButton"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="@dimen/small_margin"
+        android:text="@string/change_role"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/viewProfileLogout_materialButton"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/guideline17"
+        app:layout_constraintTop_toBottomOf="@+id/viewProfileActiveServices_materialButton"
+        app:layout_constraintWidth_max="320dp" />
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/viewProfileLogout_materialButton"
+        style="@style/Widget.Material3.Button"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/small_margin"
+        android:text="@string/log_out"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/guideline18"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/viewProfileChangeRole_materialButton"
+        app:layout_constraintTop_toBottomOf="@+id/viewProfileActiveServices_materialButton"
+        app:layout_constraintWidth_max="320dp" />
+
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline17"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent="0.05" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline18"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent="0.95" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline12"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.35" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

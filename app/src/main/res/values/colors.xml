@@ -12,50 +12,79 @@
     <color name="deep_koamaru">#2E3656</color> card background
     <color name="soap">#CED5F1</color> bottom bar
 
+<!--    colorOnPrimaryContainerLight=primary_10-->
     <color name="primary_10">#21005D</color>
+<!--    colorOnPrimaryDark=primary_20-->
     <color name="primary_20">#381E72</color>
+<!--    colorPrimaryContainer=primary_30-->
     <color name="primary_30">#4F378B</color>
+<!--    colorPrimaryLight=primary_40 && colorPrimaryInverseDark=primary_40-->
     <color name="primary_40">#6750A4</color>
     <color name="primary_50">#7F67BE</color>
     <color name="primary_60">#9A82DB</color>
     <color name="primary_70">#B69DF8</color>
+<!--    colorPrimaryInverseLight=primary_80 && colorPrimaryDark=primary_80-->
     <color name="primary_80">#D0BCFF</color>
+<!--    colorPrimaryContainerLight=primary_90 && colorOnPrimaryContainerDark=primary_90-->
     <color name="primary_90">#EADDFF</color>
+<!--    colorOnPrimaryLight=primary_100-->
     <color name="primary_100">#ffffff</color>
 
+<!--    colorOnSecondaryContainerLight=secondary_10-->
     <color name="secondary_10">#1D192B</color>
+<!--    colorOnSecondaryDark=secondary_20-->
     <color name="secondary_20">#332D41</color>
+<!--    colorSecondaryContainerDark=secondary_30-->
     <color name="secondary_30">#4A4458</color>
+<!--    colorSecondaryLight=secondary_40-->
     <color name="secondary_40">#625B71</color>
     <color name="secondary_50">#7A7289</color>
     <color name="secondary_60">#958DA5</color>
     <color name="secondary_70">#B0A7C0</color>
+<!--    colorSecondaryDark=primary_80-->
     <color name="secondary_80">#CCC2DC</color>
+<!--    colorSecondaryContainerLight=secondary_90 && colorOnSecondaryContainerDark=secondary_90-->
     <color name="secondary_90">#E8DEF8</color>
+<!--    colorOnSecondaryLight=secondary_100-->
     <color name="secondary_100">#ffffff</color>
 
+<!--    colorOnTertiaryContainerLight=tertiary_10-->
     <color name="tertiary_10">#31111D</color>
+<!--    colorOnTertiaryDark=tertiary_20-->
     <color name="tertiary_20">#492532</color>
+<!--    colorTertiaryContainerDark=tertiary_30-->
     <color name="tertiary_30">#633B48</color>
+<!--    colorTertiaryLight=tertiary_40-->
     <color name="tertiary_40">#7D5260</color>
     <color name="tertiary_50">#986977</color>
     <color name="tertiary_60">#B58392</color>
     <color name="tertiary_70">#D29DAC</color>
+<!--    colorTertiaryDark=tertiary_80-->
     <color name="tertiary_80">#EFB8C8</color>
+<!--    colorTertiaryContainerLight=tertiary_90 && colorOnTertiaryContainerDark=tertiary_90-->
     <color name="tertiary_90">#FFD8E4</color>
+<!--    colorOnTertiaryLight=tertiary_100-->
     <color name="tertiary_100">#ffffff</color>
 
+<!--    colorOnErrorContainerLight=error_10-->
     <color name="error_10">#410E0B</color>
+<!--    colorOnErrorDark=error_20-->
     <color name="error_20">#601410</color>
+<!--    colorErrorContainerDark=error_30-->
     <color name="error_30">#8C1D18</color>
+<!--    colorErrorLight=error_40-->
     <color name="error_40">#B3261E</color>
     <color name="error_50">#DC362E</color>
     <color name="error_60">#E46962</color>
     <color name="error_70">#EC928E</color>
+<!--    colorErrorDark=error_80-->
     <color name="error_80">#F2B8B5</color>
+<!--    colorErrorContainerLight=error_90 && colorOnErrorContainerDark=error_90-->
     <color name="error_90">#F9DEDC</color>
+<!--    colorOnErrorLight=error_100-->
     <color name="error_100">#ffffff</color>
 
+<!--    colorOnBackgroundLight=neutral_10 && colorBackgroundDark=neutral_10 && colorOnSurfaceLight=neutral_10 && colorSurfaceDark=neutral_10-->
     <color name="neutral_10">#1C1B1F</color>
     <color name="neutral_20">#313033</color>
     <color name="neutral_30">#484649</color>
@@ -64,17 +93,26 @@
     <color name="neutral_60">#939094</color>
     <color name="neutral_70">#AEAAAE</color>
     <color name="neutral_80">#C9C5CA</color>
+<!--    colorOnBackgroundDark=neutral_90 && colorOnSurfaceDark=neutral_90-->
     <color name="neutral_90">#E6E1E5</color>
+<!--    colorBackgroundLight=neutral_99 && colorSurfaceLight=neutral_99-->
     <color name="neutral_99">#FFFBFE</color>
 
     <color name="neutral_variant_10">#1D1A22</color>
     <color name="neutral_variant_20">#322F37</color>
+<!--    colorOnSurfaceVariantLight=neutral_variant_30 && colorSurfaceVariantDark=neutral_variant_30 && colorOutlineVariantDark=neutral_variant_30-->
     <color name="neutral_variant_30">#49454F</color>
     <color name="neutral_variant_40">#605D66</color>
+<!--    colorOutlineLight=neutral_variant_50-->
     <color name="neutral_variant_50">#79747E</color>
+<!--    colorOutlineDark=neutral_variant_60-->
     <color name="neutral_variant_60">#938F99</color>
     <color name="neutral_variant_70">#AEA9B4</color>
+<!--    colorOnSurfaceVariantDark=neutral_variant_80 && colorOutlineVariantLight=neutral_variant_80-->
     <color name="neutral_variant_80">#CAC4D0</color>
+<!--    colorSurfaceVariantLight=neutral_variant_90-->
     <color name="neutral_variant_90">#E7E0EC</color>
+
+
 
 </resources>
