@@ -34,14 +34,14 @@ import java.util.Objects;
 public class ViewProfileActivity extends AppCompatActivity {
 
     private FirebaseAuth firebaseAuth;
-    FirebaseDatabase firebaseDatabase;
-    DatabaseReference profiles;
+    private DatabaseReference profiles, roles;
     private MaterialToolbar materialToolbar;
-    private MaterialTextView userNameMaterialTextView;
-    private ShapeableImageView userProfileShapeImageView;
+    private MaterialTextView nameMaterialTextView;
+    private ShapeableImageView profileShapeImageView;
     private MaterialButton settingsMaterialButton, personalDataMaterialButton, logoutMaterialButton,
             pastAttendedEventsMaterialButton, activeServicesMaterialButton, changeRoleMaterialButton;
     private String loggedUserId;
+    private String role;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -49,18 +49,18 @@ public class ViewProfileActivity extends AppCompatActivity {
         setContentView(R.layout.activity_view_profile);
 
         firebaseAuth = FirebaseAuth.getInstance();
-        firebaseDatabase = FirebaseDatabase.getInstance();
-        profiles = firebaseDatabase.getReference("profiles");
+        profiles = FirebaseDatabase.getInstance().getReference("profiles");
+        roles = FirebaseDatabase.getInstance().getReference("roles");
 
-        materialToolbar = findViewById(R.id.viewUserProfileScreenTop_materialToolbar);
-        userProfileShapeImageView = findViewById(R.id.viewUserProfileImage_imageView);
-        userNameMaterialTextView = findViewById(R.id.viewUserProfileUserName_materialTextView);
-        settingsMaterialButton = findViewById(R.id.viewUserProfileSettings_materialButton);
-        personalDataMaterialButton = findViewById(R.id.viewUserProfilePersonalData_materialButton);
-        pastAttendedEventsMaterialButton = findViewById(R.id.viewUserProfilePastAttendedEvents_materialButton);
-        activeServicesMaterialButton = findViewById(R.id.viewUserProfileActiveServices_materialButton);
-        logoutMaterialButton = findViewById(R.id.viewUserProfileLogout_materialButton);
-        changeRoleMaterialButton = findViewById(R.id.viewUserProfileChangeRole_materialButton);
+        materialToolbar = findViewById(R.id.viewProfileScreenTop_materialToolbar);
+        profileShapeImageView = findViewById(R.id.viewProfileImage_shapeImageView);
+        nameMaterialTextView = findViewById(R.id.viewProfileName_materialTextView);
+        settingsMaterialButton = findViewById(R.id.viewProfileSettings_materialButton);
+        personalDataMaterialButton = findViewById(R.id.viewProfilePersonalData_materialButton);
+        pastAttendedEventsMaterialButton = findViewById(R.id.viewProfilePastAttendedEvents_materialButton);
+        activeServicesMaterialButton = findViewById(R.id.viewProfileActiveServices_materialButton);
+        logoutMaterialButton = findViewById(R.id.viewProfileLogout_materialButton);
+        changeRoleMaterialButton = findViewById(R.id.viewProfileChangeRole_materialButton);
 
         loggedUserId = Objects.requireNonNull(firebaseAuth.getCurrentUser()).getUid();
 
@@ -71,16 +71,36 @@ public class ViewProfileActivity extends AppCompatActivity {
 
     private void readDataFromDatabase() {
 
+        roles.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                if (snapshot.child(loggedUserId).hasChild("user")) {
+                    role = "user";
+                } else {
+                    changeRoleMaterialButton.setVisibility(View.GONE);
+                    role = "shelterAdministrator";
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+
         profiles.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
-                if (snapshot.hasChild("users")) {
-                    String profileImageDownloadLink = Objects.requireNonNull(snapshot.child(loggedUserId).child("profileImageDownloadLink").getValue()).toString();
-                    String name = Objects.requireNonNull(snapshot.child(loggedUserId).child("name").getValue()).toString();
-
-                    Picasso.get().load(profileImageDownloadLink).into(userProfileShapeImageView);
-                    userNameMaterialTextView.setText(name);
+                String profileImageDownloadLink, name;
+                if (role.equals("user")) {
+                    profileImageDownloadLink = Objects.requireNonNull(snapshot.child("users").child(loggedUserId).child("profileImageDownloadLink").getValue()).toString();
+                    name = Objects.requireNonNull(snapshot.child("users").child(loggedUserId).child("name").getValue()).toString();
+                } else {
+                    profileImageDownloadLink = Objects.requireNonNull(snapshot.child("sheltersAdministrators").child(loggedUserId).child("profileImageDownloadLink").getValue()).toString();
+                    name = Objects.requireNonNull(snapshot.child("sheltersAdministrators").child(loggedUserId).child("name").getValue()).toString();
                 }
+                Picasso.get().load(profileImageDownloadLink).centerInside().fit().into(profileShapeImageView);
+                nameMaterialTextView.setText(name);
             }
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
@@ -95,6 +115,7 @@ public class ViewProfileActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 startActivity(new Intent(ViewProfileActivity.this, SettingsActivity.class));
+                finish();
             }
         });
 
@@ -102,6 +123,7 @@ public class ViewProfileActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 startActivity(new Intent(ViewProfileActivity.this, UserPersonalDataActivity.class));
+                finish();
             }
         });
 
@@ -109,6 +131,7 @@ public class ViewProfileActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 startActivity(new Intent(ViewProfileActivity.this, PastAttendedEventsActivity.class));
+                finish();
             }
         });
 
@@ -116,6 +139,7 @@ public class ViewProfileActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 startActivity(new Intent(ViewProfileActivity.this, ActiveServicesActivity.class));
+                finish();
             }
         });
 
@@ -124,6 +148,7 @@ public class ViewProfileActivity extends AppCompatActivity {
             public void onClick(View view) {
                 firebaseAuth.signOut();
                 startActivity(new Intent(ViewProfileActivity.this, LoginActivity.class));
+                finish();
             }
         });
 
@@ -131,6 +156,7 @@ public class ViewProfileActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 startActivity(new Intent(ViewProfileActivity.this, WhoAreYouActivity.class));
+                finish();
             }
         });
 
@@ -138,6 +164,7 @@ public class ViewProfileActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 startActivity(new Intent(ViewProfileActivity.this, HomeActivity.class));
+                finish();
             }
         });
 
@@ -151,7 +178,11 @@ public class ViewProfileActivity extends AppCompatActivity {
                             .setPositiveButton("Delete", new DialogInterface.OnClickListener() {
                                 @Override
                                 public void onClick(DialogInterface dialog, int which) {
-                                    Toast.makeText(ViewProfileActivity.this, "Deleting profile", Toast.LENGTH_SHORT).show();
+                                    if (role.equals("shelterAdministrator")) {
+                                        profiles.child("sheltersAdministrators").child(loggedUserId).removeValue();
+                                    } else {
+                                        profiles.child("users").child(loggedUserId).removeValue();
+                                    }
                                 }
                             })
                             .setNegativeButton("Cancel", new DialogInterface.OnClickListener() {

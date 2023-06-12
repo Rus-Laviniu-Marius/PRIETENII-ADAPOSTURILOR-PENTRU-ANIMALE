@@ -3,7 +3,6 @@ package com.pet.shelter.friends;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.constraintlayout.widget.ConstraintLayout;
-import androidx.coordinatorlayout.widget.CoordinatorLayout;
 
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -19,7 +18,6 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
-import com.pet.shelter.friends.profile.CreateShelterAdminProfileActivity;
 
 import java.util.Objects;
 
@@ -63,7 +61,7 @@ public class WhoAreYouActivity extends AppCompatActivity {
                     @Override
                     public void onDataChange(@NonNull DataSnapshot snapshot) {
                         if (snapshot.child(loggedUserId).hasChild("user")) {
-                            MaterialAlertDialogBuilder materialAlertDialogBuilder = new MaterialAlertDialogBuilder(getApplicationContext())
+                            MaterialAlertDialogBuilder materialAlertDialogBuilder = new MaterialAlertDialogBuilder(WhoAreYouActivity.this)
                                     .setTitle("Warning!")
                                     .setMessage("As a shelter administrator, " +
                                             "you will no longer be able to switch accounts until you delete " +
@@ -85,6 +83,7 @@ public class WhoAreYouActivity extends AppCompatActivity {
                                             snackbar.show();
                                         }
                                     });
+                            materialAlertDialogBuilder.create().show();
                         } else {
                             roles.child(loggedUserId).child("shelterAdministrator").setValue(true);
                             Intent intent = new Intent(WhoAreYouActivity.this, HomeActivity.class);

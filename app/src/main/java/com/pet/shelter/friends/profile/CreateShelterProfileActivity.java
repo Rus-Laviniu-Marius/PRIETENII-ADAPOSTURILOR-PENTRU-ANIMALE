@@ -21,6 +21,7 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
+import com.google.android.material.appbar.MaterialToolbar;
 import com.google.android.material.button.MaterialButton;
 import com.google.android.material.imageview.ShapeableImageView;
 import com.google.android.material.textfield.TextInputEditText;
@@ -43,28 +44,28 @@ import java.util.Objects;
 
 public class CreateShelterProfileActivity extends AppCompatActivity implements TextWatcher, ErrorSetter {
 
-    public FirebaseAuth firebaseAuth;
-    public FirebaseDatabase firebaseDatabase;
-    public DatabaseReference registeredShelters;
+    private FirebaseAuth firebaseAuth;
+    private FirebaseDatabase firebaseDatabase;
+    private DatabaseReference registeredShelters;
 
-    public FirebaseStorage firebaseStorage;
+    private FirebaseStorage firebaseStorage;
 
-    public StorageReference sheltersLogos;
+    private StorageReference sheltersLogos;
 
     private String loggedUserId;
 
-    public TextInputLayout ibanTextInputLayout, nameTextInputLayout, addressTextInputLayout,
+    private TextInputLayout ibanTextInputLayout, nameTextInputLayout, addressTextInputLayout,
             latitudeTextInputLayout, longitudeTextInputLayout, phoneNumberTextInputLayout,
             emailTextInputLayout, webPageLinkTextInputLayout, ourMissionTextInputLayout,
             ourAdoptionPolicyTextInputLayout;
 
-    public TextInputEditText ibanTextInputEditText, nameTextInputEditText, addressTextInputEditText,
+    private TextInputEditText ibanTextInputEditText, nameTextInputEditText, addressTextInputEditText,
             latitudeTextInputEditText, longitudeTextInputEditText, phoneNumberTextInputEditText,
             emailTextInputEditText, webPageLinkTextInputEditText, ourMissionTextInputEditText,
             ourAdoptionPolicyTextInputEditText;
-
-    public MaterialButton addShelterMaterialButton;
-    public ShapeableImageView shelterLogoShapeImageView;
+    private MaterialToolbar materialToolbar;
+    private MaterialButton addShelterMaterialButton;
+    private ShapeableImageView shelterLogoShapeImageView;
     private Uri gallerySelectedImageUri;
 
     private static final int PICK_FROM_GALLERY = 1889;
@@ -84,6 +85,7 @@ public class CreateShelterProfileActivity extends AppCompatActivity implements T
 
         loggedUserId = Objects.requireNonNull(firebaseAuth.getCurrentUser()).getUid();
 
+        materialToolbar = findViewById(R.id.createShelterProfile_materialToolbar);
         ibanTextInputLayout = findViewById(R.id.createShelterProfileIBAN_textInputLayout);
         nameTextInputLayout = findViewById(R.id.createShelterProfileName_textInputLayout);
         addressTextInputLayout = findViewById(R.id.createShelterProfileAddress_textInputLayout);
@@ -111,8 +113,7 @@ public class CreateShelterProfileActivity extends AppCompatActivity implements T
         shelterLogoShapeImageView = findViewById(R.id.createShelterProfileLogo_shapeImageView);
 
         galleryActivityResultLauncher = registerForActivityResult(
-                new ActivityResultContracts.StartActivityForResult(),
-                result -> {
+                new ActivityResultContracts.StartActivityForResult(), result -> {
                     if (result.getResultCode() == Activity.RESULT_OK) {
                         // There are no request codes
                         // doSomeOperations();

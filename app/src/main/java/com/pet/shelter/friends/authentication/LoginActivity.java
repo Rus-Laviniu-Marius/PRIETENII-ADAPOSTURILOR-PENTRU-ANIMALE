@@ -42,7 +42,6 @@ public class LoginActivity extends Activity implements TextWatcher, ErrorSetter 
     private FirebaseAuth mAuth;
     private FirebaseUser mUser;
     private DatabaseReference roles;
-    private String currentUserId;
     private TextInputLayout emailTextInputLayout, passwordTextInputLayout;
     private TextInputEditText emailTextInputEditText, passwordTextInputEditText;
     private MaterialButton loginMaterialButton, googleSignInMaterialButton, facebookSignInMaterialButton,
@@ -64,8 +63,8 @@ public class LoginActivity extends Activity implements TextWatcher, ErrorSetter 
         forgottenPasswordMaterialButton = findViewById(R.id.forgottenPassword_materialButton);
         roles = FirebaseDatabase.getInstance().getReference("roles");
         mAuth = FirebaseAuth.getInstance();
+        mUser = FirebaseAuth.getInstance().getCurrentUser();
 
-        currentUserId = Objects.requireNonNull(mAuth.getCurrentUser()).getUid();
 
         setOnClickListeners();
 
@@ -79,6 +78,7 @@ public class LoginActivity extends Activity implements TextWatcher, ErrorSetter 
                 Intent intent = new Intent(LoginActivity.this, GoogleSignInActivity.class);
                 intent.setFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
                 startActivity(intent);
+                finish();
             }
         });
 
@@ -88,6 +88,7 @@ public class LoginActivity extends Activity implements TextWatcher, ErrorSetter 
                 Intent intent = new Intent(LoginActivity.this, FacebookAuthActivity.class);
                 intent.setFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
                 startActivity(intent);
+                finish();
             }
         });
 
@@ -199,14 +200,16 @@ public class LoginActivity extends Activity implements TextWatcher, ErrorSetter 
         roles.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
-                if (snapshot.hasChild(currentUserId)) {
+                if (snapshot.hasChild(mUser.getUid())) {
                     Intent intent = new Intent(LoginActivity.this, HomeActivity.class);
                     intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK| Intent.FLAG_ACTIVITY_NEW_TASK);
                     startActivity(intent);
+                    finish();
                 } else {
                     Intent intent = new Intent(LoginActivity.this, WhoAreYouActivity.class);
                     intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK| Intent.FLAG_ACTIVITY_NEW_TASK);
                     startActivity(intent);
+                    finish();
                 }
             }
 

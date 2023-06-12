@@ -8,7 +8,6 @@ import androidx.appcompat.widget.Toolbar;
 
 import android.Manifest;
 import android.app.Activity;
-import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
@@ -23,7 +22,6 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
-import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -47,15 +45,11 @@ import com.pet.shelter.friends.ErrorSetter;
 import com.pet.shelter.friends.HomeActivity;
 import com.pet.shelter.friends.R;
 import com.pet.shelter.friends.ValidationManager;
-import com.pet.shelter.friends.profile.CreateShelterProfileActivity;
-import com.pet.shelter.friends.profile.CreateUserProfileActivity;
 
 import java.io.ByteArrayOutputStream;
 import java.io.FileNotFoundException;
 import java.io.InputStream;
 import java.text.DateFormat;
-import java.text.SimpleDateFormat;
-import java.util.Date;
 import java.util.Locale;
 import java.util.Objects;
 

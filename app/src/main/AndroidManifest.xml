@@ -48,9 +48,6 @@
             android:name=".profile.CreateShelterProfileActivity"
             android:exported="false" />
         <activity
-            android:name=".profile.CreateShelterAdminProfileActivity"
-            android:exported="false" />
-        <activity
             android:name=".WhoAreYouActivity"
             android:exported="false" />
 
@@ -86,7 +83,7 @@
                 android:value="" />
         </activity>
         <activity
-            android:name=".profile.CreateUserProfileActivity"
+            android:name=".profile.CreateProfileActivity"
             android:exported="false">
             <meta-data
                 android:name="android.app.lib_name"

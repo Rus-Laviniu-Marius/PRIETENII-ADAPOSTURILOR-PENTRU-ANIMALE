@@ -11,7 +11,7 @@
         android:layout_height="wrap_content">
 
         <com.google.android.material.appbar.AppBarLayout
-            android:id="@+id/createShelterProfileAppBarLayout"
+            android:id="@+id/createShelterProfile_appBarLayout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             app:layout_constraintTop_toTopOf="parent"
@@ -26,7 +26,7 @@
                 app:layout_anchorGravity="center"
                 app:menu="@menu/help_top_app_bar"
                 app:navigationIcon="@drawable/arrow_back_24"
-                app:title="@string/app_name"
+                app:title="@string/create_shelter_profile"
                 app:titleCentered="true" />
         </com.google.android.material.appbar.AppBarLayout>
 
@@ -40,7 +40,7 @@
             app:layout_constraintEnd_toStartOf="@+id/guideline11"
             app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintStart_toEndOf="@+id/guideline10"
-            app:layout_constraintTop_toBottomOf="@+id/createShelterProfileAppBarLayout" />
+            app:layout_constraintTop_toBottomOf="@+id/createShelterProfile_appBarLayout" />
 
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/createShelterProfileIBAN_textInputLayout"
@@ -243,7 +243,7 @@
             android:inputType="text"
             app:endIconMode="clear_text"
             app:errorEnabled="true"
-            app:helperText="*Required"
+            app:helperText="(Optional)"
             app:layout_constraintBottom_toTopOf="@+id/createShelterProfileOurMission_textInputLayout"
             app:layout_constraintEnd_toStartOf="@+id/guideline11"
             app:layout_constraintHorizontal_bias="0.5"
@@ -269,7 +269,7 @@
             android:inputType="text"
             app:endIconMode="clear_text"
             app:errorEnabled="true"
-            app:helperText="*Required"
+            app:helperText="(Optional)"
             app:layout_constraintBottom_toTopOf="@+id/createShelterProfileOurAdoptionPolicy_textInputLayout"
             app:layout_constraintEnd_toStartOf="@+id/guideline11"
             app:layout_constraintHorizontal_bias="0.5"
@@ -295,7 +295,7 @@
             android:inputType="text"
             app:endIconMode="clear_text"
             app:errorEnabled="true"
-            app:helperText="*Required"
+            app:helperText="(Optional)"
             app:layout_constraintBottom_toTopOf="@+id/createShelterProfile_materialButton"
             app:layout_constraintEnd_toStartOf="@+id/guideline11"
             app:layout_constraintHorizontal_bias="0.5"

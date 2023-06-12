@@ -1,5 +1,6 @@
 package com.pet.shelter.friends.profile;
 
+
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.NonNull;
@@ -29,10 +30,12 @@ import com.google.android.material.imageview.ShapeableImageView;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.android.material.textfield.TextInputLayout;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.storage.FirebaseStorage;
-import com.google.firebase.storage.OnProgressListener;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 import com.pet.shelter.friends.ErrorSetter;
@@ -44,7 +47,7 @@ import java.io.FileNotFoundException;
 import java.io.InputStream;
 import java.util.Objects;
 
-public class CreateShelterAdminProfileActivity extends AppCompatActivity implements TextWatcher, ErrorSetter {
+public class CreateProfileActivity extends AppCompatActivity implements TextWatcher, ErrorSetter {
 
     private DatabaseReference profiles;
     private StorageReference profileImages;
@@ -53,44 +56,45 @@ public class CreateShelterAdminProfileActivity extends AppCompatActivity impleme
     private ShapeableImageView profileImageView;
     private Uri gallerySelectedImageUri, cameraCapturedImageUri;
     private Bitmap cameraCapturedImageBitmap;
-    private ActivityResultLauncher<Intent> galleryActivityResultLauncher, cameraActivityResultLauncher;
     private String loggedUserId;
+    private String role;
     private static final int PICK_FROM_GALLERY = 1889;
     private static final int MY_CAMERA_PERMISSION_CODE = 100;
+
+    private ActivityResultLauncher<Intent> galleryActivityResultLauncher, cameraActivityResultLauncher;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_create_shelter_admin_profile);
+        setContentView(R.layout.activity_create_profile);
 
         FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
-        FirebaseDatabase firebaseDatabase = FirebaseDatabase.getInstance();
-        FirebaseStorage firebaseStorage = FirebaseStorage.getInstance();
-        profileImages = firebaseStorage.getReference("profiles");
-        profiles = firebaseDatabase.getReference("profiles");
+        profileImages = FirebaseStorage.getInstance().getReference("profiles");
+        profiles = FirebaseDatabase.getInstance().getReference("profiles");
+        DatabaseReference roles = FirebaseDatabase.getInstance().getReference("roles");
 
-        MaterialButton openGalleryMaterialButton = findViewById(R.id.createShelterAdminProfileOpenGallery_materialButton);
-        MaterialButton openCameraMaterialButton = findViewById(R.id.createShelterAdminProfileOpenCamera_materialButton);
-        MaterialButton createProfileMaterialButton = findViewById(R.id.createShelterAdminProfile_materialButton);
-        MaterialButton skipCreateProfileMaterialButton = findViewById(R.id.createShelterAdminProfileSkip_materialButton);
+        MaterialButton openGalleryMaterialButton = findViewById(R.id.createProfileOpenGallery_materialButton);
+        MaterialButton openCameraMaterialButton = findViewById(R.id.createProfileOpenCamera_materialButton);
+        MaterialButton createProfileMaterialButton = findViewById(R.id.createProfile_materialButton);
+        MaterialButton skipCreateProfileMaterialButton = findViewById(R.id.createProfileSkip_materialButton);
 
-        nameTextInputLayout = findViewById(R.id.createShelterAdminProfileName_textInputLayout);
-        ageTextInputLayout = findViewById(R.id.createShelterAdminProfileAge_textInputLayout);
-        addressTextInputLayout = findViewById(R.id.createShelterAdminProfileAddress_textInputLayout);
-        phoneNumberTextInputLayout = findViewById(R.id.createShelterAdminProfilePhoneNumber_textInputLayout);
+        nameTextInputLayout = findViewById(R.id.createProfileName_textInputLayout);
+        ageTextInputLayout = findViewById(R.id.createProfileAge_textInputLayout);
+        addressTextInputLayout = findViewById(R.id.createProfileAddress_textInputLayout);
+        phoneNumberTextInputLayout = findViewById(R.id.createProfilePhoneNumber_textInputLayout);
 
-        nameTextInputEditText = findViewById(R.id.createShelterAdminProfileName_textInputEditText);
-        ageTextInputEditText = findViewById(R.id.createShelterAdminProfileAge_textInputEditText);
-        addressTextInputEditText = findViewById(R.id.createShelterAdminProfileAddress_textInputEditText);
-        phoneNumberTextInputEditText = findViewById(R.id.createShelterAdminProfilePhoneNumber_textInputEditText);
+        nameTextInputEditText = findViewById(R.id.createProfileName_textInputEditText);
+        ageTextInputEditText = findViewById(R.id.createProfileAge_textInputEditText);
+        addressTextInputEditText = findViewById(R.id.createProfileAddress_textInputEditText);
+        phoneNumberTextInputEditText = findViewById(R.id.createProfilePhoneNumber_textInputEditText);
 
-        profileImageView = findViewById(R.id.createShelterAdminProfileImage_shapeImageView);
+        profileImageView = findViewById(R.id.createProfileImage_shapeImageView);
 
         loggedUserId = Objects.requireNonNull(firebaseAuth.getCurrentUser()).getUid();
 
         galleryActivityResultLauncher = registerForActivityResult(
-                new ActivityResultContracts.StartActivityForResult(),
-                result -> {
+                new ActivityResultContracts.StartActivityForResult(), result -> {
                     if (result.getResultCode() == Activity.RESULT_OK) {
                         // There are no request codes
                         // doSomeOperations();
@@ -108,8 +112,7 @@ public class CreateShelterAdminProfileActivity extends AppCompatActivity impleme
                 });
 
         cameraActivityResultLauncher = registerForActivityResult(
-                new ActivityResultContracts.StartActivityForResult(),
-                result -> {
+                new ActivityResultContracts.StartActivityForResult(), result -> {
                     if (result.getResultCode() == Activity.RESULT_OK && result.getData() != null) {
                         Bundle bundle = result.getData().getExtras();
                         cameraCapturedImageBitmap = (Bitmap) bundle.get("data");
@@ -118,13 +121,26 @@ public class CreateShelterAdminProfileActivity extends AppCompatActivity impleme
                     }
                 });
 
-        skipCreateProfileMaterialButton.setOnClickListener(new View.OnClickListener() {
+        roles.addValueEventListener(new ValueEventListener() {
             @Override
-            public void onClick(View v) {
-                startActivity(new Intent(CreateShelterAdminProfileActivity.this, ViewProfileActivity.class));
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                if (snapshot.child(loggedUserId).hasChild("user")) {
+                    role = "user";
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
             }
         });
 
+        skipCreateProfileMaterialButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(CreateProfileActivity.this, ViewProfileActivity.class));
+            }
+        });
         createProfileMaterialButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -135,37 +151,52 @@ public class CreateShelterAdminProfileActivity extends AppCompatActivity impleme
                 address = Objects.requireNonNull(addressTextInputEditText.getText()).toString().trim();
                 phoneNumber = Objects.requireNonNull(phoneNumberTextInputEditText.getText()).toString().trim();
 
-                ValidationManager.getInstance().doValidation(CreateShelterAdminProfileActivity.this,
+                ValidationManager.getInstance().doValidation(CreateProfileActivity.this,
                         phoneNumberTextInputLayout).checkEmpty().checkPhoneNumber();
-                ValidationManager.getInstance().doValidation(CreateShelterAdminProfileActivity.this,
+                ValidationManager.getInstance().doValidation(CreateProfileActivity.this,
                         ageTextInputLayout).checkEmpty();
-                ValidationManager.getInstance().doValidation(CreateShelterAdminProfileActivity.this,
+                ValidationManager.getInstance().doValidation(CreateProfileActivity.this,
                         nameTextInputLayout).checkEmpty();
-                ValidationManager.getInstance().doValidation(CreateShelterAdminProfileActivity.this,
+                ValidationManager.getInstance().doValidation(CreateProfileActivity.this,
                         addressTextInputLayout).checkEmpty();
                 if (ValidationManager.getInstance().isPhoneNumberValidAndNothingEmpty()) {
-                    StorageReference ref = profileImages
-                            .child("sheltersAdministrators")
-                            .child(Objects.requireNonNull(loggedUserId))
-                            .child(name + "_" + loggedUserId);
+                    if (role.equals("user")) {
+                        profileImages = profileImages
+                                .child("users")
+                                .child(Objects.requireNonNull(loggedUserId))
+                                .child(name + "_" + loggedUserId);
+                    } else {
+                        profileImages = profileImages
+                                .child("shelterAdministrators")
+                                .child(Objects.requireNonNull(loggedUserId))
+                                .child(name + "_" + loggedUserId);
+                    }
 
                     if (gallerySelectedImageUri != null) {
                         // Adding listeners on upload or failure of image
-                        UploadTask uploadTask = ref.putFile(gallerySelectedImageUri);
+                        UploadTask uploadTask = profileImages.putFile(gallerySelectedImageUri);
                         uploadTask.addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
                                     @Override
                                     public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
                                         taskSnapshot.getStorage().getDownloadUrl().addOnCompleteListener(new OnCompleteListener<Uri>() {
                                             @Override
                                             public void onComplete(@NonNull Task<Uri> task) {
-                                                Toast.makeText(CreateShelterAdminProfileActivity.this, "Image uploaded", Toast.LENGTH_SHORT).show();
+                                                Toast.makeText(CreateProfileActivity.this, "Image uploaded", Toast.LENGTH_SHORT).show();
                                                 String fileLink = task.getResult().toString();
 
-                                                profiles.child("sheltersAdministrators").child(loggedUserId).child("name").setValue(name);
-                                                profiles.child("sheltersAdministrators").child(loggedUserId).child("age").setValue(age);
-                                                profiles.child("sheltersAdministrators").child(loggedUserId).child("address").setValue(address);
-                                                profiles.child("sheltersAdministrators").child(loggedUserId).child("phoneNumber").setValue(phoneNumber);
-                                                profiles.child("sheltersAdministrators").child(loggedUserId).child("profileImageDownloadLink").setValue(fileLink);
+                                                if (role.equals("user")) {
+                                                    profiles.child("users").child(loggedUserId).child("name").setValue(name);
+                                                    profiles.child("users").child(loggedUserId).child("age").setValue(age);
+                                                    profiles.child("users").child(loggedUserId).child("address").setValue(address);
+                                                    profiles.child("users").child(loggedUserId).child("phoneNumber").setValue(phoneNumber);
+                                                    profiles.child("users").child(loggedUserId).child("profileImageDownloadLink").setValue(fileLink);
+                                                } else {
+                                                    profiles.child("sheltersAdministrators").child(loggedUserId).child("name").setValue(name);
+                                                    profiles.child("sheltersAdministrators").child(loggedUserId).child("age").setValue(age);
+                                                    profiles.child("sheltersAdministrators").child(loggedUserId).child("address").setValue(address);
+                                                    profiles.child("sheltersAdministrators").child(loggedUserId).child("phoneNumber").setValue(phoneNumber);
+                                                    profiles.child("sheltersAdministrators").child(loggedUserId).child("profileImageDownloadLink").setValue(fileLink);
+                                                }
                                             }
                                         });
                                     }
@@ -173,34 +204,36 @@ public class CreateShelterAdminProfileActivity extends AppCompatActivity impleme
                                 .addOnFailureListener(new OnFailureListener() {
                                     @Override
                                     public void onFailure(@NonNull Exception e) {
-                                        Toast.makeText(CreateShelterAdminProfileActivity.this, "Failed " + e.getMessage(), Toast.LENGTH_SHORT).show();
-                                    }
-                                })
-                                .addOnProgressListener(new OnProgressListener<UploadTask.TaskSnapshot>() {
-                                    @Override
-                                    public void onProgress(@NonNull UploadTask.TaskSnapshot snapshot) {
-                                        double progress = (100.0 * snapshot.getBytesTransferred() / snapshot.getTotalByteCount());
+                                        Toast.makeText(CreateProfileActivity.this, "Failed " + e.getMessage(), Toast.LENGTH_SHORT).show();
                                     }
                                 });
                     }
 
                     if (cameraCapturedImageUri != null) {
                         // Adding listeners on upload or failure of image
-                        UploadTask uploadTask = ref.putFile(cameraCapturedImageUri);
+                        UploadTask uploadTask = profileImages.putFile(cameraCapturedImageUri);
                         uploadTask.addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
                                     @Override
                                     public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
                                         taskSnapshot.getStorage().getDownloadUrl().addOnCompleteListener(new OnCompleteListener<Uri>() {
                                             @Override
                                             public void onComplete(@NonNull Task<Uri> task) {
-                                                Toast.makeText(CreateShelterAdminProfileActivity.this, "Image uploaded", Toast.LENGTH_SHORT).show();
+                                                Toast.makeText(CreateProfileActivity.this, "Image uploaded", Toast.LENGTH_SHORT).show();
                                                 String fileLink = task.getResult().toString();
 
-                                                profiles.child("sheltersAdministrators").child(loggedUserId).child("name").setValue(name);
-                                                profiles.child("sheltersAdministrators").child(loggedUserId).child("age").setValue(age);
-                                                profiles.child("sheltersAdministrators").child(loggedUserId).child("address").setValue(address);
-                                                profiles.child("sheltersAdministrators").child(loggedUserId).child("phoneNumber").setValue(phoneNumber);
-                                                profiles.child("sheltersAdministrators").child(loggedUserId).child("profileImageDownloadLink").setValue(fileLink);
+                                                if (role.equals("user")) {
+                                                    profiles.child("users").child(loggedUserId).child("name").setValue(name);
+                                                    profiles.child("users").child(loggedUserId).child("age").setValue(age);
+                                                    profiles.child("users").child(loggedUserId).child("address").setValue(address);
+                                                    profiles.child("users").child(loggedUserId).child("phoneNumber").setValue(phoneNumber);
+                                                    profiles.child("users").child(loggedUserId).child("profileImageDownloadLink").setValue(fileLink);
+                                                } else {
+                                                    profiles.child("sheltersAdministrators").child(loggedUserId).child("name").setValue(name);
+                                                    profiles.child("sheltersAdministrators").child(loggedUserId).child("age").setValue(age);
+                                                    profiles.child("sheltersAdministrators").child(loggedUserId).child("address").setValue(address);
+                                                    profiles.child("sheltersAdministrators").child(loggedUserId).child("phoneNumber").setValue(phoneNumber);
+                                                    profiles.child("sheltersAdministrators").child(loggedUserId).child("profileImageDownloadLink").setValue(fileLink);
+                                                }
                                             }
                                         });
                                     }
@@ -208,13 +241,17 @@ public class CreateShelterAdminProfileActivity extends AppCompatActivity impleme
                                 .addOnFailureListener(new OnFailureListener() {
                                     @Override
                                     public void onFailure(@NonNull Exception e) {
-                                        Toast.makeText(CreateShelterAdminProfileActivity.this, "Failed " + e.getMessage(), Toast.LENGTH_SHORT).show();
+                                        Toast.makeText(CreateProfileActivity.this, "Failed " + e.getMessage(), Toast.LENGTH_SHORT).show();
                                     }
                                 });
                     }
-                    sendUserToNextActivity();
+                    if (role.equals("user")) {
+                        sendUserToViewProfileActivity();
+                    } else {
+                        sendShelterAdministratorToCreateShelterProfileActivity();
+                    }
                 }
-                }
+            }
         });
 
         openGalleryMaterialButton.setOnClickListener(new View.OnClickListener() {
@@ -242,7 +279,7 @@ public class CreateShelterAdminProfileActivity extends AppCompatActivity impleme
                     if (cameraIntent.resolveActivity(getPackageManager()) != null) {
                         cameraActivityResultLauncher.launch(cameraIntent);
                     } else {
-                        Toast.makeText(CreateShelterAdminProfileActivity.this, "There is no app that supports this action", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(CreateProfileActivity.this, "There is no app that supports this action", Toast.LENGTH_SHORT).show();
                     }
                 }
             }
@@ -252,8 +289,12 @@ public class CreateShelterAdminProfileActivity extends AppCompatActivity impleme
 
     }
 
-    public void sendUserToNextActivity() {
-        Intent intent = new Intent(CreateShelterAdminProfileActivity.this, CreateShelterProfileActivity.class);
+    private void sendUserToViewProfileActivity() {
+        startActivity(new Intent(CreateProfileActivity.this, ViewProfileActivity.class));
+    }
+
+    public void sendShelterAdministratorToCreateShelterProfileActivity() {
+        Intent intent = new Intent(CreateProfileActivity.this, CreateShelterProfileActivity.class);
         intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK| Intent.FLAG_ACTIVITY_NEW_TASK);
         startActivity(intent);
     }

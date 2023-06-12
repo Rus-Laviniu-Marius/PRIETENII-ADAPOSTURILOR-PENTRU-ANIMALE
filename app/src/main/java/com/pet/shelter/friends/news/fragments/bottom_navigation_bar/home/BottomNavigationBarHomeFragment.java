@@ -23,8 +23,7 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.pet.shelter.friends.NotificationsActivity;
 import com.pet.shelter.friends.R;
-import com.pet.shelter.friends.profile.CreateShelterAdminProfileActivity;
-import com.pet.shelter.friends.profile.CreateUserProfileActivity;
+import com.pet.shelter.friends.profile.CreateProfileActivity;
 import com.pet.shelter.friends.profile.ViewProfileActivity;
 
 import java.util.Objects;
@@ -71,12 +70,7 @@ public class BottomNavigationBarHomeFragment extends Fragment {
                         if (snapshot.child("users").hasChild(loggedUserId)) {
                             startActivity(new Intent(getContext(), ViewProfileActivity.class));
                         } else {
-                            startActivity(new Intent(getContext(), CreateUserProfileActivity.class));
-                        }
-                        if (snapshot.child("sheltersAdministrators").hasChild(loggedUserId)) {
-                            startActivity(new Intent(getContext(), ViewProfileActivity.class));
-                        } else {
-                            startActivity(new Intent(getContext(), CreateShelterAdminProfileActivity.class));
+                            startActivity(new Intent(getContext(), CreateProfileActivity.class));
                         }
                     }
                     @Override

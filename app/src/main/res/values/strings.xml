@@ -286,6 +286,7 @@
     <string name="about_me">About me</string>
     <string name="contact">Contact</string>
     <string name="shelter_keeper">Shelter keeper</string>
+    <string name="create_shelter_profile">Create shelter profile</string>
 
 
 </resources>
