@@ -6,4 +6,13 @@
     <string name="copy_events_to_calendar">Copy events to calendar</string>
     <string name="add_payment_method">Add payment method</string>
     <string name="more">More</string>
+    <string name="user_personal_data">User personal data</string>
+    <string name="edit">Edit</string>
+    <string name="about">About</string>
+    <string name="events">Events</string>
+    <string name="reviews">Reviews</string>
+    <string name="user_short_bio">User short bio</string>
+    <string name="about_me">About me</string>
+    <string name="contact">Contact</string>
+    <string name="shelter_keeper">Shelter keeper</string>
 </resources>

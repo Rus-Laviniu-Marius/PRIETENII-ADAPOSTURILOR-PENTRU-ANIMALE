@@ -1,5 +1,6 @@
 package com.pet.shelter.friends.profile;
 
+
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.NonNull;
@@ -32,7 +33,6 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.storage.FirebaseStorage;
-import com.google.firebase.storage.OnProgressListener;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 import com.pet.shelter.friends.ErrorSetter;
@@ -47,22 +47,17 @@ import java.util.Objects;
 public class CreateUserProfileActivity extends AppCompatActivity implements TextWatcher, ErrorSetter {
 
     private DatabaseReference profiles;
-
     private StorageReference profileImages;
-
     private TextInputLayout nameTextInputLayout, ageTextInputLayout, addressTextInputLayout, phoneNumberTextInputLayout;
     private TextInputEditText nameTextInputEditText, ageTextInputEditText, addressTextInputEditText, phoneNumberTextInputEditText;
     private ShapeableImageView profileImageView;
-
     private Uri gallerySelectedImageUri, cameraCapturedImageUri;
-
     private Bitmap cameraCapturedImageBitmap;
-
-    private ActivityResultLauncher<Intent> galleryActivityResultLauncher, cameraActivityResultLauncher;
-
     private String loggedUserId;
     private static final int PICK_FROM_GALLERY = 1889;
     private static final int MY_CAMERA_PERMISSION_CODE = 100;
+
+    private ActivityResultLauncher<Intent> galleryActivityResultLauncher, cameraActivityResultLauncher;
 
 
     @Override
@@ -151,7 +146,7 @@ public class CreateUserProfileActivity extends AppCompatActivity implements Text
                         addressTextInputLayout).checkEmpty();
                 if (ValidationManager.getInstance().isPhoneNumberValidAndNothingEmpty()) {
                     StorageReference ref = profileImages
-                            .child("shelterAdministrators")
+                            .child("users")
                             .child(Objects.requireNonNull(loggedUserId))
                             .child(name + "_" + loggedUserId);
 
@@ -180,12 +175,6 @@ public class CreateUserProfileActivity extends AppCompatActivity implements Text
                                     @Override
                                     public void onFailure(@NonNull Exception e) {
                                         Toast.makeText(CreateUserProfileActivity.this, "Failed " + e.getMessage(), Toast.LENGTH_SHORT).show();
-                                    }
-                                })
-                                .addOnProgressListener(new OnProgressListener<UploadTask.TaskSnapshot>() {
-                                    @Override
-                                    public void onProgress(@NonNull UploadTask.TaskSnapshot snapshot) {
-                                        double progress = (100.0 * snapshot.getBytesTransferred() / snapshot.getTotalByteCount());
                                     }
                                 });
                     }
@@ -216,18 +205,11 @@ public class CreateUserProfileActivity extends AppCompatActivity implements Text
                                     public void onFailure(@NonNull Exception e) {
                                         Toast.makeText(CreateUserProfileActivity.this, "Failed " + e.getMessage(), Toast.LENGTH_SHORT).show();
                                     }
-                                })
-                                .addOnProgressListener(new OnProgressListener<UploadTask.TaskSnapshot>() {
-                                    @Override
-                                    public void onProgress(@NonNull UploadTask.TaskSnapshot snapshot) {
-                                        double progress = (100.0 * snapshot.getBytesTransferred() / snapshot.getTotalByteCount());
-                                    }
                                 });
                     }
                     sendUserToNextActivity();
                 }
             }
-            // Defining the child of storageReference
         });
 
         openGalleryMaterialButton.setOnClickListener(new View.OnClickListener() {
@@ -265,10 +247,8 @@ public class CreateUserProfileActivity extends AppCompatActivity implements Text
 
     }
 
-    public void sendUserToNextActivity() {
-        Intent intent = new Intent(CreateUserProfileActivity.this, CreateShelterProfileActivity.class);
-        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK| Intent.FLAG_ACTIVITY_NEW_TASK);
-        startActivity(intent);
+    private void sendUserToNextActivity() {
+        startActivity(new Intent(CreateUserProfileActivity.this, ViewProfileActivity.class));
     }
 
     public Uri getImageUri(Context inContext, Bitmap inImage) {

@@ -23,7 +23,13 @@ import com.google.android.material.textfield.TextInputLayout;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 import com.pet.shelter.friends.ErrorSetter;
+import com.pet.shelter.friends.HomeActivity;
 import com.pet.shelter.friends.R;
 import com.pet.shelter.friends.ValidationManager;
 import com.pet.shelter.friends.WhoAreYouActivity;
@@ -35,6 +41,8 @@ public class LoginActivity extends Activity implements TextWatcher, ErrorSetter 
 
     private FirebaseAuth mAuth;
     private FirebaseUser mUser;
+    private DatabaseReference roles;
+    private String currentUserId;
     private TextInputLayout emailTextInputLayout, passwordTextInputLayout;
     private TextInputEditText emailTextInputEditText, passwordTextInputEditText;
     private MaterialButton loginMaterialButton, googleSignInMaterialButton, facebookSignInMaterialButton,
@@ -54,13 +62,14 @@ public class LoginActivity extends Activity implements TextWatcher, ErrorSetter 
         facebookSignInMaterialButton = findViewById(R.id.facebookSignIn_button);
         createAccountMaterialButton = findViewById(R.id.createAccount_textView);
         forgottenPasswordMaterialButton = findViewById(R.id.forgottenPassword_materialButton);
-
+        roles = FirebaseDatabase.getInstance().getReference("roles");
         mAuth = FirebaseAuth.getInstance();
+
+        currentUserId = Objects.requireNonNull(mAuth.getCurrentUser()).getUid();
 
         setOnClickListeners();
 
         setTextWatcher();
-
     }
 
     private void setOnClickListeners() {
@@ -187,9 +196,26 @@ public class LoginActivity extends Activity implements TextWatcher, ErrorSetter 
 
 
     private void sendUserToNextActivity() {
-        Intent intent = new Intent(LoginActivity.this, WhoAreYouActivity.class);
-        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK| Intent.FLAG_ACTIVITY_NEW_TASK);
-        startActivity(intent);
+        roles.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                if (snapshot.hasChild(currentUserId)) {
+                    Intent intent = new Intent(LoginActivity.this, HomeActivity.class);
+                    intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK| Intent.FLAG_ACTIVITY_NEW_TASK);
+                    startActivity(intent);
+                } else {
+                    Intent intent = new Intent(LoginActivity.this, WhoAreYouActivity.class);
+                    intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK| Intent.FLAG_ACTIVITY_NEW_TASK);
+                    startActivity(intent);
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+
     }
 
     @Override

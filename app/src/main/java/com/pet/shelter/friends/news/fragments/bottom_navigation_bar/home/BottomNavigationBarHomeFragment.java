@@ -23,6 +23,7 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.pet.shelter.friends.NotificationsActivity;
 import com.pet.shelter.friends.R;
+import com.pet.shelter.friends.profile.CreateShelterAdminProfileActivity;
 import com.pet.shelter.friends.profile.CreateUserProfileActivity;
 import com.pet.shelter.friends.profile.ViewProfileActivity;
 
@@ -67,20 +68,22 @@ public class BottomNavigationBarHomeFragment extends Fragment {
                 profilesReference.addListenerForSingleValueEvent(new ValueEventListener() {
                     @Override
                     public void onDataChange(@NonNull DataSnapshot snapshot) {
-                        if (snapshot.hasChild("userProfiles")) {
-                            Intent intent = new Intent(getActivity(), ViewProfileActivity.class);
-                            startActivity(intent);
+                        if (snapshot.child("users").hasChild(loggedUserId)) {
+                            startActivity(new Intent(getContext(), ViewProfileActivity.class));
                         } else {
-                            startActivity(new Intent(getActivity(), CreateUserProfileActivity.class));
+                            startActivity(new Intent(getContext(), CreateUserProfileActivity.class));
+                        }
+                        if (snapshot.child("sheltersAdministrators").hasChild(loggedUserId)) {
+                            startActivity(new Intent(getContext(), ViewProfileActivity.class));
+                        } else {
+                            startActivity(new Intent(getContext(), CreateShelterAdminProfileActivity.class));
                         }
                     }
-
                     @Override
                     public void onCancelled(@NonNull DatabaseError error) {
 
                     }
                 });
-
             }
         });
         materialToolbar.setOnMenuItemClickListener(new Toolbar.OnMenuItemClickListener() {
@@ -93,8 +96,6 @@ public class BottomNavigationBarHomeFragment extends Fragment {
                 return true;
             }
         });
-
-
 
         tabLayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
             @Override

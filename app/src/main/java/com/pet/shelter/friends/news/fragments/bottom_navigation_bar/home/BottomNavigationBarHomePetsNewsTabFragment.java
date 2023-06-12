@@ -35,7 +35,7 @@ public class BottomNavigationBarHomePetsNewsTabFragment extends Fragment {
 
     public FirebaseAuth firebaseAuth;
     public FirebaseDatabase firebaseDatabase;
-    public DatabaseReference shelterAdminReference, petsNewsArticlesReference;
+    public DatabaseReference roles, petsNewsArticlesReference;
     private String loggedUserId;
     private RelativeLayout addNewsRelativeLayout;
     private ListView listView;
@@ -55,7 +55,7 @@ public class BottomNavigationBarHomePetsNewsTabFragment extends Fragment {
 
         firebaseAuth = FirebaseAuth.getInstance();
         firebaseDatabase = FirebaseDatabase.getInstance();
-        shelterAdminReference = firebaseDatabase.getReference("shelterAdministrators");
+        roles = firebaseDatabase.getReference("roles");
         petsNewsArticlesReference = firebaseDatabase.getReference("newsArticles");
 
         listView = layout.findViewById(R.id.bottomNavigationBarHomePetsTabNews_listView);
@@ -65,13 +65,13 @@ public class BottomNavigationBarHomePetsNewsTabFragment extends Fragment {
 
         loggedUserId = Objects.requireNonNull(firebaseAuth.getCurrentUser()).getUid();
 
-        shelterAdminReference.addValueEventListener(new ValueEventListener() {
+        roles.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
-                if (!snapshot.hasChild(loggedUserId)) {
-                    addNewsRelativeLayout.setVisibility(View.GONE);
-                } else {
+                if (snapshot.child(loggedUserId).hasChild("shelterAdministrator")) {
                     addNewsRelativeLayout.setVisibility(View.VISIBLE);
+                } else {
+                    addNewsRelativeLayout.setVisibility(View.GONE);
                 }
             }
 

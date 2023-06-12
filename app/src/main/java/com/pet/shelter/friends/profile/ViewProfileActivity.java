@@ -35,7 +35,7 @@ public class ViewProfileActivity extends AppCompatActivity {
 
     private FirebaseAuth firebaseAuth;
     FirebaseDatabase firebaseDatabase;
-    DatabaseReference activeUsersReference, shelterAdminReference, usersReference, databaseReference;
+    DatabaseReference profiles;
     private MaterialToolbar materialToolbar;
     private MaterialTextView userNameMaterialTextView;
     private ShapeableImageView userProfileShapeImageView;
@@ -50,10 +50,7 @@ public class ViewProfileActivity extends AppCompatActivity {
 
         firebaseAuth = FirebaseAuth.getInstance();
         firebaseDatabase = FirebaseDatabase.getInstance();
-        activeUsersReference = firebaseDatabase.getReference("activeUsers");
-        shelterAdminReference = firebaseDatabase.getReference("shelterAdmin");
-        usersReference = firebaseDatabase.getReference("profiles");
-        databaseReference = firebaseDatabase.getReference();
+        profiles = firebaseDatabase.getReference("profiles");
 
         materialToolbar = findViewById(R.id.viewUserProfileScreenTop_materialToolbar);
         userProfileShapeImageView = findViewById(R.id.viewUserProfileImage_imageView);
@@ -74,35 +71,22 @@ public class ViewProfileActivity extends AppCompatActivity {
 
     private void readDataFromDatabase() {
 
-        databaseReference.addValueEventListener(new ValueEventListener() {
+        profiles.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
-                if (snapshot.hasChild("profiles")) {
-                    usersReference.child(loggedUserId).addValueEventListener(new ValueEventListener() {
-                        @Override
-                        public void onDataChange(@NonNull DataSnapshot snapshot) {
-                            String profileImageDownloadLink = Objects.requireNonNull(snapshot.child("profileImageDownloadLink").getValue()).toString();
-                            String name = Objects.requireNonNull(snapshot.child("name").getValue()).toString();
+                if (snapshot.hasChild("users")) {
+                    String profileImageDownloadLink = Objects.requireNonNull(snapshot.child(loggedUserId).child("profileImageDownloadLink").getValue()).toString();
+                    String name = Objects.requireNonNull(snapshot.child(loggedUserId).child("name").getValue()).toString();
 
-                            Picasso.get().load(profileImageDownloadLink).into(userProfileShapeImageView);
-                            userNameMaterialTextView.setText(name);
-                        }
-
-                        @Override
-                        public void onCancelled(@NonNull DatabaseError error) {
-
-                        }
-                    });
+                    Picasso.get().load(profileImageDownloadLink).into(userProfileShapeImageView);
+                    userNameMaterialTextView.setText(name);
                 }
             }
-
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
 
             }
         });
-
-
     }
 
     private void setOnClickListeners() {
@@ -138,7 +122,6 @@ public class ViewProfileActivity extends AppCompatActivity {
         logoutMaterialButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-//                removeConnectedUserFromActiveUsers();
                 firebaseAuth.signOut();
                 startActivity(new Intent(ViewProfileActivity.this, LoginActivity.class));
             }
@@ -184,22 +167,5 @@ public class ViewProfileActivity extends AppCompatActivity {
             }
         });
 
-    }
-
-    private void removeConnectedUserFromActiveUsers() {
-
-        firebaseDatabase.getReference().addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot snapshot) {
-                if (snapshot.hasChild("activeUsers"))
-                    activeUsersReference.child(loggedUserId).removeValue();
-
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError error) {
-
-            }
-        });
     }
 }
