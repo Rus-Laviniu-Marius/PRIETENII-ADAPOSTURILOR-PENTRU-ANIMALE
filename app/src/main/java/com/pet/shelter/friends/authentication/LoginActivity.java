@@ -23,7 +23,13 @@ import com.google.android.material.textfield.TextInputLayout;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 import com.pet.shelter.friends.ErrorSetter;
+import com.pet.shelter.friends.HomeActivity;
 import com.pet.shelter.friends.R;
 import com.pet.shelter.friends.ValidationManager;
 import com.pet.shelter.friends.WhoAreYouActivity;
@@ -35,6 +41,7 @@ public class LoginActivity extends Activity implements TextWatcher, ErrorSetter 
 
     private FirebaseAuth mAuth;
     private FirebaseUser mUser;
+    private DatabaseReference roles;
     private TextInputLayout emailTextInputLayout, passwordTextInputLayout;
     private TextInputEditText emailTextInputEditText, passwordTextInputEditText;
     private MaterialButton loginMaterialButton, googleSignInMaterialButton, facebookSignInMaterialButton,
@@ -54,11 +61,14 @@ public class LoginActivity extends Activity implements TextWatcher, ErrorSetter 
         facebookSignInMaterialButton = findViewById(R.id.facebookSignIn_button);
         createAccountMaterialButton = findViewById(R.id.createAccount_textView);
         forgottenPasswordMaterialButton = findViewById(R.id.forgottenPassword_materialButton);
-
+        roles = FirebaseDatabase.getInstance().getReference("roles");
         mAuth = FirebaseAuth.getInstance();
+        mUser = FirebaseAuth.getInstance().getCurrentUser();
+
 
         setOnClickListeners();
 
+        setTextWatcher();
     }
 
     private void setOnClickListeners() {
@@ -68,6 +78,7 @@ public class LoginActivity extends Activity implements TextWatcher, ErrorSetter 
                 Intent intent = new Intent(LoginActivity.this, GoogleSignInActivity.class);
                 intent.setFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
                 startActivity(intent);
+                finish();
             }
         });
 
@@ -77,6 +88,7 @@ public class LoginActivity extends Activity implements TextWatcher, ErrorSetter 
                 Intent intent = new Intent(LoginActivity.this, FacebookAuthActivity.class);
                 intent.setFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
                 startActivity(intent);
+                finish();
             }
         });
 
@@ -106,10 +118,7 @@ public class LoginActivity extends Activity implements TextWatcher, ErrorSetter 
                 MaterialAlertDialogBuilder materialAlertDialogBuilder = new MaterialAlertDialogBuilder(LoginActivity.this)
                         .setTitle("Forgotten password?")
                         .setMessage("Please enter your email address to receive the required steps " +
-                                "for resetting your password. Please enter a solid password which " +
-                                "has at least 14 characters and contains at least one digit " +
-                                "one lower character, one upper character and one special character. "+
-                                "Otherwise you have to keep resetting your password!")
+                                "for resetting your password.")
                         .setView(viewTextInput)
                         .setCancelable(false)
                         .setPositiveButton("Send", new DialogInterface.OnClickListener() {
@@ -151,6 +160,11 @@ public class LoginActivity extends Activity implements TextWatcher, ErrorSetter 
         });
     }
 
+    private void setTextWatcher() {
+        Objects.requireNonNull(emailTextInputLayout.getEditText()).addTextChangedListener(this);
+        Objects.requireNonNull(passwordTextInputLayout.getEditText()).addTextChangedListener(this);
+    }
+
     private void loginUser() {
         String email = Objects.requireNonNull(emailTextInputEditText.getText()).toString();
         String password = Objects.requireNonNull(passwordTextInputEditText.getText()).toString();
@@ -183,9 +197,28 @@ public class LoginActivity extends Activity implements TextWatcher, ErrorSetter 
 
 
     private void sendUserToNextActivity() {
-        Intent intent = new Intent(LoginActivity.this, WhoAreYouActivity.class);
-        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK| Intent.FLAG_ACTIVITY_NEW_TASK);
-        startActivity(intent);
+        roles.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                if (snapshot.hasChild(mUser.getUid())) {
+                    Intent intent = new Intent(LoginActivity.this, HomeActivity.class);
+                    intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK| Intent.FLAG_ACTIVITY_NEW_TASK);
+                    startActivity(intent);
+                    finish();
+                } else {
+                    Intent intent = new Intent(LoginActivity.this, WhoAreYouActivity.class);
+                    intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK| Intent.FLAG_ACTIVITY_NEW_TASK);
+                    startActivity(intent);
+                    finish();
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+
     }
 
     @Override

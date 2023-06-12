@@ -4,11 +4,11 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    tools:context=".UserHomeActivity"
+    tools:context=".HomeActivity"
     android:orientation="vertical">
 
     <com.google.android.material.appbar.AppBarLayout
-        android:id="@+id/appBarLayout"
+        android:id="@+id/homeScreen_appBarLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content" >
         <com.google.android.material.appbar.MaterialToolbar
@@ -17,8 +17,8 @@
             android:layout_height="?attr/actionBarSize"
             app:layout_anchor="@+id/appBarLayout"
             app:layout_anchorGravity="center"
-            app:menu="@menu/top_app_bar"
-            app:navigationIcon="@drawable/settings_filled_24"
+            app:menu="@menu/notification_top_app_bar_menu"
+            app:navigationIcon="@drawable/profile_filled_24px"
             app:title="@string/app_name"
             app:titleCentered="true" />
     </com.google.android.material.appbar.AppBarLayout>

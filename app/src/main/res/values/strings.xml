@@ -47,7 +47,7 @@
     <string name="small_dog">Small dog</string>
     <string name="big_dog">Big dog</string>
     <string name="size">Size</string>
-    <string name="age">Age</string>
+    <string name="age">Age (years)</string>
     <string name="_1">+1</string>
     <string name="_10">+10</string>
     <string name="sex">Sex</string>
@@ -65,7 +65,7 @@
     <string name="not_fit_for_guarding">Not fit for guarding</string>
     <string name="no">NO</string>
     <string name="yes">YES</string>
-    <string name="skip">SKIP</string>
+    <string name="skip">Skip</string>
     <string name="search">Search</string>
     <string name="home">Home</string>
     <string name="between">Between</string>
@@ -254,6 +254,39 @@
     <string name="dd_mm_yyyy">DD/MM/YYYY</string>
     <string name="caring">Caring</string>
     <string name="pets_news_articles">Pets news articles</string>
+    <string name="add_news">Add news</string>
+    <string name="create_profile">Create profile</string>
+    <string name="iban">IBAN</string>
+    <string name="latitude">Latitude</string>
+    <string name="longitude">Longitude</string>
+    <string name="web_page_link">Web page link</string>
+    <string name="our_mission">Our mission</string>
+    <string name="our_adoption_policy">Our adoption policy</string>
+    <string name="add_shelter">Add shelter</string>
+    <string name="shelter_logo">Shelter logo</string>
+    <string name="news_category">News category</string>
+    <string name="news_article_description">News article description</string>
+    <string name="post">Post</string>
+    <string name="delete">Delete</string>
+    <string name="no_notifications">No notifications</string>
+    <string name="what_user_did_short_description">What user did short description</string>
+    <string name="active_services">Active services</string>
+    <string name="change_role">Change role</string>
+    <string name="general_settings">General settings</string>
+    <string name="select_language">Select language</string>
+    <string name="copy_events_to_calendar">Copy events to calendar</string>
+    <string name="add_payment_method">Add payment method</string>
+    <string name="more">More</string>
+    <string name="user_personal_data">User personal data</string>
+    <string name="edit">Edit</string>
+    <string name="about">About</string>
+    <string name="events">Events</string>
+    <string name="reviews">Reviews</string>
+    <string name="user_short_bio">User short bio (name, age, location)</string>
+    <string name="about_me">About me</string>
+    <string name="contact">Contact</string>
+    <string name="shelter_keeper">Shelter keeper</string>
+    <string name="create_shelter_profile">Create shelter profile</string>
 
 
 </resources>

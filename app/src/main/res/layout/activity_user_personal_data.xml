@@ -1,250 +1,298 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".profile.ViewProfileActivity">
 
-    <LinearLayout
+    <com.google.android.material.appbar.AppBarLayout
+        android:id="@+id/viewUserPersonalData_appBarLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical" >
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
 
-        <LinearLayout
+        <com.google.android.material.appbar.MaterialToolbar
+            android:id="@+id/viewUserPersonalData_materialToolbar"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            app:layout_anchor="@+id/appBarLayout"
+            app:layout_anchorGravity="center"
+            app:menu="@menu/edit_data_top_app_bar"
+            app:navigationIcon="@drawable/arrow_back_24"
+            app:title="@string/user_personal_data"
+            app:titleCentered="true" />
+    </com.google.android.material.appbar.AppBarLayout>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/userPersonalData_constraintLayout"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        app:flow_horizontalAlign="center"
+        app:layout_constraintTop_toBottomOf="@id/viewUserPersonalData_appBarLayout"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintEnd_toStartOf="@+id/guideline26"
+        app:layout_constraintStart_toEndOf="@+id/guideline25" >
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/userPersonalDataOpenGallery_materialButton"
+            style="@style/Widget.Material3.Button.IconButton.Filled"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:contentDescription="@string/open_gallery"
+            android:gravity="center"
+            android:visibility="gone"
+            app:icon="@drawable/open_folder_image_24px"
+            app:layout_constraintBottom_toTopOf="@+id/userPersonalDataUserName_materialTextView"
+            app:layout_constraintEnd_toStartOf="@+id/userPersonalDataImage_shapeImageView"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <com.google.android.material.imageview.ShapeableImageView
+            android:id="@+id/userPersonalDataImage_shapeImageView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/add_image_100px"
+            app:layout_constraintBottom_toTopOf="@+id/userPersonalDataUserName_materialTextView"
+            app:layout_constraintEnd_toStartOf="@+id/userPersonalDataOpenCamera_materialButton"
+            app:layout_constraintHeight_max="100dp"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toEndOf="@+id/userPersonalDataOpenGallery_materialButton"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintWidth_max="100dp" />
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/userPersonalDataOpenCamera_materialButton"
+            style="@style/Widget.Material3.Button.IconButton.Filled"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:contentDescription="@string/open_camera"
+            android:gravity="center"
+            android:visibility="gone"
+            app:icon="@drawable/open_camera_24px"
+            app:layout_constraintBottom_toTopOf="@+id/userPersonalDataUserName_materialTextView"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toEndOf="@+id/userPersonalDataImage_shapeImageView"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/userPersonalDataUserName_materialTextView"
+            style="@style/TextAppearance.Material3.HeadlineLarge"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:background="@drawable/top_bar">
+            android:layout_marginTop="@dimen/small_margin"
+            android:text="@string/user_name"
+            android:textAlignment="center"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/userPersonalDataImage_shapeImageView" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
-            <RelativeLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+    <com.google.android.material.textview.MaterialTextView
+        android:id="@+id/userPersonalDataAboutMe_materialTextView"
+        style="@style/TextAppearance.Material3.TitleLarge"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:labelFor="@+id/userPersonalDataShortBio_materialTextView"
+        android:text="@string/about_me"
+        android:visibility="gone"
+        app:layout_constraintTop_toBottomOf="@id/userPersonalData_constraintLayout"
+        app:layout_constraintBottom_toTopOf="@+id/userPersonalDataShortBio_materialTextView"
+        app:layout_constraintEnd_toStartOf="@+id/guideline26"
+        app:layout_constraintStart_toEndOf="@+id/guideline25"
+        app:layout_constraintHorizontal_bias="0.5" />
 
-                <ImageView
-                    android:id="@+id/userPersonalDataBack_imageView"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentStart="true"
-                    android:layout_centerInParent="true"
-                    android:layout_margin="@dimen/small_margin"
-                    android:contentDescription="@string/back"
-                    android:padding="@dimen/small_padding"
-                    android:src="@drawable/back_64" />
+    <com.google.android.material.textview.MaterialTextView
+        android:id="@+id/userPersonalDataShortBio_materialTextView"
+        style="@style/TextAppearance.Material3.BodyLarge"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="@string/user_short_bio"
+        android:visibility="gone"
+        app:layout_constraintBottom_toTopOf="@+id/userPersonalDataContact_materialTextView"
+        app:layout_constraintEnd_toStartOf="@+id/guideline26"
+        app:layout_constraintStart_toEndOf="@+id/guideline25"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintTop_toBottomOf="@+id/userPersonalDataAboutMe_materialTextView" />
 
-                <ImageView
-                    android:id="@+id/userPersonalDataEdit_imageView"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentEnd="true"
-                    android:layout_centerInParent="true"
-                    android:layout_marginStart="@dimen/small_margin"
-                    android:layout_marginTop="@dimen/small_margin"
-                    android:layout_marginEnd="@dimen/small_margin"
-                    android:layout_marginBottom="@dimen/small_margin"
-                    android:contentDescription="@string/edit_user_profile"
-                    android:padding="@dimen/small_padding"
-                    android:src="@drawable/edit_user_profile_64" />
-            </RelativeLayout>
+    <com.google.android.material.textview.MaterialTextView
+        android:id="@+id/userPersonalDataContact_materialTextView"
+        style="@style/TextAppearance.Material3.TitleLarge"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="@string/contact"
+        android:visibility="gone"
+        app:layout_constraintBottom_toTopOf="@+id/userPersonalDataContactEmail_materialButton"
+        app:layout_constraintEnd_toStartOf="@+id/guideline26"
+        app:layout_constraintStart_toEndOf="@+id/guideline25"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintTop_toBottomOf="@+id/userPersonalDataShortBio_materialTextView" />
 
-            <de.hdodenhof.circleimageview.CircleImageView
-                android:id="@+id/userPersonalDataProfile_imageView"
-                android:layout_width="200dp"
-                android:layout_height="200dp"
-                android:src="@drawable/outline_user_profile_64"
-                android:contentDescription="@string/user_profile"
-                android:layout_gravity="center" />
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/userPersonalDataContactEmail_materialButton"
+        style="@style/Widget.Material3.Button.TextButton.Icon"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="@string/email"
+        android:visibility="gone"
+        app:icon="@drawable/mail_filled_24px"
+        app:layout_constraintBottom_toTopOf="@+id/userPersonalDataContactPhone_materialButton"
+        app:layout_constraintEnd_toStartOf="@+id/guideline26"
+        app:layout_constraintStart_toEndOf="@+id/guideline25"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintTop_toBottomOf="@+id/userPersonalDataContact_materialTextView"
+        app:layout_constraintWidth_max="320dp" />
 
-            <RelativeLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content" >
-                <ImageView
-                    android:id="@+id/userPersonalDataOpenGallery_imageView"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:src="@drawable/gallery_64"
-                    android:contentDescription="@string/open_gallery"
-                    android:layout_gravity="center"
-                    android:layout_margin="@dimen/small_margin"
-                    android:padding="@dimen/small_padding"
-                    android:layout_alignParentStart="true"
-                    android:layout_centerVertical="true"
-                    android:layout_centerHorizontal="true"/>
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/userPersonalDataContactPhone_materialButton"
+        style="@style/Widget.Material3.Button.TextButton.Icon"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="@string/phone_number"
+        android:visibility="gone"
+        app:icon="@drawable/phone_filled_24"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/guideline26"
+        app:layout_constraintStart_toEndOf="@+id/guideline25"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintTop_toBottomOf="@+id/userPersonalDataContactEmail_materialButton"
+        app:layout_constraintWidth_max="320dp" />
 
-                <ImageView
-                    android:id="@+id/userPersonalDataOpenCamera_imageView"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:src="@drawable/camera_64"
-                    android:layout_margin="@dimen/small_margin"
-                    android:padding="@dimen/small_padding"
-                    android:contentDescription="@string/open_camera"
-                    android:layout_alignParentEnd="true"
-                    android:layout_centerHorizontal="true"
-                    android:layout_centerVertical="true"/>
-            </RelativeLayout>
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/editUserPersonalDataName_textInputLayout"
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:autofillHints="username"
+        android:enabled="true"
+        android:focusable="true"
+        android:hint="@string/name"
+        android:inputType="textPersonName"
+        android:visibility="gone"
+        app:endIconMode="clear_text"
+        app:errorEnabled="true"
+        app:helperText="*Required"
+        app:layout_constraintEnd_toStartOf="@+id/guideline26"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/guideline25"
+        app:layout_constraintBottom_toTopOf="@+id/editUserPersonalDataAge_textInputLayout"
+        app:layout_constraintTop_toBottomOf="@+id/userPersonalData_constraintLayout"
+        app:layout_constraintWidth_max="488dp">
 
-        </LinearLayout>
-
-        <LinearLayout
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/editUserPersonalDataName_textInputEditText"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:padding="@dimen/small_padding"
-            android:layout_margin="@dimen/small_margin">
+            android:layout_height="wrap_content" />
+    </com.google.android.material.textfield.TextInputLayout>
 
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:padding="@dimen/small_padding"
-                android:layout_margin="@dimen/small_margin">
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:textSize="@dimen/medium_text_size"
-                    android:text="@string/name"
-                    app:drawableStartCompat="@drawable/outline_user_profile_32"
-                    android:drawablePadding="@dimen/small_padding"/>
-                <TextView
-                    android:id="@+id/userPersonalDataName_textView"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="@string/user_name"
-                    android:textSize="@dimen/medium_text_size"
-                    android:paddingHorizontal="42dp"
-                    android:layout_marginVertical="@dimen/small_margin" />
-                <EditText
-                    android:id="@+id/userPersonalDataName_editText"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:textSize="@dimen/medium_text_size"
-                    android:textAlignment="center"
-                    android:hint="@string/name"
-                    android:autofillHints="username"
-                    android:inputType="textPersonName"
-                    android:visibility="gone" />
-            </LinearLayout>
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/editUserPersonalDataAge_textInputLayout"
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:autofillHints="age"
+        android:enabled="true"
+        android:focusable="true"
+        android:hint="@string/age"
+        android:inputType="number"
+        android:visibility="gone"
+        app:endIconMode="clear_text"
+        app:errorEnabled="true"
+        app:helperText="*Required"
+        app:layout_constraintBottom_toTopOf="@+id/editUserPersonalDataAddress_textInputLayout"
+        app:layout_constraintEnd_toStartOf="@+id/guideline26"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/guideline25"
+        app:layout_constraintTop_toBottomOf="@+id/editUserPersonalDataName_textInputLayout"
+        app:layout_constraintWidth_max="488dp">
 
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:padding="@dimen/small_padding"
-                android:layout_margin="@dimen/small_margin">
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="@string/email"
-                    android:textSize="@dimen/medium_text_size"
-                    app:drawableStartCompat="@drawable/email_address_32"
-                    android:drawablePadding="@dimen/small_padding"/>
-
-                <TextView
-                    android:id="@+id/userPersonalDataEmail_textView"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:textSize="@dimen/medium_text_size"
-                    android:text="@string/email"
-                    android:paddingHorizontal="42dp"/>
-                <EditText
-                    android:id="@+id/userPersonalDataEmail_editText"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:textSize="@dimen/medium_text_size"
-                    android:textAlignment="center"
-                    android:hint="@string/email"
-                    android:autofillHints="emailAddress"
-                    android:inputType="textEmailAddress"
-                    android:visibility="gone"/>
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:padding="@dimen/small_padding"
-                android:layout_margin="@dimen/small_margin" >
-
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="@string/location"
-                    android:textSize="@dimen/medium_text_size"
-                    app:drawableStartCompat="@drawable/location_32"
-                    android:drawablePadding="10dp"/>
-
-                <TextView
-                    android:id="@+id/userPersonalDataLocation_textView"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:textSize="@dimen/medium_text_size"
-                    android:text="@string/location"
-                    android:paddingHorizontal="42dp"/>
-
-                <EditText
-                    android:id="@+id/userPersonalDataLocation_editText"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:textSize="@dimen/medium_text_size"
-                    android:textAlignment="center"
-                    android:hint="@string/location"
-                    android:autofillHints="postalAddress"
-                    android:inputType="textPostalAddress"
-                    android:visibility="gone" />
-
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:padding="@dimen/small_padding"
-                android:layout_margin="@dimen/small_margin" >
-
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="@string/phone_number"
-                    android:textSize="@dimen/medium_text_size"
-                    android:drawablePadding="10dp"
-                    app:drawableStartCompat="@drawable/telephone_call_32" />
-
-                <TextView
-                    android:id="@+id/userPersonalDataPhoneNumber_textView"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:textSize="@dimen/medium_text_size"
-                    android:text="@string/phone_number"
-                    android:paddingHorizontal="42dp" />
-
-                <EditText
-                    android:id="@+id/userPersonalDataPhoneNumber_editText"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:textSize="@dimen/medium_text_size"
-                    android:textAlignment="center"
-                    android:hint="@string/phone_number"
-                    android:autofillHints="phone"
-                    android:inputType="phone"
-                    android:visibility="gone" />
-            </LinearLayout>
-
-
-            </LinearLayout>
-
-        <Button
-            android:id="@+id/userPersonalDataUpdate_button"
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/editUserPersonalDataAge_textInputEditText"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_margin="@dimen/small_margin"
-            android:text="@string/update"
-            android:textColor="@color/black"
-            android:backgroundTint="@color/aero_blue"
-            android:padding="@dimen/small_padding"
-            android:textSize="@dimen/medium_text_size"
-            android:visibility="gone" />
+            android:layout_height="wrap_content" />
+    </com.google.android.material.textfield.TextInputLayout>
 
-    </LinearLayout>
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/editUserPersonalDataAddress_textInputLayout"
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:autofillHints="postalAddress"
+        android:enabled="true"
+        android:focusable="true"
+        android:hint="@string/address"
+        android:inputType="textPostalAddress"
+        android:visibility="gone"
+        app:endIconMode="clear_text"
+        app:errorEnabled="true"
+        app:helperText="*Required"
+        app:layout_constraintBottom_toTopOf="@+id/editUserPersonalDataPhoneNumber_textInputLayout"
+        app:layout_constraintEnd_toStartOf="@+id/guideline26"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/guideline25"
+        app:layout_constraintTop_toBottomOf="@+id/editUserPersonalDataAge_textInputLayout"
+        app:layout_constraintWidth_max="488dp">
 
-</ScrollView>
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/editUserPersonalDataAddress_textInputEditText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/editUserPersonalDataPhoneNumber_textInputLayout"
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:autofillHints="postalAddress"
+        android:enabled="true"
+        android:focusable="true"
+        android:hint="@string/phone_number"
+        android:inputType="phone"
+        android:visibility="gone"
+        app:endIconMode="clear_text"
+        app:errorEnabled="true"
+        app:helperText="*Required"
+        app:layout_constraintBottom_toTopOf="@+id/updateUserPersonalData_materialButton"
+        app:layout_constraintEnd_toStartOf="@+id/guideline26"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/guideline25"
+        app:layout_constraintTop_toBottomOf="@+id/editUserPersonalDataAddress_textInputLayout"
+        app:layout_constraintWidth_max="488dp">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/editUserPersonalDataPhoneNumber_textInputEditText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/updateUserPersonalData_materialButton"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="@string/update"
+        style="@style/Widget.Material3.Button"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/guideline26"
+        app:layout_constraintStart_toEndOf="@+id/guideline25"
+        app:layout_constraintTop_toBottomOf="@+id/editUserPersonalDataPhoneNumber_textInputLayout"
+        app:layout_constraintWidth_max="320dp"/>
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline25"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent="0.05" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline26"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent="0.95" />
+</androidx.constraintlayout.widget.ConstraintLayout>
