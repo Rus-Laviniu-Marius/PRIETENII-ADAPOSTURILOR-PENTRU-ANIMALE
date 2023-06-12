@@ -187,7 +187,7 @@ public class UserPersonalDataActivity extends AppCompatActivity {
         backImageView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                startActivity(new Intent(UserPersonalDataActivity.this, ViewUserProfileActivity.class));
+                startActivity(new Intent(UserPersonalDataActivity.this, ViewProfileActivity.class));
             }
         });
 

@@ -24,7 +24,7 @@
                 android:layout_height="?attr/actionBarSize"
                 app:layout_anchor="@+id/appBarLayout"
                 app:layout_anchorGravity="center"
-                app:menu="@menu/create_shelter_profile_top_app_bar"
+                app:menu="@menu/help_top_app_bar"
                 app:navigationIcon="@drawable/arrow_back_24"
                 app:title="@string/app_name"
                 app:titleCentered="true" />

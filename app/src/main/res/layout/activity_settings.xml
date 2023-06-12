@@ -1,181 +1,140 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".SettingsActivity"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    tools:context=".profile.SettingsActivity">
+    <!--    android:backgroundTint="@color/primary_40"-->
 
-    <LinearLayout
-        android:id="@+id/settingsScreenTopBar_linearLayout"
+    <com.google.android.material.appbar.AppBarLayout
+        android:id="@+id/settings_appBarLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+        <!--        android:backgroundTint="@color/tertiary_90"-->
+
+        <com.google.android.material.appbar.MaterialToolbar
+            android:id="@+id/settings_materialToolbar"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            app:layout_anchor="@+id/appBarLayout"
+            app:layout_anchorGravity="center"
+            app:menu="@menu/help_top_app_bar"
+            app:navigationIcon="@drawable/arrow_back_24"
+            app:title="@string/settings"
+            app:titleCentered="true" />
+    </com.google.android.material.appbar.AppBarLayout>
+
+    <com.google.android.material.textview.MaterialTextView
+        android:id="@+id/generalSettings_materialTextView"
+        style="@style/TextAppearance.Material3.LabelLarge"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="@string/general_settings"
+        app:layout_constraintBottom_toTopOf="@+id/settingsNotifications_switchMaterial"
+        app:layout_constraintEnd_toStartOf="@+id/guideline20"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/guideline19"
+        app:layout_constraintTop_toBottomOf="@+id/settings_appBarLayout"
+        app:layout_constraintWidth_max="320dp" />
+
+    <com.google.android.material.switchmaterial.SwitchMaterial
+        android:id="@+id/settingsNotifications_switchMaterial"
+        style="@style/Widget.Material3.CompoundButton.MaterialSwitch"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:drawableStart="@drawable/notifications_filled_24"
+        android:drawablePadding="@dimen/padding_small"
+        android:text="@string/notifications"
+        app:layout_constraintBottom_toTopOf="@+id/settingsDarkMode_switchMaterial"
+        app:layout_constraintEnd_toStartOf="@+id/guideline20"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/guideline19"
+        app:layout_constraintTop_toBottomOf="@+id/generalSettings_materialTextView"
+        app:layout_constraintWidth_max="320dp" />
+
+    <com.google.android.material.switchmaterial.SwitchMaterial
+        android:id="@+id/settingsDarkMode_switchMaterial"
+        style="@style/Widget.Material3.CompoundButton.MaterialSwitch"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:drawableStart="@drawable/dark_mode_filled_24"
+        android:drawablePadding="@dimen/padding_small"
+        android:text="@string/dark_mode"
+        app:layout_constraintBottom_toTopOf="@+id/settingsCopyEventsToCalendar_switchMaterial"
+        app:layout_constraintEnd_toStartOf="@+id/guideline20"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/guideline19"
+        app:layout_constraintTop_toBottomOf="@+id/settingsNotifications_switchMaterial"
+        app:layout_constraintWidth_max="320dp" />
+
+    <com.google.android.material.switchmaterial.SwitchMaterial
+        android:id="@+id/settingsCopyEventsToCalendar_switchMaterial"
+        style="@style/Widget.Material3.CompoundButton.MaterialSwitch"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:drawableStart="@drawable/calendar_month_filled_24"
+        android:drawablePadding="@dimen/padding_small"
+        android:text="@string/copy_events_to_calendar"
+        app:layout_constraintBottom_toTopOf="@+id/settingsSelectLanguage_textInputLayout"
+        app:layout_constraintEnd_toStartOf="@+id/guideline20"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/guideline19"
+        app:layout_constraintTop_toBottomOf="@+id/settingsDarkMode_switchMaterial"
+        app:layout_constraintWidth_max="320dp" />
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/settingsSelectLanguage_textInputLayout"
+        style="@style/Widget.Material3.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:hint="@string/select_language"
+        app:layout_constraintBottom_toTopOf="@+id/settingsAddPayment_materialButton"
+        app:layout_constraintEnd_toStartOf="@+id/guideline20"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/guideline19"
+        app:layout_constraintTop_toBottomOf="@+id/settingsCopyEventsToCalendar_switchMaterial"
+        app:layout_constraintWidth_max="488dp"
+        app:startIconDrawable="@drawable/language_24">
+
+        <com.google.android.material.textfield.MaterialAutoCompleteTextView
+            android:id="@+id/settingsSelectLanguage_materialAutoCompleteTextView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/select_language" />
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/settingsAddPayment_materialButton"
+        style="@style/Widget.Material3.Button.TextButton.Icon"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="@string/add_payment_method"
+        app:icon="@drawable/add_card_24"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/guideline20"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/guideline19"
+        app:layout_constraintTop_toBottomOf="@+id/settingsSelectLanguage_textInputLayout"
+        app:layout_constraintWidth_max="320dp" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline19"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:orientation="vertical"
-        android:background="@drawable/top_bar">
-        <ImageView
-            android:id="@+id/settingsScreenTopBarBack_imageView"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:src="@drawable/back_64"
-            android:layout_margin="@dimen/medium_margin"
-            android:padding="@dimen/small_padding"
-            android:contentDescription="@string/back" />
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="@string/settings"
-            android:textSize="@dimen/extra_large_text_size"
-            android:layout_margin="@dimen/medium_margin"
-            android:padding="@dimen/medium_padding"/>
+        app:layout_constraintGuide_percent="0.05" />
 
-    </LinearLayout>
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline20"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent="0.95" />
 
 
-    <ScrollView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-        <LinearLayout
-            android:id="@+id/settingsAccountInfo_linearLayout"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical" >
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="@string/account"
-                android:textSize="@dimen/medium_text_size"
-                android:layout_margin="@dimen/medium_margin"
-                android:padding="@dimen/medium_padding"/>
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal" >
-                <de.hdodenhof.circleimageview.CircleImageView
-                    android:id="@+id/settingsScreenContentAccountUserProfile_circleImageView"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:src="@drawable/outline_user_image_128"
-                    android:contentDescription="@string/user_profile_image"
-                    android:layout_weight="1"/>
-                <LinearLayout
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:orientation="vertical"
-                    android:layout_weight="2"
-                    android:layout_gravity="center">
-                    <TextView
-                        android:id="@+id/settingsScreenContentAccountUserName_textView"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="@string/user_name"
-                        android:textSize="@dimen/large_text_size"
-                        android:gravity="center"/>
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="@string/personal_info"
-                        android:textSize="@dimen/medium_text_size"
-                        android:gravity="center"/>
-                </LinearLayout>
-                <ImageView
-                    android:id="@+id/settingsScreenContentAccountNext_imageView"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:src="@drawable/next_64"
-                    android:contentDescription="@string/next"
-                    android:layout_weight="1"
-                    android:layout_gravity="center"/>
-            </LinearLayout>
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="@string/settings"
-                android:textSize="@dimen/medium_text_size"
-                android:layout_margin="@dimen/medium_margin"
-                android:padding="@dimen/medium_padding"/>
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:layout_margin="@dimen/medium_margin">
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal"
-                    android:padding="@dimen/small_padding">
-                    <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:text="@string/language"
-                        android:textSize="@dimen/medium_text_size"
-                        android:layout_weight="1"
-                        android:gravity="center"
-                        android:drawablePadding="@dimen/small_padding"
-                        app:drawableStartCompat="@drawable/outline_worldwide_64" />
-                    <TextView
-                        android:id="@+id/settingsScreenContentSettingsActiveSelectedLanguage_textView"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:text="@string/language"
-                        android:textSize="@dimen/small_text_size"
-                        android:textAlignment="textEnd"
-                        android:gravity="center"
-                        android:layout_weight="1.25"
-                        app:drawableEndCompat="@drawable/next_64" />
-                </LinearLayout>
-                <TextView
-                    android:id="@+id/settingsScreenContentSettingsNotifications_textView"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="@string/notifications"
-                    android:gravity="center"
-                    android:padding="@dimen/small_padding"
-                    android:textSize="@dimen/medium_text_size"
-                    app:drawableStartCompat="@drawable/notification"
-                    app:drawableEndCompat="@drawable/next_64" />
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal"
-                    android:padding="@dimen/small_padding">
-                    <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:text="@string/dark_mode"
-                        android:padding="@dimen/small_padding"
-                        android:textSize="@dimen/medium_text_size"
-                        android:layout_weight="1"
-                        android:gravity="center"
-                        android:drawablePadding="@dimen/small_padding"
-                        app:drawableStartCompat="@drawable/outline_day_and_night_64" />
-                    <androidx.appcompat.widget.SwitchCompat
-                        android:id="@+id/settingsScreenContentSettingsDarkOrLightMode_switchCompat"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:text="@string/off"
-                        android:layout_weight="1.5"
-                        android:textSize="@dimen/small_text_size"
-                        android:gravity="center"/>
-
-                </LinearLayout>
-
-                <TextView
-                    android:id="@+id/settingsScreenContentSettingsHelp_textView"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="@string/help"
-                    android:gravity="center"
-                    android:padding="@dimen/small_padding"
-                    android:textSize="@dimen/medium_text_size"
-                    app:drawableStartCompat="@drawable/outline_help_64"
-                    app:drawableEndCompat="@drawable/next_64" />
-
-
-            </LinearLayout>
-
-        </LinearLayout>
-    </ScrollView>
-
-
-</LinearLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>

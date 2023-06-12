@@ -7,27 +7,27 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.Manifest;
 import android.app.Activity;
-import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.net.Uri;
-import android.os.Build;
 import android.os.Bundle;
 import android.provider.MediaStore;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.View;
-import android.widget.Button;
-import android.widget.EditText;
-import android.widget.ImageView;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
+import com.google.android.material.button.MaterialButton;
+import com.google.android.material.imageview.ShapeableImageView;
+import com.google.android.material.textfield.TextInputEditText;
+import com.google.android.material.textfield.TextInputLayout;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
@@ -35,25 +35,27 @@ import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.OnProgressListener;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
+import com.pet.shelter.friends.ErrorSetter;
 import com.pet.shelter.friends.R;
+import com.pet.shelter.friends.ValidationManager;
 
 import java.io.ByteArrayOutputStream;
 import java.io.FileNotFoundException;
 import java.io.InputStream;
 import java.util.Objects;
 
-public class CreateUserProfileActivity extends AppCompatActivity {
+public class CreateUserProfileActivity extends AppCompatActivity implements TextWatcher, ErrorSetter {
 
-    private FirebaseAuth firebaseAuth;
-    private DatabaseReference usersReference;
-    private StorageReference userProfileImageStorage;
+    private DatabaseReference profiles;
 
-    private ImageView profileImageView, galleryImageView, cameraImageView;
-    private TextView nameTextView, emailTextView, locationTextView, phoneNumberTextView;
-    private EditText nameEditText, emailEditText, locationEditText, phoneNumberEditText;
-    private Button createButton;
+    private StorageReference profileImages;
+
+    private TextInputLayout nameTextInputLayout, ageTextInputLayout, addressTextInputLayout, phoneNumberTextInputLayout;
+    private TextInputEditText nameTextInputEditText, ageTextInputEditText, addressTextInputEditText, phoneNumberTextInputEditText;
+    private ShapeableImageView profileImageView;
 
     private Uri gallerySelectedImageUri, cameraCapturedImageUri;
+
     private Bitmap cameraCapturedImageBitmap;
 
     private ActivityResultLauncher<Intent> galleryActivityResultLauncher, cameraActivityResultLauncher;
@@ -62,16 +64,34 @@ public class CreateUserProfileActivity extends AppCompatActivity {
     private static final int PICK_FROM_GALLERY = 1889;
     private static final int MY_CAMERA_PERMISSION_CODE = 100;
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_create_user_profile);
 
-        firebaseAuth = FirebaseAuth.getInstance();
+        FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
         FirebaseDatabase firebaseDatabase = FirebaseDatabase.getInstance();
-        usersReference = firebaseDatabase.getReference("profiles");
         FirebaseStorage firebaseStorage = FirebaseStorage.getInstance();
-        userProfileImageStorage = firebaseStorage.getReference();
+        profileImages = firebaseStorage.getReference("profiles");
+        profiles = firebaseDatabase.getReference("profiles");
+
+        MaterialButton openGalleryMaterialButton = findViewById(R.id.createUserProfileOpenGallery_materialButton);
+        MaterialButton openCameraMaterialButton = findViewById(R.id.createUserProfileOpenCamera_materialButton);
+        MaterialButton createProfileMaterialButton = findViewById(R.id.createUserProfile_materialButton);
+        MaterialButton skipCreateProfileMaterialButton = findViewById(R.id.createUserProfileSkip_materialButton);
+
+        nameTextInputLayout = findViewById(R.id.createUserProfileName_textInputLayout);
+        ageTextInputLayout = findViewById(R.id.createUserProfileAge_textInputLayout);
+        addressTextInputLayout = findViewById(R.id.createUserProfileAddress_textInputLayout);
+        phoneNumberTextInputLayout = findViewById(R.id.createUserProfilePhoneNumber_textInputLayout);
+
+        nameTextInputEditText = findViewById(R.id.createUserProfileName_textInputEditText);
+        ageTextInputEditText = findViewById(R.id.createUserProfileAge_textInputEditText);
+        addressTextInputEditText = findViewById(R.id.createUserProfileAddress_textInputEditText);
+        phoneNumberTextInputEditText = findViewById(R.id.createUserProfilePhoneNumber_textInputEditText);
+
+        profileImageView = findViewById(R.id.createUserProfileImage_shapeImageView);
 
         loggedUserId = Objects.requireNonNull(firebaseAuth.getCurrentUser()).getUid();
 
@@ -105,171 +125,112 @@ public class CreateUserProfileActivity extends AppCompatActivity {
                     }
                 });
 
-        profileImageView = findViewById(R.id.createProfileUser_imageView);
-        galleryImageView = findViewById(R.id.createProfileOpenGallery_imageView);
-        cameraImageView = findViewById(R.id.createProfileOpenCamera_imageView);
-
-        nameTextView = findViewById(R.id.createProfileUserName_textView);
-        emailTextView = findViewById(R.id.createProfileUserEmail_textView);
-        locationTextView = findViewById(R.id.createProfileUserLocation_textView);
-        phoneNumberTextView = findViewById(R.id.createProfileUserPhoneNumber_textView);
-
-        nameEditText = findViewById(R.id.createProfileUserName_editText);
-        emailEditText = findViewById(R.id.createProfileUserEmail_editText);
-        locationEditText = findViewById(R.id.createProfileUserLocation_editText);
-        phoneNumberEditText = findViewById(R.id.createProfileUserPhoneNumber_editText);
-
-        createButton = findViewById(R.id.createProfileCreate_button);
-
-        setOnFocusListeners();
-
-        setOnClickListeners();
-
-    }
-
-    private void setOnFocusListeners() {
-        nameEditText.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+        skipCreateProfileMaterialButton.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onFocusChange(View view, boolean b) {
-                if (b) {
-                    nameTextView.setVisibility(View.VISIBLE);
-                    nameEditText.setHint("");
-                }
+            public void onClick(View v) {
+                startActivity(new Intent(CreateUserProfileActivity.this, ViewProfileActivity.class));
             }
         });
-        emailEditText.setOnFocusChangeListener(new View.OnFocusChangeListener() {
-            @Override
-            public void onFocusChange(View view, boolean b) {
-                if (b) {
-                    emailTextView.setVisibility(View.VISIBLE);
-                    emailEditText.setHint("");
-                }
-            }
-        });
-        locationEditText.setOnFocusChangeListener(new View.OnFocusChangeListener() {
-            @Override
-            public void onFocusChange(View view, boolean b) {
-                if (b) {
-                    locationTextView.setVisibility(View.VISIBLE);
-                    locationEditText.setHint("");
-                }
-            }
-        });
-        phoneNumberEditText.setOnFocusChangeListener(new View.OnFocusChangeListener() {
-            @Override
-            public void onFocusChange(View view, boolean b) {
-                if (b) {
-                    phoneNumberTextView.setVisibility(View.VISIBLE);
-                    phoneNumberEditText.setHint("");
-                }
-            }
-        });
-    }
-
-    private void setOnClickListeners() {
-        createButton.setOnClickListener(new View.OnClickListener() {
+        createProfileMaterialButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                String name, email, location, phoneNumber;
+                String name, age, address, phoneNumber;
 
-                name = nameEditText.getText().toString().trim();
-                email = emailEditText.getText().toString().trim();
-                location = locationEditText.getText().toString().trim();
-                phoneNumber = phoneNumberEditText.getText().toString().trim();
+                name = Objects.requireNonNull(nameTextInputEditText.getText()).toString().trim();
+                age = Objects.requireNonNull(ageTextInputEditText.getText()).toString().trim();
+                address = Objects.requireNonNull(addressTextInputEditText.getText()).toString().trim();
+                phoneNumber = Objects.requireNonNull(phoneNumberTextInputEditText.getText()).toString().trim();
 
-                // Defining the child of storageReference
-                StorageReference ref = userProfileImageStorage
-                        .child("user")
-                        .child(Objects.requireNonNull(firebaseAuth.getCurrentUser()).getUid())
-                        .child("images/" + name + "_" + loggedUserId);
+                ValidationManager.getInstance().doValidation(CreateUserProfileActivity.this,
+                        phoneNumberTextInputLayout).checkEmpty().checkPhoneNumber();
+                ValidationManager.getInstance().doValidation(CreateUserProfileActivity.this,
+                        ageTextInputLayout).checkEmpty();
+                ValidationManager.getInstance().doValidation(CreateUserProfileActivity.this,
+                        nameTextInputLayout).checkEmpty();
+                ValidationManager.getInstance().doValidation(CreateUserProfileActivity.this,
+                        addressTextInputLayout).checkEmpty();
+                if (ValidationManager.getInstance().isPhoneNumberValidAndNothingEmpty()) {
+                    StorageReference ref = profileImages
+                            .child("shelterAdministrators")
+                            .child(Objects.requireNonNull(loggedUserId))
+                            .child(name + "_" + loggedUserId);
 
-                if (gallerySelectedImageUri != null) {
-                    // Code for showing progress dialog while uploading
-                    ProgressDialog progressDialog = new ProgressDialog(CreateUserProfileActivity.this);
-                    progressDialog.setTitle("Uploading...");
-                    progressDialog.show();
+                    if (gallerySelectedImageUri != null) {
+                        // Adding listeners on upload or failure of image
+                        UploadTask uploadTask = ref.putFile(gallerySelectedImageUri);
+                        uploadTask.addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+                                    @Override
+                                    public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+                                        taskSnapshot.getStorage().getDownloadUrl().addOnCompleteListener(new OnCompleteListener<Uri>() {
+                                            @Override
+                                            public void onComplete(@NonNull Task<Uri> task) {
+                                                Toast.makeText(CreateUserProfileActivity.this, "Image uploaded", Toast.LENGTH_SHORT).show();
+                                                String fileLink = task.getResult().toString();
 
-                    // Adding listeners on upload or failure of image
-                    UploadTask uploadTask = ref.putFile(gallerySelectedImageUri);
-                    uploadTask.addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
-                                @Override
-                                public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
-                                    taskSnapshot.getStorage().getDownloadUrl().addOnCompleteListener(new OnCompleteListener<Uri>() {
-                                        @Override
-                                        public void onComplete(@NonNull Task<Uri> task) {
-                                            progressDialog.dismiss();
-                                            Toast.makeText(CreateUserProfileActivity.this, "Image uploaded", Toast.LENGTH_SHORT).show();
-                                            String fileLink = task.getResult().toString();
+                                                profiles.child("users").child(loggedUserId).child("name").setValue(name);
+                                                profiles.child("users").child(loggedUserId).child("age").setValue(age);
+                                                profiles.child("users").child(loggedUserId).child("address").setValue(address);
+                                                profiles.child("users").child(loggedUserId).child("phoneNumber").setValue(phoneNumber);
+                                                profiles.child("users").child(loggedUserId).child("profileImageDownloadLink").setValue(fileLink);
+                                            }
+                                        });
+                                    }
+                                })
+                                .addOnFailureListener(new OnFailureListener() {
+                                    @Override
+                                    public void onFailure(@NonNull Exception e) {
+                                        Toast.makeText(CreateUserProfileActivity.this, "Failed " + e.getMessage(), Toast.LENGTH_SHORT).show();
+                                    }
+                                })
+                                .addOnProgressListener(new OnProgressListener<UploadTask.TaskSnapshot>() {
+                                    @Override
+                                    public void onProgress(@NonNull UploadTask.TaskSnapshot snapshot) {
+                                        double progress = (100.0 * snapshot.getBytesTransferred() / snapshot.getTotalByteCount());
+                                    }
+                                });
+                    }
 
-                                            usersReference.child(loggedUserId).child("name").setValue(name);
-                                            usersReference.child(loggedUserId).child("email").setValue(email);
-                                            usersReference.child(loggedUserId).child("location").setValue(location);
-                                            usersReference.child(loggedUserId).child("phoneNumber").setValue(phoneNumber);
-                                            usersReference.child(loggedUserId).child("profileImageDownloadLink").setValue(fileLink);
-                                        }
-                                    });
-                                }
-                            })
-                            .addOnFailureListener(new OnFailureListener() {
-                                @Override
-                                public void onFailure(@NonNull Exception e) {
-                                    Toast.makeText(CreateUserProfileActivity.this, "Failed " + e.getMessage(), Toast.LENGTH_SHORT).show();
-                                }
-                            })
-                            .addOnProgressListener(new OnProgressListener<UploadTask.TaskSnapshot>() {
-                                @Override
-                                public void onProgress(@NonNull UploadTask.TaskSnapshot snapshot) {
-                                    double progress = (100.0 * snapshot.getBytesTransferred() / snapshot.getTotalByteCount());
-                                    progressDialog.setMessage("Uploaded " + (int) progress + "%");
-                                }
-                            });
-                }
+                    if (cameraCapturedImageUri != null) {
+                        // Adding listeners on upload or failure of image
+                        UploadTask uploadTask = ref.putFile(cameraCapturedImageUri);
+                        uploadTask.addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+                                    @Override
+                                    public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+                                        taskSnapshot.getStorage().getDownloadUrl().addOnCompleteListener(new OnCompleteListener<Uri>() {
+                                            @Override
+                                            public void onComplete(@NonNull Task<Uri> task) {
+                                                Toast.makeText(CreateUserProfileActivity.this, "Image uploaded", Toast.LENGTH_SHORT).show();
+                                                String fileLink = task.getResult().toString();
 
-                if (cameraCapturedImageUri != null) {
-                    // Code for showing progress dialog while uploading
-                    ProgressDialog progressDialog = new ProgressDialog(CreateUserProfileActivity.this);
-                    progressDialog.setTitle("Uploading...");
-                    progressDialog.show();
-
-                    // Adding listeners on upload or failure of image
-                    UploadTask uploadTask = ref.putFile(cameraCapturedImageUri);
-                    uploadTask.addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
-                                @Override
-                                public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
-                                    taskSnapshot.getStorage().getDownloadUrl().addOnCompleteListener(new OnCompleteListener<Uri>() {
-                                        @Override
-                                        public void onComplete(@NonNull Task<Uri> task) {
-                                            progressDialog.dismiss();
-                                            Toast.makeText(CreateUserProfileActivity.this, "Image uploaded", Toast.LENGTH_SHORT).show();
-                                            String fileLink = task.getResult().toString();
-
-                                            usersReference.child(loggedUserId).child("name").setValue(name);
-                                            usersReference.child(loggedUserId).child("email").setValue(email);
-                                            usersReference.child(loggedUserId).child("location").setValue(location);
-                                            usersReference.child(loggedUserId).child("phoneNumber").setValue(phoneNumber);
-                                            usersReference.child(loggedUserId).child("profileImageDownloadLink").setValue(fileLink);
-                                        }
-                                    });
-                                }
-                            })
-                            .addOnFailureListener(new OnFailureListener() {
-                                @Override
-                                public void onFailure(@NonNull Exception e) {
-                                    Toast.makeText(CreateUserProfileActivity.this, "Failed " + e.getMessage(), Toast.LENGTH_SHORT).show();
-                                }
-                            })
-                            .addOnProgressListener(new OnProgressListener<UploadTask.TaskSnapshot>() {
-                                @Override
-                                public void onProgress(@NonNull UploadTask.TaskSnapshot snapshot) {
-                                    double progress = (100.0 * snapshot.getBytesTransferred() / snapshot.getTotalByteCount());
-                                    progressDialog.setMessage("Uploaded " + (int) progress + "%");
-                                }
-                            });
+                                                profiles.child("users").child(loggedUserId).child("name").setValue(name);
+                                                profiles.child("users").child(loggedUserId).child("age").setValue(age);
+                                                profiles.child("users").child(loggedUserId).child("address").setValue(address);
+                                                profiles.child("users").child(loggedUserId).child("phoneNumber").setValue(phoneNumber);
+                                                profiles.child("users").child(loggedUserId).child("profileImageDownloadLink").setValue(fileLink);
+                                            }
+                                        });
+                                    }
+                                })
+                                .addOnFailureListener(new OnFailureListener() {
+                                    @Override
+                                    public void onFailure(@NonNull Exception e) {
+                                        Toast.makeText(CreateUserProfileActivity.this, "Failed " + e.getMessage(), Toast.LENGTH_SHORT).show();
+                                    }
+                                })
+                                .addOnProgressListener(new OnProgressListener<UploadTask.TaskSnapshot>() {
+                                    @Override
+                                    public void onProgress(@NonNull UploadTask.TaskSnapshot snapshot) {
+                                        double progress = (100.0 * snapshot.getBytesTransferred() / snapshot.getTotalByteCount());
+                                    }
+                                });
+                    }
+                    sendUserToNextActivity();
                 }
             }
+            // Defining the child of storageReference
         });
 
-        galleryImageView.setOnClickListener(new View.OnClickListener() {
+        openGalleryMaterialButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 if (checkSelfPermission(Manifest.permission.READ_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
@@ -281,7 +242,7 @@ public class CreateUserProfileActivity extends AppCompatActivity {
             }
         });
 
-        cameraImageView.setOnClickListener(new View.OnClickListener() {
+        openCameraMaterialButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 if (checkSelfPermission(Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED)
@@ -299,6 +260,15 @@ public class CreateUserProfileActivity extends AppCompatActivity {
                 }
             }
         });
+
+        setTextWatcher();
+
+    }
+
+    public void sendUserToNextActivity() {
+        Intent intent = new Intent(CreateUserProfileActivity.this, CreateShelterProfileActivity.class);
+        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK| Intent.FLAG_ACTIVITY_NEW_TASK);
+        startActivity(intent);
     }
 
     public Uri getImageUri(Context inContext, Bitmap inImage) {
@@ -306,5 +276,41 @@ public class CreateUserProfileActivity extends AppCompatActivity {
         inImage.compress(Bitmap.CompressFormat.JPEG, 100, bytes);
         String path = MediaStore.Images.Media.insertImage(inContext.getContentResolver(), inImage, "Title", null);
         return Uri.parse(path);
+    }
+
+    @Override
+    public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+    }
+
+    @Override
+    public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+    }
+
+    @Override
+    public void afterTextChanged(Editable editable) {
+        if (editable.hashCode() == Objects.requireNonNull(nameTextInputLayout.getEditText()).getText().hashCode()) {
+            nameTextInputLayout.setErrorEnabled(false);
+        } else if (editable.hashCode() == Objects.requireNonNull(ageTextInputLayout.getEditText()).getText().hashCode()) {
+            ageTextInputLayout.setErrorEnabled(false);
+        } else if (editable.hashCode() == Objects.requireNonNull(addressTextInputLayout.getEditText()).getText().hashCode()) {
+            addressTextInputLayout.setErrorEnabled(false);
+        }
+        else if (editable.hashCode() == Objects.requireNonNull(phoneNumberTextInputLayout.getEditText()).getText().hashCode()) {
+            phoneNumberTextInputLayout.setErrorEnabled(false);
+        }
+    }
+
+    private void setTextWatcher() {
+        Objects.requireNonNull(nameTextInputLayout.getEditText()).addTextChangedListener(this);
+        Objects.requireNonNull(ageTextInputLayout.getEditText()).addTextChangedListener(this);
+        Objects.requireNonNull(addressTextInputLayout.getEditText()).addTextChangedListener(this);
+        Objects.requireNonNull(phoneNumberTextInputLayout.getEditText()).addTextChangedListener(this);
+    }
+
+    @Override
+    public void setError(TextInputLayout textInputLayout, String errorMessage) {
+        textInputLayout.setError(errorMessage);
     }
 }

@@ -47,9 +47,8 @@ import java.util.Objects;
 public class CreateShelterAdminProfileActivity extends AppCompatActivity implements TextWatcher, ErrorSetter {
 
     private FirebaseAuth firebaseAuth;
-    private DatabaseReference shelterAdministratorsReference;
-
-    private StorageReference shelterAdministratorsProfileImages;
+    private DatabaseReference profiles;
+    private StorageReference profileImages;
 
     private TextInputLayout nameTextInputLayout, ageTextInputLayout, addressTextInputLayout, phoneNumberTextInputLayout;
     private TextInputEditText nameTextInputEditText, ageTextInputEditText, addressTextInputEditText, phoneNumberTextInputEditText;
@@ -74,12 +73,13 @@ public class CreateShelterAdminProfileActivity extends AppCompatActivity impleme
         firebaseAuth = FirebaseAuth.getInstance();
         FirebaseDatabase firebaseDatabase = FirebaseDatabase.getInstance();
         FirebaseStorage firebaseStorage = FirebaseStorage.getInstance();
-        shelterAdministratorsProfileImages = firebaseStorage.getReference("shelterAdministratorsProfiles");
-        shelterAdministratorsReference = firebaseDatabase.getReference("shelterAdministrators");
+        profileImages = firebaseStorage.getReference("profiles");
+        profiles = firebaseDatabase.getReference("profiles");
 
         MaterialButton openGalleryMaterialButton = findViewById(R.id.createShelterAdminProfileOpenGallery_materialButton);
         MaterialButton openCameraMaterialButton = findViewById(R.id.createShelterAdminProfileOpenCamera_materialButton);
         MaterialButton createProfileMaterialButton = findViewById(R.id.createShelterAdminProfile_materialButton);
+        MaterialButton skipCreateProfileMaterialButton = findViewById(R.id.createShelterAdminProfileSkip_materialButton);
 
         nameTextInputLayout = findViewById(R.id.createShelterAdminProfileName_textInputLayout);
         ageTextInputLayout = findViewById(R.id.createShelterAdminProfileAge_textInputLayout);
@@ -91,7 +91,7 @@ public class CreateShelterAdminProfileActivity extends AppCompatActivity impleme
         addressTextInputEditText = findViewById(R.id.createShelterAdminProfileAddress_textInputEditText);
         phoneNumberTextInputEditText = findViewById(R.id.createShelterAdminProfilePhoneNumber_textInputEditText);
 
-        profileImageView = findViewById(R.id.createShelterAdminProfileImage_shapeableImageView);
+        profileImageView = findViewById(R.id.createShelterAdminProfileImage_shapeImageView);
 
         loggedUserId = Objects.requireNonNull(firebaseAuth.getCurrentUser()).getUid();
 
@@ -125,6 +125,13 @@ public class CreateShelterAdminProfileActivity extends AppCompatActivity impleme
                     }
                 });
 
+        skipCreateProfileMaterialButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(CreateShelterAdminProfileActivity.this, ViewProfileActivity.class));
+            }
+        });
+
         createProfileMaterialButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -144,10 +151,10 @@ public class CreateShelterAdminProfileActivity extends AppCompatActivity impleme
                 ValidationManager.getInstance().doValidation(CreateShelterAdminProfileActivity.this,
                         addressTextInputLayout).checkEmpty();
                 if (ValidationManager.getInstance().isPhoneNumberValidAndNothingEmpty()) {
-                    StorageReference ref = shelterAdministratorsProfileImages
+                    StorageReference ref = profileImages
                             .child("shelterAdministrators")
-                            .child(Objects.requireNonNull(firebaseAuth.getCurrentUser()).getUid())
-                            .child("images/" + name + "_" + loggedUserId);
+                            .child(Objects.requireNonNull(loggedUserId))
+                            .child(name + "_" + loggedUserId);
 
                     if (gallerySelectedImageUri != null) {
                         // Adding listeners on upload or failure of image
@@ -161,11 +168,11 @@ public class CreateShelterAdminProfileActivity extends AppCompatActivity impleme
                                                 Toast.makeText(CreateShelterAdminProfileActivity.this, "Image uploaded", Toast.LENGTH_SHORT).show();
                                                 String fileLink = task.getResult().toString();
 
-                                                shelterAdministratorsReference.child(loggedUserId).child("name").setValue(name);
-                                                shelterAdministratorsReference.child(loggedUserId).child("age").setValue(age);
-                                                shelterAdministratorsReference.child(loggedUserId).child("address").setValue(address);
-                                                shelterAdministratorsReference.child(loggedUserId).child("phoneNumber").setValue(phoneNumber);
-                                                shelterAdministratorsReference.child(loggedUserId).child("profileImageDownloadLink").setValue(fileLink);
+                                                profiles.child("shelterAdministrators").child(loggedUserId).child("name").setValue(name);
+                                                profiles.child("shelterAdministrators").child(loggedUserId).child("age").setValue(age);
+                                                profiles.child("shelterAdministrators").child(loggedUserId).child("address").setValue(address);
+                                                profiles.child("shelterAdministrators").child(loggedUserId).child("phoneNumber").setValue(phoneNumber);
+                                                profiles.child("shelterAdministrators").child(loggedUserId).child("profileImageDownloadLink").setValue(fileLink);
                                             }
                                         });
                                     }
@@ -196,11 +203,11 @@ public class CreateShelterAdminProfileActivity extends AppCompatActivity impleme
                                                 Toast.makeText(CreateShelterAdminProfileActivity.this, "Image uploaded", Toast.LENGTH_SHORT).show();
                                                 String fileLink = task.getResult().toString();
 
-                                                shelterAdministratorsReference.child(loggedUserId).child("name").setValue(name);
-                                                shelterAdministratorsReference.child(loggedUserId).child("age").setValue(age);
-                                                shelterAdministratorsReference.child(loggedUserId).child("address").setValue(address);
-                                                shelterAdministratorsReference.child(loggedUserId).child("phoneNumber").setValue(phoneNumber);
-                                                shelterAdministratorsReference.child(loggedUserId).child("profileImageDownloadLink").setValue(fileLink);
+                                                profiles.child("shelterAdministrators").child(loggedUserId).child("name").setValue(name);
+                                                profiles.child("shelterAdministrators").child(loggedUserId).child("age").setValue(age);
+                                                profiles.child("shelterAdministrators").child(loggedUserId).child("address").setValue(address);
+                                                profiles.child("shelterAdministrators").child(loggedUserId).child("phoneNumber").setValue(phoneNumber);
+                                                profiles.child("shelterAdministrators").child(loggedUserId).child("profileImageDownloadLink").setValue(fileLink);
                                             }
                                         });
                                     }

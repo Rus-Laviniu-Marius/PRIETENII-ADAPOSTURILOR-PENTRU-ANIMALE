@@ -1,0 +1,164 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".profile.ViewProfileActivity">
+
+    <com.google.android.material.appbar.AppBarLayout
+        android:id="@+id/viewUserProfile_appBarLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <com.google.android.material.appbar.MaterialToolbar
+            android:id="@+id/viewUserProfileScreenTop_materialToolbar"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            app:layout_anchor="@+id/appBarLayout"
+            app:layout_anchorGravity="center"
+            app:menu="@menu/delete_top_app_bar_menu"
+            app:navigationIcon="@drawable/arrow_back_24"
+            app:title="@string/user_profile"
+            app:titleCentered="true" />
+    </com.google.android.material.appbar.AppBarLayout>
+
+    <LinearLayout
+        android:id="@+id/viewUserProfileData_linearLayout"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/small_margin"
+        android:orientation="vertical"
+        android:padding="@dimen/padding_small"
+        app:layout_constraintBottom_toTopOf="@+id/viewUserProfileSettings_materialButton"
+        app:layout_constraintEnd_toStartOf="@+id/guideline18"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/guideline17"
+        app:layout_constraintTop_toBottomOf="@+id/viewUserProfile_appBarLayout">
+
+        <com.google.android.material.imageview.ShapeableImageView
+            android:id="@+id/viewUserProfileImage_imageView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:contentDescription="@string/user_profile_image"
+            android:maxWidth="100dp"
+            android:maxHeight="100dp"
+            android:scaleType="centerInside"
+            android:adjustViewBounds="true"
+            style="@style/circleImageView"
+            app:srcCompat="@drawable/add_image_100px" />
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/viewUserProfileUserName_materialTextView"
+            style="@style/TextAppearance.Material3.HeadlineLarge"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/small_margin"
+            android:text="@string/user_name"
+            android:textAlignment="center" />
+    </LinearLayout>
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/viewUserProfileSettings_materialButton"
+        style="@style/Widget.Material3.Button.Icon"
+        android:layout_width="0dp"
+        app:layout_constraintWidth_max="320dp"
+        android:layout_height="wrap_content"
+        android:text="@string/settings"
+        app:icon="@drawable/settings_outline_24"
+        app:layout_constraintBottom_toTopOf="@+id/viewUserProfilePersonalData_materialButton"
+        app:layout_constraintEnd_toStartOf="@+id/guideline18"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/guideline17"
+        app:layout_constraintTop_toBottomOf="@+id/viewUserProfileData_linearLayout" />
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/viewUserProfilePersonalData_materialButton"
+        style="@style/Widget.Material3.Button.Icon"
+        android:layout_width="0dp"
+        app:layout_constraintWidth_max="320dp"
+        android:layout_height="wrap_content"
+        android:text="@string/personal_data"
+        app:icon="@drawable/person_outline_24"
+        app:layout_constraintBottom_toTopOf="@+id/viewUserProfilePastAttendedEvents_materialButton"
+        app:layout_constraintEnd_toStartOf="@+id/guideline18"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/guideline17"
+        app:layout_constraintTop_toBottomOf="@+id/viewUserProfileSettings_materialButton" />
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/viewUserProfilePastAttendedEvents_materialButton"
+        style="@style/Widget.Material3.Button.Icon"
+        android:layout_width="0dp"
+        app:layout_constraintWidth_max="320dp"
+        android:layout_height="wrap_content"
+        android:text="@string/past_attended_events"
+        app:icon="@drawable/history_24"
+        app:layout_constraintBottom_toTopOf="@+id/viewUserProfileActiveServices_materialButton"
+        app:layout_constraintEnd_toStartOf="@+id/guideline18"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/guideline17"
+        app:layout_constraintTop_toBottomOf="@+id/viewUserProfilePersonalData_materialButton" />
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/viewUserProfileActiveServices_materialButton"
+        style="@style/Widget.Material3.Button.Icon"
+        android:layout_width="0dp"
+        app:layout_constraintWidth_max="320dp"
+        android:layout_height="wrap_content"
+        android:text="@string/active_services"
+        app:icon="@drawable/handshake_outline_24"
+        app:layout_constraintBottom_toTopOf="@+id/viewUserProfileChangeRole_materialButton"
+        app:layout_constraintEnd_toStartOf="@+id/guideline18"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/guideline17"
+        app:layout_constraintTop_toBottomOf="@+id/viewUserProfilePastAttendedEvents_materialButton" />
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/viewUserProfileChangeRole_materialButton"
+        style="@style/Widget.Material3.Button.OutlinedButton"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="@dimen/small_margin"
+        app:layout_constraintWidth_max="320dp"
+        android:text="@string/change_role"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/viewUserProfileActiveServices_materialButton"
+        app:layout_constraintEnd_toStartOf="@+id/viewUserProfileLogout_materialButton"
+        app:layout_constraintStart_toEndOf="@+id/guideline17"
+        app:layout_constraintHorizontal_bias="0.5" />
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/viewUserProfileLogout_materialButton"
+        style="@style/Widget.Material3.Button"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/small_margin"
+        app:layout_constraintWidth_max="320dp"
+        android:text="@string/log_out"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/viewUserProfileChangeRole_materialButton"
+        app:layout_constraintEnd_toStartOf="@+id/guideline18"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/viewUserProfileActiveServices_materialButton" />
+
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline17"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent="0.05" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline18"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent="0.95" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

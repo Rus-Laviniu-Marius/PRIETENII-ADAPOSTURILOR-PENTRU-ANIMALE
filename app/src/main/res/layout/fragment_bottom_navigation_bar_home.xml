@@ -17,7 +17,7 @@
             android:layout_height="?attr/actionBarSize"
             app:layout_anchor="@+id/appBarLayout"
             app:layout_anchorGravity="center"
-            app:menu="@menu/home_top_app_bar"
+            app:menu="@menu/notification_top_app_bar_menu"
             app:navigationIcon="@drawable/profile_filled_24px"
             app:title="@string/app_name"
             app:titleCentered="true" />

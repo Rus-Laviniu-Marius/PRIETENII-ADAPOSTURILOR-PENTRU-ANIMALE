@@ -27,13 +27,13 @@
             android:gravity="center"
             app:icon="@drawable/open_folder_image_24px"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toStartOf="@+id/createShelterAdminProfileImage_shapeableImageView"
+            app:layout_constraintEnd_toStartOf="@+id/createShelterAdminProfileImage_shapeImageView"
             app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
         <com.google.android.material.imageview.ShapeableImageView
-            android:id="@+id/createShelterAdminProfileImage_shapeableImageView"
+            android:id="@+id/createShelterAdminProfileImage_shapeImageView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:src="@drawable/add_image_200px"
@@ -56,7 +56,7 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.5"
-            app:layout_constraintStart_toEndOf="@+id/createShelterAdminProfileImage_shapeableImageView"
+            app:layout_constraintStart_toEndOf="@+id/createShelterAdminProfileImage_shapeImageView"
             app:layout_constraintTop_toTopOf="parent" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -165,15 +165,29 @@
     </com.google.android.material.textfield.TextInputLayout>
 
     <com.google.android.material.button.MaterialButton
+        android:id="@+id/createShelterAdminProfileSkip_materialButton"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="@string/skip"
+        style="@style/Widget.Material3.Button.OutlinedButton"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/createShelterAdminProfile_materialButton"
+        app:layout_constraintStart_toEndOf="@+id/guideline12"
+        app:layout_constraintTop_toBottomOf="@+id/createShelterAdminProfileAddress_textInputLayout"
+        app:layout_constraintWidth_max="320dp"
+        android:layout_marginEnd="@dimen/small_margin"/>
+
+    <com.google.android.material.button.MaterialButton
         android:id="@+id/createShelterAdminProfile_materialButton"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:text="@string/create_profile"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/guideline13"
-        app:layout_constraintStart_toEndOf="@+id/guideline12"
+        app:layout_constraintStart_toEndOf="@+id/createShelterAdminProfileSkip_materialButton"
         app:layout_constraintTop_toBottomOf="@+id/createShelterAdminProfileAddress_textInputLayout"
-        app:layout_constraintWidth_max="320dp" />
+        app:layout_constraintWidth_max="320dp"
+        android:layout_marginStart="@dimen/small_margin"/>
 
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/guideline12"
