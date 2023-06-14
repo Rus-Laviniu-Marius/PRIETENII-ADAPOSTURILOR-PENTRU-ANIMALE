@@ -1,4 +1,4 @@
-package com.pet.shelter.friends.news.fragments.bottom_app_bar;
+package com.pet.shelter.friends.fragments.bottom_app_bar;
 
 import android.os.Bundle;
 
@@ -10,9 +10,10 @@ import android.view.ViewGroup;
 
 import com.pet.shelter.friends.R;
 
-public class BottomAppBarPetsFragment extends Fragment {
 
-    public BottomAppBarPetsFragment() {
+public class BottomAppBarSupportFragment extends Fragment {
+
+    public BottomAppBarSupportFragment() {
         // Required empty public constructor
     }
 
@@ -20,7 +21,7 @@ public class BottomAppBarPetsFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View layout = inflater.inflate(R.layout.fragment_bottom_app_bar_pets, container, false);
+        View layout = inflater.inflate(R.layout.fragment_bottom_app_bar_support, container, false);
 
         return layout;
     }

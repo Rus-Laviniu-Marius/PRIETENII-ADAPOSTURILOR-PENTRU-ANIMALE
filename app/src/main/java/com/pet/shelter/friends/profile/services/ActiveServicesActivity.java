@@ -1,6 +1,5 @@
 package com.pet.shelter.friends.profile.services;
 
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.viewpager2.widget.ViewPager2;
@@ -12,16 +11,7 @@ import android.view.View;
 
 import com.google.android.material.appbar.MaterialToolbar;
 import com.google.android.material.tabs.TabLayout;
-import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.ValueEventListener;
-import com.pet.shelter.friends.NotificationsActivity;
 import com.pet.shelter.friends.R;
-import com.pet.shelter.friends.news.fragments.bottom_app_bar.home.HomeTabLayoutViewPager2Adapter;
-import com.pet.shelter.friends.profile.CreateProfileActivity;
 import com.pet.shelter.friends.profile.ViewProfileActivity;
 
 import java.util.Objects;

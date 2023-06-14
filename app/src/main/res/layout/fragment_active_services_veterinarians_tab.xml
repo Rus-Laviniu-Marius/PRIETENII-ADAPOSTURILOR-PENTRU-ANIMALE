@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".profile.services.fragments.ActiveServicesVeterinariansTabFragment">
+    tools:context=".fragments.services.ActiveServicesVeterinariansTabFragment">
 
     <ListView
         android:id="@+id/activeServicesVeterinarians_listView"

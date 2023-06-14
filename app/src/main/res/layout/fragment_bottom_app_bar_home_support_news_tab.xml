@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    tools:context=".news.fragments.bottom_app_bar.home.tabs.BottomAppBarHomeSupportNewsTabFragment">
+    tools:context=".fragments.bottom_app_bar.home.tabs.BottomAppBarHomeSupportNewsTabFragment">
 
     <RelativeLayout
         android:id="@+id/bottomAppBarHomeSupport_relativeLayout"

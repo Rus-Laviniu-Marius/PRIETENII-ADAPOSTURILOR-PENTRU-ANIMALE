@@ -4,9 +4,9 @@ import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentActivity;
 import androidx.viewpager2.adapter.FragmentStateAdapter;
-import com.pet.shelter.friends.profile.services.fragments.ActiveServicesPetTrainersTabFragment;
-import com.pet.shelter.friends.profile.services.fragments.ActiveServicesPetWalkersTabFragment;
-import com.pet.shelter.friends.profile.services.fragments.ActiveServicesVeterinariansTabFragment;
+import com.pet.shelter.friends.fragments.services.ActiveServicesPetTrainersTabFragment;
+import com.pet.shelter.friends.fragments.services.ActiveServicesPetWalkersTabFragment;
+import com.pet.shelter.friends.fragments.services.ActiveServicesVeterinariansTabFragment;
 
 public class ActiveServicesViewPager2Adapter extends FragmentStateAdapter {
 

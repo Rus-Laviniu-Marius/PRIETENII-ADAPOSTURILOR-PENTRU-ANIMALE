@@ -1,4 +1,4 @@
-package com.pet.shelter.friends.news.fragments.bottom_app_bar.home.tabs;
+package com.pet.shelter.friends.fragments.bottom_app_bar.home.tabs;
 
 import static com.facebook.FacebookSdk.getApplicationContext;
 
@@ -16,7 +16,6 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
-import android.widget.Toast;
 
 import com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton;
 import com.google.android.material.textview.MaterialTextView;
@@ -29,23 +28,24 @@ import com.google.firebase.database.ValueEventListener;
 import com.pet.shelter.friends.R;
 import com.pet.shelter.friends.news.CreateNewsArticleActivity;
 import com.pet.shelter.friends.news.NewsArticleData;
+import com.pet.shelter.friends.news.NewsArticleDetailsActivity;
 import com.pet.shelter.friends.news.NewsArticlesCustomAdapter;
 
 import java.util.ArrayList;
 import java.util.Objects;
 
-public class BottomAppBarHomePetsNewsTabFragment extends Fragment {
+public class BottomAppBarHomeCaringNewsTabFragment extends Fragment {
 
-    private DatabaseReference petsNewsArticlesReference, roles;
+    private DatabaseReference caringNewsArticlesReference, roles;
     private String loggedUserId;
-    private RelativeLayout addNewsRelativeLayout, petsRelativeLayout;
+    private RelativeLayout addNewsRelativeLayout, caringRelativeLayout;
     private MaterialTextView materialTextView;
     private ListView listView;
 
     private final ArrayList<NewsArticleData> newsArticlesList = new ArrayList<>();
     private NewsArticlesCustomAdapter newsArticlesCustomAdapter;
 
-    public BottomAppBarHomePetsNewsTabFragment() {
+    public BottomAppBarHomeCaringNewsTabFragment() {
         // Required empty public constructor
     }
 
@@ -53,19 +53,18 @@ public class BottomAppBarHomePetsNewsTabFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View layout = inflater.inflate(R.layout.fragment_bottom_app_bar_home_pets_news_tab, container, false);
-
+        View layout = inflater.inflate(R.layout.fragment_bottom_app_bar_home_caring_news_tab, container, false);
         FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
         FirebaseDatabase firebaseDatabase = FirebaseDatabase.getInstance();
         roles = firebaseDatabase.getReference("roles");
-        petsNewsArticlesReference = firebaseDatabase.getReference("newsArticles");
+        caringNewsArticlesReference = firebaseDatabase.getReference("newsArticles");
 
-        listView = layout.findViewById(R.id.bottomAppBarHomePetsTabNews_listView);
+        listView = layout.findViewById(R.id.bottomAppBarHomeCaringTabNews_listView);
 
-        addNewsRelativeLayout = layout.findViewById(R.id.bottomAppBarHomePetsTabAddNews_relativeLayout);
-        petsRelativeLayout = layout.findViewById(R.id.bottomAppBarHomePets_relativeLayout);
-        materialTextView = layout.findViewById(R.id.bottomAppBarHomePetsNoNews_materialTextView);
-        ExtendedFloatingActionButton addNewsExtendedFloatingActionButton = layout.findViewById(R.id.bottomAppBarHomePetsTabAddNews_extendedFloatingActionButton);
+        addNewsRelativeLayout = layout.findViewById(R.id.bottomAppBarHomeCaringTabAddNews_relativeLayout);
+        caringRelativeLayout = layout.findViewById(R.id.bottomAppBarHomeCaring_relativeLayout);
+        materialTextView = layout.findViewById(R.id.bottomAppBarHomeCaringNoNews_materialTextView);
+        ExtendedFloatingActionButton addNewsExtendedFloatingActionButton = layout.findViewById(R.id.bottomAppBarHomeCaringTabAddNews_extendedFloatingActionButton);
 
         loggedUserId = Objects.requireNonNull(firebaseAuth.getCurrentUser()).getUid();
 
@@ -82,7 +81,17 @@ public class BottomAppBarHomePetsNewsTabFragment extends Fragment {
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-
+                NewsArticleData newsArticleData = newsArticlesCustomAdapter.getItem(position);
+                Intent intent = new Intent(getActivity(), NewsArticleDetailsActivity.class);
+                intent.putExtra("authorName", newsArticleData.getAuthorName());
+                intent.putExtra("description", newsArticleData.getDescription());
+                intent.putExtra("subcategory", newsArticleData.getSubcategory());
+                intent.putExtra("title", newsArticleData.getTitle());
+                intent.putExtra("mediaImageDownloadLink", newsArticleData.getMediaImageDownloadLink());
+                intent.putExtra("newsArticleAuthorProfileImage", newsArticleData.getNewsArticleAuthorProfileImage());
+                intent.putExtra("category", newsArticleData.getCategory());
+                startActivity(intent);
+                requireActivity().finish();
             }
         });
 
@@ -91,15 +100,15 @@ public class BottomAppBarHomePetsNewsTabFragment extends Fragment {
     }
 
     private void getDataFromDatabase() {
-        petsNewsArticlesReference.addValueEventListener(new ValueEventListener() {
+        caringNewsArticlesReference.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
-                if (snapshot.hasChild("Pets")) {
-                    petsRelativeLayout.setVisibility(View.VISIBLE);
+                if (snapshot.hasChild("Caring")) {
+                    caringRelativeLayout.setVisibility(View.VISIBLE);
                     materialTextView.setVisibility(View.GONE);
 
                     newsArticlesList.clear();
-                    for (DataSnapshot newsArticleSnapshot : snapshot.child("Pets").getChildren()) {
+                    for (DataSnapshot newsArticleSnapshot : snapshot.child("Caring").getChildren()) {
                         NewsArticleData newsArticleData = newsArticleSnapshot.getValue(NewsArticleData.class);
                         newsArticlesList.add(newsArticleData);
                     }
@@ -111,7 +120,7 @@ public class BottomAppBarHomePetsNewsTabFragment extends Fragment {
                     refresh();
                     listView.setAdapter(newsArticlesCustomAdapter);
                 } else {
-                    petsRelativeLayout.setVisibility(View.GONE);
+                    caringRelativeLayout.setVisibility(View.GONE);
                     materialTextView.setVisibility(View.VISIBLE);
                 }
             }

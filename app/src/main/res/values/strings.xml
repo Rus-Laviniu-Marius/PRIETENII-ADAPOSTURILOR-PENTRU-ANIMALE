@@ -241,11 +241,10 @@
     <string name="humbleness">Humbleness</string>
     <string name="faith">Faith</string>
     <string name="love">Love</string>
-    <string name="done">Done\n</string>
-    <!-- TODO: Remove or change this placeholder text -->
+    <string name="done">Done</string>
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="see_more">See more</string>
-    <string name="news_subcategory">News subcategory</string>
+    <string name="news_article_subcategory">News subcategory</string>
     <string name="news_content_image">News content image</string>
     <string name="adoption">Adoption</string>
     <string name="news_categories_tabs">News categories tabs</string>
@@ -308,5 +307,7 @@
     <string name="sorry_no_pet_trainers_services">Sorry!\nNo pet trainer services!</string>
     <string name="news_article_author_profile_image">News article author profile image</string>
     <string name="author_name">Author name</string>
+    <string name="share">Share</string>
+    <string name="follow">Follow</string>
 
 </resources>

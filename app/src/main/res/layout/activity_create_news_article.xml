@@ -20,7 +20,7 @@
             android:layout_height="?attr/actionBarSize"
             app:layout_anchor="@+id/appBarLayout"
             app:layout_anchorGravity="center"
-            app:menu="@menu/open_camera_and_gallery_top_app_bar"
+            app:menu="@menu/open_camera_and_gallery_top_app_bar_menu"
             app:navigationIcon="@drawable/arrow_back_24"
             app:title="Post news"
             app:titleCentered="true" />
@@ -61,7 +61,7 @@
         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:hint="@string/news_subcategory"
+        android:hint="@string/news_article_description"
         app:layout_constraintBottom_toTopOf="@+id/createNewsArticleNewsTitle_textInputLayout"
         app:layout_constraintEnd_toStartOf="@id/guideline15"
         app:layout_constraintHorizontal_bias="0.5"

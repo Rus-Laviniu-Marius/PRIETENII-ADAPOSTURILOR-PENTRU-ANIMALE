@@ -37,4 +37,6 @@
     <string name="sorry_no_pet_trainers_services">Sorry!\nNo pet trainer services!</string>
     <string name="news_article_author_profile_image">News article author profile image</string>
     <string name="author_name">Author name</string>
+    <string name="share">Share</string>
+    <string name="follow">Follow</string>
 </resources>

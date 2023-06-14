@@ -3,7 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".news.fragments.bottom_app_bar.BottomAppBarPetsFragment">
+    tools:context=".fragments.bottom_app_bar.BottomAppBarPetsFragment">
 
     <!-- TODO: Update blank fragment layout -->
     <TextView

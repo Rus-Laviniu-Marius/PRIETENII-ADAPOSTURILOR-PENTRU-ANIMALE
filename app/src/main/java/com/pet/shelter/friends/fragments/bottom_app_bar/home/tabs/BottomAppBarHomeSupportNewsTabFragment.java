@@ -1,4 +1,4 @@
-package com.pet.shelter.friends.news.fragments.bottom_app_bar.home.tabs;
+package com.pet.shelter.friends.fragments.bottom_app_bar.home.tabs;
 
 import static com.facebook.FacebookSdk.getApplicationContext;
 
@@ -28,6 +28,7 @@ import com.google.firebase.database.ValueEventListener;
 import com.pet.shelter.friends.R;
 import com.pet.shelter.friends.news.CreateNewsArticleActivity;
 import com.pet.shelter.friends.news.NewsArticleData;
+import com.pet.shelter.friends.news.NewsArticleDetailsActivity;
 import com.pet.shelter.friends.news.NewsArticlesCustomAdapter;
 
 import java.util.ArrayList;
@@ -81,7 +82,17 @@ public class BottomAppBarHomeSupportNewsTabFragment extends Fragment {
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-
+                NewsArticleData newsArticleData = newsArticlesCustomAdapter.getItem(position);
+                Intent intent = new Intent(getActivity(), NewsArticleDetailsActivity.class);
+                intent.putExtra("authorName", newsArticleData.getAuthorName());
+                intent.putExtra("description", newsArticleData.getDescription());
+                intent.putExtra("subcategory", newsArticleData.getSubcategory());
+                intent.putExtra("title", newsArticleData.getTitle());
+                intent.putExtra("mediaImageDownloadLink", newsArticleData.getMediaImageDownloadLink());
+                intent.putExtra("newsArticleAuthorProfileImage", newsArticleData.getNewsArticleAuthorProfileImage());
+                intent.putExtra("category", newsArticleData.getCategory());
+                startActivity(intent);
+                requireActivity().finish();
             }
         });
 

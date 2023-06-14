@@ -1,4 +1,4 @@
-package com.pet.shelter.friends.news.fragments.bottom_app_bar.home.tabs;
+package com.pet.shelter.friends.fragments.bottom_app_bar.home.tabs;
 
 import static com.facebook.FacebookSdk.getApplicationContext;
 
@@ -28,23 +28,24 @@ import com.google.firebase.database.ValueEventListener;
 import com.pet.shelter.friends.R;
 import com.pet.shelter.friends.news.CreateNewsArticleActivity;
 import com.pet.shelter.friends.news.NewsArticleData;
+import com.pet.shelter.friends.news.NewsArticleDetailsActivity;
 import com.pet.shelter.friends.news.NewsArticlesCustomAdapter;
 
 import java.util.ArrayList;
 import java.util.Objects;
 
-public class BottomAppBarHomeCaringNewsTabFragment extends Fragment {
+public class BottomAppBarHomeVolunteerNewsTabFragment extends Fragment {
 
-    private DatabaseReference caringNewsArticlesReference, roles;
+    private DatabaseReference volunteerNewsArticlesReference, roles;
     private String loggedUserId;
-    private RelativeLayout addNewsRelativeLayout, caringRelativeLayout;
+    private RelativeLayout addNewsRelativeLayout, volunteerRelativeLayout;
     private MaterialTextView materialTextView;
     private ListView listView;
 
     private final ArrayList<NewsArticleData> newsArticlesList = new ArrayList<>();
     private NewsArticlesCustomAdapter newsArticlesCustomAdapter;
 
-    public BottomAppBarHomeCaringNewsTabFragment() {
+    public BottomAppBarHomeVolunteerNewsTabFragment() {
         // Required empty public constructor
     }
 
@@ -52,18 +53,19 @@ public class BottomAppBarHomeCaringNewsTabFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View layout = inflater.inflate(R.layout.fragment_bottom_app_bar_home_caring_news_tab, container, false);
+        View layout = inflater.inflate(R.layout.fragment_bottom_app_bar_home_volunteer_news_tab, container, false);
+
         FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
         FirebaseDatabase firebaseDatabase = FirebaseDatabase.getInstance();
         roles = firebaseDatabase.getReference("roles");
-        caringNewsArticlesReference = firebaseDatabase.getReference("newsArticles");
+        volunteerNewsArticlesReference = firebaseDatabase.getReference("newsArticles");
 
-        listView = layout.findViewById(R.id.bottomAppBarHomeCaringTabNews_listView);
+        listView = layout.findViewById(R.id.bottomAppBarHomeVolunteerTabNews_listView);
 
-        addNewsRelativeLayout = layout.findViewById(R.id.bottomAppBarHomeCaringTabAddNews_relativeLayout);
-        caringRelativeLayout = layout.findViewById(R.id.bottomAppBarHomeCaring_relativeLayout);
-        materialTextView = layout.findViewById(R.id.bottomAppBarHomeCaringNoNews_materialTextView);
-        ExtendedFloatingActionButton addNewsExtendedFloatingActionButton = layout.findViewById(R.id.bottomAppBarHomeCaringTabAddNews_extendedFloatingActionButton);
+        addNewsRelativeLayout = layout.findViewById(R.id.bottomAppBarHomeVolunteerTabAddNews_relativeLayout);
+        volunteerRelativeLayout = layout.findViewById(R.id.bottomAppBarHomeVolunteer_relativeLayout);
+        materialTextView = layout.findViewById(R.id.bottomAppBarHomeVolunteerNoNews_materialTextView);
+        ExtendedFloatingActionButton addNewsExtendedFloatingActionButton = layout.findViewById(R.id.bottomAppBarHomeVolunteerTabAddNews_extendedFloatingActionButton);
 
         loggedUserId = Objects.requireNonNull(firebaseAuth.getCurrentUser()).getUid();
 
@@ -80,24 +82,33 @@ public class BottomAppBarHomeCaringNewsTabFragment extends Fragment {
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-
+                NewsArticleData newsArticleData = newsArticlesCustomAdapter.getItem(position);
+                Intent intent = new Intent(getActivity(), NewsArticleDetailsActivity.class);
+                intent.putExtra("authorName", newsArticleData.getAuthorName());
+                intent.putExtra("description", newsArticleData.getDescription());
+                intent.putExtra("subcategory", newsArticleData.getSubcategory());
+                intent.putExtra("title", newsArticleData.getTitle());
+                intent.putExtra("mediaImageDownloadLink", newsArticleData.getMediaImageDownloadLink());
+                intent.putExtra("newsArticleAuthorProfileImage", newsArticleData.getNewsArticleAuthorProfileImage());
+                intent.putExtra("category", newsArticleData.getCategory());
+                startActivity(intent);
+                requireActivity().finish();
             }
         });
-
 
         return layout;
     }
 
     private void getDataFromDatabase() {
-        caringNewsArticlesReference.addValueEventListener(new ValueEventListener() {
+        volunteerNewsArticlesReference.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
-                if (snapshot.hasChild("Caring")) {
-                    caringRelativeLayout.setVisibility(View.VISIBLE);
+                if (snapshot.hasChild("Volunteer")) {
+                    volunteerRelativeLayout.setVisibility(View.VISIBLE);
                     materialTextView.setVisibility(View.GONE);
 
                     newsArticlesList.clear();
-                    for (DataSnapshot newsArticleSnapshot : snapshot.child("Caring").getChildren()) {
+                    for (DataSnapshot newsArticleSnapshot : snapshot.child("Volunteer").getChildren()) {
                         NewsArticleData newsArticleData = newsArticleSnapshot.getValue(NewsArticleData.class);
                         newsArticlesList.add(newsArticleData);
                     }
@@ -109,7 +120,7 @@ public class BottomAppBarHomeCaringNewsTabFragment extends Fragment {
                     refresh();
                     listView.setAdapter(newsArticlesCustomAdapter);
                 } else {
-                    caringRelativeLayout.setVisibility(View.GONE);
+                    volunteerRelativeLayout.setVisibility(View.GONE);
                     materialTextView.setVisibility(View.VISIBLE);
                 }
             }

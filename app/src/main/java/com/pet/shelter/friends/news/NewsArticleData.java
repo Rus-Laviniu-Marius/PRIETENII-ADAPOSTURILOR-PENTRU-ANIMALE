@@ -34,21 +34,6 @@ public class NewsArticleData {
 
     }
 
-    @NonNull
-    @Override
-    public String toString() {
-        return "NewsArticleData{" +
-                "authorUserId='" + authorName + '\'' +
-                ", category='" + category + '\'' +
-                ", description='" + description + '\'' +
-                ", mediaImageDownloadLink='" + mediaImageDownloadLink + '\'' +
-                ", postedDate='" + postedDate + '\'' +
-                ", subcategory='" + subcategory + '\'' +
-                ", title='" + title + '\'' +
-                ", newsArticleAuthorProfileImage='" + newsArticleAuthorProfileImage + '\'' +
-                '}';
-    }
-
     public String getAuthorName() {
         return authorName;
     }

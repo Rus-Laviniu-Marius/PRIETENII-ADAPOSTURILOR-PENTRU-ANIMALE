@@ -1,4 +1,4 @@
-package com.pet.shelter.friends.news.fragments.bottom_app_bar.home;
+package com.pet.shelter.friends.fragments.bottom_app_bar.home;
 
 import android.content.Intent;
 import android.os.Bundle;

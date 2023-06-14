@@ -297,6 +297,7 @@ public class CreateNewsArticleActivity extends AppCompatActivity implements Text
                                                 Toast.makeText(CreateNewsArticleActivity.this, "Image uploaded", Toast.LENGTH_SHORT).show();
                                                 String fileLink = task.getResult().toString();
 
+                                                newsArticlesReference.child(newsCategorySelectedItem).child(article).child("category").setValue(newsCategorySelectedItem);
                                                 newsArticlesReference.child(newsCategorySelectedItem).child(article).child("subcategory").setValue(newsSubcategorySelectedItem);
                                                 newsArticlesReference.child(newsCategorySelectedItem).child(article).child("title").setValue(title);
                                                 newsArticlesReference.child(newsCategorySelectedItem).child(article).child("description").setValue(description);
@@ -324,6 +325,7 @@ public class CreateNewsArticleActivity extends AppCompatActivity implements Text
                                                     Toast.makeText(CreateNewsArticleActivity.this, "Image uploaded", Toast.LENGTH_SHORT).show();
                                                     String fileLink = task.getResult().toString();
 
+                                                    newsArticlesReference.child(newsCategorySelectedItem).child(article).child("category").setValue(newsCategorySelectedItem);
                                                     newsArticlesReference.child(newsCategorySelectedItem).child(article).child("subcategory").setValue(newsSubcategorySelectedItem);
                                                     newsArticlesReference.child(newsCategorySelectedItem).child(article).child("title").setValue(title);
                                                     newsArticlesReference.child(newsCategorySelectedItem).child(article).child("description").setValue(description);

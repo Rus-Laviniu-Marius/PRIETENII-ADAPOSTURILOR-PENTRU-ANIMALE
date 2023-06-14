@@ -20,7 +20,7 @@
             android:layout_height="?attr/actionBarSize"
             app:layout_anchor="@+id/appBarLayout"
             app:layout_anchorGravity="center"
-            app:menu="@menu/search_top_app_bar"
+            app:menu="@menu/search_top_app_bar_menu"
             app:navigationIcon="@drawable/arrow_back_24"
             app:title="Active services"
             app:titleCentered="true" />

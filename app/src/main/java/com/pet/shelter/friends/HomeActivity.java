@@ -8,11 +8,11 @@ import android.view.MenuItem;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.navigation.NavigationBarView;
-import com.pet.shelter.friends.news.fragments.bottom_app_bar.BottomAppBarSupportFragment;
-import com.pet.shelter.friends.news.fragments.bottom_app_bar.home.BottomAppBarHomeFragment;
-import com.pet.shelter.friends.news.fragments.bottom_app_bar.BottomAppBarVolunteerFragment;
-import com.pet.shelter.friends.news.fragments.bottom_app_bar.BottomAppBarPetsFragment;
-import com.pet.shelter.friends.news.fragments.bottom_app_bar.BottomAppBarDonationsFragment;
+import com.pet.shelter.friends.fragments.bottom_app_bar.BottomAppBarSupportFragment;
+import com.pet.shelter.friends.fragments.bottom_app_bar.home.BottomAppBarHomeFragment;
+import com.pet.shelter.friends.fragments.bottom_app_bar.BottomAppBarVolunteerFragment;
+import com.pet.shelter.friends.fragments.bottom_app_bar.BottomAppBarPetsFragment;
+import com.pet.shelter.friends.fragments.bottom_app_bar.BottomAppBarDonationsFragment;
 
 public class HomeActivity extends AppCompatActivity implements NavigationBarView.OnItemSelectedListener {
 
