@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:context=".news.fragments.bottom_app_bar.home.tabs.BottomAppBarHomeDonationNewsTabFragment">
+
+    <RelativeLayout
+        android:id="@+id/bottomAppBarHomeDonation_relativeLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" >
+        <ListView
+            android:id="@+id/bottomAppBarHomeDonationTabNews_listView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:dividerHeight="@dimen/margin_vertical"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentEnd="true"/>
+        <RelativeLayout
+            android:id="@+id/bottomAppBarHomeDonationTabAddNews_relativeLayout"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="@dimen/padding_small"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentEnd="true">
+            <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
+                android:id="@+id/bottomAppBarHomeDonationTabAddNews_extendedFloatingActionButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:contentDescription="@string/add"
+                app:icon="@drawable/add_24"
+                android:drawableStart="@drawable/add_24"
+                android:text="@string/add_news"
+                style="@style/Widget.Material3.ExtendedFloatingActionButton.Primary"/>
+        </RelativeLayout>
+    </RelativeLayout>
+
+
+    <com.google.android.material.textview.MaterialTextView
+        android:id="@+id/bottomAppBarHomeDonationNoNews_materialTextView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:visibility="gone"
+        android:text="@string/sorry_no_donation_news"
+        style="@style/TextAppearance.Material3.DisplayMedium"
+        android:gravity="center"/>
+
+</FrameLayout>

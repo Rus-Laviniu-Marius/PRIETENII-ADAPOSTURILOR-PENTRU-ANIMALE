@@ -1,86 +1,106 @@
 <?xml version="1.0" encoding="utf-8"?>
-<com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    app:strokeWidth="0dp"
+    android:theme="@style/Theme.PetShelterFriends"
     app:strokeColor="@color/black"
-    android:theme="@style/Theme.MaterialComponents.Light"
-    style="@style/Widget.Material3.CardView.Outlined">
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical">
-        <LinearLayout
+    app:strokeWidth="0dp">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/newsArticleCardAuthorDetails_constraintLayout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal"
             android:gravity="center"
+            android:paddingHorizontal="@dimen/padding_horizontal"
             android:paddingVertical="@dimen/padding_vertical_header"
-            android:paddingHorizontal="@dimen/padding_horizontal">
-            <ImageView
-                android:id="@+id/newsArticleCardUserProfileImage_imageView"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintBottom_toTopOf="@id/newsArticleCardMedia_shapeImageView">
+
+            <com.google.android.material.imageview.ShapeableImageView
+                android:id="@+id/newsArticleCardAuthorProfileImage_imageView"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:src="@drawable/avatar"
-                android:contentDescription="@string/user_profile_image"/>
+                android:contentDescription="@string/news_article_author_profile_image"
+                app:layout_constraintHeight_max="50dp"
+                app:layout_constraintWidth_max="50dp"
+                app:shapeAppearanceOverlay="@style/circleImageView"
+                app:srcCompat="@drawable/avatar_40"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toStartOf="@id/authorNameAndArticleSubcategory_linearLayout"
+                app:layout_constraintBottom_toBottomOf="parent"/>
+
             <LinearLayout
-                android:layout_width="match_parent"
+                android:id="@+id/authorNameAndArticleSubcategory_linearLayout"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/horizontal_space_between_items"
                 android:orientation="vertical"
-                android:layout_marginStart="@dimen/horizontal_space_between_items">
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toEndOf="@id/newsArticleCardAuthorProfileImage_imageView"
+                app:layout_constraintEnd_toEndOf="parent">
+
                 <com.google.android.material.textview.MaterialTextView
-                    android:id="@+id/newsArticleCardAuthorUserName_materialTextView"
+                    android:id="@+id/newsArticleCardAuthorName_materialTextView"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@string/user_name"
-                    android:textAppearance="@style/TextAppearance.Material3.LabelLarge"/>
+                    android:text="@string/author_name"
+                    android:textAppearance="@style/TextAppearance.Material3.LabelLarge" />
+
                 <com.google.android.material.textview.MaterialTextView
                     android:id="@+id/newsArticleCardSubcategory_materialTextView"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/vertical_space_between_items"
                     android:text="@string/news_subcategory"
-                    android:textAppearance="@style/TextAppearance.Material3.BodyMedium"/>
+                    android:textAppearance="@style/TextAppearance.Material3.BodyMedium" />
             </LinearLayout>
-        </LinearLayout>
-        <ImageView
-            android:id="@+id/newsArticleCardMedia_imageView"
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <com.google.android.material.imageview.ShapeableImageView
+            android:id="@+id/newsArticleCardMedia_shapeImageView"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:src="@drawable/media"
-            android:contentDescription="@string/news_content_image"/>
+            android:contentDescription="@string/news_content_image"
+            app:layout_constraintHeight_max="300dp"
+            app:layout_constraintBottom_toTopOf="@+id/newsArticleCardArticleDetails_linearLayout"
+            app:layout_constraintTop_toBottomOf="@id/newsArticleCardAuthorDetails_constraintLayout"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:srcCompat="@drawable/media" />
+
         <LinearLayout
+            android:id="@+id/newsArticleCardArticleDetails_linearLayout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
+            android:paddingHorizontal="@dimen/padding_horizontal"
             android:paddingVertical="@dimen/padding_vertical_text_content"
-            android:paddingHorizontal="@dimen/padding_horizontal">
+            app:layout_constraintTop_toBottomOf="@+id/newsArticleCardMedia_shapeImageView"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent">
+
             <com.google.android.material.textview.MaterialTextView
                 android:id="@+id/newsArticleCardTitle_materialTextView"
+                style="@style/TextAppearance.Material3.TitleLarge"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                style="@style/TextAppearance.Material3.LabelLarge"
-                android:text="@string/news_article_title"/>
+                android:text="@string/news_article_title" />
+
             <com.google.android.material.textview.MaterialTextView
                 android:id="@+id/newsArticleCardShortDescription_materialTextView"
+                style="@style/TextAppearance.Material3.BodyLarge"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                style="@style/TextAppearance.Material3.LabelMedium"
+                android:maxLines="2"
                 android:layout_marginTop="@dimen/vertical_space_between_items"
-                android:text="@string/news_article_short_description"/>
-            <com.google.android.material.textview.MaterialTextView
-                android:id="@+id/newsArticleCardPostedDate_materialTextView"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/vertical_space_between_items"
-                android:layout_gravity="end"
-                style="@style/TextAppearance.Material3.LabelSmall"
-                android:text="@string/dd_mm_yyyy"/>
+                android:text="@string/news_article_short_description" />
         </LinearLayout>
-    </LinearLayout>
 
-
-</com.google.android.material.card.MaterialCardView>
+</androidx.constraintlayout.widget.ConstraintLayout>
 
 

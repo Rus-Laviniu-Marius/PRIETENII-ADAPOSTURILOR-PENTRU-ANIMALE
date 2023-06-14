@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:theme="@style/Theme.PetShelterFriends"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:paddingHorizontal="@dimen/padding_horizontal">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/activeServiceProviderProfileImageAndName"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingVertical="@dimen/padding_vertical_header"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <com.google.android.material.imageview.ShapeableImageView
+            android:id="@+id/activeServiceProviderProfileImage_shapeImageView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/activeServiceProviderName_materialTextView"
+            app:layout_constraintHeight_max="50dp"
+            app:layout_constraintWidth_max="50dp"
+            app:layout_constraintHorizontal_chainStyle="spread_inside"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:shapeAppearanceOverlay="@style/circleImageView"
+            app:srcCompat="@drawable/avatar_40"
+            android:layout_marginEnd="@dimen/horizontal_space_between_items"/>
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/activeServiceProviderName_materialTextView"
+            style="@style/TextAppearance.Material3.TitleLarge"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="@string/service_provider_name"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/activeServiceProviderProfileImage_shapeImageView"
+            app:layout_constraintTop_toTopOf="parent" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <com.google.android.material.textview.MaterialTextView
+        android:id="@+id/activeServiceProviderLocationCityStateCountry_materialTextView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/service_author_location_city_state_country"
+        app:layout_constraintTop_toBottomOf="@+id/activeServiceProviderProfileImageAndName"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:paddingVertical="@dimen/vertical_space_between_items"
+        app:layout_constraintBottom_toTopOf="@+id/activeServiceProviderDescription_materialTextView"
+        style="@style/TextAppearance.Material3.BodyLarge"/>
+
+    <com.google.android.material.textview.MaterialTextView
+        android:id="@+id/activeServiceProviderDescription_materialTextView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/description"
+        android:paddingVertical="@dimen/vertical_space_between_items"
+        app:layout_constraintTop_toBottomOf="@+id/activeServiceProviderLocationCityStateCountry_materialTextView"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        style="@style/TextAppearance.Material3.BodyLarge"/>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

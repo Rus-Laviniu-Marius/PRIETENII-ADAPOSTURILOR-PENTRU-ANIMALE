@@ -126,6 +126,8 @@ public class CreateProfileActivity extends AppCompatActivity implements TextWatc
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 if (snapshot.child(loggedUserId).hasChild("user")) {
                     role = "user";
+                } else {
+                    role = "shelterAdministrator";
                 }
             }
 

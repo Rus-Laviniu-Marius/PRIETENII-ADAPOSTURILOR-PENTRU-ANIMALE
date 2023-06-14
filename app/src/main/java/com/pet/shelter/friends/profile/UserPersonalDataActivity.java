@@ -64,14 +64,15 @@ public class UserPersonalDataActivity extends AppCompatActivity {
     private Bitmap cameraCapturedImageBitmap;
     private ActivityResultLauncher<Intent> galleryActivityResultLauncher, cameraActivityResultLauncher;
     private String loggedUserId;
+
+    private boolean isPressed = true;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_user_personal_data);
 
         galleryActivityResultLauncher = registerForActivityResult(
-                new ActivityResultContracts.StartActivityForResult(),
-                result -> {
+                new ActivityResultContracts.StartActivityForResult(), result -> {
                     if (result.getResultCode() == Activity.RESULT_OK) {
                         // There are no request codes
                         // doSomeOperations();
@@ -89,8 +90,7 @@ public class UserPersonalDataActivity extends AppCompatActivity {
                 });
 
         cameraActivityResultLauncher = registerForActivityResult(
-                new ActivityResultContracts.StartActivityForResult(),
-                result -> {
+                new ActivityResultContracts.StartActivityForResult(), result -> {
                     if (result.getResultCode() == Activity.RESULT_OK && result.getData() != null) {
                         Bundle bundle = result.getData().getExtras();
                         cameraCapturedImageBitmap = (Bitmap) bundle.get("data");
@@ -177,12 +177,14 @@ public class UserPersonalDataActivity extends AppCompatActivity {
             }
         });
 
+
         materialToolbar.setOnMenuItemClickListener(new Toolbar.OnMenuItemClickListener() {
-            boolean isPressed = false;
             @Override
             public boolean onMenuItemClick(MenuItem item) {
-
                 if (item.getItemId() == R.id.action_edit) {
+
+                    if (isPressed) {
+
                     openCamera.setVisibility(View.VISIBLE);
                     openGallery.setVisibility(View.VISIBLE);
 
@@ -191,30 +193,34 @@ public class UserPersonalDataActivity extends AppCompatActivity {
                     addressTextInputLayout.setVisibility(View.VISIBLE);
                     phoneNumberTextInputLayout.setVisibility(View.VISIBLE);
 
+                    update.setVisibility(View.VISIBLE);
+
                     emailUser.setVisibility(View.GONE);
                     contactUser.setVisibility(View.GONE);
                     aboutMe.setVisibility(View.GONE);
                     aboutMeShortBio.setVisibility(View.GONE);
                     contact.setVisibility(View.GONE);
                     userName.setVisibility(View.GONE);
-                } else {
-                    openCamera.setVisibility(View.GONE);
-                    openGallery.setVisibility(View.GONE);
+                    } else {
+                        openCamera.setVisibility(View.GONE);
+                        openGallery.setVisibility(View.GONE);
 
-                    nameTextInputLayout.setVisibility(View.GONE);
-                    ageTextInputLayout.setVisibility(View.GONE);
-                    addressTextInputLayout.setVisibility(View.GONE);
-                    phoneNumberTextInputLayout.setVisibility(View.GONE);
+                        nameTextInputLayout.setVisibility(View.GONE);
+                        ageTextInputLayout.setVisibility(View.GONE);
+                        addressTextInputLayout.setVisibility(View.GONE);
+                        phoneNumberTextInputLayout.setVisibility(View.GONE);
 
-                    emailUser.setVisibility(View.VISIBLE);
-                    contactUser.setVisibility(View.VISIBLE);
-                    aboutMe.setVisibility(View.VISIBLE);
-                    aboutMeShortBio.setVisibility(View.VISIBLE);
-                    contact.setVisibility(View.VISIBLE);
-                    userName.setVisibility(View.VISIBLE);
+                        update.setVisibility(View.GONE);
+
+                        emailUser.setVisibility(View.VISIBLE);
+                        contactUser.setVisibility(View.VISIBLE);
+                        aboutMe.setVisibility(View.VISIBLE);
+                        aboutMeShortBio.setVisibility(View.VISIBLE);
+                        contact.setVisibility(View.VISIBLE);
+                        userName.setVisibility(View.VISIBLE);
+                    }
+                    isPressed = !isPressed;
                 }
-
-                isPressed = !isPressed;
 
                 return true;
             }
@@ -247,11 +253,16 @@ public class UserPersonalDataActivity extends AppCompatActivity {
                                         public void onComplete(@NonNull Task<Uri> task) {
                                             Toast.makeText(UserPersonalDataActivity.this, "Image uploaded", Toast.LENGTH_SHORT).show();
                                             String fileLink = task.getResult().toString();
-                                            profiles.child("users").child(loggedUserId).child("name").setValue(name);
-                                            profiles.child("users").child(loggedUserId).child("age").setValue(age);
-                                            profiles.child("users").child(loggedUserId).child("address").setValue(address);
-                                            profiles.child("users").child(loggedUserId).child("phoneNumber").setValue(phoneNumber);
-                                            profiles.child("users").child(loggedUserId).child("profileImageDownloadLink").setValue(fileLink);
+                                            if (!name.equals(""))
+                                                profiles.child("users").child(loggedUserId).child("name").setValue(name);
+                                            else if (!age.equals(""))
+                                                profiles.child("users").child(loggedUserId).child("age").setValue(age);
+                                            else if (!address.equals(""))
+                                                profiles.child("users").child(loggedUserId).child("address").setValue(address);
+                                            else if (!phoneNumber.equals(""))
+                                                profiles.child("users").child(loggedUserId).child("phoneNumber").setValue(phoneNumber);
+                                            else if (!fileLink.equals(""))
+                                                profiles.child("users").child(loggedUserId).child("profileImageDownloadLink").setValue(fileLink);
                                         }
                                     });
                                 }
@@ -275,11 +286,16 @@ public class UserPersonalDataActivity extends AppCompatActivity {
                                         public void onComplete(@NonNull Task<Uri> task) {
                                             Toast.makeText(UserPersonalDataActivity.this, "Image uploaded", Toast.LENGTH_SHORT).show();
                                             String fileLink = task.getResult().toString();
-                                            profiles.child("users").child(loggedUserId).child("name").setValue(name);
-                                            profiles.child("users").child(loggedUserId).child("age").setValue(age);
-                                            profiles.child("users").child(loggedUserId).child("address").setValue(address);
-                                            profiles.child("users").child(loggedUserId).child("phoneNumber").setValue(phoneNumber);
-                                            profiles.child("users").child(loggedUserId).child("profileImageDownloadLink").setValue(fileLink);
+                                            if (!name.equals(""))
+                                                profiles.child("users").child(loggedUserId).child("name").setValue(name);
+                                            else if (!age.equals(""))
+                                                profiles.child("users").child(loggedUserId).child("age").setValue(age);
+                                            else if (!address.equals(""))
+                                                profiles.child("users").child(loggedUserId).child("address").setValue(address);
+                                            else if (!phoneNumber.equals(""))
+                                                profiles.child("users").child(loggedUserId).child("phoneNumber").setValue(phoneNumber);
+                                            else if (!fileLink.equals(""))
+                                                profiles.child("users").child(loggedUserId).child("profileImageDownloadLink").setValue(fileLink);
                                         }
                                     });
                                 }
@@ -291,6 +307,23 @@ public class UserPersonalDataActivity extends AppCompatActivity {
                                 }
                             });
                 }
+
+                openCamera.setVisibility(View.GONE);
+                openGallery.setVisibility(View.GONE);
+
+                nameTextInputLayout.setVisibility(View.GONE);
+                ageTextInputLayout.setVisibility(View.GONE);
+                addressTextInputLayout.setVisibility(View.GONE);
+                phoneNumberTextInputLayout.setVisibility(View.GONE);
+
+                update.setVisibility(View.GONE);
+
+                emailUser.setVisibility(View.VISIBLE);
+                contactUser.setVisibility(View.VISIBLE);
+                aboutMe.setVisibility(View.VISIBLE);
+                aboutMeShortBio.setVisibility(View.VISIBLE);
+                contact.setVisibility(View.VISIBLE);
+                userName.setVisibility(View.VISIBLE);
             }
         });
 

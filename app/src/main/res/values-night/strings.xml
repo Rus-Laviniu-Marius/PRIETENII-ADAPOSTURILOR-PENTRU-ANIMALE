@@ -16,4 +16,25 @@
     <string name="contact">Contact</string>
     <string name="shelter_keeper">Shelter keeper</string>
     <string name="create_shelter_profile">Create shelter profile</string>
+    <string name="sorry_no_pets_news">Sorry! No pets news!</string>
+    <string name="sorry_no_support_news">Sorry! No support news!</string>
+    <string name="sorry_no_volunteer_news">Sorry! No volunteer news!</string>
+    <string name="sorry_no_caring_news">Sorry! No caring news!</string>
+    <string name="sorry_no_donation_news">Sorry! No donation news!</string>
+    <string name="veterinarians">Veterinarians</string>
+    <string name="pet_trainers">Pet trainers</string>
+    <string name="pet_walkers">Pet walkers</string>
+    <string name="service">Service</string>
+    <string name="news">News</string>
+    <string name="sorry_no_veterinarians_services">Sorry! \nNo veterinarians services!</string>
+    <string name="service_provider_name">Service provider name</string>
+    <string name="service_author_location_city_state_country">Service author location city, state, country</string>
+    <string name="service_category">Service category</string>
+    <string name="provider_name">Provider name</string>
+    <string name="provider_email">Provider email</string>
+    <string name="city_state_country">City, state or country</string>
+    <string name="sorry_no_pet_walkers_services">Sorry!\nNo pet walker services!</string>
+    <string name="sorry_no_pet_trainers_services">Sorry!\nNo pet trainer services!</string>
+    <string name="news_article_author_profile_image">News article author profile image</string>
+    <string name="author_name">Author name</string>
 </resources>

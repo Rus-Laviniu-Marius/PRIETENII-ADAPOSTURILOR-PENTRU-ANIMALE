@@ -9,7 +9,6 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.Toast;
 
 import com.google.android.material.appbar.MaterialToolbar;
 import com.google.android.material.button.MaterialButton;
@@ -26,6 +25,7 @@ import com.pet.shelter.friends.HomeActivity;
 import com.pet.shelter.friends.R;
 import com.pet.shelter.friends.WhoAreYouActivity;
 import com.pet.shelter.friends.authentication.LoginActivity;
+import com.pet.shelter.friends.profile.services.ActiveServicesActivity;
 import com.squareup.picasso.Picasso;
 
 import java.util.Objects;
