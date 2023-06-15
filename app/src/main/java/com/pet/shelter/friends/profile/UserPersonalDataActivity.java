@@ -55,11 +55,11 @@ public class UserPersonalDataActivity extends AppCompatActivity {
     private DatabaseReference profiles;
     private StorageReference profileImages;
     private MaterialToolbar materialToolbar;
-    private MaterialButton openGallery, openCamera, emailUser, contactUser, update;
-    private MaterialTextView aboutMe, aboutMeShortBio, contact, userName;
+    private MaterialButton openGallery, openCamera, update;
+    private MaterialTextView aboutMe, aboutMeShortBio, contact, userName, emailUser, contactUser;
     private ShapeableImageView profileImage;
-    private TextInputLayout nameTextInputLayout, ageTextInputLayout, addressTextInputLayout, phoneNumberTextInputLayout;
-    private TextInputEditText nameTextInputEditText, ageTextInputEditText, addressTextInputEditText, phoneNumberTextInputEditText;
+    private TextInputLayout nameTextInputLayout, ageTextInputLayout, addressTextInputLayout, phoneNumberTextInputLayout, descriptionTextInputLayout;
+    private TextInputEditText nameTextInputEditText, ageTextInputEditText, addressTextInputEditText, phoneNumberTextInputEditText, descriptionTextInputEditText;
     private Uri gallerySelectedImageUri, cameraCapturedImageUri;
     private Bitmap cameraCapturedImageBitmap;
     private ActivityResultLauncher<Intent> galleryActivityResultLauncher, cameraActivityResultLauncher;
@@ -110,8 +110,8 @@ public class UserPersonalDataActivity extends AppCompatActivity {
         materialToolbar = findViewById(R.id.viewUserPersonalData_materialToolbar);
         openGallery = findViewById(R.id.userPersonalDataOpenGallery_materialButton);
         openCamera = findViewById(R.id.userPersonalDataOpenCamera_materialButton);
-        emailUser = findViewById(R.id.userPersonalDataContactEmail_materialButton);
-        contactUser = findViewById(R.id.userPersonalDataContactPhone_materialButton);
+        emailUser = findViewById(R.id.userPersonalDataContactEmail_materialTextView);
+        contactUser = findViewById(R.id.userPersonalDataContactPhone_materialTextView);
         update = findViewById(R.id.updateUserPersonalData_materialButton);
         aboutMe = findViewById(R.id.userPersonalDataAboutMe_materialTextView);
         aboutMeShortBio = findViewById(R.id.userPersonalDataShortBio_materialTextView);
@@ -122,10 +122,12 @@ public class UserPersonalDataActivity extends AppCompatActivity {
         ageTextInputLayout = findViewById(R.id.editUserPersonalDataAge_textInputLayout);
         addressTextInputLayout = findViewById(R.id.editUserPersonalDataAddress_textInputLayout);
         phoneNumberTextInputLayout = findViewById(R.id.editUserPersonalDataPhoneNumber_textInputLayout);
+        descriptionTextInputLayout = findViewById(R.id.editUserPersonalDataDescription_textInputLayout);
         nameTextInputEditText = findViewById(R.id.editUserPersonalDataName_textInputEditText);
         ageTextInputEditText = findViewById(R.id.editUserPersonalDataAge_textInputEditText);
         addressTextInputEditText = findViewById(R.id.editUserPersonalDataAddress_textInputEditText);
         phoneNumberTextInputEditText = findViewById(R.id.editUserPersonalDataPhoneNumber_textInputEditText);
+        descriptionTextInputEditText = findViewById(R.id.editUserPersonalDataDescription_textInputEditText);
 
         readDataFromDatabase();
         setOnClickListeners();
@@ -142,7 +144,7 @@ public class UserPersonalDataActivity extends AppCompatActivity {
         profiles.child("users").child(loggedUserId).addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
-                String name, email, age, address, phoneNumber, profileImageDownloadLink, shortBio;
+                String name, email, age, address, phoneNumber, profileImageDownloadLink, description;
 
                 email = Objects.requireNonNull(firebaseAuth.getCurrentUser()).getEmail();
 
@@ -150,15 +152,20 @@ public class UserPersonalDataActivity extends AppCompatActivity {
                 age = Objects.requireNonNull(snapshot.child("age").getValue()).toString();
                 address = Objects.requireNonNull(snapshot.child("address").getValue()).toString();
                 phoneNumber = Objects.requireNonNull(snapshot.child("phoneNumber").getValue()).toString();
+                description = Objects.requireNonNull(snapshot.child("description").getValue()).toString();
                 profileImageDownloadLink = Objects.requireNonNull(snapshot.child("profileImageDownloadLink").getValue()).toString();
 
-                shortBio = "I am " + age + " years old. And I live in " + address;
-
                 userName.setText(name);
-                aboutMeShortBio.setText(shortBio);
+                aboutMeShortBio.setText(description);
                 emailUser.setText(email);
                 contactUser.setText(phoneNumber);
                 Picasso.get().load(profileImageDownloadLink).into(profileImage);
+
+                Objects.requireNonNull(nameTextInputLayout.getEditText()).setText(name);
+                Objects.requireNonNull(ageTextInputLayout.getEditText()).setText(age);
+                Objects.requireNonNull(addressTextInputLayout.getEditText()).setText(address);
+                Objects.requireNonNull(phoneNumberTextInputLayout.getEditText()).setText(phoneNumber);
+                Objects.requireNonNull(descriptionTextInputLayout.getEditText()).setText(description);
             }
 
             @Override
@@ -192,6 +199,7 @@ public class UserPersonalDataActivity extends AppCompatActivity {
                     ageTextInputLayout.setVisibility(View.VISIBLE);
                     addressTextInputLayout.setVisibility(View.VISIBLE);
                     phoneNumberTextInputLayout.setVisibility(View.VISIBLE);
+                    descriptionTextInputLayout.setVisibility(View.VISIBLE);
 
                     update.setVisibility(View.VISIBLE);
 
@@ -209,6 +217,7 @@ public class UserPersonalDataActivity extends AppCompatActivity {
                         ageTextInputLayout.setVisibility(View.GONE);
                         addressTextInputLayout.setVisibility(View.GONE);
                         phoneNumberTextInputLayout.setVisibility(View.GONE);
+                        descriptionTextInputLayout.setVisibility(View.GONE);
 
                         update.setVisibility(View.GONE);
 
@@ -229,12 +238,13 @@ public class UserPersonalDataActivity extends AppCompatActivity {
         update.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                String name, age, address, phoneNumber;
+                String name, age, address, phoneNumber, description;
 
                 name = Objects.requireNonNull(nameTextInputEditText.getText()).toString().trim();
                 age = Objects.requireNonNull(ageTextInputEditText.getText()).toString().trim();
                 address = Objects.requireNonNull(addressTextInputEditText.getText()).toString().trim();
                 phoneNumber = Objects.requireNonNull(phoneNumberTextInputEditText.getText()).toString().trim();
+                description = Objects.requireNonNull(descriptionTextInputEditText.getText()).toString().trim();
 
                 // Defining the child of storageReference
                 StorageReference ref = profileImages
@@ -253,15 +263,11 @@ public class UserPersonalDataActivity extends AppCompatActivity {
                                         public void onComplete(@NonNull Task<Uri> task) {
                                             Toast.makeText(UserPersonalDataActivity.this, "Image uploaded", Toast.LENGTH_SHORT).show();
                                             String fileLink = task.getResult().toString();
-                                            if (!name.equals(""))
                                                 profiles.child("users").child(loggedUserId).child("name").setValue(name);
-                                            else if (!age.equals(""))
                                                 profiles.child("users").child(loggedUserId).child("age").setValue(age);
-                                            else if (!address.equals(""))
                                                 profiles.child("users").child(loggedUserId).child("address").setValue(address);
-                                            else if (!phoneNumber.equals(""))
                                                 profiles.child("users").child(loggedUserId).child("phoneNumber").setValue(phoneNumber);
-                                            else if (!fileLink.equals(""))
+                                                profiles.child("users").child(loggedUserId).child("description").setValue(description);
                                                 profiles.child("users").child(loggedUserId).child("profileImageDownloadLink").setValue(fileLink);
                                         }
                                     });
@@ -273,9 +279,7 @@ public class UserPersonalDataActivity extends AppCompatActivity {
                                     Toast.makeText(UserPersonalDataActivity.this, "Failed " + e.getMessage(), Toast.LENGTH_SHORT).show();
                                 }
                             });
-                }
-
-                if (cameraCapturedImageUri != null) {
+                } else if (cameraCapturedImageUri != null) {
                     // Adding listeners on upload or failure of image
                     UploadTask uploadTask = ref.putFile(cameraCapturedImageUri);
                     uploadTask.addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
@@ -286,15 +290,11 @@ public class UserPersonalDataActivity extends AppCompatActivity {
                                         public void onComplete(@NonNull Task<Uri> task) {
                                             Toast.makeText(UserPersonalDataActivity.this, "Image uploaded", Toast.LENGTH_SHORT).show();
                                             String fileLink = task.getResult().toString();
-                                            if (!name.equals(""))
                                                 profiles.child("users").child(loggedUserId).child("name").setValue(name);
-                                            else if (!age.equals(""))
                                                 profiles.child("users").child(loggedUserId).child("age").setValue(age);
-                                            else if (!address.equals(""))
                                                 profiles.child("users").child(loggedUserId).child("address").setValue(address);
-                                            else if (!phoneNumber.equals(""))
                                                 profiles.child("users").child(loggedUserId).child("phoneNumber").setValue(phoneNumber);
-                                            else if (!fileLink.equals(""))
+                                                profiles.child("users").child(loggedUserId).child("description").setValue(description);
                                                 profiles.child("users").child(loggedUserId).child("profileImageDownloadLink").setValue(fileLink);
                                         }
                                     });
@@ -306,6 +306,13 @@ public class UserPersonalDataActivity extends AppCompatActivity {
                                     Toast.makeText(UserPersonalDataActivity.this, "Failed " + e.getMessage(), Toast.LENGTH_SHORT).show();
                                 }
                             });
+                } else {
+                    profiles.child("users").child(loggedUserId).child("name").setValue(name);
+                    profiles.child("users").child(loggedUserId).child("age").setValue(age);
+                    profiles.child("users").child(loggedUserId).child("address").setValue(address);
+                    profiles.child("users").child(loggedUserId).child("phoneNumber").setValue(phoneNumber);
+                    profiles.child("users").child(loggedUserId).child("description").setValue(description);
+
                 }
 
                 openCamera.setVisibility(View.GONE);
@@ -315,6 +322,7 @@ public class UserPersonalDataActivity extends AppCompatActivity {
                 ageTextInputLayout.setVisibility(View.GONE);
                 addressTextInputLayout.setVisibility(View.GONE);
                 phoneNumberTextInputLayout.setVisibility(View.GONE);
+                descriptionTextInputLayout.setVisibility(View.GONE);
 
                 update.setVisibility(View.GONE);
 
@@ -357,6 +365,7 @@ public class UserPersonalDataActivity extends AppCompatActivity {
                 }
             }
         });
+
     }
 
 }

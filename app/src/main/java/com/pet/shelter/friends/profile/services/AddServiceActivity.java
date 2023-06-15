@@ -39,7 +39,8 @@ import java.util.Objects;
 public class AddServiceActivity extends AppCompatActivity implements TextWatcher, ErrorSetter {
 
     private TextInputLayout nameTextInputLayout, emailTextInputLayout, phoneNumberTextInputLayout,
-            cityStateCountryTextInputLayout, addressTextInputLayout, descriptionTextInputLayout;
+            cityStateCountryTextInputLayout, addressTextInputLayout, descriptionTextInputLayout,
+            serviceCategoryTextInputLayout;
     private TextInputEditText nameTextInputEditText, emailTextInputEditText, phoneNumberTextInputEditText,
             webpageLinkTextInputEditText, cityStateCountryTextInputEditText, addressTextInputEditText,
             descriptionTextInputEditText;
@@ -58,7 +59,7 @@ public class AddServiceActivity extends AppCompatActivity implements TextWatcher
         activeServicesReference = FirebaseDatabase.getInstance().getReference("activeServices");
 
         MaterialToolbar materialToolbar = findViewById(R.id.addService_materialToolbar);
-
+        serviceCategoryTextInputLayout = findViewById(R.id.addServiceCategory_textInputLayout);
         nameTextInputLayout = findViewById(R.id.addServiceProviderName_textInputLayout);
         emailTextInputLayout = findViewById(R.id.addServiceProviderEmail_textInputLayout);
         phoneNumberTextInputLayout = findViewById(R.id.addServiceProviderPhoneNumber_textInputLayout);
@@ -139,9 +140,12 @@ public class AddServiceActivity extends AppCompatActivity implements TextWatcher
                         addressTextInputLayout).checkEmpty();
                 ValidationManager.getInstance().doValidation(AddServiceActivity.this,
                         descriptionTextInputLayout).checkEmpty();
+                ValidationManager.getInstance().doValidation(AddServiceActivity.this,
+                        serviceCategoryTextInputLayout).checkEmpty();
 
                 if (ValidationManager.getInstance().arePhoneNumberAndEmailValidAndNothingEmpty()) {
 
+                    activeServicesReference.child(serviceCategorySelectedItem).child(service).child("serviceType").setValue(serviceCategorySelectedItem);
                     activeServicesReference.child(serviceCategorySelectedItem).child(service).child("name").setValue(name);
                     activeServicesReference.child(serviceCategorySelectedItem).child(service).child("email").setValue(email);
                     activeServicesReference.child(serviceCategorySelectedItem).child(service).child("phoneNumber").setValue(phoneNumber);
@@ -175,6 +179,7 @@ public class AddServiceActivity extends AppCompatActivity implements TextWatcher
         Objects.requireNonNull(cityStateCountryTextInputLayout.getEditText()).addTextChangedListener(this);
         Objects.requireNonNull(addressTextInputLayout.getEditText()).addTextChangedListener(this);
         Objects.requireNonNull(descriptionTextInputLayout.getEditText()).addTextChangedListener(this);
+        Objects.requireNonNull(serviceCategoryTextInputLayout.getEditText()).addTextChangedListener(this);
     }
 
     @Override
@@ -201,6 +206,8 @@ public class AddServiceActivity extends AppCompatActivity implements TextWatcher
             addressTextInputLayout.setErrorEnabled(false);
         } else if (s.hashCode() == Objects.requireNonNull(descriptionTextInputLayout.getEditText()).getText().hashCode()) {
             descriptionTextInputLayout.setErrorEnabled(false);
+        } else if (s.hashCode() == Objects.requireNonNull(serviceCategoryTextInputLayout.getEditText()).getText().hashCode()) {
+            serviceCategoryTextInputLayout.setErrorEnabled(false);
         }
     }
 

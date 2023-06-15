@@ -17,13 +17,13 @@ import com.squareup.picasso.Picasso;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ActiveServicesCustomAdapter extends ArrayAdapter<NewsArticleData> {
+public class ActiveServicesCustomAdapter extends ArrayAdapter<ActiveServiceData> {
 
     private List<ActiveServiceData> activeServicesList;
     private final int custom_active_services_view_layout_id;
 
     public ActiveServicesCustomAdapter(@NonNull Context context, int resource, @NonNull List<ActiveServiceData> objects) {
-        super(context, resource);
+        super(context, resource, objects);
         activeServicesList = objects;
         custom_active_services_view_layout_id = resource;
     }

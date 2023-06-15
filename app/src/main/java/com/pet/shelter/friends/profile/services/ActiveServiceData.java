@@ -9,6 +9,7 @@ public class ActiveServiceData {
     private String cityStateCountry;
     private String address;
     private String description;
+    private String serviceType;
 
     public ActiveServiceData() {}
 
@@ -19,7 +20,8 @@ public class ActiveServiceData {
                              String webpageLink,
                              String cityStateCountry,
                              String address,
-                             String description) {
+                             String description,
+                             String serviceType) {
         this.providerUserProfileImage = providerUserProfileImage;
         this.name = name;
         this.email = email;
@@ -28,6 +30,7 @@ public class ActiveServiceData {
         this.cityStateCountry = cityStateCountry;
         this.address = address;
         this.description = description;
+        this.serviceType = serviceType;
     }
 
     public String getProviderUserProfileImage() {
@@ -92,5 +95,13 @@ public class ActiveServiceData {
 
     public void setDescription(String description) {
         this.description = description;
+    }
+
+    public String getServiceType() {
+        return serviceType;
+    }
+
+    public void setServiceType(String serviceType) {
+        this.serviceType = serviceType;
     }
 }

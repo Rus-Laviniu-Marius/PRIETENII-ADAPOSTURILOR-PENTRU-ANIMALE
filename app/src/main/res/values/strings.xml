@@ -298,7 +298,7 @@
     <string name="news">News</string>
     <string name="sorry_no_veterinarians_services">Sorry! \nNo veterinarians services!</string>
     <string name="service_provider_name">Service provider name</string>
-    <string name="service_author_location_city_state_country">Service author location city, state, country</string>
+    <string name="service_provider_location_city_state_country">Service author location city, state, country</string>
     <string name="service_category">Service category</string>
     <string name="provider_name">Provider name</string>
     <string name="provider_email">Provider email</string>
@@ -309,5 +309,6 @@
     <string name="author_name">Author name</string>
     <string name="share">Share</string>
     <string name="follow">Follow</string>
+    <string name="visit_webpage">Visit my web page</string>
 
 </resources>

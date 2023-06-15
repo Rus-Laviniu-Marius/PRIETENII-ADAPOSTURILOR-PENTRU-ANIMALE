@@ -13,8 +13,10 @@ import android.os.Looper;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
+import android.widget.Toast;
 
 import com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton;
 import com.google.android.material.textview.MaterialTextView;
@@ -26,6 +28,7 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.pet.shelter.friends.R;
 import com.pet.shelter.friends.profile.services.ActiveServiceData;
+import com.pet.shelter.friends.profile.services.ActiveServiceDetailsActivity;
 import com.pet.shelter.friends.profile.services.ActiveServicesCustomAdapter;
 import com.pet.shelter.friends.profile.services.AddServiceActivity;
 
@@ -71,6 +74,25 @@ public class ActiveServicesVeterinariansTabFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 startActivity(new Intent(getActivity(), AddServiceActivity.class));
+                requireActivity().finish();
+            }
+        });
+
+        veterinarianServicesListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                ActiveServiceData activeServiceData = activeServicesCustomAdapter.getItem(position);
+                Intent intent = new Intent(getActivity(), ActiveServiceDetailsActivity.class);
+                intent.putExtra("providerUserProfileImage", activeServiceData.getProviderUserProfileImage());
+                intent.putExtra("name", activeServiceData.getName());
+                intent.putExtra("email", activeServiceData.getEmail());
+                intent.putExtra("phoneNumber", activeServiceData.getPhoneNumber());
+                intent.putExtra("webpageLink", activeServiceData.getWebpageLink());
+                intent.putExtra("cityStateCountry", activeServiceData.getCityStateCountry());
+                intent.putExtra("address", activeServiceData.getAddress());
+                intent.putExtra("description", activeServiceData.getDescription());
+                intent.putExtra("serviceType", activeServiceData.getServiceType());
+                startActivity(intent);
                 requireActivity().finish();
             }
         });

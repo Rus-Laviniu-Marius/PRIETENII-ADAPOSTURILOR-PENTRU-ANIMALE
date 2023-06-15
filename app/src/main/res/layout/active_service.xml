@@ -46,7 +46,7 @@
         android:id="@+id/activeServiceProviderLocationCityStateCountry_materialTextView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="@string/service_author_location_city_state_country"
+        android:text="@string/service_provider_location_city_state_country"
         app:layout_constraintTop_toBottomOf="@+id/activeServiceProviderProfileImageAndName"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
