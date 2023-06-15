@@ -1,0 +1,241 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".profile.services.AddServiceActivity">
+
+    <com.google.android.material.appbar.AppBarLayout
+            android:id="@+id/addService_appBarLayout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <com.google.android.material.appbar.MaterialToolbar
+                android:id="@+id/addService_materialToolbar"
+                android:layout_width="match_parent"
+                android:layout_height="?attr/actionBarSize"
+                app:layout_anchor="@+id/appBarLayout"
+                app:layout_anchorGravity="center"
+                app:navigationIcon="@drawable/arrow_back_24"
+                app:title="Provide service"
+                app:titleCentered="true" />
+        </com.google.android.material.appbar.AppBarLayout>
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@+id/addService_appBarLayout"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/addServiceCategory_textInputLayout"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:hint="@string/service_category"
+                app:helperText="*Required"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toTopOf="@+id/addServiceProviderName_textInputLayout"
+                app:layout_constraintEnd_toStartOf="@id/guideline28"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toEndOf="@id/guideline27"
+                app:layout_constraintWidth_max="488dp">
+
+                <com.google.android.material.textfield.MaterialAutoCompleteTextView
+                    android:id="@+id/addServicesCategories_materialAutoCompleteTextView"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="text" />
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/addServiceProviderName_textInputLayout"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:hint="@string/name"
+                app:helperText="*Required"
+                app:layout_constraintTop_toBottomOf="@+id/addServiceCategory_textInputLayout"
+                app:layout_constraintBottom_toTopOf="@+id/addServiceProviderEmail_textInputLayout"
+                app:layout_constraintEnd_toStartOf="@id/guideline28"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toEndOf="@id/guideline27"
+                app:layout_constraintWidth_max="488dp">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/addServiceProviderName_textInputEditText"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="text" />
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/addServiceProviderEmail_textInputLayout"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:hint="@string/email"
+                app:helperText="*Required"
+                app:layout_constraintTop_toBottomOf="@+id/addServiceProviderName_textInputLayout"
+                app:layout_constraintBottom_toTopOf="@+id/addServiceProviderPhoneNumber_textInputLayout"
+                app:layout_constraintEnd_toStartOf="@id/guideline28"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toEndOf="@id/guideline27"
+                app:layout_constraintWidth_max="488dp">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/addServiceProviderEmail_textInputEditText"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="textEmailAddress" />
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/addServiceProviderPhoneNumber_textInputLayout"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:hint="@string/phone_number"
+                app:helperText="*Required"
+                app:counterEnabled="true"
+                app:counterMaxLength="10"
+                app:layout_constraintTop_toBottomOf="@+id/addServiceProviderEmail_textInputLayout"
+                app:layout_constraintBottom_toTopOf="@+id/addServiceProviderWebsite_textInputLayout"
+                app:layout_constraintEnd_toStartOf="@id/guideline28"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toEndOf="@id/guideline27"
+                app:layout_constraintWidth_max="488dp">
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/addServiceProviderPhoneNumber_textInputEditText"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="phone"
+                    android:scrollbars="vertical" />
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/addServiceProviderWebsite_textInputLayout"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:hint="@string/web_page_link"
+                app:layout_constraintTop_toBottomOf="@+id/addServiceProviderPhoneNumber_textInputLayout"
+                app:layout_constraintBottom_toTopOf="@+id/addServiceProviderCityStateCountry_textInputLayout"
+                app:layout_constraintEnd_toStartOf="@id/guideline28"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toEndOf="@id/guideline27"
+                app:layout_constraintWidth_max="488dp">
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/addServiceProviderWebsite_textInputEditText"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="textLongMessage|textMultiLine"
+                    android:scrollbars="vertical" />
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/addServiceProviderCityStateCountry_textInputLayout"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:hint="@string/city_state_country"
+                app:helperText="*Required"
+                app:layout_constraintTop_toBottomOf="@+id/addServiceProviderWebsite_textInputLayout"
+                app:layout_constraintBottom_toTopOf="@+id/addServiceProviderAddress_textInputLayout"
+                app:layout_constraintEnd_toStartOf="@id/guideline28"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toEndOf="@id/guideline27"
+                app:layout_constraintWidth_max="488dp">
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/addServiceProviderCityStateCountry_textInputEditText"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="textMultiLine"
+                    android:scrollbars="vertical" />
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/addServiceProviderAddress_textInputLayout"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:hint="@string/address"
+                app:helperText="*Required"
+                app:layout_constraintTop_toBottomOf="@+id/addServiceProviderCityStateCountry_textInputLayout"
+                app:layout_constraintBottom_toTopOf="@+id/addServiceProviderDescription_textInputLayout"
+                app:layout_constraintEnd_toStartOf="@id/guideline28"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toEndOf="@id/guideline27"
+                app:layout_constraintWidth_max="488dp">
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/addServiceProviderAddress_textInputEditText"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="textLongMessage|textMultiLine"
+                    android:scrollbars="vertical" />
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/addServiceProviderDescription_textInputLayout"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:hint="@string/description"
+                app:helperText="*Required"
+                app:layout_constraintTop_toBottomOf="@+id/addServiceProviderAddress_textInputLayout"
+                app:layout_constraintBottom_toTopOf="@+id/addService_materialButton"
+                app:layout_constraintEnd_toStartOf="@id/guideline28"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toEndOf="@id/guideline27"
+                app:layout_constraintWidth_max="488dp">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/addServiceProviderDescription_textInputEditText"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="textPostalAddress|textMultiLine"
+                    android:scrollbars="vertical" />
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/addService_materialButton"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:text="@string/add"
+                app:layout_constraintTop_toBottomOf="@id/addServiceProviderDescription_textInputLayout"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toStartOf="@id/guideline28"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toEndOf="@id/guideline27"
+                app:layout_constraintWidth_max="320dp" />
+
+            <androidx.constraintlayout.widget.Guideline
+                android:id="@+id/guideline27"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                app:layout_constraintGuide_percent="0.05" />
+
+            <androidx.constraintlayout.widget.Guideline
+                android:id="@+id/guideline28"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                app:layout_constraintGuide_percent="0.95" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </ScrollView>
+
+
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

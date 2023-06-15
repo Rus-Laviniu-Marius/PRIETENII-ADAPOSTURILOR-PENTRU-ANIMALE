@@ -3,55 +3,43 @@ package com.pet.shelter.friends.news;
 import androidx.annotation.NonNull;
 
 public class NewsArticleData {
-    String authorUserId;
-    String category;
-    String description;
-    String mediaImageDownloadLink;
-    String postedDate;
-    String subcategory;
-    String title;
-    String authorProfileImage;
+    private String authorName;
+    private String category;
+    private String description;
+    private String mediaImageDownloadLink;
+    private String postedDate;
+    private String subcategory;
+    private String title;
+    private String newsArticleAuthorProfileImage;
 
-    public NewsArticleData(String authorUserId,
+    public NewsArticleData(String authorName,
                            String category,
                            String description,
                            String mediaImageDownloadLink,
                            String postedDate,
                            String subcategory,
-                           String title) {
-        this.authorUserId = authorUserId;
+                           String title,
+                           String newsArticleAuthorProfileImage) {
+        this.authorName = authorName;
         this.category = category;
         this.description = description;
         this.mediaImageDownloadLink = mediaImageDownloadLink;
         this.postedDate = postedDate;
         this.subcategory = subcategory;
         this.title = title;
+        this.newsArticleAuthorProfileImage = newsArticleAuthorProfileImage;
     }
 
     public NewsArticleData() {
 
     }
 
-    @Override
-    public String toString() {
-        return "NewsArticleData{" +
-                "authorUserId='" + authorUserId + '\'' +
-                ", category='" + category + '\'' +
-                ", description='" + description + '\'' +
-                ", mediaImageDownloadLink='" + mediaImageDownloadLink + '\'' +
-                ", postedDate='" + postedDate + '\'' +
-                ", subcategory='" + subcategory + '\'' +
-                ", title='" + title + '\'' +
-                ", authorProfileImage='" + authorProfileImage + '\'' +
-                '}';
+    public String getAuthorName() {
+        return authorName;
     }
 
-    public String getAuthorUserId() {
-        return authorUserId;
-    }
-
-    public void setAuthorUserId(String authorUserId) {
-        this.authorUserId = authorUserId;
+    public void setAuthorName(String authorUserId) {
+        this.authorName = authorUserId;
     }
 
     public String getCategory() {
@@ -102,11 +90,11 @@ public class NewsArticleData {
         this.title = title;
     }
 
-    public String getAuthorProfileImage() {
-        return authorProfileImage;
+    public String getNewsArticleAuthorProfileImage() {
+        return newsArticleAuthorProfileImage;
     }
 
-    public void setAuthorProfileImage(String authorProfileImage) {
-        this.authorProfileImage = authorProfileImage;
+    public void setNewsArticleAuthorProfileImage(String newsArticleAuthorProfileImage) {
+        this.newsArticleAuthorProfileImage = newsArticleAuthorProfileImage;
     }
 }

@@ -192,4 +192,8 @@ public class ValidationManager {
     public boolean isAllValidForShelterProfile() {
         return isEmptyValid && isIbanValid;
     }
+
+    public boolean arePhoneNumberAndEmailValidAndNothingEmpty() {
+        return isEmptyValid && isPhoneNumberValid && isEmailValid;
+    }
 }

@@ -33,10 +33,19 @@
         android:theme="@style/Theme.PetShelterFriends"
         tools:targetApi="31">
         <activity
+            android:name=".profile.services.ActiveServiceDetailsActivity"
+            android:exported="false" />
+        <activity
+            android:name=".news.NewsArticleDetailsActivity"
+            android:exported="false" />
+        <activity
+            android:name=".profile.services.AddServiceActivity"
+            android:exported="false" />
+        <activity
             android:name=".profile.PastAttendedEventsActivity"
             android:exported="false" />
         <activity
-            android:name=".profile.ActiveServicesActivity"
+            android:name=".profile.services.ActiveServicesActivity"
             android:exported="false" />
         <activity
             android:name=".NotificationsActivity"

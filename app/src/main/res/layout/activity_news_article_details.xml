@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".news.NewsArticleDetailsActivity">
+
+    <com.google.android.material.appbar.AppBarLayout
+        android:id="@+id/newsArticleDetails_appBarLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" >
+        <com.google.android.material.appbar.MaterialToolbar
+            android:id="@+id/newsArticleDetails_materialToolbar"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            app:layout_anchor="@+id/appBarLayout"
+            app:layout_anchorGravity="center"
+            app:menu="@menu/share_top_app_bar_menu"
+            app:navigationIcon="@drawable/arrow_back_24"
+            app:title=""
+            app:titleCentered="true" />
+    </com.google.android.material.appbar.AppBarLayout>
+
+    <ScrollView
+        android:id="@+id/newsArticleDetails_scrollView"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:fillViewport="true"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/newsArticleDetails_appBarLayout">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+            <com.google.android.material.imageview.ShapeableImageView
+                android:id="@+id/newsArticleDetailsMedia_shapeImageView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/vertical_space_between_items"
+                app:srcCompat="@drawable/media" />
+
+            <com.google.android.material.textview.MaterialTextView
+                android:id="@+id/newsArticleDetailsTitle_materialTextView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/news_article_title"
+                android:gravity="center"
+                android:layout_margin="@dimen/small_margin"
+                style="@style/TextAppearance.Material3.HeadlineLarge" />
+
+            <com.google.android.material.textview.MaterialTextView
+                android:id="@+id/newsArticleDetailsSubcategory_materialTextView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/news_article_subcategory"
+                android:gravity="center"
+                android:layout_margin="@dimen/small_margin"
+                style="@style/TextAppearance.Material3.HeadlineMedium" />
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/newsArticleDetailsAuthor_linearLayout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingVertical="@dimen/padding_vertical_header"
+                android:paddingHorizontal="@dimen/padding_horizontal" >
+                <com.google.android.material.imageview.ShapeableImageView
+                    android:id="@+id/newsArticleDetailsAuthorProfile_shapeImageView"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="@dimen/horizontal_space_between_items"
+                    android:contentDescription="@string/news_article_author_profile_image"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintEnd_toStartOf="@id/newsArticleDetailsAuthorName_materialTextView"
+                    app:layout_constraintWidth_max="40dp"
+                    app:layout_constraintHeight_max="40dp"
+                    app:srcCompat="@drawable/avatar_40"
+                    app:shapeAppearanceOverlay="@style/circleImageView"/>
+                <com.google.android.material.textview.MaterialTextView
+                    android:id="@+id/newsArticleDetailsAuthorName_materialTextView"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:text="@string/author_name"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toEndOf="@id/newsArticleDetailsAuthorProfile_shapeImageView"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    style="@style/TextAppearance.Material3.HeadlineSmall"/>
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <com.google.android.material.textview.MaterialTextView
+                android:id="@+id/newsArticleDetailsDescription_materialTextView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/news_article_description"
+                android:paddingHorizontal="@dimen/padding_horizontal"
+                android:paddingVertical="@dimen/padding_vertical_text_content"
+                style="@style/TextAppearance.Material3.BodyLarge"/>
+        </LinearLayout>
+    </ScrollView>
+</androidx.constraintlayout.widget.ConstraintLayout>

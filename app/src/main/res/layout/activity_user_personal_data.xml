@@ -20,7 +20,7 @@
             android:layout_height="?attr/actionBarSize"
             app:layout_anchor="@+id/appBarLayout"
             app:layout_anchorGravity="center"
-            app:menu="@menu/edit_data_top_app_bar"
+            app:menu="@menu/edit_data_top_app_bar_menu"
             app:navigationIcon="@drawable/arrow_back_24"
             app:title="@string/user_personal_data"
             app:titleCentered="true" />
@@ -98,7 +98,6 @@
         android:layout_height="wrap_content"
         android:labelFor="@+id/userPersonalDataShortBio_materialTextView"
         android:text="@string/about_me"
-        android:visibility="gone"
         app:layout_constraintTop_toBottomOf="@id/userPersonalData_constraintLayout"
         app:layout_constraintBottom_toTopOf="@+id/userPersonalDataShortBio_materialTextView"
         app:layout_constraintEnd_toStartOf="@+id/guideline26"
@@ -111,7 +110,6 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:text="@string/user_short_bio"
-        android:visibility="gone"
         app:layout_constraintBottom_toTopOf="@+id/userPersonalDataContact_materialTextView"
         app:layout_constraintEnd_toStartOf="@+id/guideline26"
         app:layout_constraintStart_toEndOf="@+id/guideline25"
@@ -124,42 +122,39 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:text="@string/contact"
-        android:visibility="gone"
-        app:layout_constraintBottom_toTopOf="@+id/userPersonalDataContactEmail_materialButton"
+        app:layout_constraintBottom_toTopOf="@+id/userPersonalDataContactEmail_materialTextView"
         app:layout_constraintEnd_toStartOf="@+id/guideline26"
         app:layout_constraintStart_toEndOf="@+id/guideline25"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintTop_toBottomOf="@+id/userPersonalDataShortBio_materialTextView" />
 
-    <com.google.android.material.button.MaterialButton
-        android:id="@+id/userPersonalDataContactEmail_materialButton"
-        style="@style/Widget.Material3.Button.TextButton.Icon"
+    <com.google.android.material.textview.MaterialTextView
+        android:id="@+id/userPersonalDataContactEmail_materialTextView"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:text="@string/email"
-        android:visibility="gone"
-        app:icon="@drawable/mail_filled_24px"
-        app:layout_constraintBottom_toTopOf="@+id/userPersonalDataContactPhone_materialButton"
+        android:drawablePadding="@dimen/horizontal_space_between_items"
+        style="@style/TextAppearance.Material3.HeadlineSmall"
+        app:drawableStartCompat="@drawable/mail_filled_24px"
+        app:layout_constraintBottom_toTopOf="@+id/userPersonalDataContactPhone_materialTextView"
         app:layout_constraintEnd_toStartOf="@+id/guideline26"
         app:layout_constraintStart_toEndOf="@+id/guideline25"
         app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintTop_toBottomOf="@+id/userPersonalDataContact_materialTextView"
-        app:layout_constraintWidth_max="320dp" />
+        app:layout_constraintTop_toBottomOf="@+id/userPersonalDataContact_materialTextView" />
 
-    <com.google.android.material.button.MaterialButton
-        android:id="@+id/userPersonalDataContactPhone_materialButton"
-        style="@style/Widget.Material3.Button.TextButton.Icon"
+    <com.google.android.material.textview.MaterialTextView
+        android:id="@+id/userPersonalDataContactPhone_materialTextView"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:text="@string/phone_number"
-        android:visibility="gone"
-        app:icon="@drawable/phone_filled_24"
+        android:drawablePadding="@dimen/horizontal_space_between_items"
+        style="@style/TextAppearance.Material3.HeadlineSmall"
+        app:drawableStartCompat="@drawable/phone_filled_24"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/guideline26"
         app:layout_constraintStart_toEndOf="@+id/guideline25"
         app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintTop_toBottomOf="@+id/userPersonalDataContactEmail_materialButton"
-        app:layout_constraintWidth_max="320dp" />
+        app:layout_constraintTop_toBottomOf="@+id/userPersonalDataContactEmail_materialTextView"  />
 
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/editUserPersonalDataName_textInputLayout"
@@ -256,7 +251,7 @@
         app:endIconMode="clear_text"
         app:errorEnabled="true"
         app:helperText="*Required"
-        app:layout_constraintBottom_toTopOf="@+id/updateUserPersonalData_materialButton"
+        app:layout_constraintBottom_toTopOf="@+id/editUserPersonalDataDescription_textInputLayout"
         app:layout_constraintEnd_toStartOf="@+id/guideline26"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toEndOf="@+id/guideline25"
@@ -265,6 +260,33 @@
 
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/editUserPersonalDataPhoneNumber_textInputEditText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/editUserPersonalDataDescription_textInputLayout"
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:autofillHints="postalAddress"
+        android:enabled="true"
+        android:focusable="true"
+        android:hint="@string/description"
+        android:inputType="phone"
+        android:visibility="gone"
+        app:endIconMode="clear_text"
+        app:errorEnabled="true"
+        app:helperText="*Required"
+        app:layout_constraintBottom_toTopOf="@+id/updateUserPersonalData_materialButton"
+        app:layout_constraintEnd_toStartOf="@+id/guideline26"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/guideline25"
+        app:layout_constraintTop_toBottomOf="@+id/editUserPersonalDataPhoneNumber_textInputLayout"
+        app:layout_constraintWidth_max="488dp">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/editUserPersonalDataDescription_textInputEditText"
             android:layout_width="match_parent"
             android:layout_height="wrap_content" />
     </com.google.android.material.textfield.TextInputLayout>
@@ -279,7 +301,7 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/guideline26"
         app:layout_constraintStart_toEndOf="@+id/guideline25"
-        app:layout_constraintTop_toBottomOf="@+id/editUserPersonalDataPhoneNumber_textInputLayout"
+        app:layout_constraintTop_toBottomOf="@+id/editUserPersonalDataDescription_textInputLayout"
         app:layout_constraintWidth_max="320dp"/>
 
     <androidx.constraintlayout.widget.Guideline

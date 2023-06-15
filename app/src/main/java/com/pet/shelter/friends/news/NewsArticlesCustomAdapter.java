@@ -48,22 +48,22 @@ public class NewsArticlesCustomAdapter extends ArrayAdapter<NewsArticleData> {
         }
 
         // initializing the card elements and setting data
-        ImageView authorProfileImageView = v.findViewById(R.id.newsArticleCardUserProfileImage_imageView);
-        ImageView articleMediaImageView = v.findViewById(R.id.newsArticleCardMedia_imageView);
+        ImageView authorProfileImageView = v.findViewById(R.id.newsArticleCardAuthorProfileImage_imageView);
+        ImageView articleMediaImageView = v.findViewById(R.id.newsArticleCardMedia_shapeImageView);
         MaterialTextView newsArticleSubcategoryMaterialTextView = v.findViewById(R.id.newsArticleCardSubcategory_materialTextView);
         MaterialTextView articleTitleMaterialTextView = v.findViewById(R.id.newsArticleCardTitle_materialTextView);
         MaterialTextView shortDescriptionMaterialTextView = v.findViewById(R.id.newsArticleCardShortDescription_materialTextView);
-        MaterialTextView postedDateMaterialTextView = v.findViewById(R.id.newsArticleCardPostedDate_materialTextView);
+        MaterialTextView authorNameMaterialTextView = v.findViewById(R.id.newsArticleCardAuthorName_materialTextView);
 
         // get the item using the position param
         NewsArticleData newsArticleData = newsArticlesList.get(position);
 
         Picasso.get().load(newsArticleData.getMediaImageDownloadLink()).into(articleMediaImageView);
-
+        Picasso.get().load(newsArticleData.getNewsArticleAuthorProfileImage()).into(authorProfileImageView);
+        authorNameMaterialTextView.setText(newsArticleData.getAuthorName());
         newsArticleSubcategoryMaterialTextView.setText(newsArticleData.getSubcategory());
         articleTitleMaterialTextView.setText(newsArticleData.getTitle());
         shortDescriptionMaterialTextView.setText(newsArticleData.getDescription());
-        postedDateMaterialTextView.setText(newsArticleData.getPostedDate());
 
         return v;
     }

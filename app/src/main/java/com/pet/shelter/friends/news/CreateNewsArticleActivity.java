@@ -24,6 +24,7 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Toast;
 
+import com.google.android.gms.auth.api.signin.internal.Storage;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -35,8 +36,11 @@ import com.google.android.material.textfield.MaterialAutoCompleteTextView;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.android.material.textfield.TextInputLayout;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.OnProgressListener;
 import com.google.firebase.storage.StorageReference;
@@ -73,41 +77,16 @@ public class CreateNewsArticleActivity extends AppCompatActivity implements Text
 
     private ActivityResultLauncher<Intent> galleryActivityResultLauncher, cameraActivityResultLauncher;
 
+    private String name;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_create_news_article);
 
-        MaterialToolbar materialToolbar = findViewById(R.id.createNewsArticle_materialToolbar);
 
-        materialToolbar.setOnMenuItemClickListener(new Toolbar.OnMenuItemClickListener() {
-            @Override
-            public boolean onMenuItemClick(MenuItem item) {
-                if (item.getItemId() == R.id.create_news_article_action_open_camera) {
-                    if (checkSelfPermission(Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED)
-                    {
-                        requestPermissions(new String[]{Manifest.permission.CAMERA}, MY_CAMERA_PERMISSION_CODE);
-                    }
-                    else
-                    {
-                        Intent cameraIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-                        if (cameraIntent.resolveActivity(getPackageManager()) != null) {
-                            cameraActivityResultLauncher.launch(cameraIntent);
-                        } else {
-                            Toast.makeText(CreateNewsArticleActivity.this, "There is no app that supports this action", Toast.LENGTH_SHORT).show();
-                        }
-                    }
-                } else if (item.getItemId() == R.id.create_news_article_action_open_gallery) {
-                    if (checkSelfPermission(Manifest.permission.READ_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
-                        requestPermissions(new String[]{Manifest.permission.READ_EXTERNAL_STORAGE, Manifest.permission.WRITE_EXTERNAL_STORAGE}, PICK_FROM_GALLERY);
-                    }
-                    Intent galleryPhotoPickerIntent = new Intent(Intent.ACTION_PICK);
-                    galleryPhotoPickerIntent.setType("image/*");
-                    galleryActivityResultLauncher.launch(galleryPhotoPickerIntent);
-                }
-                return true;
-            }
-        });
+
+        MaterialToolbar materialToolbar = findViewById(R.id.createNewsArticle_materialToolbar);
 
         FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
         FirebaseDatabase firebaseDatabase = FirebaseDatabase.getInstance();
@@ -129,7 +108,7 @@ public class CreateNewsArticleActivity extends AppCompatActivity implements Text
         MaterialButton postNews = findViewById(R.id.createNewsArticlePost_materialButton);
 
         // TODO: What are the news categories subcategories?
-        String[] newsCategories = {"Pets", "Volunteer", "Material support", "Donation", "Pet caring"};
+        String[] newsCategories = {"Pets", "Volunteer", "Material support", "Donation", "Caring"};
         String[] newsSubcategories = {"Adoption", "Lost", "Abandoned", "Sponsored", "Shelter",
                 "Food", "Medicine", "Food", "Medicine", "Treatment", "Grooming", "Feeding", "Bathing"};
 
@@ -186,8 +165,7 @@ public class CreateNewsArticleActivity extends AppCompatActivity implements Text
         );
 
         galleryActivityResultLauncher = registerForActivityResult(
-                new ActivityResultContracts.StartActivityForResult(),
-                result -> {
+                new ActivityResultContracts.StartActivityForResult(), result -> {
                     if (result.getResultCode() == Activity.RESULT_OK) {
                         // There are no request codes
                         // doSomeOperations();
@@ -205,8 +183,7 @@ public class CreateNewsArticleActivity extends AppCompatActivity implements Text
                 });
 
         cameraActivityResultLauncher = registerForActivityResult(
-                new ActivityResultContracts.StartActivityForResult(),
-                result -> {
+                new ActivityResultContracts.StartActivityForResult(), result -> {
                     if (result.getResultCode() == Activity.RESULT_OK && result.getData() != null) {
                         Bundle bundle = result.getData().getExtras();
                         cameraCapturedImageBitmap = (Bitmap) bundle.get("data");
@@ -229,17 +206,62 @@ public class CreateNewsArticleActivity extends AppCompatActivity implements Text
             }
         });
 
+        materialToolbar.setOnMenuItemClickListener(new Toolbar.OnMenuItemClickListener() {
+            @Override
+            public boolean onMenuItemClick(MenuItem item) {
+                if (item.getItemId() == R.id.action_open_camera) {
+                    if (checkSelfPermission(Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED)  {
+                        requestPermissions(new String[]{Manifest.permission.CAMERA}, MY_CAMERA_PERMISSION_CODE);
+                    } else {
+                        Intent cameraIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+                        if (cameraIntent.resolveActivity(getPackageManager()) != null) {
+                            cameraActivityResultLauncher.launch(cameraIntent);
+                        } else {
+                            Toast.makeText(CreateNewsArticleActivity.this, "There is no app that supports this action", Toast.LENGTH_SHORT).show();
+                        }
+                    }
+                } else if (item.getItemId() == R.id.action_open_gallery) {
+                    if (checkSelfPermission(Manifest.permission.READ_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
+                        requestPermissions(new String[]{Manifest.permission.READ_EXTERNAL_STORAGE, Manifest.permission.WRITE_EXTERNAL_STORAGE}, PICK_FROM_GALLERY);
+                    }
+                    Intent galleryPhotoPickerIntent = new Intent(Intent.ACTION_PICK);
+                    galleryPhotoPickerIntent.setType("image/*");
+                    galleryActivityResultLauncher.launch(galleryPhotoPickerIntent);
+                }
+                return true;
+            }
+        });
+
+        materialToolbar.setNavigationOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(CreateNewsArticleActivity.this, HomeActivity.class));
+                finish();
+            }
+        });
         postNews.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
+
                 String title = Objects.requireNonNull(titleTextInputEditText.getText()).toString();
                 String description = Objects.requireNonNull(descriptionTextInputEditText.getText()).toString();
-                DateFormat dateFormat;
-                dateFormat = DateFormat.getDateInstance(DateFormat.SHORT, Locale.ENGLISH);
-                String postedDate = dateFormat.toString();
 
-                String article = title + "_" + postedDate;
+                String article = title + "_" + description;
+
+                DatabaseReference shelterAdministratorName = FirebaseDatabase.getInstance().getReference("profiles").child("sheltersAdministrators").child(loggedUserId).child("name");
+
+                shelterAdministratorName.addListenerForSingleValueEvent(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot snapshot) {
+                        name = snapshot.getValue(String.class);
+                    }
+
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError error) {
+
+                    }
+                });
 
                 ValidationManager.getInstance().doValidation(CreateNewsArticleActivity.this,
                         titleTextInputLayout).checkEmpty();
@@ -250,9 +272,20 @@ public class CreateNewsArticleActivity extends AppCompatActivity implements Text
                     StorageReference ref = newsArticlesMediaContentReference
                             .child("newsArticlesMediaFiles")
                             .child(loggedUserId)
-                            .child("images/"+title+"_"+postedDate);
+                            .child("images/"+title+"_"+description);
 
                     if (gallerySelectedImageUri != null) {
+                        StorageReference storageReference = FirebaseStorage.getInstance().getReference("profiles").child("shelterAdministrators").child(loggedUserId);
+
+                        storageReference.child(name+"_"+loggedUserId).getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
+                            @Override
+                            public void onSuccess(Uri uri) {
+                                newsArticlesReference.child(newsCategorySelectedItem).child(article).child("newsArticleAuthorProfileImage").setValue(uri.toString());
+                            }
+                        });
+
+                        newsArticlesReference.child(newsCategorySelectedItem).child(article).child("authorName").setValue(name);
+
                         // Adding listeners on upload or failure of image
                         UploadTask uploadTask = ref.putFile(gallerySelectedImageUri);
                         uploadTask.addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
@@ -264,15 +297,14 @@ public class CreateNewsArticleActivity extends AppCompatActivity implements Text
                                                 Toast.makeText(CreateNewsArticleActivity.this, "Image uploaded", Toast.LENGTH_SHORT).show();
                                                 String fileLink = task.getResult().toString();
 
-                                                newsArticlesReference.child(loggedUserId).child(article).child("category").setValue(newsCategorySelectedItem);
-                                                newsArticlesReference.child(loggedUserId).child(article).child("subcategory").setValue(newsSubcategorySelectedItem);
-                                                newsArticlesReference.child(loggedUserId).child(article).child("title").setValue(title);
-                                                newsArticlesReference.child(loggedUserId).child(article).child("description").setValue(description);
-                                                newsArticlesReference.child(loggedUserId).child(article).child("postedDate").setValue(postedDate);
-                                                newsArticlesReference.child(loggedUserId).child(article).child("authorUserId").setValue(loggedUserId);
-                                                newsArticlesReference.child(loggedUserId).child(article).child("mediaImageDownloadLink").setValue(fileLink);
+                                                newsArticlesReference.child(newsCategorySelectedItem).child(article).child("category").setValue(newsCategorySelectedItem);
+                                                newsArticlesReference.child(newsCategorySelectedItem).child(article).child("subcategory").setValue(newsSubcategorySelectedItem);
+                                                newsArticlesReference.child(newsCategorySelectedItem).child(article).child("title").setValue(title);
+                                                newsArticlesReference.child(newsCategorySelectedItem).child(article).child("description").setValue(description);
+                                                newsArticlesReference.child(newsCategorySelectedItem).child(article).child("mediaImageDownloadLink").setValue(fileLink);
                                             }
                                         });
+                                        sendUserToNextActivity();
                                     }
                                 })
                                 .addOnFailureListener(new OnFailureListener() {
@@ -280,59 +312,42 @@ public class CreateNewsArticleActivity extends AppCompatActivity implements Text
                                     public void onFailure(@NonNull Exception e) {
                                         Toast.makeText(CreateNewsArticleActivity.this, "Failed " + e.getMessage(), Toast.LENGTH_SHORT).show();
                                     }
-                                })
-                                .addOnProgressListener(new OnProgressListener<UploadTask.TaskSnapshot>() {
-                                    @Override
-                                    public void onProgress(@NonNull UploadTask.TaskSnapshot snapshot) {
-                                        double progress = (100.0 * snapshot.getBytesTransferred() / snapshot.getTotalByteCount());
-                                    }
                                 });
-                    }
+                    } else if (cameraCapturedImageUri != null) {
+                            // Adding listeners on upload or failure of image
+                            UploadTask uploadTask = ref.putFile(cameraCapturedImageUri);
+                            uploadTask.addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+                                        @Override
+                                        public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+                                            taskSnapshot.getStorage().getDownloadUrl().addOnCompleteListener(new OnCompleteListener<Uri>() {
+                                                @Override
+                                                public void onComplete(@NonNull Task<Uri> task) {
+                                                    Toast.makeText(CreateNewsArticleActivity.this, "Image uploaded", Toast.LENGTH_SHORT).show();
+                                                    String fileLink = task.getResult().toString();
 
-                    if (cameraCapturedImageUri != null) {
-                        // Code for showing progress dialog while uploading
-
-                        // Adding listeners on upload or failure of image
-                        UploadTask uploadTask = ref.putFile(cameraCapturedImageUri);
-                        uploadTask.addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
-                                    @Override
-                                    public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
-                                        taskSnapshot.getStorage().getDownloadUrl().addOnCompleteListener(new OnCompleteListener<Uri>() {
-                                            @Override
-                                            public void onComplete(@NonNull Task<Uri> task) {
-                                                Toast.makeText(CreateNewsArticleActivity.this, "Image uploaded", Toast.LENGTH_SHORT).show();
-                                                String fileLink = task.getResult().toString();
-
-                                                newsArticlesReference.child(loggedUserId).child(article).child("category").setValue(newsCategorySelectedItem);
-                                                newsArticlesReference.child(loggedUserId).child(article).child("subcategory").setValue(newsSubcategorySelectedItem);
-                                                newsArticlesReference.child(loggedUserId).child(article).child("title").setValue(title);
-                                                newsArticlesReference.child(loggedUserId).child(article).child("description").setValue(description);
-                                                newsArticlesReference.child(loggedUserId).child(article).child("postedDate").setValue(postedDate);
-                                                newsArticlesReference.child(loggedUserId).child(article).child("authorUserId").setValue(loggedUserId);
-                                                newsArticlesReference.child(loggedUserId).child(article).child("mediaImageDownloadLink").setValue(fileLink);
-                                            }
-                                        });
-                                    }
-                                })
-                                .addOnFailureListener(new OnFailureListener() {
+                                                    newsArticlesReference.child(newsCategorySelectedItem).child(article).child("category").setValue(newsCategorySelectedItem);
+                                                    newsArticlesReference.child(newsCategorySelectedItem).child(article).child("subcategory").setValue(newsSubcategorySelectedItem);
+                                                    newsArticlesReference.child(newsCategorySelectedItem).child(article).child("title").setValue(title);
+                                                    newsArticlesReference.child(newsCategorySelectedItem).child(article).child("description").setValue(description);
+                                                    newsArticlesReference.child(newsCategorySelectedItem).child(article).child("mediaImageDownloadLink").setValue(fileLink);
+                                                }
+                                            });
+                                            sendUserToNextActivity();
+                                        }
+                                    })
+                                    .addOnFailureListener(new OnFailureListener() {
                                     @Override
                                     public void onFailure(@NonNull Exception e) {
                                         Toast.makeText(CreateNewsArticleActivity.this, "Failed " + e.getMessage(), Toast.LENGTH_SHORT).show();
                                     }
-                                })
-                                .addOnProgressListener(new OnProgressListener<UploadTask.TaskSnapshot>() {
-                                    @Override
-                                    public void onProgress(@NonNull UploadTask.TaskSnapshot snapshot) {
-                                        double progress = (100.0 * snapshot.getBytesTransferred() / snapshot.getTotalByteCount());
-                                    }
                                 });
+                    } else {
+                        Toast.makeText(CreateNewsArticleActivity.this, "Please select news article media image", Toast.LENGTH_SHORT).show();
                     }
-                    sendUserToNextActivity();
+
                 }
             }
         });
-
-
 
         setTextWatcher();
     }
