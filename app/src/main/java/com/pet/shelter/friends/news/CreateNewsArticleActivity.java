@@ -84,8 +84,6 @@ public class CreateNewsArticleActivity extends AppCompatActivity implements Text
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_create_news_article);
 
-
-
         MaterialToolbar materialToolbar = findViewById(R.id.createNewsArticle_materialToolbar);
 
         FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();

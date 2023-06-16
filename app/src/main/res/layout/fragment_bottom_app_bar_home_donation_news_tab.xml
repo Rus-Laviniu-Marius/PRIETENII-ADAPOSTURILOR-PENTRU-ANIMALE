@@ -23,7 +23,7 @@
             android:id="@+id/bottomAppBarHomeDonationTabAddNews_relativeLayout"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:padding="@dimen/padding_small"
+            android:padding="@dimen/extra_space_for_floating_action_buttons"
             android:layout_alignParentBottom="true"
             android:layout_alignParentEnd="true">
             <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton

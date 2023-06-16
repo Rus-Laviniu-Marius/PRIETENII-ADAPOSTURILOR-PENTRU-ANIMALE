@@ -1,0 +1,152 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:context=".fragments.bottom_app_bar.pets.tabs.details.ShelteredPetDetailsPetTabFragment">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingHorizontal="@dimen/padding_horizontal"
+        android:paddingVertical="@dimen/list_padding_vertical"
+        android:gravity="center"
+        android:orientation="horizontal">
+        <com.google.android.material.textview.MaterialTextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="@string/pet_name"
+            android:layout_weight="1"
+            android:layout_marginEnd="@dimen/horizontal_space_between_items"
+            style="@style/TextAppearance.Material3.HeadlineSmall" />
+        <com.google.android.material.button.MaterialButton
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:contentDescription="@string/favorites"
+            style="@style/Widget.Material3.Button.IconButton.Filled.Tonal"
+            app:icon="@drawable/favorite_icon_selector" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:paddingHorizontal="@dimen/padding_horizontal">
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_weight="1">
+            <com.google.android.material.textview.MaterialTextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/breed"
+                android:textAlignment="center"
+                style="@style/TextAppearance.Material3.BodyLarge" />
+            <com.google.android.material.textview.MaterialTextView
+                android:id="@+id/petDetailsBreed_materialTextView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/pet_breed"
+                android:textAlignment="center"
+                style="@style/TextAppearance.Material3.BodySmall" />
+        </LinearLayout>
+        <com.google.android.material.divider.MaterialDivider
+            android:layout_width="1dp"
+            android:layout_height="match_parent"
+            android:layout_marginHorizontal="@dimen/horizontal_space_between_items"
+            style="@style/Widget.Material3.MaterialDivider" />
+        <LinearLayout
+            android:layout_weight="1"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+            <com.google.android.material.textview.MaterialTextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/age"
+                android:textAlignment="center"
+                style="@style/TextAppearance.Material3.BodyLarge" />
+            <com.google.android.material.textview.MaterialTextView
+                android:id="@+id/petDetailsAge_materialTextView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/pet_age"
+                android:textAlignment="center"
+                style="@style/TextAppearance.Material3.BodySmall" />
+        </LinearLayout>
+        <com.google.android.material.divider.MaterialDivider
+            android:layout_width="1dp"
+            android:layout_height="match_parent"
+            android:layout_marginHorizontal="@dimen/horizontal_space_between_items"
+            style="@style/Widget.Material3.MaterialDivider" />
+        <LinearLayout
+            android:layout_weight="1"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+            <com.google.android.material.textview.MaterialTextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/size"
+                android:textAlignment="center"
+                style="@style/TextAppearance.Material3.BodyLarge" />
+            <com.google.android.material.textview.MaterialTextView
+                android:id="@+id/petDetailsSize_materialTextView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/pet_size"
+                android:textAlignment="center"
+                style="@style/TextAppearance.Material3.BodySmall" />
+        </LinearLayout>
+        <com.google.android.material.divider.MaterialDivider
+            android:layout_width="1dp"
+            android:layout_height="match_parent"
+            android:layout_marginHorizontal="@dimen/horizontal_space_between_items"
+            style="@style/Widget.Material3.MaterialDivider" />
+        <LinearLayout
+            android:layout_weight="1"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+            <com.google.android.material.textview.MaterialTextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/sex"
+                android:textAlignment="center"
+                style="@style/TextAppearance.Material3.BodyLarge" />
+            <com.google.android.material.textview.MaterialTextView
+                android:id="@+id/petDetailsSex_materialTextView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/pet_sex"
+                android:textAlignment="center"
+                style="@style/TextAppearance.Material3.BodySmall" />
+        </LinearLayout>
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:paddingHorizontal="@dimen/padding_horizontal"
+        android:paddingVertical="@dimen/padding_vertical_header">
+        <com.google.android.material.textview.MaterialTextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/about_me"
+            style="@style/TextAppearance.Material3.HeadlineLarge" />
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/petDetailsDescription_materialTextView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/description"
+            android:layout_marginVertical="@dimen/vertical_space_between_items"
+            style="@style/TextAppearance.Material3.BodyLarge" />
+    </LinearLayout>
+
+
+</LinearLayout>
