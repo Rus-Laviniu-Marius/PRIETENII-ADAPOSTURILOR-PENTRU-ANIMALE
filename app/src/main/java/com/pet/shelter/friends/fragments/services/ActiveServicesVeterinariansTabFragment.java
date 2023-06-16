@@ -19,6 +19,7 @@ import android.widget.RelativeLayout;
 import android.widget.Toast;
 
 import com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton;
+import com.google.android.material.search.SearchBar;
 import com.google.android.material.textview.MaterialTextView;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
@@ -39,6 +40,7 @@ public class ActiveServicesVeterinariansTabFragment extends Fragment {
 
     private DatabaseReference veterinariansActiveServicesReference, roles;
     private String loggedUserId;
+    private SearchBar searchBar;
     private ListView veterinarianServicesListView;
     private RelativeLayout addActiveServicesVeterinarianRelativeLayout;
     private MaterialTextView materialTextView;
@@ -67,6 +69,8 @@ public class ActiveServicesVeterinariansTabFragment extends Fragment {
         addActiveServicesVeterinarianRelativeLayout = layout.findViewById(R.id.activeServicesAddVeterinarians_relativeLayout);
         ExtendedFloatingActionButton addServiceFloatingActionButton = layout.findViewById(R.id.activeServicesAddVeterinarians_floatingActionButton);
         materialTextView = layout.findViewById(R.id.activeServicesVeterinariansNoServices_materialTextView);
+        searchBar = layout.findViewById(R.id.activeServicesVeterinarians_searchBar);
+
 
         getDataFromDatabase();
 
@@ -93,7 +97,6 @@ public class ActiveServicesVeterinariansTabFragment extends Fragment {
                 intent.putExtra("description", activeServiceData.getDescription());
                 intent.putExtra("serviceType", activeServiceData.getServiceType());
                 startActivity(intent);
-                requireActivity().finish();
             }
         });
 

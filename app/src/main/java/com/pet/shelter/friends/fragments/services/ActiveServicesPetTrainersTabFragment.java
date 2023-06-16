@@ -92,7 +92,6 @@ public class ActiveServicesPetTrainersTabFragment extends Fragment {
                 intent.putExtra("description", activeServiceData.getDescription());
                 intent.putExtra("serviceType", activeServiceData.getServiceType());
                 startActivity(intent);
-                requireActivity().finish();
             }
         });
 

@@ -32,10 +32,6 @@ public class BottomAppBarHomeFragment extends Fragment {
 
     private TabLayout tabLayout;
     private ViewPager2 viewPager2;
-    private HomeTabLayoutViewPager2Adapter homeTabLayoutViewPager2Adapter;
-    private MaterialToolbar materialToolbar;
-    private FirebaseAuth firebaseAuth;
-    private FirebaseDatabase firebaseDatabase;
     private DatabaseReference profilesReference;
 
     public BottomAppBarHomeFragment() {
@@ -46,19 +42,19 @@ public class BottomAppBarHomeFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
-        firebaseAuth = FirebaseAuth.getInstance();
-        firebaseDatabase = FirebaseDatabase.getInstance();
+        FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
+        FirebaseDatabase firebaseDatabase = FirebaseDatabase.getInstance();
         profilesReference = firebaseDatabase.getReference("profiles");
 
         String loggedUserId = Objects.requireNonNull(firebaseAuth.getCurrentUser()).getUid();
 
         View layout = inflater.inflate(R.layout.fragment_bottom_app_bar_home, container, false);
 
-        materialToolbar = layout.findViewById(R.id.userHomeScreenTop_materialToolbar);
+        MaterialToolbar materialToolbar = layout.findViewById(R.id.userHomeScreenTop_materialToolbar);
         tabLayout = layout.findViewById(R.id.bottomNavigationBarHome_tabLayout);
 
         viewPager2 = layout.findViewById(R.id.bottomNavigationBarHome_viewPager2);
-        homeTabLayoutViewPager2Adapter = new HomeTabLayoutViewPager2Adapter(this);
+        HomeTabLayoutViewPager2Adapter homeTabLayoutViewPager2Adapter = new HomeTabLayoutViewPager2Adapter(this);
         viewPager2.setAdapter(homeTabLayoutViewPager2Adapter);
         viewPager2.setSaveEnabled(false);
 
