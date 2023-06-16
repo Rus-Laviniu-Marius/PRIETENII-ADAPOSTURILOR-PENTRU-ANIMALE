@@ -33,4 +33,11 @@ public class ActiveServicesViewPager2Adapter extends FragmentStateAdapter {
     public int getItemCount() {
         return 3;
     }
+
+    @Override
+    public long getItemId(int position) {
+        return super.getItemId(position);
+    }
+
+
 }

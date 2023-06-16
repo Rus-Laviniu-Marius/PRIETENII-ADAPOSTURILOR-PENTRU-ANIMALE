@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -10,19 +10,19 @@
         android:id="@+id/activeServicesPetWalkers_listView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:dividerHeight="@dimen/margin_vertical"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:dividerHeight="@dimen/margin_vertical" />
 
     <RelativeLayout
         android:id="@+id/activeServicesAddPetWalkers_relativeLayout"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:padding="@dimen/large_padding"
-        app:layout_constraintTop_toBottomOf="@+id/guideline30"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent">
+        android:padding="@dimen/padding_small"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentBottom="true">
 
         <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
             android:id="@+id/activeServicesAddPetWalkers_floatingActionButton"
@@ -43,16 +43,6 @@
         android:gravity="center"
         android:text="@string/sorry_no_pet_walkers_services"
         android:visibility="gone"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintBottom_toBottomOf="parent"/>
+        android:layout_centerInParent="true"/>
 
-    <androidx.constraintlayout.widget.Guideline
-        android:id="@+id/guideline30"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        app:layout_constraintGuide_percent="0.8" />
-
-</androidx.constraintlayout.widget.ConstraintLayout>
+</RelativeLayout>

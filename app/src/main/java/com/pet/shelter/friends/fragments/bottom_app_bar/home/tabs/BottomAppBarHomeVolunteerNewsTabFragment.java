@@ -92,7 +92,6 @@ public class BottomAppBarHomeVolunteerNewsTabFragment extends Fragment {
                 intent.putExtra("newsArticleAuthorProfileImage", newsArticleData.getNewsArticleAuthorProfileImage());
                 intent.putExtra("category", newsArticleData.getCategory());
                 startActivity(intent);
-                requireActivity().finish();
             }
         });
 
@@ -120,7 +119,8 @@ public class BottomAppBarHomeVolunteerNewsTabFragment extends Fragment {
                     refresh();
                     listView.setAdapter(newsArticlesCustomAdapter);
                 } else {
-                    volunteerRelativeLayout.setVisibility(View.GONE);
+                    listView.setVisibility(View.GONE);
+                    addNewsRelativeLayout.setVisibility(View.VISIBLE);
                     materialTextView.setVisibility(View.VISIBLE);
                 }
             }

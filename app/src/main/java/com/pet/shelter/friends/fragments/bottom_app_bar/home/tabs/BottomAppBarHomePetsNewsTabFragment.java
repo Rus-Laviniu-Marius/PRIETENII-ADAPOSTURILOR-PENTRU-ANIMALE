@@ -122,7 +122,8 @@ public class BottomAppBarHomePetsNewsTabFragment extends Fragment {
                     refresh();
                     listView.setAdapter(newsArticlesCustomAdapter);
                 } else {
-                    petsRelativeLayout.setVisibility(View.GONE);
+                    listView.setVisibility(View.GONE);
+                    addNewsRelativeLayout.setVisibility(View.VISIBLE);
                     materialTextView.setVisibility(View.VISIBLE);
                 }
             }

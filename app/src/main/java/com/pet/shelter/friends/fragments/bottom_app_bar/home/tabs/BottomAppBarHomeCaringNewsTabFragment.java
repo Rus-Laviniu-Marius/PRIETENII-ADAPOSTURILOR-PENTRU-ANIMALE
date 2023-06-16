@@ -120,7 +120,8 @@ public class BottomAppBarHomeCaringNewsTabFragment extends Fragment {
                     refresh();
                     listView.setAdapter(newsArticlesCustomAdapter);
                 } else {
-                    caringRelativeLayout.setVisibility(View.GONE);
+                    listView.setVisibility(View.GONE);
+                    addNewsRelativeLayout.setVisibility(View.VISIBLE);
                     materialTextView.setVisibility(View.VISIBLE);
                 }
             }

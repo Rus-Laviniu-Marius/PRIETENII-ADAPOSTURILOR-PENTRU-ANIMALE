@@ -40,6 +40,8 @@
     <string name="share">Share</string>
     <string name="follow">Follow</string>
     <string name="visit_webpage">Visit my web page</string>
+    <string name="search_services_by_provider_name">Search services by provider name</string>
+    <string name="search_veterinarians">Search veterinarians</string>
     <string name="user_current_location">User current location</string>
     <string name="sheltered">Sheltered</string>
     <string name="abandoned">Abandoned</string>

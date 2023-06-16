@@ -47,7 +47,6 @@ public class NewsArticleDetailsActivity extends AppCompatActivity {
         materialToolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(NewsArticleDetailsActivity.this, HomeActivity.class));
                 finish();
             }
         });
