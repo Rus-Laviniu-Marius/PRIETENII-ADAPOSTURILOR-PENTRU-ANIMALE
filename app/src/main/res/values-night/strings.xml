@@ -40,4 +40,27 @@
     <string name="share">Share</string>
     <string name="follow">Follow</string>
     <string name="visit_webpage">Visit my web page</string>
+    <string name="user_current_location">User current location</string>
+    <string name="sheltered">Sheltered</string>
+    <string name="abandoned">Abandoned</string>
+    <string name="lost">Lost</string>
+    <string name="sorry_no_sheltered_pets">Sorry!\nNo sheltered pets!</string>
+    <string name="sorry_no_lost_pets">Sorry!\nNo lost pets!</string>
+    <string name="sorry_no_abandoned_pets">Sorry!\nNo abandoned pets!</string>
+    <string name="pet">Pet</string>
+    <string name="sorry_no_favorites_pets">Sorry!\nNo favorites pets!</string>
+    <string name="pet_type">Pet type</string>
+    <string name="pet_description">Pet description</string>
+    <string name="pet_name">Pet name</string>
+    <string name="distance">Distance</string>
+    <string name="images">Images</string>
+    <string name="pet_data">Pet data</string>
+    <string name="select_pet_type">Select pet type</string>
+    <string name="pet_breed">Pet breed</string>
+    <string name="pet_age">Pet age</string>
+    <string name="pet_sex">Pet sex</string>
+    <string name="pet_size">Pet size</string>
+    <string name="pet_image">Pet image</string>
+    <string name="shelter">Shelter</string>
+    <string name="age">Age</string>
 </resources>
