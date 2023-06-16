@@ -121,7 +121,8 @@ public class BottomAppBarHomeDonationNewsTabFragment extends Fragment {
                     refresh();
                     listView.setAdapter(newsArticlesCustomAdapter);
                 } else {
-                    donationRelativeLayout.setVisibility(View.GONE);
+                    listView.setVisibility(View.GONE);
+                    addNewsRelativeLayout.setVisibility(View.VISIBLE);
                     materialTextView.setVisibility(View.VISIBLE);
                 }
             }

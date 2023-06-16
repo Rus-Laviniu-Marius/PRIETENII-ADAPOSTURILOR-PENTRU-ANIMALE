@@ -2,6 +2,7 @@ package com.pet.shelter.friends.profile.services;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+import androidx.core.view.MenuItemCompat;
 import androidx.viewpager2.widget.ViewPager2;
 
 import android.content.Intent;
@@ -10,6 +11,7 @@ import android.view.MenuItem;
 import android.view.View;
 
 import com.google.android.material.appbar.MaterialToolbar;
+import com.google.android.material.search.SearchView;
 import com.google.android.material.tabs.TabLayout;
 import com.pet.shelter.friends.R;
 import com.pet.shelter.friends.profile.ViewProfileActivity;
@@ -19,7 +21,6 @@ import java.util.Objects;
 public class ActiveServicesActivity extends AppCompatActivity {
 
     private TabLayout tabLayout;
-    private MaterialToolbar materialToolbar;
     private ViewPager2 viewPager2;
 
 
@@ -29,7 +30,12 @@ public class ActiveServicesActivity extends AppCompatActivity {
         setContentView(R.layout.activity_active_services);
 
         tabLayout = findViewById(R.id.activeServices_tabLayout);
-        materialToolbar = findViewById(R.id.activeServices_materialToolbar);
+
+        tabLayout.addTab(tabLayout.newTab().setText("Veterinarians"));
+        tabLayout.addTab(tabLayout.newTab().setText("Pet trainers"));
+        tabLayout.addTab(tabLayout.newTab().setText("Pet walkers"));
+
+        MaterialToolbar materialToolbar = findViewById(R.id.activeServices_materialToolbar);
 
         viewPager2 = findViewById(R.id.activeServices_viewPager2);
         ActiveServicesViewPager2Adapter activeServicesViewPager2Adapter = new ActiveServicesViewPager2Adapter(this);
@@ -43,6 +49,7 @@ public class ActiveServicesActivity extends AppCompatActivity {
                 finish();
             }
         });
+
         materialToolbar.setOnMenuItemClickListener(new Toolbar.OnMenuItemClickListener() {
             @Override
             public boolean onMenuItemClick(MenuItem item) {
