@@ -35,28 +35,24 @@
         app:layout_constraintTop_toBottomOf="@+id/petDetails_appBarLayout"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintBottom_toTopOf="@id/petDetails_tabLayout"
+        app:layout_constraintBottom_toTopOf="@id/petDetailsNameAndFavorites_linearLayout"
         app:srcCompat="@drawable/media"/>
 
     <com.google.android.material.tabs.TabLayout
+        android:visibility="gone"
         android:id="@+id/petDetails_tabLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         style="@style/Widget.Material3.TabLayout"
+        android:contentDescription="@string/pet_and_shelter"
         app:layout_constraintTop_toBottomOf="@+id/petDetailsImage_shapeImageView"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent">
-        <com.google.android.material.tabs.TabItem
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/pet"/>
-        <com.google.android.material.tabs.TabItem
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/shelter" />
+
     </com.google.android.material.tabs.TabLayout>
 
     <androidx.viewpager2.widget.ViewPager2
+        android:visibility="gone"
         android:id="@+id/petDetails_viewPager2"
         android:layout_width="match_parent"
         android:layout_height="0dp"
@@ -64,5 +60,193 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintBottom_toBottomOf="parent"/>
+
+    <LinearLayout
+        android:id="@+id/petDetailsNameAndFavorites_linearLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingHorizontal="@dimen/padding_horizontal"
+        android:paddingVertical="@dimen/list_padding_vertical"
+        android:gravity="center"
+        android:orientation="horizontal"
+        app:layout_constraintTop_toBottomOf="@+id/petDetailsImage_shapeImageView"
+        app:layout_constraintBottom_toTopOf="@+id/petDetailsGeneralData_linearLayout"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent">
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/petDetailsName_materialTextView"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="@string/pet_name"
+            android:layout_weight="1"
+            android:layout_marginEnd="@dimen/horizontal_space_between_items"
+            style="@style/TextAppearance.Material3.HeadlineSmall" />
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/petDetailsFavorites_materialButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:contentDescription="@string/favorites"
+            style="@style/Widget.Material3.Button.IconButton.Filled.Tonal"
+            app:icon="@drawable/favorite_icon_selector" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/petDetailsGeneralData_linearLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:paddingHorizontal="@dimen/padding_horizontal"
+        app:layout_constraintTop_toBottomOf="@+id/petDetailsNameAndFavorites_linearLayout"
+        app:layout_constraintBottom_toTopOf="@+id/petDetailsDescription_scrollView"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent">
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_weight="1">
+            <com.google.android.material.textview.MaterialTextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/breed"
+                android:textAlignment="center"
+                style="@style/TextAppearance.Material3.BodyLarge" />
+            <com.google.android.material.textview.MaterialTextView
+                android:id="@+id/petDetailsBreed_materialTextView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/pet_breed"
+                android:textAlignment="center"
+                style="@style/TextAppearance.Material3.BodySmall" />
+        </LinearLayout>
+        <com.google.android.material.divider.MaterialDivider
+            android:layout_width="1dp"
+            android:layout_height="match_parent"
+            android:layout_marginHorizontal="@dimen/horizontal_space_between_items"
+            style="@style/Widget.Material3.MaterialDivider" />
+        <LinearLayout
+            android:layout_weight="1"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+            <com.google.android.material.textview.MaterialTextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/age"
+                android:textAlignment="center"
+                style="@style/TextAppearance.Material3.BodyLarge" />
+            <com.google.android.material.textview.MaterialTextView
+                android:id="@+id/petDetailsAge_materialTextView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/pet_age"
+                android:textAlignment="center"
+                style="@style/TextAppearance.Material3.BodySmall" />
+        </LinearLayout>
+        <com.google.android.material.divider.MaterialDivider
+            android:layout_width="1dp"
+            android:layout_height="match_parent"
+            android:layout_marginHorizontal="@dimen/horizontal_space_between_items"
+            style="@style/Widget.Material3.MaterialDivider" />
+        <LinearLayout
+            android:layout_weight="1"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+            <com.google.android.material.textview.MaterialTextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/size"
+                android:textAlignment="center"
+                style="@style/TextAppearance.Material3.BodyLarge" />
+            <com.google.android.material.textview.MaterialTextView
+                android:id="@+id/petDetailsSize_materialTextView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/pet_size"
+                android:textAlignment="center"
+                style="@style/TextAppearance.Material3.BodySmall" />
+        </LinearLayout>
+        <com.google.android.material.divider.MaterialDivider
+            android:layout_width="1dp"
+            android:layout_height="match_parent"
+            android:layout_marginHorizontal="@dimen/horizontal_space_between_items"
+            style="@style/Widget.Material3.MaterialDivider" />
+        <LinearLayout
+            android:layout_weight="1"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+            <com.google.android.material.textview.MaterialTextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/sex"
+                android:textAlignment="center"
+                style="@style/TextAppearance.Material3.BodyLarge" />
+            <com.google.android.material.textview.MaterialTextView
+                android:id="@+id/petDetailsSex_materialTextView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/pet_sex"
+                android:textAlignment="center"
+                style="@style/TextAppearance.Material3.BodySmall" />
+        </LinearLayout>
+    </LinearLayout>
+
+    <ScrollView
+        android:id="@+id/petDetailsDescription_scrollView"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        app:layout_constraintTop_toBottomOf="@+id/petDetailsGeneralData_linearLayout"
+        app:layout_constraintBottom_toTopOf="@+id/petDetailsAdopt_materialButton"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" >
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:paddingHorizontal="@dimen/padding_horizontal"
+            android:paddingVertical="@dimen/padding_vertical_header" >
+            <com.google.android.material.textview.MaterialTextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/about_me"
+                style="@style/TextAppearance.Material3.HeadlineLarge" />
+
+            <com.google.android.material.textview.MaterialTextView
+                android:id="@+id/petDetailsDescription_materialTextView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/description"
+                android:layout_marginVertical="@dimen/vertical_space_between_items"
+                style="@style/TextAppearance.Material3.BodyLarge" />
+        </LinearLayout>
+
+    </ScrollView>
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/petDetailsShelter_materialButton"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="@string/about_shelter"
+        android:layout_marginHorizontal="@dimen/small_margin"
+        style="@style/Widget.Material3.Button.IconButton.Filled.Tonal"
+        app:layout_constraintWidth_max="@dimen/material_button_max_width"
+        app:layout_constraintTop_toBottomOf="@+id/petDetailsDescription_scrollView"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/petDetailsAdopt_materialButton"/>
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/petDetailsAdopt_materialButton"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="@string/adopt"
+        android:layout_marginHorizontal="@dimen/small_margin"
+        app:layout_constraintWidth_max="@dimen/material_button_max_width"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/petDetailsDescription_scrollView"
+        app:layout_constraintStart_toEndOf="@+id/petDetailsShelter_materialButton"
+        app:layout_constraintEnd_toEndOf="parent"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -26,10 +26,15 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.pet.shelter.friends.R;
+import com.pet.shelter.friends.SearchQueryEvent;
 import com.pet.shelter.friends.pets.AddShelteredPetActivity;
 import com.pet.shelter.friends.pets.PetData;
 import com.pet.shelter.friends.pets.ShelteredPetDetailsActivity;
 import com.pet.shelter.friends.pets.PetsCustomAdapter;
+
+import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
+import org.greenrobot.eventbus.ThreadMode;
 
 import java.util.ArrayList;
 import java.util.Objects;
@@ -50,8 +55,7 @@ public class BottomAppBarPetsShelteredTabFragment extends Fragment {
     }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View layout = inflater.inflate(R.layout.fragment_bottom_app_bar_pets_sheltered_tab, container, false);
 
@@ -97,6 +101,24 @@ public class BottomAppBarPetsShelteredTabFragment extends Fragment {
         });
 
         return layout;
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        EventBus.getDefault().register(this);
+    }
+
+    @Override
+    public void onPause() {
+        EventBus.getDefault().unregister(this);
+        super.onPause();
+    }
+
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void onSearchQuery(SearchQueryEvent event) {
+        String query=event.getQuery();
+        petsCustomAdapter.getFilter().filter(query);
     }
 
     private void getDataFromDatabase() {

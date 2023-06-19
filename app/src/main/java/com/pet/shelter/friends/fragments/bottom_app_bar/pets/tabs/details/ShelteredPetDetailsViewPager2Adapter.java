@@ -30,13 +30,6 @@ public class ShelteredPetDetailsViewPager2Adapter extends FragmentStateAdapter {
         return 2;
     }
 
-    public CharSequence getPageTitle(int position) {
-        String title = null;
-        if (position == 0) {
-            title = "Pet";
-        } else if (position == 1) {
-            title = "Shelter";
-        }
-        return title;
-    }
+
+
 }

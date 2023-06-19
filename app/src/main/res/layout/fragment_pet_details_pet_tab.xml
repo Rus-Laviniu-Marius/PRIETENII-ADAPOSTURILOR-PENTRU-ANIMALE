@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -8,13 +8,18 @@
     tools:context=".fragments.bottom_app_bar.pets.tabs.details.ShelteredPetDetailsPetTabFragment">
 
     <LinearLayout
+        android:id="@+id/petDetailsTabNameAndFavorites_linearLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:paddingHorizontal="@dimen/padding_horizontal"
         android:paddingVertical="@dimen/list_padding_vertical"
         android:gravity="center"
-        android:orientation="horizontal">
+        android:orientation="horizontal"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent">
         <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/petDetailsTabName_materialTextView"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:text="@string/pet_name"
@@ -22,6 +27,7 @@
             android:layout_marginEnd="@dimen/horizontal_space_between_items"
             style="@style/TextAppearance.Material3.HeadlineSmall" />
         <com.google.android.material.button.MaterialButton
+            android:id="@+id/petDetailsTabFavorites_materialButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:contentDescription="@string/favorites"
@@ -30,10 +36,14 @@
     </LinearLayout>
 
     <LinearLayout
+        android:id="@+id/petDetailsTabGeneralData_linearLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        android:paddingHorizontal="@dimen/padding_horizontal">
+        android:paddingHorizontal="@dimen/padding_horizontal"
+        app:layout_constraintTop_toBottomOf="@+id/petDetailsTabNameAndFavorites_linearLayout"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent">
         <LinearLayout
             android:layout_width="0dp"
             android:layout_height="wrap_content"
@@ -46,7 +56,7 @@
                 android:textAlignment="center"
                 style="@style/TextAppearance.Material3.BodyLarge" />
             <com.google.android.material.textview.MaterialTextView
-                android:id="@+id/petDetailsBreed_materialTextView"
+                android:id="@+id/petDetailsTabBreed_materialTextView"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="@string/pet_breed"
@@ -70,7 +80,7 @@
                 android:textAlignment="center"
                 style="@style/TextAppearance.Material3.BodyLarge" />
             <com.google.android.material.textview.MaterialTextView
-                android:id="@+id/petDetailsAge_materialTextView"
+                android:id="@+id/petDetailsTabAge_materialTextView"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="@string/pet_age"
@@ -94,7 +104,7 @@
                 android:textAlignment="center"
                 style="@style/TextAppearance.Material3.BodyLarge" />
             <com.google.android.material.textview.MaterialTextView
-                android:id="@+id/petDetailsSize_materialTextView"
+                android:id="@+id/petDetailsTabSize_materialTextView"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="@string/pet_size"
@@ -118,7 +128,7 @@
                 android:textAlignment="center"
                 style="@style/TextAppearance.Material3.BodyLarge" />
             <com.google.android.material.textview.MaterialTextView
-                android:id="@+id/petDetailsSex_materialTextView"
+                android:id="@+id/petDetailsTabSex_materialTextView"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="@string/pet_sex"
@@ -128,11 +138,15 @@
     </LinearLayout>
 
     <LinearLayout
+        android:id="@+id/petDetailsTabDescription_linearLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
         android:paddingHorizontal="@dimen/padding_horizontal"
-        android:paddingVertical="@dimen/padding_vertical_header">
+        android:paddingVertical="@dimen/padding_vertical_header"
+        app:layout_constraintTop_toBottomOf="@+id/petDetailsTabGeneralData_linearLayout"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent">
         <com.google.android.material.textview.MaterialTextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -140,7 +154,7 @@
             style="@style/TextAppearance.Material3.HeadlineLarge" />
 
         <com.google.android.material.textview.MaterialTextView
-            android:id="@+id/petDetailsDescription_materialTextView"
+            android:id="@+id/petDetailsTabDescription_materialTextView"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="@string/description"
@@ -148,5 +162,14 @@
             style="@style/TextAppearance.Material3.BodyLarge" />
     </LinearLayout>
 
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/petDetailsTabAdopt_materialButton"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="@string/adopt"
+        app:layout_constraintWidth_max="@dimen/material_button_max_width"
+        app:layout_constraintTop_toBottomOf="@+id/petDetailsTabDescription_linearLayout"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"/>
 
-</LinearLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>
