@@ -4,6 +4,106 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:id="@+id/petAdoptionApplication_constraintLayout"
     tools:context=".pets.adoption.AdoptionApplicationParagraphsActivity">
+
+    <com.google.android.material.appbar.AppBarLayout
+        android:id="@+id/petAdoptionApplication_appBarLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <com.google.android.material.appbar.MaterialToolbar
+            android:id="@+id/petAdoptionApplication_materialToolbar"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            app:layout_anchor="@+id/appBarLayout"
+            app:layout_anchorGravity="center"
+            app:navigationIcon="@drawable/arrow_back_24"
+            app:title="Application paragraphs"
+            app:titleCentered="true"/>
+    </com.google.android.material.appbar.AppBarLayout>
+
+    <com.google.android.material.textview.MaterialTextView
+        android:id="@+id/petAdoptionApplication_materialTextView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingHorizontal="@dimen/padding_horizontal"
+        android:paddingVertical="@dimen/padding_vertical_header"
+        android:text="@string/please_complete_the_information_within_the_following_adoption_application_paragraphs"
+        style="@style/TextAppearance.Material3.HeadlineSmall"
+        app:layout_constraintTop_toBottomOf="@id/petAdoptionApplication_appBarLayout"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"/>
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/petAdoptionApplicationAboutPetAdopterInformationParagraph_materialButton"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="@string/about_pet_adopter"
+        app:layout_constraintWidth_max="@dimen/material_button_max_width"
+        app:layout_constraintTop_toBottomOf="@+id/petAdoptionApplication_materialTextView"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toTopOf="@+id/petAdoptionApplicationFamilyAndHouseholdInformationParagraph_materialButton"/>
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/petAdoptionApplicationFamilyAndHouseholdInformationParagraph_materialButton"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="@string/family_and_household"
+        style="@style/Widget.Material3.Button.OutlinedButton"
+        app:layout_constraintWidth_max="@dimen/material_button_max_width"
+        app:layout_constraintTop_toBottomOf="@+id/petAdoptionApplicationAboutPetAdopterInformationParagraph_materialButton"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toTopOf="@+id/petAdoptionApplicationOtherOwnedPetsInformationParagraph_materialButton"/>
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/petAdoptionApplicationOtherOwnedPetsInformationParagraph_materialButton"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="@string/other_owned_pets"
+        style="@style/Widget.Material3.Button.OutlinedButton"
+        app:layout_constraintWidth_max="@dimen/material_button_max_width"
+        app:layout_constraintTop_toBottomOf="@+id/petAdoptionApplicationFamilyAndHouseholdInformationParagraph_materialButton"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toTopOf="@+id/petAdoptionApplicationVeterinarianInformationParagraph_materialButton"/>
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/petAdoptionApplicationVeterinarianInformationParagraph_materialButton"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="@string/veterinarian"
+        style="@style/Widget.Material3.Button.OutlinedButton"
+        app:layout_constraintWidth_max="@dimen/material_button_max_width"
+        app:layout_constraintTop_toBottomOf="@+id/petAdoptionApplicationOtherOwnedPetsInformationParagraph_materialButton"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toTopOf="@+id/petAdoptionApplicationAboutWishedPetInformationParagraph_materialButton"/>
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/petAdoptionApplicationAboutWishedPetInformationParagraph_materialButton"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="@string/wished_pet_details"
+        style="@style/Widget.Material3.Button.OutlinedButton"
+        app:layout_constraintWidth_max="@dimen/material_button_max_width"
+        app:layout_constraintTop_toBottomOf="@+id/petAdoptionApplicationVeterinarianInformationParagraph_materialButton"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toTopOf="@+id/petAdoptionApplicationPersonalReferencesInformationParagraph_materialButton"/>
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/petAdoptionApplicationPersonalReferencesInformationParagraph_materialButton"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="@string/personal_references"
+        style="@style/Widget.Material3.Button.OutlinedButton"
+        app:layout_constraintWidth_max="@dimen/material_button_max_width"
+        app:layout_constraintTop_toBottomOf="@+id/petAdoptionApplicationAboutWishedPetInformationParagraph_materialButton"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"/>
+
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>

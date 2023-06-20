@@ -33,7 +33,28 @@
         android:theme="@style/Theme.PetShelterFriends"
         tools:targetApi="31">
         <activity
-            android:name=".pets.ShelterDetailsActivity"
+            android:name=".pets.adoption.GenerateAdoptionApplicationPDFActivity"
+            android:exported="false" />
+        <activity
+            android:name=".pets.adoption.CompleteAboutPersonalReferencesInformationActivity"
+            android:exported="false" />
+        <activity
+            android:name=".pets.adoption.CompleteAboutWishedPetAdoptionInformationActivity"
+            android:exported="false" />
+        <activity
+            android:name=".pets.adoption.CompleteAboutRegularVeterinarianInformationActivity"
+            android:exported="false" />
+        <activity
+            android:name=".pets.adoption.CompleteAboutOtherOwnedPetsActivity"
+            android:exported="false" />
+        <activity
+            android:name=".pets.adoption.CompleteFamilyAndHouseholdInformationActivity"
+            android:exported="false" />
+        <activity
+            android:name=".pets.adoption.CompleteAboutPetAdopterInformationActivity"
+            android:exported="false" />
+        <activity
+            android:name=".pets.shelter.ShelterDetailsActivity"
             android:exported="false" />
         <activity
             android:name=".pets.adoption.AdoptionApplicationParagraphsActivity"

@@ -263,7 +263,7 @@ public class AddShelteredPetActivity extends AppCompatActivity implements TextWa
                                                 petsReference.child("Sheltered").child(petToSave).child("petDescription").setValue(petDescription);
                                             }
                                         });
-                                        sendUserToNextActivity();
+                                        finish();
                                     }
                                 })
                                 .addOnFailureListener(new OnFailureListener() {
@@ -295,7 +295,7 @@ public class AddShelteredPetActivity extends AppCompatActivity implements TextWa
                                                 petsReference.child("Sheltered").child(petToSave).child("petDescription").setValue(petDescription);
                                             }
                                         });
-                                        sendUserToNextActivity();
+                                        finish();
                                     }
                                 })
                                 .addOnFailureListener(new OnFailureListener() {
@@ -320,13 +320,6 @@ public class AddShelteredPetActivity extends AppCompatActivity implements TextWa
         String path = MediaStore.Images.Media.insertImage(inContext.getContentResolver(), inImage, "Title", null);
         return Uri.parse(path);
     }
-
-    public void sendUserToNextActivity() {
-        Intent intent = new Intent(AddShelteredPetActivity.this, HomeActivity.class);
-        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK| Intent.FLAG_ACTIVITY_NEW_TASK);
-        startActivity(intent);
-    }
-
     private void setTextWatcher() {
         Objects.requireNonNull(nameTextInputLayout.getEditText()).addTextChangedListener(this);
         Objects.requireNonNull(descriptionTextInputLayout.getEditText()).addTextChangedListener(this);

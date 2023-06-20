@@ -2,7 +2,6 @@ package com.pet.shelter.friends.pets;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
-import androidx.fragment.app.Fragment;
 import androidx.viewpager2.widget.ViewPager2;
 
 import android.content.Intent;
@@ -16,10 +15,9 @@ import com.google.android.material.imageview.ShapeableImageView;
 import com.google.android.material.tabs.TabLayout;
 import com.google.android.material.textview.MaterialTextView;
 import com.pet.shelter.friends.R;
-import com.pet.shelter.friends.fragments.bottom_app_bar.pets.tabs.details.ShelteredPetDetailsPetTabFragment;
-import com.pet.shelter.friends.fragments.bottom_app_bar.pets.tabs.details.ShelteredPetDetailsShelterTabFragment;
 import com.pet.shelter.friends.fragments.bottom_app_bar.pets.tabs.details.ShelteredPetDetailsViewPager2Adapter;
 import com.pet.shelter.friends.pets.adoption.AdoptionApplicationParagraphsActivity;
+import com.pet.shelter.friends.pets.shelter.ShelterDetailsActivity;
 import com.squareup.picasso.Picasso;
 
 import java.util.Objects;
@@ -75,7 +73,17 @@ public class ShelteredPetDetailsActivity extends AppCompatActivity {
         adopt.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(ShelteredPetDetailsActivity.this, AdoptionApplicationParagraphsActivity.class));
+                Intent intent = new Intent(ShelteredPetDetailsActivity.this, AdoptionApplicationParagraphsActivity.class);
+                intent.putExtra("shelterAdministratorId", shelterAdministratorId);
+                intent.putExtra("petName", petName);
+                intent.putExtra("petType", petType);
+                intent.putExtra("petBreed", petBreed);
+                intent.putExtra("petAge", petAge);
+                intent.putExtra("petSize", petSize);
+                intent.putExtra("petSex", petSex);
+                intent.putExtra("petDescription", petDescription);
+                intent.putExtra("petImage1DownloadLink", petImage1DownloadLink);
+                startActivity(intent);
                 finish();
             }
         });

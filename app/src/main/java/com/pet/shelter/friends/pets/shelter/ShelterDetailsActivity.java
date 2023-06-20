@@ -1,4 +1,4 @@
-package com.pet.shelter.friends.pets;
+package com.pet.shelter.friends.pets.shelter;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -10,7 +10,6 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.Toast;
 
 import com.google.android.material.appbar.MaterialToolbar;
 import com.google.android.material.button.MaterialButton;
@@ -23,7 +22,7 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.pet.shelter.friends.R;
-import com.pet.shelter.friends.pets.shelter.ShelterData;
+import com.pet.shelter.friends.pets.ShelteredPetDetailsActivity;
 import com.squareup.picasso.Picasso;
 
 public class ShelterDetailsActivity extends AppCompatActivity {

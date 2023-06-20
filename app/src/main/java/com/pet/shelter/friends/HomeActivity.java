@@ -3,6 +3,7 @@ package com.pet.shelter.friends;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.MenuItem;
 
@@ -31,6 +32,14 @@ public class HomeActivity extends AppCompatActivity implements NavigationBarView
 
         bottomNavigationView.setOnItemSelectedListener(this);
         bottomNavigationView.setSelectedItemId(R.id.bottomNavigationBar_home);
+
+        Intent i = getIntent();
+        String data = i.getStringExtra("FromReservation");
+
+        if (data != null && data.contentEquals("1")) {
+
+            bottomNavigationView.setSelectedItemId(R.id.bottomNavigationBar_pets);
+        }
 
     }
 

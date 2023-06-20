@@ -71,4 +71,21 @@
     <string name="shelter_name">Shelter name</string>
     <string name="phone_call">Phone call</string>
     <string name="call">Call</string>
+    <string name="please_complete_the_information_within_the_following_adoption_application_paragraphs">Please complete the information within the following adoption application paragraphs</string>
+    <string name="about_pet_adopter">About pet adopter</string>
+    <string name="family_and_household">Family and household</string>
+    <string name="other_owned_pets">Other owned pets</string>
+    <string name="wished_pet_details">Wished pet details</string>
+    <string name="sitting_at_current_address">Sitting time at current address</string>
+    <string name="select_home_type">Select home type</string>
+    <string name="household_description">Household description</string>
+    <string name="renting_rules_regarding_pet_ownership">Renting rules regarding pet ownership</string>
+    <string name="does_anyone_in_your_family_have_a_known_allergy_to_pets">Does anyone in your family have a known allergy to pets?</string>
+    <string name="what_types_of_pets_do_you_own">What types of pets do you own?</string>
+    <string name="clinic_email">Clinic email</string>
+    <string name="describe_pet_place_during_daytime">Describe pet place during daytime</string>
+    <string name="describe_pet_place_during_nighttime">Describe pet place during nighttime</string>
+    <string name="select_relationship">Select relationship</string>
+    <string name="willing_to_meet_you_soon">Willing to meet you soon!</string>
+    <string name="save">Save</string>
 </resources>
