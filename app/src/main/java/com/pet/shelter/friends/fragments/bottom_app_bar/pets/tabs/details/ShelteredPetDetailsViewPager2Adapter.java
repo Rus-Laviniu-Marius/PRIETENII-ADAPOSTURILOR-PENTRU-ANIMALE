@@ -4,7 +4,7 @@ import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.viewpager2.adapter.FragmentStateAdapter;
 
-import com.pet.shelter.friends.pets.ShelteredPetDetailsActivity;
+import com.pet.shelter.friends.pets.sheltered.ShelteredPetDetailsActivity;
 
 public class ShelteredPetDetailsViewPager2Adapter extends FragmentStateAdapter {
 

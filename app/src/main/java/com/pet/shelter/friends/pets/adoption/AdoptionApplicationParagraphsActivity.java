@@ -11,8 +11,7 @@ import com.google.android.material.appbar.MaterialToolbar;
 import com.google.android.material.button.MaterialButton;
 import com.google.android.material.snackbar.Snackbar;
 import com.pet.shelter.friends.R;
-import com.pet.shelter.friends.pets.ShelteredPetDetailsActivity;
-import com.pet.shelter.friends.pets.shelter.ShelterDetailsActivity;
+import com.pet.shelter.friends.pets.sheltered.ShelteredPetDetailsActivity;
 
 public class AdoptionApplicationParagraphsActivity extends AppCompatActivity {
 

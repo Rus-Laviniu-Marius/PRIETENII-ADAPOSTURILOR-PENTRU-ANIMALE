@@ -27,10 +27,10 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.pet.shelter.friends.R;
 import com.pet.shelter.friends.SearchQueryEvent;
-import com.pet.shelter.friends.pets.AddShelteredPetActivity;
-import com.pet.shelter.friends.pets.PetData;
-import com.pet.shelter.friends.pets.ShelteredPetDetailsActivity;
-import com.pet.shelter.friends.pets.PetsCustomAdapter;
+import com.pet.shelter.friends.pets.sheltered.AddShelteredPetActivity;
+import com.pet.shelter.friends.pets.sheltered.ShelteredPetData;
+import com.pet.shelter.friends.pets.sheltered.ShelteredPetDetailsActivity;
+import com.pet.shelter.friends.pets.sheltered.ShelteredPetsCustomAdapter;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
@@ -47,8 +47,8 @@ public class BottomAppBarPetsShelteredTabFragment extends Fragment {
     private MaterialTextView materialTextView;
     private ListView listView;
 
-    private final ArrayList<PetData> shelteredPetsList = new ArrayList<>();
-    private PetsCustomAdapter petsCustomAdapter;
+    private final ArrayList<ShelteredPetData> shelteredPetsList = new ArrayList<>();
+    private ShelteredPetsCustomAdapter shelteredPetsCustomAdapter;
 
     public BottomAppBarPetsShelteredTabFragment() {
         // Required empty public constructor
@@ -85,17 +85,24 @@ public class BottomAppBarPetsShelteredTabFragment extends Fragment {
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                PetData petData = petsCustomAdapter.getItem(position);
+                ShelteredPetData shelteredPetData = shelteredPetsCustomAdapter.getItem(position);
                 Intent intent = new Intent(getActivity(), ShelteredPetDetailsActivity.class);
-                intent.putExtra("shelterAdministratorId", petData.getShelterAdministratorId());
-                intent.putExtra("petImage1DownloadLink", petData.getPetImage1DownloadLink());
-                intent.putExtra("petType", petData.getPetType());
-                intent.putExtra("petName", petData.getPetName());
-                intent.putExtra("petBreed", petData.getPetBreed());
-                intent.putExtra("petAge", petData.getPetAge());
-                intent.putExtra("petSize", petData.getPetSize());
-                intent.putExtra("petSex", petData.getPetSex());
-                intent.putExtra("petDescription", petData.getPetDescription());
+                intent.putExtra("shelterAdministratorId", shelteredPetData.getShelterAdministratorId());
+                intent.putExtra("petImage1DownloadLink", shelteredPetData.getPetImage1DownloadLink());
+                intent.putExtra("petType", shelteredPetData.getPetType());
+                intent.putExtra("petName", shelteredPetData.getPetName());
+                intent.putExtra("petBreed", shelteredPetData.getPetBreed());
+                intent.putExtra("petAge", shelteredPetData.getPetAge());
+                intent.putExtra("petSize", shelteredPetData.getPetSize());
+                intent.putExtra("petSex", shelteredPetData.getPetSex());
+                intent.putExtra("petDescription", shelteredPetData.getPetDescription());
+                intent.putExtra("spayedOrNeutered", shelteredPetData.getSpayedOrNeutered());
+                intent.putExtra("dewormed", shelteredPetData.getDewormed());
+                intent.putExtra("vaccines", shelteredPetData.getVaccines());
+                intent.putExtra("fitForChildren", shelteredPetData.getFitForChildren());
+                intent.putExtra("fitForGuarding", shelteredPetData.getFitForGuarding());
+                intent.putExtra("friendlyWithPets", shelteredPetData.getFriendlyWithPets());
+                intent.putExtra("isFavorite", shelteredPetData.getFavorite());
                 startActivity(intent);
             }
         });
@@ -118,7 +125,7 @@ public class BottomAppBarPetsShelteredTabFragment extends Fragment {
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void onSearchQuery(SearchQueryEvent event) {
         String query=event.getQuery();
-        petsCustomAdapter.getFilter().filter(query);
+        shelteredPetsCustomAdapter.getFilter().filter(query);
     }
 
     private void getDataFromDatabase() {
@@ -131,16 +138,16 @@ public class BottomAppBarPetsShelteredTabFragment extends Fragment {
 
                     shelteredPetsList.clear();
                     for (DataSnapshot newsArticleSnapshot : snapshot.child("Sheltered").getChildren()) {
-                        PetData petData = newsArticleSnapshot.getValue(PetData.class);
-                        shelteredPetsList.add(petData);
+                        ShelteredPetData shelteredPetData = newsArticleSnapshot.getValue(ShelteredPetData.class);
+                        shelteredPetsList.add(shelteredPetData);
                     }
 
-                    petsCustomAdapter = new PetsCustomAdapter(getApplicationContext(),
-                            R.layout.pet_list_item,
+                    shelteredPetsCustomAdapter = new ShelteredPetsCustomAdapter(getApplicationContext(),
+                            R.layout.sheltered_and_favorite_pet_list_item,
                             shelteredPetsList);
-                    petsCustomAdapter.notifyDataSetChanged();
+                    shelteredPetsCustomAdapter.notifyDataSetChanged();
                     refresh();
-                    listView.setAdapter(petsCustomAdapter);
+                    listView.setAdapter(shelteredPetsCustomAdapter);
                 } else {
                     listView.setVisibility(View.GONE);
                     materialTextView.setVisibility(View.VISIBLE);
@@ -175,7 +182,7 @@ public class BottomAppBarPetsShelteredTabFragment extends Fragment {
         new Handler(Looper.getMainLooper()).post(new Runnable() {
             @Override
             public void run() {
-                petsCustomAdapter.notifyDataSetChanged();
+                shelteredPetsCustomAdapter.notifyDataSetChanged();
                 listView.invalidate();
             }
         });

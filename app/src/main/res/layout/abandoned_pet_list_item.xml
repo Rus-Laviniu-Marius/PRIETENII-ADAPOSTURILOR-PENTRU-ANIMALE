@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:paddingStart="@dimen/list_padding_left"
+    android:paddingEnd="@dimen/list_padding_right"
+    android:paddingVertical="@dimen/list_padding_vertical"
+    android:theme="@style/Theme.PetShelterFriends"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <com.google.android.material.imageview.ShapeableImageView
+        android:id="@+id/abandonedPetListItemLeading_shapeImageView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:scaleType="centerInside"
+        android:adjustViewBounds="true"
+        android:layout_marginEnd="@dimen/horizontal_space_between_items"
+        app:srcCompat="@drawable/media"
+        app:layout_constraintWidth_max="100dp"
+        app:layout_constraintHeight_max="100dp"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/petListItemContentDetails_constraintLayout"/>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/petListItemContentDetails_constraintLayout"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="@dimen/horizontal_space_between_items"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/abandonedPetListItemLeading_shapeImageView"
+        app:layout_constraintEnd_toStartOf="@+id/petListItemTrailingIconAndText_linearLayout" >
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/abandonedPetListItemType_materialTextView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/pet_type"
+            style="@style/TextAppearance.Material3.LabelMedium"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintBottom_toTopOf="@+id/abandonedPetListItemPetLocation_materialTextView" />
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/abandonedPetListItemPetLocation_materialTextView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/pet_location"
+            android:visibility="gone"
+            style="@style/TextAppearance.Material3.TitleMedium"
+            app:layout_constraintTop_toBottomOf="@+id/abandonedPetListItemType_materialTextView"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintBottom_toTopOf="@+id/abandonedPetListItemDescription_materialTextView" />
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/abandonedPetListItemDescription_materialTextView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/pet_description"
+            android:maxLines="3"
+            style="@style/TextAppearance.Material3.LabelLarge"
+            app:layout_constraintTop_toBottomOf="@+id/abandonedPetListItemPetLocation_materialTextView"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <LinearLayout
+        android:id="@+id/petListItemTrailingIconAndText_linearLayout"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/petListItemContentDetails_constraintLayout"
+        app:layout_constraintEnd_toEndOf="parent">
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/petListItemDistance_materialTextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/distance"
+            android:visibility="gone"
+            android:layout_marginEnd="@dimen/horizontal_space_between_trailing_text_and_trailing_icon"
+            style="@style/TextAppearance.Material3.LabelSmall"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/abandonedPetListItemIcon_shapeImageView"/>
+        <com.google.android.material.imageview.ShapeableImageView
+            android:id="@+id/abandonedPetListItemIcon_shapeImageView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:scaleType="centerInside"
+            android:adjustViewBounds="true"
+            app:srcCompat="@drawable/arrow_right_24"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/petListItemDistance_materialTextView"
+            app:layout_constraintEnd_toEndOf="parent"/>
+    </LinearLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>

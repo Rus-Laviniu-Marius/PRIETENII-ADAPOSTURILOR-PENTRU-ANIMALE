@@ -1,4 +1,4 @@
-package com.pet.shelter.friends.pets;
+package com.pet.shelter.friends.pets.abandoned;
 
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
@@ -13,7 +13,6 @@ import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
-import android.graphics.drawable.shapes.Shape;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
@@ -25,7 +24,7 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Toast;
 
-import com.google.android.gms.auth.api.signin.internal.Storage;
+import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -37,103 +36,82 @@ import com.google.android.material.textfield.MaterialAutoCompleteTextView;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.android.material.textfield.TextInputLayout;
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 import com.pet.shelter.friends.ErrorSetter;
-import com.pet.shelter.friends.HomeActivity;
 import com.pet.shelter.friends.R;
 import com.pet.shelter.friends.ValidationManager;
-import com.pet.shelter.friends.fragments.bottom_app_bar.pets.tabs.BottomAppBarPetsShelteredTabFragment;
-import com.pet.shelter.friends.news.CreateNewsArticleActivity;
 
 import java.io.ByteArrayOutputStream;
 import java.io.FileNotFoundException;
 import java.io.InputStream;
 import java.util.Objects;
 
-public class AddShelteredPetActivity extends AppCompatActivity implements TextWatcher, ErrorSetter {
+public class AddAbandonedPetActivity extends AppCompatActivity implements TextWatcher, ErrorSetter {
+
 
     private ShapeableImageView petImage;
-    private TextInputLayout typeTextInputLayout, nameTextInputLayout, breedTextInputLayout,
-            ageTextInputLayout, sexTextInputLayout, sizeTextInputLayout, colorTextInputLayout,
-            descriptionTextInputLayout;
-    private MaterialAutoCompleteTextView typeMaterialAutoCompleteTextView, sizeMaterialAutoCompleteTextView,
-            sexMaterialAutoCompleteTextView, colorMaterialAutoCompleteTextView, ageMaterialAutoCompleteTextView;
-    private TextInputEditText nameTextInputEditText, breedTextInputEditText, descriptionTextInputEditText;
+    private TextInputLayout typeTextInputLayout, descriptionTextInputLayout, placeDescriptionTextInputLayout,
+            latitudeTextInputLayout, longitudeTextInputLayout;
+    private TextInputEditText placeDescriptionTextInputEditText, descriptionTextInputEditText,
+            latitudeTextInputEditText, longitudeTextInputEditText;
     private Uri gallerySelectedImageUri, cameraCapturedImageUri;
     private Bitmap cameraCapturedImageBitmap;
 
     private static final int PICK_FROM_GALLERY = 1889;
     private static final int MY_CAMERA_PERMISSION_CODE = 100;
-    private String loggedUserId, name;
-    private ActivityResultLauncher<Intent> galleryActivityResultLauncher, cameraActivityResultLauncher;
-    private String selectedType, selectedSize, selectedSex, selectedAge, selectedColor;
+    private static final int PICK_MAP_POINT_REQUEST = 999;  // The request code
+    private String loggedUserId;
+    private ActivityResultLauncher<Intent> galleryActivityResultLauncher, cameraActivityResultLauncher, mapActivityResultLauncher;
+    private String selectedType;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_add_sheltered_pet);
+        setContentView(R.layout.activity_add_abandoned_pet);
 
-        MaterialToolbar materialToolbar = findViewById(R.id.addShelteredPet_materialToolbar);
-        MaterialButton addPetMaterialButton = findViewById(R.id.addShelteredPet_materialButton);
-        petImage = findViewById(R.id.addShelteredPet_shapeImageView);
-        typeTextInputLayout = findViewById(R.id.addShelteredPetType_textInputLayout);
-        nameTextInputLayout = findViewById(R.id.addShelteredPetName_textInputLayout);
-        breedTextInputLayout = findViewById(R.id.addShelteredPetBreed_textInputLayout);
-        ageTextInputLayout = findViewById(R.id.addShelteredPetAge_textInputLayout);
-        sexTextInputLayout = findViewById(R.id.addShelteredPetSex_textInputLayout);
-        sizeTextInputLayout = findViewById(R.id.addShelteredPetSize_textInputLayout);
-        colorTextInputLayout = findViewById(R.id.addShelteredPetColor_textInputLayout);
-        descriptionTextInputLayout = findViewById(R.id.addShelteredPetDescription_textInputLayout);
-        typeMaterialAutoCompleteTextView = findViewById(R.id.addShelteredPetTypes_materialAutoCompleteTextView);
-        sizeMaterialAutoCompleteTextView = findViewById(R.id.addShelteredPetSize_materialAutoCompleteTextView);
-        sexMaterialAutoCompleteTextView = findViewById(R.id.addShelteredPetSex_materialAutoCompleteTextView);
-        ageMaterialAutoCompleteTextView = findViewById(R.id.addShelteredPetAge_materialAutoCompleteTextView);
-        colorMaterialAutoCompleteTextView = findViewById(R.id.addShelteredPetColor_materialAutoCompleteTextView);
-        nameTextInputEditText = findViewById(R.id.addShelteredPetName_textInputEditText);
-        breedTextInputEditText = findViewById(R.id.addShelteredPetBreed_textInputEditText);
-        descriptionTextInputEditText = findViewById(R.id.addShelteredPetDescription_textInputEditText);
+        MaterialToolbar materialToolbar = findViewById(R.id.addAbandonedPet_materialToolbar);
+        MaterialButton addPetMaterialButton = findViewById(R.id.addAbandonedPet_materialButton);
+        petImage = findViewById(R.id.addAbandonedPet_shapeImageView);
+        typeTextInputLayout = findViewById(R.id.addAbandonedPetType_textInputLayout);
+        placeDescriptionTextInputLayout = findViewById(R.id.addAbandonedPetPlaceDescription_textInputLayout);
+        descriptionTextInputLayout = findViewById(R.id.addAbandonedPetDescription_textInputLayout);
+        latitudeTextInputLayout = findViewById(R.id.addAbandonedPetLatitude_textInputLayout);
+        longitudeTextInputLayout = findViewById(R.id.addAbandonedPetLongitude_textInputLayout);
+        descriptionTextInputEditText = findViewById(R.id.addAbandonedPetDescription_textInputEditText);
+        placeDescriptionTextInputEditText = findViewById(R.id.addAbandonedPetPlaceDescription_textInputEditText);
+        latitudeTextInputEditText = findViewById(R.id.addAbandonedPetLatitude_textInputEditText);
+        longitudeTextInputEditText = findViewById(R.id.addAbandonedPetLongitude_textInputEditText);
+        MaterialButton selectPetLocationMaterialButton = findViewById(R.id.addAbandonedPetSelectLocation_materialButton);
+        MaterialAutoCompleteTextView typeMaterialAutoCompleteTextView = findViewById(R.id.addAbandonedPetTypes_materialAutoCompleteTextView);
 
         StorageReference petsImages = FirebaseStorage.getInstance().getReference("petsImages");
         DatabaseReference petsReference = FirebaseDatabase.getInstance().getReference("pets");
         loggedUserId = Objects.requireNonNull(FirebaseAuth.getInstance().getCurrentUser()).getUid();
 
         String[] petsType = {"Dog", "Cat"};
-        String[] petsSize = {"XSmall", "Small", "Medium", "Large", "XLarge"};
-        String[] petsSex = {"Male", "Female"};
-        String[] petsAge = {"Puppy", "Kitten", "Junior", "Adult", "Mature", "Senior", "Old"};
 
         ArrayAdapter<String> petsTypeAdapter = new ArrayAdapter<>(
                 this,
                 R.layout.drop_down_item,
                 petsType
         );
-        ArrayAdapter<String> petsSizeAdapter = new ArrayAdapter<>(
-                this,
-                R.layout.drop_down_item,
-                petsSize
-        );
-        ArrayAdapter<String> petsSexAdapter = new ArrayAdapter<>(
-                this,
-                R.layout.drop_down_item,
-                petsSex
-        );
-        ArrayAdapter<String> petsAgeAdapter = new ArrayAdapter<>(
-                this,
-                R.layout.drop_down_item,
-                petsAge
-        );
 
         typeMaterialAutoCompleteTextView.setAdapter(petsTypeAdapter);
-        sizeMaterialAutoCompleteTextView.setAdapter(petsSizeAdapter);
-        ageMaterialAutoCompleteTextView.setAdapter(petsAgeAdapter);
-        sexMaterialAutoCompleteTextView.setAdapter(petsSexAdapter);
+
+        mapActivityResultLauncher = registerForActivityResult(
+                new ActivityResultContracts.StartActivityForResult(), result -> {
+                    if (result.getResultCode() == Activity.RESULT_OK) {
+                        Intent data = result.getData();
+                        assert data != null;
+                        LatLng latLng = data.getParcelableExtra("picked_point");
+                        Objects.requireNonNull(latitudeTextInputLayout.getEditText()).setText(String.valueOf(latLng.latitude));
+                        Objects.requireNonNull(longitudeTextInputLayout.getEditText()).setText(String.valueOf(latLng.longitude));
+                    }
+                });
 
         galleryActivityResultLauncher = registerForActivityResult(
                 new ActivityResultContracts.StartActivityForResult(), result -> {
@@ -170,24 +148,17 @@ public class AddShelteredPetActivity extends AppCompatActivity implements TextWa
             }
         });
 
-        sizeMaterialAutoCompleteTextView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+        selectPetLocationMaterialButton.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                selectedSize = String.valueOf(parent.getItemAtPosition(position));
+            public void onClick(View v) {
+                pickPointOnMap();
             }
         });
 
-        sexMaterialAutoCompleteTextView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+        materialToolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                selectedSex = String.valueOf(parent.getItemAtPosition(position));
-            }
-        });
-
-        ageMaterialAutoCompleteTextView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                selectedAge = String.valueOf(parent.getItemAtPosition(position));
+            public void onClick(View v) {
+                finish();
             }
         });
 
@@ -202,7 +173,7 @@ public class AddShelteredPetActivity extends AppCompatActivity implements TextWa
                         if (cameraIntent.resolveActivity(getPackageManager()) != null) {
                             cameraActivityResultLauncher.launch(cameraIntent);
                         } else {
-                            Toast.makeText(AddShelteredPetActivity.this, "There is no app that supports this action", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(AddAbandonedPetActivity.this, "There is no app that supports this action", Toast.LENGTH_SHORT).show();
                         }
                     }
                 } else if (item.getItemId() == R.id.action_open_gallery) {
@@ -221,23 +192,26 @@ public class AddShelteredPetActivity extends AppCompatActivity implements TextWa
             @Override
             public void onClick(View v) {
 
-                String petName = Objects.requireNonNull(nameTextInputEditText.getText()).toString();
-                String petDescription = Objects.requireNonNull(descriptionTextInputEditText.getText()).toString();
-                String petBreed = Objects.requireNonNull(breedTextInputEditText.getText()).toString();
-                String petToSave = petName + "_" + petDescription;
+                String petLocationLatitude = Objects.requireNonNull(latitudeTextInputEditText.getText()).toString().trim();
+                String petLocationLongitude = Objects.requireNonNull(longitudeTextInputEditText.getText()).toString().trim();
+                String placeDescription = Objects.requireNonNull(placeDescriptionTextInputEditText.getText()).toString().trim();
+                String petDescription = Objects.requireNonNull(descriptionTextInputEditText.getText()).toString().trim();
+                String petToSave = petDescription + "_" + placeDescription;
 
-                ValidationManager.getInstance().doValidation(AddShelteredPetActivity.this,
-                        nameTextInputLayout).checkEmpty();
-                ValidationManager.getInstance().doValidation(AddShelteredPetActivity.this,
+                ValidationManager.getInstance().doValidation(AddAbandonedPetActivity.this,
+                        placeDescriptionTextInputLayout).checkEmpty();
+                ValidationManager.getInstance().doValidation(AddAbandonedPetActivity.this,
                         descriptionTextInputLayout).checkEmpty();
-                ValidationManager.getInstance().doValidation(AddShelteredPetActivity.this,
-                        breedTextInputLayout).checkEmpty();
+                ValidationManager.getInstance().doValidation(AddAbandonedPetActivity.this,
+                        latitudeTextInputLayout).checkEmpty();
+                ValidationManager.getInstance().doValidation(AddAbandonedPetActivity.this,
+                        latitudeTextInputLayout).checkEmpty();
 
                 if (ValidationManager.getInstance().isNothingEmpty()) {
                     StorageReference ref = petsImages
                             .child("newsArticlesMediaFiles")
                             .child(loggedUserId)
-                            .child(petName + "_" + petDescription);
+                            .child(petDescription + "_" + placeDescription);
 
                     if (gallerySelectedImageUri != null) {
                         // Adding listeners on upload or failure of image
@@ -248,19 +222,16 @@ public class AddShelteredPetActivity extends AppCompatActivity implements TextWa
                                         taskSnapshot.getStorage().getDownloadUrl().addOnCompleteListener(new OnCompleteListener<Uri>() {
                                             @Override
                                             public void onComplete(@NonNull Task<Uri> task) {
-                                                Toast.makeText(AddShelteredPetActivity.this, "Image uploaded", Toast.LENGTH_SHORT).show();
+                                                Toast.makeText(AddAbandonedPetActivity.this, "Image uploaded", Toast.LENGTH_SHORT).show();
                                                 String fileLink = task.getResult().toString();
 
-                                                petsReference.child("Sheltered").child(petToSave).child("petType").setValue(selectedType);
-                                                petsReference.child("Sheltered").child(petToSave).child("shelterAdministratorId").setValue(loggedUserId);
-                                                petsReference.child("Sheltered").child(petToSave).child("petImage1DownloadLink").setValue(fileLink);
-                                                petsReference.child("Sheltered").child(petToSave).child("petName").setValue(petName);
-                                                petsReference.child("Sheltered").child(petToSave).child("petType").setValue(selectedType);
-                                                petsReference.child("Sheltered").child(petToSave).child("petBreed").setValue(petBreed);
-                                                petsReference.child("Sheltered").child(petToSave).child("petAge").setValue(selectedAge);
-                                                petsReference.child("Sheltered").child(petToSave).child("petSize").setValue(selectedSize);
-                                                petsReference.child("Sheltered").child(petToSave).child("petSex").setValue(selectedSex);
-                                                petsReference.child("Sheltered").child(petToSave).child("petDescription").setValue(petDescription);
+                                                petsReference.child("Abandoned").child(petToSave).child("petType").setValue(selectedType);
+                                                petsReference.child("Abandoned").child(petToSave).child("petImage1DownloadLink").setValue(fileLink);
+                                                petsReference.child("Abandoned").child(petToSave).child("petDescription").setValue(petDescription);
+                                                petsReference.child("Abandoned").child(petToSave).child("placeDescription").setValue(placeDescription);
+                                                petsReference.child("Abandoned").child(petToSave).child("petType").setValue(selectedType);
+                                                petsReference.child("Abandoned").child(petToSave).child("petLocationLatitude").setValue(petLocationLatitude);
+                                                petsReference.child("Abandoned").child(petToSave).child("petLocationLongitude").setValue(petLocationLongitude);
                                             }
                                         });
                                         finish();
@@ -269,7 +240,7 @@ public class AddShelteredPetActivity extends AppCompatActivity implements TextWa
                                 .addOnFailureListener(new OnFailureListener() {
                                     @Override
                                     public void onFailure(@NonNull Exception e) {
-                                        Toast.makeText(AddShelteredPetActivity.this, "Failed " + e.getMessage(), Toast.LENGTH_SHORT).show();
+                                        Toast.makeText(AddAbandonedPetActivity.this, "Failed " + e.getMessage(), Toast.LENGTH_SHORT).show();
                                     }
                                 });
                     } else if (cameraCapturedImageUri != null) {
@@ -281,18 +252,15 @@ public class AddShelteredPetActivity extends AppCompatActivity implements TextWa
                                         taskSnapshot.getStorage().getDownloadUrl().addOnCompleteListener(new OnCompleteListener<Uri>() {
                                             @Override
                                             public void onComplete(@NonNull Task<Uri> task) {
-                                                Toast.makeText(AddShelteredPetActivity.this, "Image uploaded", Toast.LENGTH_SHORT).show();
+                                                Toast.makeText(AddAbandonedPetActivity.this, "Image uploaded", Toast.LENGTH_SHORT).show();
                                                 String fileLink = task.getResult().toString();
 
-                                                petsReference.child("Sheltered").child(petToSave).child("petType").setValue(selectedType);
-                                                petsReference.child("Sheltered").child(petToSave).child("petImage1DownloadLink").setValue(fileLink);
-                                                petsReference.child("Sheltered").child(petToSave).child("petName").setValue(petName);
-                                                petsReference.child("Sheltered").child(petToSave).child("petType").setValue(selectedType);
-                                                petsReference.child("Sheltered").child(petToSave).child("petBreed").setValue(petBreed);
-                                                petsReference.child("Sheltered").child(petToSave).child("petAge").setValue(selectedAge);
-                                                petsReference.child("Sheltered").child(petToSave).child("petSize").setValue(selectedSize);
-                                                petsReference.child("Sheltered").child(petToSave).child("petSex").setValue(selectedSex);
-                                                petsReference.child("Sheltered").child(petToSave).child("petDescription").setValue(petDescription);
+                                                petsReference.child("Abandoned").child(petToSave).child("petType").setValue(selectedType);
+                                                petsReference.child("Abandoned").child(petToSave).child("petImage1DownloadLink").setValue(fileLink);
+                                                petsReference.child("Abandoned").child(petToSave).child("petDescription").setValue(petDescription);
+                                                petsReference.child("Abandoned").child(petToSave).child("placeDescription").setValue(placeDescription);
+                                                petsReference.child("Abandoned").child(petToSave).child("petLocationLatitude").setValue(petLocationLatitude);
+                                                petsReference.child("Abandoned").child(petToSave).child("petLocationLongitude").setValue(petLocationLongitude);
                                             }
                                         });
                                         finish();
@@ -301,17 +269,32 @@ public class AddShelteredPetActivity extends AppCompatActivity implements TextWa
                                 .addOnFailureListener(new OnFailureListener() {
                                     @Override
                                     public void onFailure(@NonNull Exception e) {
-                                        Toast.makeText(AddShelteredPetActivity.this, "Failed " + e.getMessage(), Toast.LENGTH_SHORT).show();
+                                        Toast.makeText(AddAbandonedPetActivity.this, "Failed " + e.getMessage(), Toast.LENGTH_SHORT).show();
                                     }
                                 });
                     } else {
-                        Toast.makeText(AddShelteredPetActivity.this, "Please add pet image", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(AddAbandonedPetActivity.this, "Please add pet image", Toast.LENGTH_SHORT).show();
                     }
                 }
             }
         });
 
         setTextWatcher();
+    }
+    private void pickPointOnMap() {
+        Intent pickPointIntent = new Intent(this, AbandonedPetSelectLocationMapActivity.class);
+        if (checkSelfPermission(Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED || checkSelfPermission(Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED)  {
+            requestPermissions(new String[]{Manifest.permission.ACCESS_COARSE_LOCATION, Manifest.permission.ACCESS_FINE_LOCATION}, PICK_MAP_POINT_REQUEST);
+        } else {
+            mapActivityResultLauncher.launch(pickPointIntent);
+        }
+
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
     }
 
     public Uri getImageUri(Context inContext, Bitmap inImage) {
@@ -321,15 +304,11 @@ public class AddShelteredPetActivity extends AppCompatActivity implements TextWa
         return Uri.parse(path);
     }
     private void setTextWatcher() {
-        Objects.requireNonNull(nameTextInputLayout.getEditText()).addTextChangedListener(this);
+        Objects.requireNonNull(placeDescriptionTextInputLayout.getEditText()).addTextChangedListener(this);
         Objects.requireNonNull(descriptionTextInputLayout.getEditText()).addTextChangedListener(this);
         Objects.requireNonNull(typeTextInputLayout.getEditText()).addTextChangedListener(this);
-        Objects.requireNonNull(breedTextInputLayout.getEditText()).addTextChangedListener(this);
-        Objects.requireNonNull(ageTextInputLayout.getEditText()).addTextChangedListener(this);
-        Objects.requireNonNull(sexTextInputLayout.getEditText()).addTextChangedListener(this);
-        Objects.requireNonNull(sizeTextInputLayout.getEditText()).addTextChangedListener(this);
-        Objects.requireNonNull(colorTextInputLayout.getEditText()).addTextChangedListener(this);
-
+        Objects.requireNonNull(latitudeTextInputLayout.getEditText()).addTextChangedListener(this);
+        Objects.requireNonNull(longitudeTextInputLayout.getEditText()).addTextChangedListener(this);
     }
 
     @Override
@@ -344,22 +323,16 @@ public class AddShelteredPetActivity extends AppCompatActivity implements TextWa
 
     @Override
     public void afterTextChanged(Editable s) {
-        if (s.hashCode() == Objects.requireNonNull(nameTextInputLayout.getEditText()).getText().hashCode()) {
-            nameTextInputLayout.setErrorEnabled(false);
+        if (s.hashCode() == Objects.requireNonNull(placeDescriptionTextInputLayout.getEditText()).getText().hashCode()) {
+            placeDescriptionTextInputLayout.setErrorEnabled(false);
         } else if (s.hashCode() == Objects.requireNonNull(descriptionTextInputLayout.getEditText()).getText().hashCode()) {
             descriptionTextInputLayout.setErrorEnabled(false);
-        } else if (s.hashCode() == Objects.requireNonNull(breedTextInputLayout.getEditText()).getText().hashCode()) {
-            breedTextInputLayout.setErrorEnabled(false);
+        } else if (s.hashCode() == Objects.requireNonNull(latitudeTextInputLayout.getEditText()).getText().hashCode()) {
+            latitudeTextInputLayout.setErrorEnabled(false);
+        } else if (s.hashCode() == Objects.requireNonNull(longitudeTextInputLayout.getEditText()).getText().hashCode()) {
+            longitudeTextInputLayout.setErrorEnabled(false);
         } else if (s.hashCode() == Objects.requireNonNull(typeTextInputLayout.getEditText()).getText().hashCode()) {
             typeTextInputLayout.setErrorEnabled(false);
-        } else if (s.hashCode() == Objects.requireNonNull(ageTextInputLayout.getEditText()).getText().hashCode()) {
-            ageTextInputLayout.setErrorEnabled(false);
-        } else if (s.hashCode() == Objects.requireNonNull(sexTextInputLayout.getEditText()).getText().hashCode()) {
-            sexTextInputLayout.setErrorEnabled(false);
-        } else if (s.hashCode() == Objects.requireNonNull(sizeTextInputLayout.getEditText()).getText().hashCode()) {
-            sizeTextInputLayout.setErrorEnabled(false);
-        } else if (s.hashCode() == Objects.requireNonNull(colorTextInputLayout.getEditText()).getText().hashCode()) {
-            colorTextInputLayout.setErrorEnabled(false);
         }
     }
 

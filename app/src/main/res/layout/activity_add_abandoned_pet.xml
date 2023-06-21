@@ -1,0 +1,215 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".pets.abandoned.AddAbandonedPetActivity">
+
+    <com.google.android.material.appbar.AppBarLayout
+        android:id="@+id/addAbandonedPet_appBarLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <com.google.android.material.appbar.MaterialToolbar
+            android:id="@+id/addAbandonedPet_materialToolbar"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            app:layout_anchor="@+id/appBarLayout"
+            app:layout_anchorGravity="center"
+            app:navigationIcon="@drawable/arrow_back_24"
+            app:menu="@menu/open_camera_and_gallery_top_app_bar_menu"
+            app:title="Add abandoned pet" />
+    </com.google.android.material.appbar.AppBarLayout>
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/addAbandonedPet_appBarLayout" >
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <com.google.android.material.imageview.ShapeableImageView
+                android:id="@+id/addAbandonedPet_shapeImageView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginVertical="@dimen/vertical_space_between_items"
+                android:adjustViewBounds="true"
+                android:scaleType="centerInside"
+                android:src="@drawable/media"
+                app:layout_constraintBottom_toTopOf="@+id/addAbandonedPetSelectLocation_materialButton"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_chainStyle="spread_inside" />
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/addAbandonedPetSelectLocation_materialButton"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:text="@string/select_pet_location"
+                app:icon="@drawable/location_on_outlined_24"
+                style="@style/Widget.Material3.Button.TextButton.Icon"
+                app:layout_constraintTop_toBottomOf="@+id/addAbandonedPet_shapeImageView"
+                app:layout_constraintStart_toEndOf="@id/guideline44"
+                app:layout_constraintEnd_toStartOf="@id/guideline45"
+                app:layout_constraintWidth_max="@dimen/material_button_max_width"
+                app:layout_constraintBottom_toTopOf="@+id/addAbandonedPetLatitudeAndLongitude_constraintLayout"/>
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/addAbandonedPetLatitudeAndLongitude_constraintLayout"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                app:layout_constraintTop_toBottomOf="@+id/addAbandonedPetSelectLocation_materialButton"
+                app:layout_constraintBottom_toTopOf="@+id/addAbandonedPetType_textInputLayout"
+                app:layout_constraintEnd_toStartOf="@id/guideline45"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toEndOf="@id/guideline44">
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/addAbandonedPetLatitude_textInputLayout"
+                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:hint="@string/latitude"
+                    app:helperText="*Required"
+                    app:endIconMode="clear_text"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toStartOf="@id/addAbandonedPetLongitude_textInputLayout"
+                    app:layout_constraintHorizontal_bias="0.5"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintWidth_max="@dimen/material_textInputLayout_max_width">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/addAbandonedPetLatitude_textInputEditText"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:inputType="text" />
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/addAbandonedPetLongitude_textInputLayout"
+                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:hint="@string/longitude"
+                    app:helperText="*Required"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.5"
+                    app:layout_constraintStart_toEndOf="@+id/addAbandonedPetLatitude_textInputLayout"
+                    app:layout_constraintWidth_max="@dimen/material_textInputLayout_max_width">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/addAbandonedPetLongitude_textInputEditText"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:inputType="text" />
+                </com.google.android.material.textfield.TextInputLayout>
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/addAbandonedPetType_textInputLayout"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginVertical="@dimen/vertical_space_between_items"
+                android:hint="@string/select_pet_type"
+                app:helperText="*Required"
+                app:layout_constraintTop_toBottomOf="@+id/addAbandonedPetLatitudeAndLongitude_constraintLayout"
+                app:layout_constraintBottom_toTopOf="@+id/addAbandonedPetDescription_textInputLayout"
+                app:layout_constraintEnd_toStartOf="@id/guideline45"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toEndOf="@id/guideline44"
+                app:layout_constraintWidth_max="@dimen/material_textInputLayout_max_width">
+
+                <com.google.android.material.textfield.MaterialAutoCompleteTextView
+                    android:id="@+id/addAbandonedPetTypes_materialAutoCompleteTextView"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="text" />
+            </com.google.android.material.textfield.TextInputLayout>
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/addAbandonedPetDescription_textInputLayout"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginVertical="@dimen/vertical_space_between_items"
+                android:hint="@string/pet_description"
+                app:helperText="*Required"
+                app:layout_constraintBottom_toTopOf="@+id/addAbandonedPetPlaceDescription_textInputLayout"
+                app:layout_constraintEnd_toStartOf="@id/guideline45"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toEndOf="@id/guideline44"
+                app:layout_constraintTop_toBottomOf="@+id/addAbandonedPetType_textInputLayout"
+                app:layout_constraintWidth_max="@dimen/material_textInputLayout_max_width">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/addAbandonedPetDescription_textInputEditText"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="text" />
+            </com.google.android.material.textfield.TextInputLayout>
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/addAbandonedPetPlaceDescription_textInputLayout"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginVertical="@dimen/vertical_space_between_items"
+                android:hint="@string/pet_place_description"
+                app:helperText="*Required"
+                app:layout_constraintBottom_toTopOf="@+id/addAbandonedPet_materialButton"
+                app:layout_constraintEnd_toStartOf="@id/guideline45"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toEndOf="@id/guideline44"
+                app:layout_constraintTop_toBottomOf="@+id/addAbandonedPetDescription_textInputLayout"
+                app:layout_constraintWidth_max="@dimen/material_textInputLayout_max_width">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/addAbandonedPetPlaceDescription_textInputEditText"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="text" />
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/addAbandonedPet_materialButton"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:text="@string/post"
+                app:layout_constraintWidth_max="@dimen/material_button_max_width"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/addAbandonedPetPlaceDescription_textInputLayout"
+                app:layout_constraintStart_toEndOf="@id/guideline44"
+                app:layout_constraintEnd_toStartOf="@id/guideline45" />
+
+            <androidx.constraintlayout.widget.Guideline
+                android:id="@+id/guideline44"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                app:layout_constraintGuide_percent="0.05" />
+
+            <androidx.constraintlayout.widget.Guideline
+                android:id="@+id/guideline45"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                app:layout_constraintGuide_percent="0.95" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </ScrollView>
+
+
+
+        </androidx.constraintlayout.widget.ConstraintLayout>

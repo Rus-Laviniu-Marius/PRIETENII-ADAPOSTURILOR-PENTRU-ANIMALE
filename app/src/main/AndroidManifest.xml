@@ -33,6 +33,23 @@
         android:theme="@style/Theme.PetShelterFriends"
         tools:targetApi="31">
         <activity
+            android:name=".pets.abandoned.AbandonedPetSelectLocationMapActivity"
+            android:exported="false" />
+        <meta-data
+            android:name="com.google.android.gms.version"
+            android:value="@integer/google_play_services_version" />
+
+        <meta-data
+            android:name="com.google.android.geo.API_KEY"
+            android:value="${MAPS_API_KEY}"/>
+
+        <activity
+            android:name=".pets.abandoned.AbandonedPetDetailsActivity"
+            android:exported="false" />
+        <activity
+            android:name=".pets.abandoned.AddAbandonedPetActivity"
+            android:exported="false" />
+        <activity
             android:name=".pets.adoption.GenerateAdoptionApplicationPDFActivity"
             android:exported="false" />
         <activity
@@ -54,7 +71,7 @@
             android:name=".pets.adoption.CompleteAboutPetAdopterInformationActivity"
             android:exported="false" />
         <activity
-            android:name=".pets.shelter.ShelterDetailsActivity"
+            android:name=".shelter.ShelterDetailsActivity"
             android:exported="false" />
         <activity
             android:name=".pets.adoption.AdoptionApplicationParagraphsActivity"
@@ -63,10 +80,10 @@
             android:name=".pets.FilterActivity"
             android:exported="false" />
         <activity
-            android:name=".pets.AddShelteredPetActivity"
+            android:name=".pets.sheltered.AddShelteredPetActivity"
             android:exported="false" />
         <activity
-            android:name=".pets.ShelteredPetDetailsActivity"
+            android:name=".pets.sheltered.ShelteredPetDetailsActivity"
             android:exported="false" />
         <activity
             android:name=".profile.services.ActiveServiceDetailsActivity"

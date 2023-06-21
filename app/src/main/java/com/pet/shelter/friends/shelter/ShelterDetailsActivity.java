@@ -1,4 +1,4 @@
-package com.pet.shelter.friends.pets.shelter;
+package com.pet.shelter.friends.shelter;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -22,7 +22,7 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.pet.shelter.friends.R;
-import com.pet.shelter.friends.pets.ShelteredPetDetailsActivity;
+import com.pet.shelter.friends.pets.sheltered.ShelteredPetDetailsActivity;
 import com.squareup.picasso.Picasso;
 
 public class ShelterDetailsActivity extends AppCompatActivity {

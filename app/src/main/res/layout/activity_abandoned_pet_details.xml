@@ -1,0 +1,155 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:id="@+id/abandonedPetDetails_constraintLayout"
+    tools:context=".pets.abandoned.AddAbandonedPetActivity">
+
+    <com.google.android.material.appbar.AppBarLayout
+        android:id="@+id/abandonedPetDetails_appBarLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <com.google.android.material.appbar.MaterialToolbar
+            android:id="@+id/abandonedPetDetails_materialToolbar"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            app:titleCentered="true"
+            app:layout_anchor="@+id/appBarLayout"
+            app:layout_anchorGravity="center"
+            app:navigationIcon="@drawable/arrow_back_24"
+            app:menu="@menu/share_top_app_bar_menu"
+            app:title="Abandoned pet details" />
+    </com.google.android.material.appbar.AppBarLayout>
+
+    <com.google.android.material.imageview.ShapeableImageView
+        android:id="@+id/abandonedPetDetails_shapeImageView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginVertical="@dimen/vertical_space_between_items"
+        android:adjustViewBounds="true"
+        android:scaleType="centerInside"
+        android:src="@drawable/media"
+        app:layout_constraintHeight_max="200dp"
+        app:layout_constraintBottom_toTopOf="@+id/abandonedPetDetailsLocation_mapView"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/abandonedPetDetails_appBarLayout"
+        app:layout_constraintVertical_chainStyle="spread_inside" />
+
+    <com.google.android.gms.maps.MapView
+        android:id="@+id/abandonedPetDetailsLocation_mapView"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_marginVertical="@dimen/vertical_space_between_items"
+        android:contentDescription="@string/select_pet_location"
+        app:layout_constraintBottom_toTopOf="@+id/guideline47"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/abandonedPetDetails_shapeImageView" />
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/abandonedPetDetailsLocation_mapView" >
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/abandonedPetAndPlaceDetails_constraintLayout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <LinearLayout
+                android:id="@+id/abandonedPetAndPlaceDetails_linearLayout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:paddingHorizontal="@dimen/padding_horizontal"
+                app:layout_constraintBottom_toTopOf="@id/abandonedPetDetails_materialButton"
+                app:layout_constraintEnd_toStartOf="@id/guideline43"
+                app:layout_constraintStart_toEndOf="@id/guideline42"
+                app:layout_constraintTop_toBottomOf="@id/abandonedPetAndPlaceDetails_constraintLayout">
+
+                <com.google.android.material.textview.MaterialTextView
+                    style="@style/TextAppearance.Material3.HeadlineSmall"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/pet_description" />
+
+                <com.google.android.material.textview.MaterialTextView
+                    android:id="@+id/abandonedPetDetailsDescription_materialTextView"
+                    style="@style/TextAppearance.Material3.BodyLarge"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:paddingVertical="@dimen/padding_vertical_header"
+                    android:text="@string/pet_description" />
+
+                <com.google.android.material.textview.MaterialTextView
+                    style="@style/TextAppearance.Material3.HeadlineSmall"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/pet_place_description" />
+
+                <com.google.android.material.textview.MaterialTextView
+                    android:id="@+id/abandonedPetDetailsPlaceDescription_materialTextView"
+                    style="@style/TextAppearance.Material3.BodyLarge"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:paddingVertical="@dimen/padding_vertical_header"
+                    android:text="@string/pet_place_description" />
+
+            </LinearLayout>
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/abandonedPetDetails_materialButton"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:text="@string/rescue"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toStartOf="@id/guideline43"
+                app:layout_constraintStart_toEndOf="@id/guideline42"
+                app:layout_constraintTop_toBottomOf="@id/abandonedPetAndPlaceDetails_linearLayout"
+                app:layout_constraintWidth_max="@dimen/material_button_max_width" />
+
+            <androidx.constraintlayout.widget.Guideline
+                android:id="@+id/guideline42"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                app:layout_constraintGuide_percent="0.05" />
+
+            <androidx.constraintlayout.widget.Guideline
+                android:id="@+id/guideline43"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                app:layout_constraintGuide_percent="0.95" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </ScrollView>
+
+
+
+    <androidx.constraintlayout.widget.Guideline
+    android:id="@+id/guideline46"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal"
+    app:layout_constraintGuide_percent="0.4" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline47"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.8" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
