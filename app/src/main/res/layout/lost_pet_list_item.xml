@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <com.google.android.material.imageview.ShapeableImageView
+        android:id="@+id/lostPetListItemLeading_shapeImageView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:scaleType="centerInside"
+        android:adjustViewBounds="true"
+        android:layout_marginEnd="@dimen/horizontal_space_between_items"
+        app:srcCompat="@drawable/media"
+        app:layout_constraintWidth_max="100dp"
+        app:layout_constraintHeight_max="100dp"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/lostPetListItemContentDetails_constraintLayout"/>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/lostPetListItemContentDetails_constraintLayout"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="@dimen/horizontal_space_between_items"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/lostPetListItemLeading_shapeImageView"
+        app:layout_constraintEnd_toStartOf="@+id/lostPetListItemTrailingIconAndText_linearLayout" >
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/lostPetListItemType_materialTextView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/pet_type"
+            style="@style/TextAppearance.Material3.LabelMedium"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintBottom_toTopOf="@+id/lostPetListItemName_materialTextView" />
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/lostPetListItemName_materialTextView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/pet_name"
+            style="@style/TextAppearance.Material3.TitleMedium"
+            app:layout_constraintTop_toBottomOf="@+id/lostPetListItemType_materialTextView"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintBottom_toTopOf="@+id/lostPetListItemDescription_materialTextView" />
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/lostPetListItemDescription_materialTextView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/pet_description"
+            android:maxLines="3"
+            style="@style/TextAppearance.Material3.LabelLarge"
+            app:layout_constraintTop_toBottomOf="@+id/lostPetListItemName_materialTextView"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <LinearLayout
+        android:id="@+id/lostPetListItemTrailingIconAndText_linearLayout"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/lostPetListItemContentDetails_constraintLayout"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent">
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/lostPetListItemDistance_materialTextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/distance"
+            android:visibility="gone"
+            android:layout_marginEnd="@dimen/horizontal_space_between_trailing_text_and_trailing_icon"
+            style="@style/TextAppearance.Material3.LabelSmall"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/lostPetListItemIcon_shapeImageView"/>
+        <com.google.android.material.imageview.ShapeableImageView
+            android:id="@+id/lostPetListItemIcon_shapeImageView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:scaleType="centerInside"
+            android:adjustViewBounds="true"
+            app:srcCompat="@drawable/arrow_right_24"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/lostPetListItemDistance_materialTextView"
+            app:layout_constraintEnd_toEndOf="parent"/>
+    </LinearLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

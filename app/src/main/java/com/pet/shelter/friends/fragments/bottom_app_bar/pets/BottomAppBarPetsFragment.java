@@ -17,7 +17,7 @@ import com.google.android.material.appbar.MaterialToolbar;
 import com.google.android.material.tabs.TabLayout;
 import com.pet.shelter.friends.R;
 import com.pet.shelter.friends.SearchQueryEvent;
-import com.pet.shelter.friends.pets.FilterActivity;
+import com.pet.shelter.friends.pets.filtering.FilterActivity;
 
 import org.greenrobot.eventbus.EventBus;
 

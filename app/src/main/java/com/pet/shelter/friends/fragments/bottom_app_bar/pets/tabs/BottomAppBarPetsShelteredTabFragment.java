@@ -28,7 +28,7 @@ import com.google.firebase.database.ValueEventListener;
 import com.pet.shelter.friends.R;
 import com.pet.shelter.friends.SearchQueryEvent;
 import com.pet.shelter.friends.pets.sheltered.AddShelteredPetActivity;
-import com.pet.shelter.friends.pets.sheltered.ShelteredPetData;
+import com.pet.shelter.friends.pets.PetData;
 import com.pet.shelter.friends.pets.sheltered.ShelteredPetDetailsActivity;
 import com.pet.shelter.friends.pets.sheltered.ShelteredPetsCustomAdapter;
 
@@ -47,7 +47,7 @@ public class BottomAppBarPetsShelteredTabFragment extends Fragment {
     private MaterialTextView materialTextView;
     private ListView listView;
 
-    private final ArrayList<ShelteredPetData> shelteredPetsList = new ArrayList<>();
+    private final ArrayList<PetData> shelteredPetsList = new ArrayList<>();
     private ShelteredPetsCustomAdapter shelteredPetsCustomAdapter;
 
     public BottomAppBarPetsShelteredTabFragment() {
@@ -85,24 +85,24 @@ public class BottomAppBarPetsShelteredTabFragment extends Fragment {
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                ShelteredPetData shelteredPetData = shelteredPetsCustomAdapter.getItem(position);
+                PetData petData = shelteredPetsCustomAdapter.getItem(position);
                 Intent intent = new Intent(getActivity(), ShelteredPetDetailsActivity.class);
-                intent.putExtra("shelterAdministratorId", shelteredPetData.getShelterAdministratorId());
-                intent.putExtra("petImage1DownloadLink", shelteredPetData.getPetImage1DownloadLink());
-                intent.putExtra("petType", shelteredPetData.getPetType());
-                intent.putExtra("petName", shelteredPetData.getPetName());
-                intent.putExtra("petBreed", shelteredPetData.getPetBreed());
-                intent.putExtra("petAge", shelteredPetData.getPetAge());
-                intent.putExtra("petSize", shelteredPetData.getPetSize());
-                intent.putExtra("petSex", shelteredPetData.getPetSex());
-                intent.putExtra("petDescription", shelteredPetData.getPetDescription());
-                intent.putExtra("spayedOrNeutered", shelteredPetData.getSpayedOrNeutered());
-                intent.putExtra("dewormed", shelteredPetData.getDewormed());
-                intent.putExtra("vaccines", shelteredPetData.getVaccines());
-                intent.putExtra("fitForChildren", shelteredPetData.getFitForChildren());
-                intent.putExtra("fitForGuarding", shelteredPetData.getFitForGuarding());
-                intent.putExtra("friendlyWithPets", shelteredPetData.getFriendlyWithPets());
-                intent.putExtra("isFavorite", shelteredPetData.getFavorite());
+                intent.putExtra("shelterAdministratorId", petData.getShelterAdministratorId());
+                intent.putExtra("petImage1DownloadLink", petData.getPetImage1DownloadLink());
+                intent.putExtra("petType", petData.getPetType());
+                intent.putExtra("petName", petData.getPetName());
+                intent.putExtra("petBreed", petData.getPetBreed());
+                intent.putExtra("petAge", petData.getPetAge());
+                intent.putExtra("petSize", petData.getPetSize());
+                intent.putExtra("petSex", petData.getPetSex());
+                intent.putExtra("petDescription", petData.getPetDescription());
+                intent.putExtra("spayedOrNeutered", petData.getSpayedOrNeutered());
+                intent.putExtra("dewormed", petData.getDewormed());
+                intent.putExtra("vaccines", petData.getVaccines());
+                intent.putExtra("fitForChildren", petData.getFitForChildren());
+                intent.putExtra("fitForGuarding", petData.getFitForGuarding());
+                intent.putExtra("friendlyWithPets", petData.getFriendlyWithPets());
+                intent.putExtra("isFavorite", petData.getFavorite());
                 startActivity(intent);
             }
         });
@@ -138,8 +138,8 @@ public class BottomAppBarPetsShelteredTabFragment extends Fragment {
 
                     shelteredPetsList.clear();
                     for (DataSnapshot newsArticleSnapshot : snapshot.child("Sheltered").getChildren()) {
-                        ShelteredPetData shelteredPetData = newsArticleSnapshot.getValue(ShelteredPetData.class);
-                        shelteredPetsList.add(shelteredPetData);
+                        PetData petData = newsArticleSnapshot.getValue(PetData.class);
+                        shelteredPetsList.add(petData);
                     }
 
                     shelteredPetsCustomAdapter = new ShelteredPetsCustomAdapter(getApplicationContext(),

@@ -30,16 +30,13 @@ import com.pet.shelter.friends.SearchQueryEvent;
 import com.pet.shelter.friends.pets.abandoned.AbandonedPetData;
 import com.pet.shelter.friends.pets.abandoned.AbandonedPetDetailsActivity;
 import com.pet.shelter.friends.pets.abandoned.AddAbandonedPetActivity;
-import com.pet.shelter.friends.pets.sheltered.ShelteredPetData;
 import com.pet.shelter.friends.pets.abandoned.AbandonedPetsCustomAdapter;
-import com.pet.shelter.friends.pets.sheltered.ShelteredPetDetailsActivity;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
 
 import java.util.ArrayList;
-import java.util.Objects;
 
 public class BottomAppBarPetsAbandonedTabFragment extends Fragment {
     private DatabaseReference shelteredPetsReference, roles;

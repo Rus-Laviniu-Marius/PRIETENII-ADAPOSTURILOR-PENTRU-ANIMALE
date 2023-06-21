@@ -1,6 +1,6 @@
-package com.pet.shelter.friends.pets.sheltered;
+package com.pet.shelter.friends.pets;
 
-public class ShelteredPetData {
+public class PetData {
     private String shelterAdministratorId;
     private String petImage1DownloadLink;
     private String petImage2DownloadLink;
@@ -23,9 +23,27 @@ public class ShelteredPetData {
     private String friendlyWithPets;
     private String favorite;
 
-    public ShelteredPetData() { }
+    public PetData() { }
 
-    public ShelteredPetData(String shelterAdministratorId, String petImage1DownloadLink, String petName, String petType, String petBreed, String petAge, String petSize, String petSex, String petLocation, String petWeight, String petColor, String petDescription, String spayedOrNeutered, String dewormed, String vaccines, String fitForChildren, String fitForGuarding, String friendlyWithPets, String favorite) {
+    public PetData(String shelterAdministratorId,
+                   String petImage1DownloadLink,
+                   String petName,
+                   String petType,
+                   String petBreed,
+                   String petAge,
+                   String petSize,
+                   String petSex,
+                   String petLocation,
+                   String petWeight,
+                   String petColor,
+                   String petDescription,
+                   String spayedOrNeutered,
+                   String dewormed,
+                   String vaccines,
+                   String fitForChildren,
+                   String fitForGuarding,
+                   String friendlyWithPets,
+                   String favorite) {
         this.shelterAdministratorId = shelterAdministratorId;
         this.petImage1DownloadLink = petImage1DownloadLink;
         this.petName = petName;

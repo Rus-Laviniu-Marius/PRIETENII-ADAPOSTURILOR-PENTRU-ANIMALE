@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".pets.FilterActivity">
+    tools:context=".pets.filtering.FilterActivity">
 
     <com.google.android.material.appbar.AppBarLayout
         android:id="@+id/filter_appBarLayout"
@@ -33,7 +33,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintBottom_toBottomOf="parent">
-        <LinearLayout
+        <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical" >
@@ -42,7 +42,11 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
-                android:paddingHorizontal="@dimen/padding_horizontal">
+                android:paddingHorizontal="@dimen/padding_horizontal"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintBottom_toTopOf="@id/filterSex_linearLayout">
                 <com.google.android.material.textview.MaterialTextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -73,11 +77,10 @@
                         android:id="@+id/filterCategoryAll_chip"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="@string/all"
+                        android:text="@string/all_categories"
                         style="@style/Widget.Material3.Chip.Filter"/>
                 </com.google.android.material.chip.ChipGroup>
             </LinearLayout>
-
             <LinearLayout
                 android:id="@+id/filterSex_linearLayout"
                 android:layout_width="match_parent"
@@ -86,7 +89,8 @@
                 android:paddingHorizontal="@dimen/padding_horizontal"
                 app:layout_constraintTop_toBottomOf="@+id/filterCategory_linearLayout"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintEnd_toEndOf="parent">
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintBottom_toTopOf="@id/filterSize_linearLayout">
                 <com.google.android.material.textview.MaterialTextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -117,11 +121,10 @@
                         android:id="@+id/filterSexAll_chip"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="@string/all"
+                        android:text="@string/both"
                         style="@style/Widget.Material3.Chip.Filter"/>
                 </com.google.android.material.chip.ChipGroup>
             </LinearLayout>
-
             <LinearLayout
                 android:id="@+id/filterSize_linearLayout"
                 android:layout_width="match_parent"
@@ -130,7 +133,8 @@
                 android:paddingHorizontal="@dimen/padding_horizontal"
                 app:layout_constraintTop_toBottomOf="@+id/filterSex_linearLayout"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintEnd_toEndOf="parent">
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintBottom_toTopOf="@id/filterAge_linearLayout">
                 <com.google.android.material.textview.MaterialTextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -183,11 +187,10 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginEnd="@dimen/horizontal_space_between_items"
-                        android:text="@string/all"
+                        android:text="@string/all_sizes"
                         style="@style/Widget.Material3.Chip.Filter"/>
                 </com.google.android.material.chip.ChipGroup>
             </LinearLayout>
-
             <LinearLayout
                 android:id="@+id/filterAge_linearLayout"
                 android:layout_width="match_parent"
@@ -196,7 +199,8 @@
                 android:paddingHorizontal="@dimen/padding_horizontal"
                 app:layout_constraintTop_toBottomOf="@+id/filterSize_linearLayout"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintEnd_toEndOf="parent">
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintBottom_toTopOf="@id/filterFriendly_linearLayout">
                 <com.google.android.material.textview.MaterialTextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -256,7 +260,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginEnd="@dimen/horizontal_space_between_items"
-                        android:text="@string/all"
+                        android:text="@string/none"
                         style="@style/Widget.Material3.Chip.Filter"/>
                 </com.google.android.material.chip.ChipGroup>
             </LinearLayout>
@@ -266,9 +270,10 @@
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
                 android:paddingHorizontal="@dimen/padding_horizontal"
-                app:layout_constraintTop_toBottomOf="@+id/filterSize_linearLayout"
+                app:layout_constraintTop_toBottomOf="@+id/filterAge_linearLayout"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintEnd_toEndOf="parent">
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintBottom_toTopOf="@id/filterFitForGuarding_linearLayout">
                 <com.google.android.material.textview.MaterialTextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -295,13 +300,7 @@
                         android:layout_marginEnd="@dimen/horizontal_space_between_items"
                         android:text="@string/pets"
                         style="@style/Widget.Material3.Chip.Filter"/>
-                    <com.google.android.material.chip.Chip
-                        android:id="@+id/filterFriendlyAll_chip"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginEnd="@dimen/horizontal_space_between_items"
-                        android:text="@string/all"
-                        style="@style/Widget.Material3.Chip.Filter"/>
+
                 </com.google.android.material.chip.ChipGroup>
             </LinearLayout>
             <LinearLayout
@@ -310,7 +309,7 @@
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
                 android:paddingHorizontal="@dimen/padding_horizontal"
-                app:layout_constraintTop_toBottomOf="@+id/filterSize_linearLayout"
+                app:layout_constraintTop_toBottomOf="@+id/filterFriendly_linearLayout"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintEnd_toEndOf="parent">
                 <com.google.android.material.textview.MaterialTextView
@@ -347,7 +346,18 @@
                         android:text="@string/all"
                         style="@style/Widget.Material3.Chip.Filter"/>
                 </com.google.android.material.chip.ChipGroup>
+
             </LinearLayout>
-        </LinearLayout>
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/filter_materialButton"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:text="@string/apply_filters"
+                app:layout_constraintWidth_max="@dimen/material_button_max_width"
+                app:layout_constraintTop_toBottomOf="@+id/filterFitForGuarding_linearLayout"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"/>
+        </androidx.constraintlayout.widget.ConstraintLayout>
     </ScrollView>
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -119,4 +119,10 @@
     <string name="pet_was_last_seen_location_here">Pet was last seen here</string>
     <string name="find">Find</string>
     <string name="rescue">Rescue</string>
+    <string name="apply_filters">Apply filters</string>
+    <string name="all_categories">All categories</string>
+    <string name="both">Both</string>
+    <string name="all_sizes">All sizes</string>
+    <string name="none">None</string>
+    <string name="found">Found</string>
 </resources>
