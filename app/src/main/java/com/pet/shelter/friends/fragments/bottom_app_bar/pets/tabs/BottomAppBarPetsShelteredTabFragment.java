@@ -17,7 +17,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ListView;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton;
@@ -46,10 +45,10 @@ public class BottomAppBarPetsShelteredTabFragment extends Fragment {
     private String loggedUserId;
     private SearchView searchView;
     private SearchBar searchBar;
-    private RelativeLayout addPetsRelativeLayout;
     private ConstraintLayout petsConstraintLayout;
     private MaterialTextView materialTextView, nothingFound;
     private ListView listView;
+    private ExtendedFloatingActionButton addPetsExtendedFloatingActionButton;
     private final ArrayList<ShelteredPetData> shelteredPetsList = new ArrayList<>();
     private ShelteredPetsCustomAdapter shelteredPetsCustomAdapter;
 
@@ -66,14 +65,13 @@ public class BottomAppBarPetsShelteredTabFragment extends Fragment {
         FirebaseDatabase firebaseDatabase = FirebaseDatabase.getInstance();
         roles = firebaseDatabase.getReference("roles");
         shelteredPetsReference = firebaseDatabase.getReference("pets");
-        searchView = layout.findViewById(R.id.bottomAppBarPetsSheltered_searchView);
-        searchBar = layout.findViewById(R.id.bottomAppBarPetsSheltered_searchBar);
+        searchView = layout.findViewById(R.id.bottomAppBarPetsShelteredTab_searchView);
+        searchBar = layout.findViewById(R.id.bottomAppBarPetsShelteredTab_searchBar);
         listView = layout.findViewById(R.id.bottomAppBarPetsShelteredTab_listView);
-        addPetsRelativeLayout = layout.findViewById(R.id.bottomAppBarPetsShelteredTabAdd_relativeLayout);
         petsConstraintLayout = layout.findViewById(R.id.bottomAppBarPetsShelteredTab_constraintLayout);
         materialTextView = layout.findViewById(R.id.bottomAppBarPetsShelteredTabNothing_materialTextView);
         nothingFound = layout.findViewById(R.id.bottomAppBarPetsShelteredTabNothingFound_materialTextView);
-        ExtendedFloatingActionButton addPetsExtendedFloatingActionButton = layout.findViewById(R.id.bottomAppBarPetsShelteredTabAdd_extendedFloatingActionButton);
+        addPetsExtendedFloatingActionButton = layout.findViewById(R.id.bottomAppBarPetsShelteredTabAdd_extendedFloatingActionButton);
 
         loggedUserId = Objects.requireNonNull(firebaseAuth.getCurrentUser()).getUid();
 
@@ -137,21 +135,11 @@ public class BottomAppBarPetsShelteredTabFragment extends Fragment {
         if (!filteredList.isEmpty()) {
             nothingFound.setVisibility(View.GONE);
             listView.setVisibility(View.VISIBLE);
-            shelteredPetsCustomAdapter.setFilteredList(filteredList);
+            shelteredPetsCustomAdapter.setFilteredListByName(filteredList);
         } else {
             listView.setVisibility(View.GONE);
             nothingFound.setVisibility(View.VISIBLE);
         }
-    }
-
-    @Override
-    public void onResume() {
-        super.onResume();
-    }
-
-    @Override
-    public void onPause() {
-        super.onPause();
     }
 
     private void getDataFromDatabase() {
@@ -177,7 +165,6 @@ public class BottomAppBarPetsShelteredTabFragment extends Fragment {
                 } else {
                     listView.setVisibility(View.GONE);
                     materialTextView.setVisibility(View.VISIBLE);
-                    addPetsRelativeLayout.setVisibility(View.VISIBLE);
                 }
             }
 
@@ -191,9 +178,9 @@ public class BottomAppBarPetsShelteredTabFragment extends Fragment {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 if (snapshot.child(loggedUserId).hasChild("user")) {
-                    addPetsRelativeLayout.setVisibility(View.GONE);
+                    addPetsExtendedFloatingActionButton.setVisibility(View.GONE);
                 } else {
-                    addPetsRelativeLayout.setVisibility(View.VISIBLE);
+                    addPetsExtendedFloatingActionButton.setVisibility(View.VISIBLE);
                 }
             }
 
@@ -212,6 +199,35 @@ public class BottomAppBarPetsShelteredTabFragment extends Fragment {
                 listView.invalidate();
             }
         });
+    }
 
+    @Override
+    public void onResume() {
+        super.onResume();
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+    }
+
+    @Override
+    public void onStart() {
+        super.onStart();
+    }
+
+    @Override
+    public void onStop() {
+        super.onStop();
+    }
+
+    @Override
+    public void onLowMemory() {
+        super.onLowMemory();
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
     }
 }

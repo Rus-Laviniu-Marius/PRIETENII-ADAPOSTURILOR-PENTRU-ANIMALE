@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -12,7 +12,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent" >
         <com.google.android.material.search.SearchBar
-            android:id="@+id/bottomAppBarPetsSheltered_searchBar"
+            android:id="@+id/bottomAppBarPetsShelteredTab_searchBar"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:contentDescription="@string/search_hint_for_pets"
@@ -22,27 +22,28 @@
             app:layout_constraintStart_toStartOf="parent"/>
 
         <com.google.android.material.search.SearchView
-            android:id="@+id/bottomAppBarPetsSheltered_searchView"
+            android:id="@+id/bottomAppBarPetsShelteredTab_searchView"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="@string/search_hint_for_pets"
-            app:layout_constraintTop_toTopOf="parent"
+            app:layout_anchor="@id/bottomAppBarPetsShelteredTab_searchBar"
+            app:layout_constraintHorizontal_bias="1.0"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_anchor="@id/bottomAppBarPetsSheltered_searchBar">
+            app:layout_constraintTop_toTopOf="parent">
             <!-- Search suggestions/results go here (ScrollView, RecyclerView, etc.). -->
-        </com.google.android.material.search.SearchView>
 
+        </com.google.android.material.search.SearchView>
         <ListView
             android:id="@+id/bottomAppBarPetsShelteredTab_listView"
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:dividerHeight="@dimen/margin_vertical"
-            app:layout_constraintTop_toBottomOf="@+id/bottomAppBarPetsSheltered_searchBar"
-            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"/>
-
+            app:layout_constraintTop_toBottomOf="@+id/bottomAppBarPetsShelteredTab_searchBar"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_behavior="com.google.android.material.behavior.HideBottomViewOnScrollBehavior" />
         <com.google.android.material.textview.MaterialTextView
             android:id="@+id/bottomAppBarPetsShelteredTabNothingFound_materialTextView"
             android:layout_width="match_parent"
@@ -56,27 +57,26 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent" />
 
-        <RelativeLayout
-            android:id="@+id/bottomAppBarPetsShelteredTabAdd_relativeLayout"
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:padding="@dimen/medium_padding"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentEnd="true">
+        <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
+            android:id="@+id/bottomAppBarPetsShelteredTabAdd_extendedFloatingActionButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:padding="@dimen/extra_space_for_floating_action_buttons"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent">
+            android:contentDescription="@string/add"
+            android:layout_marginVertical="@dimen/vertical_space_between_items"
+            android:drawableStart="@drawable/add_24"
+            android:text="@string/pet"
+            style="@style/Widget.Material3.ExtendedFloatingActionButton.Primary"
+            app:icon="@drawable/add_24"/>
+    </RelativeLayout>
 
-            <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
-                android:id="@+id/bottomAppBarPetsShelteredTabAdd_extendedFloatingActionButton"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:contentDescription="@string/add"
-                android:layout_marginVertical="@dimen/vertical_space_between_items"
-                android:drawableStart="@drawable/add_24"
-                android:text="@string/pet"
-                style="@style/Widget.Material3.ExtendedFloatingActionButton.Primary"
-                app:icon="@drawable/add_24"
-                android:layout_centerInParent="true"/>
-        </RelativeLayout>
-    </androidx.constraintlayout.widget.ConstraintLayout>
 
     <com.google.android.material.textview.MaterialTextView
         android:id="@+id/bottomAppBarPetsShelteredTabNothing_materialTextView"
@@ -87,4 +87,4 @@
         style="@style/TextAppearance.Material3.DisplayMedium"
         android:gravity="center"/>
 
-</FrameLayout>
+</RelativeLayout>

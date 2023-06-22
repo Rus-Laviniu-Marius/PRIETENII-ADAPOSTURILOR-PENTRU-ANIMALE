@@ -30,7 +30,7 @@ public class ShelteredPetsCustomAdapter extends ArrayAdapter<ShelteredPetData> {
         custom_pets_view_layout_id = resource;
     }
 
-    public void setFilteredList(List<ShelteredPetData> filteredList) {
+    public void setFilteredListByName(List<ShelteredPetData> filteredList) {
         petsList = filteredList;
         notifyDataSetChanged();
     }
@@ -61,13 +61,13 @@ public class ShelteredPetsCustomAdapter extends ArrayAdapter<ShelteredPetData> {
         MaterialTextView petDescription = v.findViewById(R.id.petListItemDescription_materialTextView);
         ImageView favoriteImage = v.findViewById(R.id.petListItemIcon_shapeImageView);
         DatabaseReference petsReference = FirebaseDatabase.getInstance().getReference("pets");
-
         // get the item using the position param
         ShelteredPetData shelteredPetData = petsList.get(position);
         Picasso.get().load(shelteredPetData.getPetImage1DownloadLink()).into(petImage);
         petType.setText(shelteredPetData.getPetType());
         petName.setText(shelteredPetData.getPetName());
         petDescription.setText(shelteredPetData.getPetDescription());
+        String favorite = shelteredPetData.getFavorite();
 
         favoriteImage.setOnClickListener(new View.OnClickListener() {
             boolean isFavorite = false;
@@ -84,9 +84,11 @@ public class ShelteredPetsCustomAdapter extends ArrayAdapter<ShelteredPetData> {
             }
         });
 
-        if (shelteredPetData.getFavorite().equals("yes")) {
+        if (favorite == null) {
+            favoriteImage.setImageDrawable(AppCompatResources.getDrawable(getContext(), R.drawable.favorite_outlined_24));
+        } else if (favorite.equals("yes")) {
             favoriteImage.setImageDrawable(AppCompatResources.getDrawable(getContext(), R.drawable.favorite_filled_24));
-        } else {
+        } else if (favorite.equals("no")) {
             favoriteImage.setImageDrawable(AppCompatResources.getDrawable(getContext(), R.drawable.favorite_outlined_24));
         }
 
