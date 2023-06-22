@@ -2,6 +2,7 @@ package com.pet.shelter.friends.pets;
 
 public class PetData {
     private String shelterAdministratorId;
+    private String userId;
     private String petImage1DownloadLink;
     private String petImage2DownloadLink;
     private String petImage3DownloadLink;
@@ -26,6 +27,7 @@ public class PetData {
     public PetData() { }
 
     public PetData(String shelterAdministratorId,
+                   String userId,
                    String petImage1DownloadLink,
                    String petName,
                    String petType,
@@ -45,6 +47,7 @@ public class PetData {
                    String friendlyWithPets,
                    String favorite) {
         this.shelterAdministratorId = shelterAdministratorId;
+        this.userId = userId;
         this.petImage1DownloadLink = petImage1DownloadLink;
         this.petName = petName;
         this.petType = petType;
@@ -71,6 +74,14 @@ public class PetData {
 
     public void setShelterAdministratorId(String shelterAdministratorId) {
         this.shelterAdministratorId = shelterAdministratorId;
+    }
+
+    public String getUserId() {
+        return userId;
+    }
+
+    public void setUserId(String userId) {
+        this.userId = userId;
     }
 
     public String getPetImage1DownloadLink() {

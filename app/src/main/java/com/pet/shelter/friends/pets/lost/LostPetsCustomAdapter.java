@@ -48,9 +48,9 @@ public class LostPetsCustomAdapter extends ArrayAdapter<PetData> {
 
         // initializing the card elements and setting data
         ImageView petImage = v.findViewById(R.id.lostPetListItemLeading_shapeImageView);
-        MaterialTextView petType = v.findViewById(R.id.petListItemType_materialTextView);
-        MaterialTextView petName = v.findViewById(R.id.petListItemName_materialTextView);
-        MaterialTextView petDescription = v.findViewById(R.id.petListItemDescription_materialTextView);
+        MaterialTextView petType = v.findViewById(R.id.lostPetListItemType_materialTextView);
+        MaterialTextView petName = v.findViewById(R.id.lostPetListItemName_materialTextView);
+        MaterialTextView petDescription = v.findViewById(R.id.lostPetListItemDescription_materialTextView);
 
         // get the item using the position param
         PetData petData = petsList.get(position);

@@ -248,43 +248,10 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:text="@string/vaccines"
-                app:layout_constraintBottom_toTopOf="@+id/addLostPetFitForChildren_materialCheckBox"
-                app:layout_constraintEnd_toStartOf="@id/guideline49"
-                app:layout_constraintStart_toEndOf="@id/guideline48"
-                app:layout_constraintTop_toBottomOf="@+id/addLostPetDewormed_materialCheckBox"
-                app:layout_constraintWidth_max="@dimen/material_checkbox" />
-
-            <com.google.android.material.checkbox.MaterialCheckBox
-                android:id="@+id/addLostPetFitForChildren_materialCheckBox"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:text="@string/fit_for_children"
-                app:layout_constraintBottom_toTopOf="@+id/addLostPetFitForGuarding_materialCheckBox"
-                app:layout_constraintEnd_toStartOf="@id/guideline49"
-                app:layout_constraintStart_toEndOf="@id/guideline48"
-                app:layout_constraintTop_toBottomOf="@+id/addLostPetVaccines_materialCheckBox"
-                app:layout_constraintWidth_max="@dimen/material_checkbox" />
-
-            <com.google.android.material.checkbox.MaterialCheckBox
-                android:id="@+id/addLostPetFitForGuarding_materialCheckBox"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:text="@string/fit_for_guarding"
-                app:layout_constraintBottom_toTopOf="@+id/addLostPetFriendlyWithOtherPets_materialCheckBox"
-                app:layout_constraintEnd_toStartOf="@id/guideline49"
-                app:layout_constraintStart_toEndOf="@id/guideline48"
-                app:layout_constraintTop_toBottomOf="@+id/addLostPetFitForChildren_materialCheckBox"
-                app:layout_constraintWidth_max="@dimen/material_checkbox" />
-
-            <com.google.android.material.checkbox.MaterialCheckBox
-                android:id="@+id/addLostPetFriendlyWithOtherPets_materialCheckBox"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:text="@string/friendly_with_other_pets"
                 app:layout_constraintBottom_toTopOf="@+id/addLostPet_materialButton"
                 app:layout_constraintEnd_toStartOf="@id/guideline49"
                 app:layout_constraintStart_toEndOf="@id/guideline48"
-                app:layout_constraintTop_toBottomOf="@+id/addLostPetFitForGuarding_materialCheckBox"
+                app:layout_constraintTop_toBottomOf="@+id/addLostPetDewormed_materialCheckBox"
                 app:layout_constraintWidth_max="@dimen/material_checkbox" />
 
             <com.google.android.material.button.MaterialButton
@@ -296,7 +263,7 @@
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toStartOf="@id/guideline49"
                 app:layout_constraintStart_toEndOf="@id/guideline48"
-                app:layout_constraintTop_toBottomOf="@+id/addLostPetFriendlyWithOtherPets_materialCheckBox"
+                app:layout_constraintTop_toBottomOf="@+id/addLostPetVaccines_materialCheckBox"
                 app:layout_constraintWidth_max="@dimen/material_button_max_width" />
 
             <androidx.constraintlayout.widget.Guideline

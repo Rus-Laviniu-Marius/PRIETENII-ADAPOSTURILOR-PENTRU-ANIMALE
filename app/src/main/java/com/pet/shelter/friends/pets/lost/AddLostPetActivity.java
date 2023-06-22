@@ -36,8 +36,11 @@ import com.google.android.material.textfield.MaterialAutoCompleteTextView;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.android.material.textfield.TextInputLayout;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
@@ -63,9 +66,10 @@ public class AddLostPetActivity extends AppCompatActivity implements TextWatcher
     private static final int PICK_FROM_GALLERY = 1889;
     private static final int MY_CAMERA_PERMISSION_CODE = 100;
     private String loggedUserId;
+    private boolean shelterAdministrator, user;
     private ActivityResultLauncher<Intent> galleryActivityResultLauncher, cameraActivityResultLauncher;
     private String selectedType, selectedSize, selectedSex, selectedAge, spayedOrNeutered,
-            dewormed, vaccines, fitForChildren, fitForGuarding, friendlyWithPets;
+            dewormed, vaccines;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -93,12 +97,10 @@ public class AddLostPetActivity extends AppCompatActivity implements TextWatcher
         MaterialCheckBox spayedOrNeuteredMaterialCheckBox = findViewById(R.id.addLostPetSpayedOrNeutered_materialCheckBox);
         MaterialCheckBox dewormedMaterialCheckBox = findViewById(R.id.addLostPetDewormed_materialCheckBox);
         MaterialCheckBox vaccinesMaterialCheckBox = findViewById(R.id.addLostPetVaccines_materialCheckBox);
-        MaterialCheckBox fitForChildrenMaterialCheckBox = findViewById(R.id.addLostPetFitForChildren_materialCheckBox);
-        MaterialCheckBox fitForGuardingMaterialCheckBox = findViewById(R.id.addLostPetFitForGuarding_materialCheckBox);
-        MaterialCheckBox friendlyWithPetsMaterialCheckBox = findViewById(R.id.addLostPetFriendlyWithOtherPets_materialCheckBox);
 
         StorageReference petsImages = FirebaseStorage.getInstance().getReference("petsImages");
         DatabaseReference petsReference = FirebaseDatabase.getInstance().getReference("pets");
+        DatabaseReference roles = FirebaseDatabase.getInstance().getReference("roles");
         loggedUserId = Objects.requireNonNull(FirebaseAuth.getInstance().getCurrentUser()).getUid();
 
         String[] petsType = {"Dog", "Cat"};
@@ -193,39 +195,6 @@ public class AddLostPetActivity extends AppCompatActivity implements TextWatcher
             }
         });
 
-        fitForChildrenMaterialCheckBox.addOnCheckedStateChangedListener(new MaterialCheckBox.OnCheckedStateChangedListener() {
-            @Override
-            public void onCheckedStateChangedListener(@NonNull MaterialCheckBox checkBox, int state) {
-                if (checkBox.isChecked()) {
-                    fitForChildren = "yes";
-                } else {
-                    fitForChildren = "no";
-                }
-            }
-        });
-
-        fitForGuardingMaterialCheckBox.addOnCheckedStateChangedListener(new MaterialCheckBox.OnCheckedStateChangedListener() {
-            @Override
-            public void onCheckedStateChangedListener(@NonNull MaterialCheckBox checkBox, int state) {
-                if (checkBox.isChecked()) {
-                    fitForGuarding = "yes";
-                } else {
-                    fitForGuarding = "no";
-                }
-            }
-        });
-
-        friendlyWithPetsMaterialCheckBox.addOnCheckedStateChangedListener(new MaterialCheckBox.OnCheckedStateChangedListener() {
-            @Override
-            public void onCheckedStateChangedListener(@NonNull MaterialCheckBox checkBox, int state) {
-                if (checkBox.isChecked()) {
-                    friendlyWithPets = "yes";
-                } else {
-                    friendlyWithPets = "no";
-                }
-            }
-        });
-
         typeMaterialAutoCompleteTextView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
@@ -287,13 +256,36 @@ public class AddLostPetActivity extends AppCompatActivity implements TextWatcher
             }
         });
 
+        roles.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                if (snapshot.hasChild(loggedUserId)) {
+                    snapshot = snapshot.child(loggedUserId);
+                    if (snapshot.hasChild("shelterAdministrator")) {
+                        shelterAdministrator = true;
+                        user = false;
+                    } else if (snapshot.hasChild("user")) {
+                        user = true;
+                        shelterAdministrator = false;
+                    }
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+
         addPetMaterialButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
+
                 String petName = Objects.requireNonNull(nameTextInputEditText.getText()).toString();
                 String petDescription = Objects.requireNonNull(descriptionTextInputEditText.getText()).toString();
                 String petBreed = Objects.requireNonNull(breedTextInputEditText.getText()).toString();
+
                 String petToSave = petName + "_" + petDescription;
 
                 ValidationManager.getInstance().doValidation(AddLostPetActivity.this,
@@ -321,8 +313,12 @@ public class AddLostPetActivity extends AppCompatActivity implements TextWatcher
                                                 Toast.makeText(AddLostPetActivity.this, "Image uploaded", Toast.LENGTH_SHORT).show();
                                                 String fileLink = task.getResult().toString();
 
-                                                petsReference.child("Lost").child(petToSave).child("petType").setValue(selectedType);
-                                                petsReference.child("Lost").child(petToSave).child("shelterAdministratorId").setValue(loggedUserId);
+                                                if (shelterAdministrator) {
+                                                    petsReference.child("Lost").child(petToSave).child("shelterAdministratorId").setValue(loggedUserId);
+                                                } else if (user) {
+                                                    petsReference.child("Lost").child(petToSave).child("userId").setValue(loggedUserId);
+                                                }
+
                                                 petsReference.child("Lost").child(petToSave).child("petImage1DownloadLink").setValue(fileLink);
                                                 petsReference.child("Lost").child(petToSave).child("petName").setValue(petName);
                                                 petsReference.child("Lost").child(petToSave).child("petType").setValue(selectedType);
@@ -334,9 +330,6 @@ public class AddLostPetActivity extends AppCompatActivity implements TextWatcher
                                                 petsReference.child("Lost").child(petToSave).child("spayedOrNeutered").setValue(spayedOrNeutered);
                                                 petsReference.child("Lost").child(petToSave).child("dewormed").setValue(dewormed);
                                                 petsReference.child("Lost").child(petToSave).child("vaccines").setValue(vaccines);
-                                                petsReference.child("Lost").child(petToSave).child("fitForChildren").setValue(fitForChildren);
-                                                petsReference.child("Lost").child(petToSave).child("fitForGuarding").setValue(fitForGuarding);
-                                                petsReference.child("Lost").child(petToSave).child("friendlyWithPets").setValue(friendlyWithPets);
                                             }
                                         });
                                         finish();
@@ -360,6 +353,12 @@ public class AddLostPetActivity extends AppCompatActivity implements TextWatcher
                                                 Toast.makeText(AddLostPetActivity.this, "Image uploaded", Toast.LENGTH_SHORT).show();
                                                 String fileLink = task.getResult().toString();
 
+                                                if (shelterAdministrator) {
+                                                    petsReference.child("Lost").child(petToSave).child("shelterAdministratorId").setValue(loggedUserId);
+                                                } else if (user) {
+                                                    petsReference.child("Lost").child(petToSave).child("userId").setValue(loggedUserId);
+                                                }
+
                                                 petsReference.child("Lost").child(petToSave).child("petType").setValue(selectedType);
                                                 petsReference.child("Lost").child(petToSave).child("petImage1DownloadLink").setValue(fileLink);
                                                 petsReference.child("Lost").child(petToSave).child("petName").setValue(petName);
@@ -372,9 +371,6 @@ public class AddLostPetActivity extends AppCompatActivity implements TextWatcher
                                                 petsReference.child("Lost").child(petToSave).child("spayedOrNeutered").setValue(spayedOrNeutered);
                                                 petsReference.child("Lost").child(petToSave).child("dewormed").setValue(dewormed);
                                                 petsReference.child("Lost").child(petToSave).child("vaccines").setValue(vaccines);
-                                                petsReference.child("Lost").child(petToSave).child("fitForChildren").setValue(fitForChildren);
-                                                petsReference.child("Lost").child(petToSave).child("fitForGuarding").setValue(fitForGuarding);
-                                                petsReference.child("Lost").child(petToSave).child("friendlyWithPets").setValue(friendlyWithPets);
                                             }
                                         });
                                         finish();
