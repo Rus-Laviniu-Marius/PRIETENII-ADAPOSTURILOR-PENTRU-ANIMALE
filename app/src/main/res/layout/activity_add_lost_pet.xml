@@ -20,6 +20,7 @@
             android:layout_height="?attr/actionBarSize"
             app:layout_anchor="@+id/appBarLayout"
             app:layout_anchorGravity="center"
+            app:titleCentered="true"
             app:menu="@menu/open_camera_and_gallery_top_app_bar_menu"
             app:navigationIcon="@drawable/arrow_back_24"
             app:title="Add lost pet" />
@@ -45,11 +46,58 @@
                 android:adjustViewBounds="true"
                 android:scaleType="centerInside"
                 android:src="@drawable/media"
-                app:layout_constraintBottom_toTopOf="@+id/addLostPetType_textInputLayout"
+                app:layout_constraintBottom_toTopOf="@+id/addLostPetOwnerEmail_textInputLayout"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="parent"
                 app:layout_constraintVertical_chainStyle="spread_inside" />
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/addLostPetOwnerEmail_textInputLayout"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginVertical="@dimen/vertical_space_between_items"
+                android:hint="@string/email"
+                app:helperTextEnabled="true"
+                app:helperText="*Required"
+                app:layout_constraintBottom_toTopOf="@+id/addLostPetOwnerPhoneNumber_textInputLayout"
+                app:layout_constraintEnd_toStartOf="@id/guideline49"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toEndOf="@id/guideline48"
+                app:layout_constraintTop_toBottomOf="@+id/addLostPet_shapeImageView"
+                app:layout_constraintWidth_max="@dimen/material_textInputLayout_max_width">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/addLostPetOwnerEmail_textInputEditText"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="textEmailAddress" />
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/addLostPetOwnerPhoneNumber_textInputLayout"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginVertical="@dimen/vertical_space_between_items"
+                android:hint="@string/phone_number"
+                app:helperText="*Required"
+                app:counterEnabled="true"
+                app:counterMaxLength="10"
+                app:layout_constraintBottom_toTopOf="@+id/addLostPetType_textInputLayout"
+                app:layout_constraintEnd_toStartOf="@id/guideline49"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toEndOf="@id/guideline48"
+                app:layout_constraintTop_toBottomOf="@+id/addLostPetOwnerEmail_textInputLayout"
+                app:layout_constraintWidth_max="@dimen/material_textInputLayout_max_width">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/addLostPetOwnerPhoneNumber_textInputEditText"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="phone" />
+            </com.google.android.material.textfield.TextInputLayout>
 
             <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/addLostPetType_textInputLayout"
@@ -58,11 +106,13 @@
                 android:layout_height="wrap_content"
                 android:layout_marginVertical="@dimen/vertical_space_between_items"
                 android:hint="@string/select_pet_type"
+                app:helperTextEnabled="true"
+                app:helperText="*Required"
                 app:layout_constraintBottom_toTopOf="@+id/addLostPetName_textInputLayout"
                 app:layout_constraintEnd_toStartOf="@id/guideline49"
                 app:layout_constraintHorizontal_bias="0.5"
                 app:layout_constraintStart_toEndOf="@id/guideline48"
-                app:layout_constraintTop_toBottomOf="@+id/addLostPet_shapeImageView"
+                app:layout_constraintTop_toBottomOf="@+id/addLostPetOwnerPhoneNumber_textInputLayout"
                 app:layout_constraintWidth_max="@dimen/material_textInputLayout_max_width">
 
                 <com.google.android.material.textfield.MaterialAutoCompleteTextView
@@ -79,6 +129,8 @@
                 android:layout_height="wrap_content"
                 android:layout_marginVertical="@dimen/vertical_space_between_items"
                 android:hint="@string/pet_name"
+                app:helperTextEnabled="true"
+                app:helperText="*Required"
                 app:layout_constraintBottom_toTopOf="@+id/addLostPetBreed_textInputLayout"
                 app:layout_constraintEnd_toStartOf="@id/guideline49"
                 app:layout_constraintHorizontal_bias="0.5"
@@ -100,6 +152,8 @@
                 android:layout_height="wrap_content"
                 android:layout_marginVertical="@dimen/vertical_space_between_items"
                 android:hint="@string/pet_breed"
+                app:helperTextEnabled="true"
+                app:helperText="*Required"
                 app:layout_constraintBottom_toTopOf="@+id/addLostPetAge_textInputLayout"
                 app:layout_constraintEnd_toStartOf="@id/guideline49"
                 app:layout_constraintHorizontal_bias="0.5"
@@ -121,6 +175,8 @@
                 android:layout_height="wrap_content"
                 android:layout_marginVertical="@dimen/vertical_space_between_items"
                 android:hint="@string/pet_age"
+                app:helperTextEnabled="true"
+                app:helperText="*Required"
                 app:layout_constraintBottom_toTopOf="@+id/addLostPetSize_textInputLayout"
                 app:layout_constraintEnd_toStartOf="@id/guideline49"
                 app:layout_constraintHorizontal_bias="0.5"
@@ -142,6 +198,8 @@
                 android:layout_height="wrap_content"
                 android:layout_marginVertical="@dimen/vertical_space_between_items"
                 android:hint="@string/pet_size"
+                app:helperTextEnabled="true"
+                app:helperText="*Required"
                 app:layout_constraintBottom_toTopOf="@+id/addLostPetSex_textInputLayout"
                 app:layout_constraintEnd_toStartOf="@id/guideline49"
                 app:layout_constraintHorizontal_bias="0.5"
@@ -163,6 +221,8 @@
                 android:layout_height="wrap_content"
                 android:layout_marginVertical="@dimen/vertical_space_between_items"
                 android:hint="@string/pet_sex"
+                app:helperTextEnabled="true"
+                app:helperText="*Required"
                 app:layout_constraintBottom_toTopOf="@+id/addLostPetColor_textInputLayout"
                 app:layout_constraintEnd_toStartOf="@id/guideline49"
                 app:layout_constraintHorizontal_bias="0.5"
@@ -185,6 +245,8 @@
                 android:layout_marginVertical="@dimen/vertical_space_between_items"
                 android:hint="@string/pet_color"
                 android:visibility="gone"
+                app:helperTextEnabled="true"
+                app:helperText="*Required"
                 app:layout_constraintBottom_toTopOf="@+id/addLostPetDescription_textInputLayout"
                 app:layout_constraintEnd_toStartOf="@+id/guideline49"
                 app:layout_constraintHorizontal_bias="0.5"
@@ -206,6 +268,8 @@
                 android:layout_height="wrap_content"
                 android:layout_marginVertical="@dimen/vertical_space_between_items"
                 android:hint="@string/pet_description"
+                app:helperTextEnabled="true"
+                app:helperText="*Required"
                 app:layout_constraintBottom_toTopOf="@+id/addLostPetSpayedOrNeutered_materialCheckBox"
                 app:layout_constraintEnd_toStartOf="@id/guideline49"
                 app:layout_constraintHorizontal_bias="0.5"

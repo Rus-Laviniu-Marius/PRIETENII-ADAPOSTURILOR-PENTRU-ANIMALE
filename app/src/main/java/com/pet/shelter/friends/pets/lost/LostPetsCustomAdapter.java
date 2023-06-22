@@ -10,18 +10,18 @@ import android.widget.ImageView;
 import androidx.annotation.NonNull;
 import com.google.android.material.textview.MaterialTextView;
 import com.pet.shelter.friends.R;
-import com.pet.shelter.friends.pets.PetData;
+import com.pet.shelter.friends.pets.lost.LostPetData;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class LostPetsCustomAdapter extends ArrayAdapter<PetData> {
+public class LostPetsCustomAdapter extends ArrayAdapter<LostPetData> {
 
-    private List<PetData> petsList;
+    private List<LostPetData> petsList;
     private final int custom_pets_view_layout_id;
 
-    public LostPetsCustomAdapter(@NonNull Context context, int resource, @NonNull List<PetData> objects) {
+    public LostPetsCustomAdapter(@NonNull Context context, int resource, @NonNull List<LostPetData> objects) {
         super(context, resource, objects);
         petsList = objects;
         custom_pets_view_layout_id = resource;
@@ -53,16 +53,16 @@ public class LostPetsCustomAdapter extends ArrayAdapter<PetData> {
         MaterialTextView petDescription = v.findViewById(R.id.lostPetListItemDescription_materialTextView);
 
         // get the item using the position param
-        PetData petData = petsList.get(position);
-        Picasso.get().load(petData.getPetImage1DownloadLink()).into(petImage);
-        petType.setText(petData.getPetType());
-        petName.setText(petData.getPetName());
-        petDescription.setText(petData.getPetDescription());
+        LostPetData lostPetData = petsList.get(position);
+        Picasso.get().load(lostPetData.getPetImage1DownloadLink()).into(petImage);
+        petType.setText(lostPetData.getPetType());
+        petName.setText(lostPetData.getPetName());
+        petDescription.setText(lostPetData.getPetDescription());
 
         return v;
     }
 
-    public void upToDate(List<PetData> newList){
+    public void upToDate(List<LostPetData> newList){
         petsList = new ArrayList<>();
         petsList.addAll(newList);
         notifyDataSetChanged();

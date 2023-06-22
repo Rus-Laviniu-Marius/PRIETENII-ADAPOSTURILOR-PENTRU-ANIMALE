@@ -14,21 +14,25 @@ import com.google.android.material.textview.MaterialTextView;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.pet.shelter.friends.R;
-import com.pet.shelter.friends.pets.PetData;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class ShelteredPetsCustomAdapter extends ArrayAdapter<PetData> {
+public class ShelteredPetsCustomAdapter extends ArrayAdapter<ShelteredPetData> {
 
-    private List<PetData> petsList;
+    private List<ShelteredPetData> petsList;
     private final int custom_pets_view_layout_id;
 
-    public ShelteredPetsCustomAdapter(@NonNull Context context, int resource, @NonNull List<PetData> objects) {
+    public ShelteredPetsCustomAdapter(@NonNull Context context, int resource, @NonNull List<ShelteredPetData> objects) {
         super(context, resource, objects);
         petsList = objects;
         custom_pets_view_layout_id = resource;
+    }
+
+    public void setFilteredList(List<ShelteredPetData> filteredList) {
+        petsList = filteredList;
+        notifyDataSetChanged();
     }
 
     @Override
@@ -59,11 +63,11 @@ public class ShelteredPetsCustomAdapter extends ArrayAdapter<PetData> {
         DatabaseReference petsReference = FirebaseDatabase.getInstance().getReference("pets");
 
         // get the item using the position param
-        PetData petData = petsList.get(position);
-        Picasso.get().load(petData.getPetImage1DownloadLink()).into(petImage);
-        petType.setText(petData.getPetType());
-        petName.setText(petData.getPetName());
-        petDescription.setText(petData.getPetDescription());
+        ShelteredPetData shelteredPetData = petsList.get(position);
+        Picasso.get().load(shelteredPetData.getPetImage1DownloadLink()).into(petImage);
+        petType.setText(shelteredPetData.getPetType());
+        petName.setText(shelteredPetData.getPetName());
+        petDescription.setText(shelteredPetData.getPetDescription());
 
         favoriteImage.setOnClickListener(new View.OnClickListener() {
             boolean isFavorite = false;
@@ -71,16 +75,16 @@ public class ShelteredPetsCustomAdapter extends ArrayAdapter<PetData> {
             public void onClick(View v) {
                 if (isFavorite) {
                     favoriteImage.setImageDrawable(AppCompatResources.getDrawable(getContext(), R.drawable.favorite_filled_24));
-                    petsReference.child("Sheltered").child(petData.getPetName()+"_"+ petData.getPetDescription()).child("favorite").setValue("yes");
+                    petsReference.child("Sheltered").child(shelteredPetData.getPetName()+"_"+ shelteredPetData.getPetDescription()).child("favorite").setValue("yes");
                 } else {
                     favoriteImage.setImageDrawable(AppCompatResources.getDrawable(getContext(), R.drawable.favorite_outlined_24));
-                    petsReference.child("Sheltered").child(petData.getPetName()+"_"+ petData.getPetDescription()).child("favorite").setValue("no");
+                    petsReference.child("Sheltered").child(shelteredPetData.getPetName()+"_"+ shelteredPetData.getPetDescription()).child("favorite").setValue("no");
                 }
                 isFavorite = !isFavorite;
             }
         });
 
-        if (petData.getFavorite().equals("yes")) {
+        if (shelteredPetData.getFavorite().equals("yes")) {
             favoriteImage.setImageDrawable(AppCompatResources.getDrawable(getContext(), R.drawable.favorite_filled_24));
         } else {
             favoriteImage.setImageDrawable(AppCompatResources.getDrawable(getContext(), R.drawable.favorite_outlined_24));
@@ -90,7 +94,7 @@ public class ShelteredPetsCustomAdapter extends ArrayAdapter<PetData> {
         return v;
     }
 
-    public void upToDate(List<PetData> newList){
+    public void upToDate(List<ShelteredPetData> newList){
         petsList = new ArrayList<>();
         petsList.addAll(newList);
         notifyDataSetChanged();

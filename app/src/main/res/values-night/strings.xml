@@ -2,6 +2,7 @@
 <resources>
     <string name="what_user_did_short_description">What user did short description</string>
     <string name="general_settings">General settings</string>
+    <string name="search_hint_for_pets">Search by pet name</string>
     <string name="select_language">Select language</string>
     <string name="copy_events_to_calendar">Copy events to calendar</string>
     <string name="add_payment_method">Add payment method</string>
@@ -125,4 +126,5 @@
     <string name="all_sizes">All sizes</string>
     <string name="none">None</string>
     <string name="found">Found</string>
+    <string name="there_is_no_added_pet_with_that_name">There is no added pet with that name</string>
 </resources>

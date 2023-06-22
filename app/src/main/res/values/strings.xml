@@ -180,6 +180,7 @@
     <string name="favorite_pets">Favorite pets</string>
     <string name="search_label">Search</string>
     <string name="search_hint">Search by pet name</string>
+    <string name="search_hint_for_pets">Search by pet name</string>
     <string name="see_adoption_requests">See adoption requests</string>
     <string name="user_name">User name</string>
     <string name="rating">Rating</string>
@@ -394,5 +395,6 @@
     <string name="all_sizes">All sizes</string>
     <string name="none">None</string>
     <string name="found">Found</string>
+    <string name="there_is_no_added_pet_with_that_name">There is no added pet with that name</string>
 
 </resources>

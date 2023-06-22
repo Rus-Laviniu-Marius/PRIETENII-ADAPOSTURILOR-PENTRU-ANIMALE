@@ -6,18 +6,23 @@ import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
+import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.fragment.app.Fragment;
 
 import android.os.Handler;
 import android.os.Looper;
+import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
+import android.widget.TextView;
 
 import com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton;
+import com.google.android.material.search.SearchBar;
+import com.google.android.material.search.SearchView;
 import com.google.android.material.textview.MaterialTextView;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
@@ -26,15 +31,11 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.pet.shelter.friends.R;
-import com.pet.shelter.friends.SearchQueryEvent;
 import com.pet.shelter.friends.pets.sheltered.AddShelteredPetActivity;
-import com.pet.shelter.friends.pets.PetData;
+import com.pet.shelter.friends.pets.sheltered.ShelteredPetData;
 import com.pet.shelter.friends.pets.sheltered.ShelteredPetDetailsActivity;
 import com.pet.shelter.friends.pets.sheltered.ShelteredPetsCustomAdapter;
 
-import org.greenrobot.eventbus.EventBus;
-import org.greenrobot.eventbus.Subscribe;
-import org.greenrobot.eventbus.ThreadMode;
 
 import java.util.ArrayList;
 import java.util.Objects;
@@ -43,11 +44,13 @@ public class BottomAppBarPetsShelteredTabFragment extends Fragment {
 
     private DatabaseReference shelteredPetsReference, roles;
     private String loggedUserId;
-    private RelativeLayout addPetsRelativeLayout, petsRelativeLayout;
-    private MaterialTextView materialTextView;
+    private SearchView searchView;
+    private SearchBar searchBar;
+    private RelativeLayout addPetsRelativeLayout;
+    private ConstraintLayout petsConstraintLayout;
+    private MaterialTextView materialTextView, nothingFound;
     private ListView listView;
-
-    private final ArrayList<PetData> shelteredPetsList = new ArrayList<>();
+    private final ArrayList<ShelteredPetData> shelteredPetsList = new ArrayList<>();
     private ShelteredPetsCustomAdapter shelteredPetsCustomAdapter;
 
     public BottomAppBarPetsShelteredTabFragment() {
@@ -63,11 +66,13 @@ public class BottomAppBarPetsShelteredTabFragment extends Fragment {
         FirebaseDatabase firebaseDatabase = FirebaseDatabase.getInstance();
         roles = firebaseDatabase.getReference("roles");
         shelteredPetsReference = firebaseDatabase.getReference("pets");
-
+        searchView = layout.findViewById(R.id.bottomAppBarPetsSheltered_searchView);
+        searchBar = layout.findViewById(R.id.bottomAppBarPetsSheltered_searchBar);
         listView = layout.findViewById(R.id.bottomAppBarPetsShelteredTab_listView);
         addPetsRelativeLayout = layout.findViewById(R.id.bottomAppBarPetsShelteredTabAdd_relativeLayout);
-        petsRelativeLayout = layout.findViewById(R.id.bottomAppBarPetsShelteredTab_relativeLayout);
+        petsConstraintLayout = layout.findViewById(R.id.bottomAppBarPetsShelteredTab_constraintLayout);
         materialTextView = layout.findViewById(R.id.bottomAppBarPetsShelteredTabNothing_materialTextView);
+        nothingFound = layout.findViewById(R.id.bottomAppBarPetsShelteredTabNothingFound_materialTextView);
         ExtendedFloatingActionButton addPetsExtendedFloatingActionButton = layout.findViewById(R.id.bottomAppBarPetsShelteredTabAdd_extendedFloatingActionButton);
 
         loggedUserId = Objects.requireNonNull(firebaseAuth.getCurrentUser()).getUid();
@@ -82,27 +87,39 @@ public class BottomAppBarPetsShelteredTabFragment extends Fragment {
             }
         });
 
+
+        searchView.setupWithSearchBar(searchBar);
+        searchView.getEditText().setOnEditorActionListener(new TextView.OnEditorActionListener() {
+            @Override
+            public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
+                searchBar.setText(searchView.getText());
+                filterList(String.valueOf(searchView.getText()));
+                searchView.hide();
+                return false;
+            }
+        });
+
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                PetData petData = shelteredPetsCustomAdapter.getItem(position);
+                ShelteredPetData shelteredPetData = shelteredPetsCustomAdapter.getItem(position);
                 Intent intent = new Intent(getActivity(), ShelteredPetDetailsActivity.class);
-                intent.putExtra("shelterAdministratorId", petData.getShelterAdministratorId());
-                intent.putExtra("petImage1DownloadLink", petData.getPetImage1DownloadLink());
-                intent.putExtra("petType", petData.getPetType());
-                intent.putExtra("petName", petData.getPetName());
-                intent.putExtra("petBreed", petData.getPetBreed());
-                intent.putExtra("petAge", petData.getPetAge());
-                intent.putExtra("petSize", petData.getPetSize());
-                intent.putExtra("petSex", petData.getPetSex());
-                intent.putExtra("petDescription", petData.getPetDescription());
-                intent.putExtra("spayedOrNeutered", petData.getSpayedOrNeutered());
-                intent.putExtra("dewormed", petData.getDewormed());
-                intent.putExtra("vaccines", petData.getVaccines());
-                intent.putExtra("fitForChildren", petData.getFitForChildren());
-                intent.putExtra("fitForGuarding", petData.getFitForGuarding());
-                intent.putExtra("friendlyWithPets", petData.getFriendlyWithPets());
-                intent.putExtra("isFavorite", petData.getFavorite());
+                intent.putExtra("shelterAdministratorId", shelteredPetData.getShelterAdministratorId());
+                intent.putExtra("petImage1DownloadLink", shelteredPetData.getPetImage1DownloadLink());
+                intent.putExtra("petType", shelteredPetData.getPetType());
+                intent.putExtra("petName", shelteredPetData.getPetName());
+                intent.putExtra("petBreed", shelteredPetData.getPetBreed());
+                intent.putExtra("petAge", shelteredPetData.getPetAge());
+                intent.putExtra("petSize", shelteredPetData.getPetSize());
+                intent.putExtra("petSex", shelteredPetData.getPetSex());
+                intent.putExtra("petDescription", shelteredPetData.getPetDescription());
+                intent.putExtra("spayedOrNeutered", shelteredPetData.getSpayedOrNeutered());
+                intent.putExtra("dewormed", shelteredPetData.getDewormed());
+                intent.putExtra("vaccines", shelteredPetData.getVaccines());
+                intent.putExtra("fitForChildren", shelteredPetData.getFitForChildren());
+                intent.putExtra("fitForGuarding", shelteredPetData.getFitForGuarding());
+                intent.putExtra("friendlyWithPets", shelteredPetData.getFriendlyWithPets());
+                intent.putExtra("isFavorite", shelteredPetData.getFavorite());
                 startActivity(intent);
             }
         });
@@ -110,22 +127,31 @@ public class BottomAppBarPetsShelteredTabFragment extends Fragment {
         return layout;
     }
 
+    private void filterList(String newText) {
+        ArrayList<ShelteredPetData> filteredList = new ArrayList<>();
+        for (ShelteredPetData shelteredPetData : shelteredPetsList) {
+            if (shelteredPetData.getPetName().toLowerCase().contains(newText.toLowerCase())) {
+                filteredList.add(shelteredPetData);
+            }
+        }
+        if (!filteredList.isEmpty()) {
+            nothingFound.setVisibility(View.GONE);
+            listView.setVisibility(View.VISIBLE);
+            shelteredPetsCustomAdapter.setFilteredList(filteredList);
+        } else {
+            listView.setVisibility(View.GONE);
+            nothingFound.setVisibility(View.VISIBLE);
+        }
+    }
+
     @Override
     public void onResume() {
         super.onResume();
-        EventBus.getDefault().register(this);
     }
 
     @Override
     public void onPause() {
-        EventBus.getDefault().unregister(this);
         super.onPause();
-    }
-
-    @Subscribe(threadMode = ThreadMode.MAIN)
-    public void onSearchQuery(SearchQueryEvent event) {
-        String query=event.getQuery();
-        shelteredPetsCustomAdapter.getFilter().filter(query);
     }
 
     private void getDataFromDatabase() {
@@ -133,13 +159,13 @@ public class BottomAppBarPetsShelteredTabFragment extends Fragment {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 if (snapshot.hasChild("Sheltered")) {
-                    petsRelativeLayout.setVisibility(View.VISIBLE);
+                    petsConstraintLayout.setVisibility(View.VISIBLE);
                     materialTextView.setVisibility(View.GONE);
 
                     shelteredPetsList.clear();
                     for (DataSnapshot newsArticleSnapshot : snapshot.child("Sheltered").getChildren()) {
-                        PetData petData = newsArticleSnapshot.getValue(PetData.class);
-                        shelteredPetsList.add(petData);
+                        ShelteredPetData shelteredPetData = newsArticleSnapshot.getValue(ShelteredPetData.class);
+                        shelteredPetsList.add(shelteredPetData);
                     }
 
                     shelteredPetsCustomAdapter = new ShelteredPetsCustomAdapter(getApplicationContext(),

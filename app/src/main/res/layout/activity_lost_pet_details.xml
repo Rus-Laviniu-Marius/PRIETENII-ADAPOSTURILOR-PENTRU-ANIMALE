@@ -237,57 +237,6 @@
                     android:checked="true"
                     android:focusable="true" />
             </com.google.android.material.chip.ChipGroup>
-
-            <com.google.android.material.textview.MaterialTextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="@string/pet_characteristics"
-                android:layout_marginVertical="@dimen/vertical_space_between_items"
-                style="@style/TextAppearance.Material3.HeadlineSmall"/>
-
-            <com.google.android.material.chip.ChipGroup
-                android:id="@+id/lostPetDetailsPetData_chipGroup"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:paddingHorizontal="@dimen/padding_horizontal"
-                android:paddingVertical="@dimen/padding_vertical_header">
-                <com.google.android.material.chip.Chip
-                    android:id="@+id/lostPetDetailsFitForChildren_chip"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/fit_for_children"
-                    style="@style/Widget.Material3.Chip.Assist.Elevated"
-                    app:checkedIcon="@drawable/check_24"
-                    android:checkable="true"
-                    android:clickable="true"
-                    app:checkedIconEnabled="true"
-                    android:checked="true"
-                    android:focusable="true" />
-                <com.google.android.material.chip.Chip
-                    android:id="@+id/lostPetDetailsFitForGuarding_chip"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/fit_for_guarding"
-                    style="@style/Widget.Material3.Chip.Assist.Elevated"
-                    app:checkedIcon="@drawable/check_24"
-                    android:checkable="true"
-                    android:clickable="true"
-                    app:checkedIconEnabled="true"
-                    android:checked="true"
-                    android:focusable="true" />
-                <com.google.android.material.chip.Chip
-                    android:id="@+id/lostPetDetailsFriendlyWithPets_chip"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/friendly_with_other_pets"
-                    style="@style/Widget.Material3.Chip.Assist.Elevated"
-                    app:checkedIcon="@drawable/check_24"
-                    android:checkable="true"
-                    android:clickable="true"
-                    app:checkedIconEnabled="true"
-                    android:checked="true"
-                    android:focusable="true" />
-            </com.google.android.material.chip.ChipGroup>
         </LinearLayout>
     </ScrollView>
 

@@ -15,24 +15,21 @@ import com.pet.shelter.friends.pets.sheltered.ShelteredPetDetailsActivity;
 
 public class AdoptionApplicationParagraphsActivity extends AppCompatActivity {
 
-    private MaterialToolbar materialToolbar;
     private ConstraintLayout constraintLayout;
-    private MaterialButton aboutPetAdopter, familyAndHousehold, otherOwnedPets, veterinarian,
-            wishedPetDetails, personalReferences;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_adoption_application_paragraphs);
 
-        materialToolbar = findViewById(R.id.petAdoptionApplication_materialToolbar);
+        MaterialToolbar materialToolbar = findViewById(R.id.petAdoptionApplication_materialToolbar);
         constraintLayout = findViewById(R.id.petAdoptionApplication_constraintLayout);
-        aboutPetAdopter = findViewById(R.id.petAdoptionApplicationAboutPetAdopterInformationParagraph_materialButton);
-        familyAndHousehold = findViewById(R.id.petAdoptionApplicationFamilyAndHouseholdInformationParagraph_materialButton);
-        otherOwnedPets = findViewById(R.id.petAdoptionApplicationOtherOwnedPetsInformationParagraph_materialButton);
-        veterinarian = findViewById(R.id.petAdoptionApplicationVeterinarianInformationParagraph_materialButton);
-        wishedPetDetails = findViewById(R.id.petAdoptionApplicationAboutWishedPetInformationParagraph_materialButton);
-        personalReferences = findViewById(R.id.petAdoptionApplicationPersonalReferencesInformationParagraph_materialButton);
+        MaterialButton aboutPetAdopter = findViewById(R.id.petAdoptionApplicationAboutPetAdopterInformationParagraph_materialButton);
+        MaterialButton familyAndHousehold = findViewById(R.id.petAdoptionApplicationFamilyAndHouseholdInformationParagraph_materialButton);
+        MaterialButton otherOwnedPets = findViewById(R.id.petAdoptionApplicationOtherOwnedPetsInformationParagraph_materialButton);
+        MaterialButton veterinarian = findViewById(R.id.petAdoptionApplicationVeterinarianInformationParagraph_materialButton);
+        MaterialButton wishedPetDetails = findViewById(R.id.petAdoptionApplicationAboutWishedPetInformationParagraph_materialButton);
+        MaterialButton personalReferences = findViewById(R.id.petAdoptionApplicationPersonalReferencesInformationParagraph_materialButton);
 
         materialToolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
@@ -46,6 +43,13 @@ public class AdoptionApplicationParagraphsActivity extends AppCompatActivity {
                 intent.putExtra("petSex", getIntent().getStringExtra("petSex"));
                 intent.putExtra("petDescription", getIntent().getStringExtra("petDescription"));
                 intent.putExtra("petImage1DownloadLink", getIntent().getStringExtra("petImage1DownloadLink"));
+                intent.putExtra("spayedOrNeutered", getIntent().getStringExtra("spayedOrNeutered"));
+                intent.putExtra("dewormed", getIntent().getStringExtra("dewormed"));
+                intent.putExtra("vaccines", getIntent().getStringExtra("vaccines"));
+                intent.putExtra("fitForChildren", getIntent().getStringExtra("fitForChildren"));
+                intent.putExtra("fitForGuarding", getIntent().getStringExtra("fitForGuarding"));
+                intent.putExtra("friendlyWithPets", getIntent().getStringExtra("friendlyWithPets"));
+                intent.putExtra("isFavorite", getIntent().getStringExtra("isFavorite"));
                 startActivity(intent);
                 finish();
             }

@@ -1,7 +1,9 @@
 package com.pet.shelter.friends.pets.sheltered;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.content.res.AppCompatResources;
+import androidx.appcompat.view.ActionMode;
 import androidx.appcompat.widget.Toolbar;
 import androidx.viewpager2.widget.ViewPager2;
 
@@ -137,10 +139,12 @@ public class ShelteredPetDetailsActivity extends AppCompatActivity {
             friendlyWithPetsChip.setVisibility(View.GONE);
         }
 
-        if (favorite.equals("yes")) {
-            favoriteMaterialButton.setIcon(AppCompatResources.getDrawable(ShelteredPetDetailsActivity.this, R.drawable.favorite_filled_24));
-        } else {
-            favoriteMaterialButton.setIcon(AppCompatResources.getDrawable(ShelteredPetDetailsActivity.this, R.drawable.favorite_outlined_24));
+        if (favorite != null) {
+            if (favorite.equals("yes")) {
+                favoriteMaterialButton.setIcon(AppCompatResources.getDrawable(ShelteredPetDetailsActivity.this, R.drawable.favorite_filled_24));
+            } else if (favorite.equals("no")) {
+                favoriteMaterialButton.setIcon(AppCompatResources.getDrawable(ShelteredPetDetailsActivity.this, R.drawable.favorite_outlined_24));
+            }
         }
 
         favoriteMaterialButton.setOnClickListener(new View.OnClickListener() {
@@ -178,6 +182,7 @@ public class ShelteredPetDetailsActivity extends AppCompatActivity {
                 intent.putExtra("fitForChildren", fitForChildren);
                 intent.putExtra("fitForGuarding", fitForGuarding);
                 intent.putExtra("friendlyWithPets", friendlyWithPets);
+                intent.putExtra("isFavorite", favorite);
                 startActivity(intent);
                 finish();
             }
@@ -253,5 +258,35 @@ public class ShelteredPetDetailsActivity extends AppCompatActivity {
                 super.onPageSelected(position);
             }
         });
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+    }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+    }
+
+    @Override
+    public void onLowMemory() {
+        super.onLowMemory();
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
     }
 }

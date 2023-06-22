@@ -24,21 +24,19 @@ import android.widget.RelativeLayout;
 
 import com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton;
 import com.google.android.material.textview.MaterialTextView;
-import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.pet.shelter.friends.R;
-import com.pet.shelter.friends.pets.abandoned.AbandonedPetDetailsActivity;
-import com.pet.shelter.friends.pets.PetData;
+import com.pet.shelter.friends.pets.lost.LostPetData;
+import com.pet.shelter.friends.pets.lost.LostPetData;
 import com.pet.shelter.friends.pets.lost.AddLostPetActivity;
 import com.pet.shelter.friends.pets.lost.LostPetDetailsActivity;
 import com.pet.shelter.friends.pets.lost.LostPetsCustomAdapter;
 
 import java.util.ArrayList;
-import java.util.Objects;
 
 public class BottomAppBarPetsLostTabFragment extends Fragment {
 
@@ -46,7 +44,7 @@ public class BottomAppBarPetsLostTabFragment extends Fragment {
     private RelativeLayout addPetsRelativeLayout, petsRelativeLayout;
     private MaterialTextView materialTextView;
     private ListView listView;
-    private final ArrayList<PetData> lostPetsList = new ArrayList<>();
+    private final ArrayList<LostPetData> lostPetsList = new ArrayList<>();
     private LostPetsCustomAdapter lostPetsCustomAdapter;
 
     public BottomAppBarPetsLostTabFragment() {
@@ -67,7 +65,6 @@ public class BottomAppBarPetsLostTabFragment extends Fragment {
         materialTextView = layout.findViewById(R.id.bottomAppBarPetsLostTabNothing_materialTextView);
         ExtendedFloatingActionButton addPetsExtendedFloatingActionButton = layout.findViewById(R.id.bottomAppBarPetsLostTabAdd_extendedFloatingActionButton);
 
-        // You can do the assignment inside onAttach or onCreate, i.e, before the activity is displayed
         ActivityResultLauncher<Intent> someActivityResultLauncher = registerForActivityResult(
                 new ActivityResultContracts.StartActivityForResult(),
                 new ActivityResultCallback<ActivityResult>() {
@@ -94,24 +91,21 @@ public class BottomAppBarPetsLostTabFragment extends Fragment {
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                PetData petData = lostPetsCustomAdapter.getItem(position);
+                LostPetData lostPetData = lostPetsCustomAdapter.getItem(position);
                 Intent intent = new Intent(getActivity(), LostPetDetailsActivity.class);
-                intent.putExtra("shelterAdministratorId", petData.getShelterAdministratorId());
-                intent.putExtra("userId", petData.getUserId());
-                intent.putExtra("petImage1DownloadLink", petData.getPetImage1DownloadLink());
-                intent.putExtra("petType", petData.getPetType());
-                intent.putExtra("petName", petData.getPetName());
-                intent.putExtra("petBreed", petData.getPetBreed());
-                intent.putExtra("petAge", petData.getPetAge());
-                intent.putExtra("petSize", petData.getPetSize());
-                intent.putExtra("petSex", petData.getPetSex());
-                intent.putExtra("petDescription", petData.getPetDescription());
-                intent.putExtra("spayedOrNeutered", petData.getSpayedOrNeutered());
-                intent.putExtra("dewormed", petData.getDewormed());
-                intent.putExtra("vaccines", petData.getVaccines());
-                intent.putExtra("fitForChildren", petData.getFitForChildren());
-                intent.putExtra("fitForGuarding", petData.getFitForGuarding());
-                intent.putExtra("friendlyWithPets", petData.getFriendlyWithPets());
+                intent.putExtra("ownerEmail", lostPetData.getOwnerEmail());
+                intent.putExtra("ownerPhoneNumber", lostPetData.getOwnerPhoneNumber());
+                intent.putExtra("petImage1DownloadLink", lostPetData.getPetImage1DownloadLink());
+                intent.putExtra("petType", lostPetData.getPetType());
+                intent.putExtra("petName", lostPetData.getPetName());
+                intent.putExtra("petBreed", lostPetData.getPetBreed());
+                intent.putExtra("petAge", lostPetData.getPetAge());
+                intent.putExtra("petSize", lostPetData.getPetSize());
+                intent.putExtra("petSex", lostPetData.getPetSex());
+                intent.putExtra("petDescription", lostPetData.getPetDescription());
+                intent.putExtra("spayedOrNeutered", lostPetData.getSpayedOrNeutered());
+                intent.putExtra("dewormed", lostPetData.getDewormed());
+                intent.putExtra("vaccines", lostPetData.getVaccines());
                 startActivity(intent);
             }
         });
@@ -129,8 +123,8 @@ public class BottomAppBarPetsLostTabFragment extends Fragment {
 
                     lostPetsList.clear();
                     for (DataSnapshot lostPetSnapshot : snapshot.child("Lost").getChildren()) {
-                        PetData petData = lostPetSnapshot.getValue(PetData.class);
-                        lostPetsList.add(petData);
+                        LostPetData lostPetData = lostPetSnapshot.getValue(LostPetData.class);
+                        lostPetsList.add(lostPetData);
                     }
 
                     lostPetsCustomAdapter = new LostPetsCustomAdapter(getApplicationContext(),

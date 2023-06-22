@@ -10,6 +10,7 @@
         android:id="@+id/pets_appBarLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        style="@style/Widget.Material3.AppBarLayout"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent">
@@ -17,9 +18,10 @@
             android:id="@+id/pets_materialToolbar"
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
+            style="@style/Widget.Material3.CollapsingToolbar.Medium"
             app:layout_anchor="@+id/appBarLayout"
             app:layout_anchorGravity="center"
-            app:menu="@menu/search_and_filter_top_app_bar_menu"
+            app:menu="@menu/filter_top_app_bar_menu"
             app:navigationIcon="@drawable/location_on_outlined_24"
             app:title="@string/user_current_location"
             app:titleCentered="true" />

@@ -58,18 +58,17 @@ public class AddLostPetActivity extends AppCompatActivity implements TextWatcher
     private ShapeableImageView petImage;
     private TextInputLayout typeTextInputLayout, nameTextInputLayout, breedTextInputLayout,
             ageTextInputLayout, sexTextInputLayout, sizeTextInputLayout, colorTextInputLayout,
-            descriptionTextInputLayout;
-    private TextInputEditText nameTextInputEditText, breedTextInputEditText, descriptionTextInputEditText;
+            descriptionTextInputLayout, ownerEmailTextInputLayout, ownerPhoneNumberTextInputLayout;
+    private TextInputEditText nameTextInputEditText, breedTextInputEditText, descriptionTextInputEditText,
+            ownerEmailTextInputEditText, ownerPhoneNumberTextInputEditText;
     private Uri gallerySelectedImageUri, cameraCapturedImageUri;
     private Bitmap cameraCapturedImageBitmap;
 
     private static final int PICK_FROM_GALLERY = 1889;
     private static final int MY_CAMERA_PERMISSION_CODE = 100;
-    private String loggedUserId;
-    private boolean shelterAdministrator, user;
     private ActivityResultLauncher<Intent> galleryActivityResultLauncher, cameraActivityResultLauncher;
     private String selectedType, selectedSize, selectedSex, selectedAge, spayedOrNeutered,
-            dewormed, vaccines;
+            dewormed, vaccines, phone, loggedUserId;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -87,6 +86,8 @@ public class AddLostPetActivity extends AppCompatActivity implements TextWatcher
         sizeTextInputLayout = findViewById(R.id.addLostPetSize_textInputLayout);
         colorTextInputLayout = findViewById(R.id.addLostPetColor_textInputLayout);
         descriptionTextInputLayout = findViewById(R.id.addLostPetDescription_textInputLayout);
+        ownerEmailTextInputLayout = findViewById(R.id.addLostPetOwnerEmail_textInputLayout);
+        ownerPhoneNumberTextInputLayout = findViewById(R.id.addLostPetOwnerPhoneNumber_textInputLayout);
         MaterialAutoCompleteTextView typeMaterialAutoCompleteTextView = findViewById(R.id.addLostPetTypes_materialAutoCompleteTextView);
         MaterialAutoCompleteTextView sizeMaterialAutoCompleteTextView = findViewById(R.id.addLostPetSize_materialAutoCompleteTextView);
         MaterialAutoCompleteTextView sexMaterialAutoCompleteTextView = findViewById(R.id.addLostPetSex_materialAutoCompleteTextView);
@@ -94,14 +95,46 @@ public class AddLostPetActivity extends AppCompatActivity implements TextWatcher
         nameTextInputEditText = findViewById(R.id.addLostPetName_textInputEditText);
         breedTextInputEditText = findViewById(R.id.addLostPetBreed_textInputEditText);
         descriptionTextInputEditText = findViewById(R.id.addLostPetDescription_textInputEditText);
+        ownerEmailTextInputEditText = findViewById(R.id.addLostPetOwnerEmail_textInputEditText);
+        ownerPhoneNumberTextInputEditText = findViewById(R.id.addLostPetOwnerPhoneNumber_textInputEditText);
         MaterialCheckBox spayedOrNeuteredMaterialCheckBox = findViewById(R.id.addLostPetSpayedOrNeutered_materialCheckBox);
         MaterialCheckBox dewormedMaterialCheckBox = findViewById(R.id.addLostPetDewormed_materialCheckBox);
         MaterialCheckBox vaccinesMaterialCheckBox = findViewById(R.id.addLostPetVaccines_materialCheckBox);
 
         StorageReference petsImages = FirebaseStorage.getInstance().getReference("petsImages");
         DatabaseReference petsReference = FirebaseDatabase.getInstance().getReference("pets");
-        DatabaseReference roles = FirebaseDatabase.getInstance().getReference("roles");
         loggedUserId = Objects.requireNonNull(FirebaseAuth.getInstance().getCurrentUser()).getUid();
+
+        DatabaseReference profiles = FirebaseDatabase.getInstance().getReference("profiles");
+
+        profiles.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                if (snapshot.hasChild("sheltersAdministrators")) {
+                    if (snapshot.child("sheltersAdministrators").hasChild(loggedUserId)) {
+                        if (snapshot.child("sheltersAdministrators").child(loggedUserId).hasChild("phoneNumber")) {
+                            Toast.makeText(AddLostPetActivity.this, String.valueOf(snapshot.child("sheltersAdministrators").child(loggedUserId).child("phoneNumber").getValue()), Toast.LENGTH_SHORT).show();
+                            phone = String.valueOf(snapshot.child("sheltersAdministrators").child(loggedUserId).child("phoneNumber").getValue());
+                        }
+                    }
+                } else if (snapshot.hasChild("users")) {
+                    if (snapshot.child("users").hasChild(loggedUserId)) {
+                        if (snapshot.child("users").child(loggedUserId).hasChild("phoneNumber")) {
+                            Toast.makeText(AddLostPetActivity.this, String.valueOf(snapshot.child("users").child(loggedUserId).child("phoneNumber").getValue()), Toast.LENGTH_SHORT).show();
+                            phone = String.valueOf(snapshot.child("users").child(loggedUserId).child("phoneNumber").getValue());
+                        }
+                    }
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+
+        ownerEmailTextInputEditText.setText(FirebaseAuth.getInstance().getCurrentUser().getEmail());
+        ownerPhoneNumberTextInputEditText.setText(phone);
 
         String[] petsType = {"Dog", "Cat"};
         String[] petsSize = {"XSmall", "Small", "Medium", "Large", "XLarge"};
@@ -256,27 +289,6 @@ public class AddLostPetActivity extends AppCompatActivity implements TextWatcher
             }
         });
 
-        roles.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot snapshot) {
-                if (snapshot.hasChild(loggedUserId)) {
-                    snapshot = snapshot.child(loggedUserId);
-                    if (snapshot.hasChild("shelterAdministrator")) {
-                        shelterAdministrator = true;
-                        user = false;
-                    } else if (snapshot.hasChild("user")) {
-                        user = true;
-                        shelterAdministrator = false;
-                    }
-                }
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError error) {
-
-            }
-        });
-
         addPetMaterialButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -285,15 +297,30 @@ public class AddLostPetActivity extends AppCompatActivity implements TextWatcher
                 String petName = Objects.requireNonNull(nameTextInputEditText.getText()).toString();
                 String petDescription = Objects.requireNonNull(descriptionTextInputEditText.getText()).toString();
                 String petBreed = Objects.requireNonNull(breedTextInputEditText.getText()).toString();
-
+                String email = Objects.requireNonNull(ownerEmailTextInputEditText.getText()).toString();
+                String phoneNumber = Objects.requireNonNull(ownerPhoneNumberTextInputEditText.getText()).toString();
                 String petToSave = petName + "_" + petDescription;
 
+                ValidationManager.getInstance().doValidation(AddLostPetActivity.this,
+                        ownerEmailTextInputLayout).checkEmpty().checkEmail();
+                ValidationManager.getInstance().doValidation(AddLostPetActivity.this,
+                        ownerPhoneNumberTextInputLayout).checkEmpty().checkPhoneNumber();
                 ValidationManager.getInstance().doValidation(AddLostPetActivity.this,
                         nameTextInputLayout).checkEmpty();
                 ValidationManager.getInstance().doValidation(AddLostPetActivity.this,
                         descriptionTextInputLayout).checkEmpty();
                 ValidationManager.getInstance().doValidation(AddLostPetActivity.this,
                         breedTextInputLayout).checkEmpty();
+                ValidationManager.getInstance().doValidation(AddLostPetActivity.this,
+                        typeTextInputLayout).checkEmpty();
+                ValidationManager.getInstance().doValidation(AddLostPetActivity.this,
+                        sexTextInputLayout).checkEmpty();
+                ValidationManager.getInstance().doValidation(AddLostPetActivity.this,
+                        sizeTextInputLayout).checkEmpty();
+                ValidationManager.getInstance().doValidation(AddLostPetActivity.this,
+                        ageTextInputLayout).checkEmpty();
+                ValidationManager.getInstance().doValidation(AddLostPetActivity.this,
+                        colorTextInputLayout).checkEmpty();
 
                 if (ValidationManager.getInstance().isNothingEmpty()) {
                     StorageReference ref = petsImages
@@ -313,13 +340,9 @@ public class AddLostPetActivity extends AppCompatActivity implements TextWatcher
                                                 Toast.makeText(AddLostPetActivity.this, "Image uploaded", Toast.LENGTH_SHORT).show();
                                                 String fileLink = task.getResult().toString();
 
-                                                if (shelterAdministrator) {
-                                                    petsReference.child("Lost").child(petToSave).child("shelterAdministratorId").setValue(loggedUserId);
-                                                } else if (user) {
-                                                    petsReference.child("Lost").child(petToSave).child("userId").setValue(loggedUserId);
-                                                }
-
                                                 petsReference.child("Lost").child(petToSave).child("petImage1DownloadLink").setValue(fileLink);
+                                                petsReference.child("Lost").child(petToSave).child("ownerEmail").setValue(email);
+                                                petsReference.child("Lost").child(petToSave).child("ownerPhoneNumber").setValue(phoneNumber);
                                                 petsReference.child("Lost").child(petToSave).child("petName").setValue(petName);
                                                 petsReference.child("Lost").child(petToSave).child("petType").setValue(selectedType);
                                                 petsReference.child("Lost").child(petToSave).child("petBreed").setValue(petBreed);
@@ -353,14 +376,9 @@ public class AddLostPetActivity extends AppCompatActivity implements TextWatcher
                                                 Toast.makeText(AddLostPetActivity.this, "Image uploaded", Toast.LENGTH_SHORT).show();
                                                 String fileLink = task.getResult().toString();
 
-                                                if (shelterAdministrator) {
-                                                    petsReference.child("Lost").child(petToSave).child("shelterAdministratorId").setValue(loggedUserId);
-                                                } else if (user) {
-                                                    petsReference.child("Lost").child(petToSave).child("userId").setValue(loggedUserId);
-                                                }
-
-                                                petsReference.child("Lost").child(petToSave).child("petType").setValue(selectedType);
                                                 petsReference.child("Lost").child(petToSave).child("petImage1DownloadLink").setValue(fileLink);
+                                                petsReference.child("Lost").child(petToSave).child("ownerEmail").setValue(email);
+                                                petsReference.child("Lost").child(petToSave).child("ownerPhoneNumber").setValue(phoneNumber);
                                                 petsReference.child("Lost").child(petToSave).child("petName").setValue(petName);
                                                 petsReference.child("Lost").child(petToSave).child("petType").setValue(selectedType);
                                                 petsReference.child("Lost").child(petToSave).child("petBreed").setValue(petBreed);
@@ -407,7 +425,8 @@ public class AddLostPetActivity extends AppCompatActivity implements TextWatcher
         Objects.requireNonNull(sexTextInputLayout.getEditText()).addTextChangedListener(this);
         Objects.requireNonNull(sizeTextInputLayout.getEditText()).addTextChangedListener(this);
         Objects.requireNonNull(colorTextInputLayout.getEditText()).addTextChangedListener(this);
-
+        Objects.requireNonNull(ownerEmailTextInputLayout.getEditText()).addTextChangedListener(this);
+        Objects.requireNonNull(ownerPhoneNumberTextInputLayout.getEditText()).addTextChangedListener(this);
     }
 
     @Override
@@ -438,6 +457,10 @@ public class AddLostPetActivity extends AppCompatActivity implements TextWatcher
             sizeTextInputLayout.setErrorEnabled(false);
         } else if (s.hashCode() == Objects.requireNonNull(colorTextInputLayout.getEditText()).getText().hashCode()) {
             colorTextInputLayout.setErrorEnabled(false);
+        } else if (s.hashCode() == Objects.requireNonNull(ownerEmailTextInputLayout.getEditText()).getText().hashCode()) {
+            ownerEmailTextInputLayout.setErrorEnabled(false);
+        } else if (s.hashCode() == Objects.requireNonNull(ownerPhoneNumberTextInputLayout.getEditText()).getText().hashCode()) {
+            ownerPhoneNumberTextInputLayout.setErrorEnabled(false);
         }
     }
 
