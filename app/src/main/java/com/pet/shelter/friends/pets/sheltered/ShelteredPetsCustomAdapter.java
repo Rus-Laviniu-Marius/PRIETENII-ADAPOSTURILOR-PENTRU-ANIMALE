@@ -30,9 +30,9 @@ public class ShelteredPetsCustomAdapter extends ArrayAdapter<ShelteredPetData> {
         custom_pets_view_layout_id = resource;
     }
 
-    public void setFilteredListByName(List<ShelteredPetData> filteredList) {
-        petsList = filteredList;
-        notifyDataSetChanged();
+    public ShelteredPetsCustomAdapter(@NonNull Context context, int resource) {
+        super(context, resource);
+        custom_pets_view_layout_id = resource;
     }
 
     @Override

@@ -197,7 +197,7 @@ public class AddShelteredPetActivity extends AppCompatActivity implements TextWa
             @Override
             public void onCheckedStateChangedListener(@NonNull MaterialCheckBox checkBox, int state) {
                 if (checkBox.isChecked()) {
-                    fitForChildren = "yes";
+                    fitForChildren = "Children";
                 } else {
                     fitForChildren = "no";
                 }
@@ -219,7 +219,7 @@ public class AddShelteredPetActivity extends AppCompatActivity implements TextWa
             @Override
             public void onCheckedStateChangedListener(@NonNull MaterialCheckBox checkBox, int state) {
                 if (checkBox.isChecked()) {
-                    friendlyWithPets = "yes";
+                    friendlyWithPets = "Pets";
                 } else {
                     friendlyWithPets = "no";
                 }

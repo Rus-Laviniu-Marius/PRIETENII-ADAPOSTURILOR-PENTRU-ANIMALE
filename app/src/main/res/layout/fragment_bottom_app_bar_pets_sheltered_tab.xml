@@ -1,90 +1,91 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:theme="@style/Theme.PetShelterFriends"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/bottomAppBarPetsShelteredTab_frameLayout"
     tools:context=".fragments.bottom_app_bar.pets.tabs.BottomAppBarPetsShelteredTabFragment">
 
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/bottomAppBarPetsShelteredTab_constraintLayout"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent" >
-        <com.google.android.material.search.SearchBar
-            android:id="@+id/bottomAppBarPetsShelteredTab_searchBar"
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/bottomAppBarPetsShelteredTab_constraintLayout"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:contentDescription="@string/search_hint_for_pets"
-            style="@style/Widget.Material3.SearchBar"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"/>
+            android:layout_height="match_parent" >
+            <com.google.android.material.search.SearchBar
+                android:id="@+id/bottomAppBarPetsShelteredTab_searchBar"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:contentDescription="@string/search_hint_for_pets"
+                style="@style/Widget.Material3.SearchBar"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"/>
 
-        <com.google.android.material.search.SearchView
-            android:id="@+id/bottomAppBarPetsShelteredTab_searchView"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="@string/search_hint_for_pets"
-            app:layout_anchor="@id/bottomAppBarPetsShelteredTab_searchBar"
-            app:layout_constraintHorizontal_bias="1.0"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent">
-            <!-- Search suggestions/results go here (ScrollView, RecyclerView, etc.). -->
+            <com.google.android.material.search.SearchView
+                android:id="@+id/bottomAppBarPetsShelteredTab_searchView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="@string/search_hint_for_pets"
+                app:layout_anchor="@id/bottomAppBarPetsShelteredTab_searchBar"
+                app:layout_constraintHorizontal_bias="1.0"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent">
+                <!-- Search suggestions/results go here (ScrollView, RecyclerView, etc.). -->
 
-        </com.google.android.material.search.SearchView>
-        <ListView
-            android:id="@+id/bottomAppBarPetsShelteredTab_listView"
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:dividerHeight="@dimen/margin_vertical"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/bottomAppBarPetsShelteredTab_searchBar"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_behavior="com.google.android.material.behavior.HideBottomViewOnScrollBehavior" />
-        <com.google.android.material.textview.MaterialTextView
-            android:id="@+id/bottomAppBarPetsShelteredTabNothingFound_materialTextView"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="@string/there_is_no_added_pet_with_that_name"
-            android:textAlignment="center"
-            android:visibility="gone"
-            style="@style/TextAppearance.Material3.HeadlineLarge"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent" />
+            </com.google.android.material.search.SearchView>
+            <ListView
+                android:id="@+id/bottomAppBarPetsShelteredTab_listView"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:dividerHeight="@dimen/margin_vertical"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/bottomAppBarPetsShelteredTab_searchBar"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_behavior="com.google.android.material.behavior.HideBottomViewOnScrollBehavior" />
+            <com.google.android.material.textview.MaterialTextView
+                android:id="@+id/bottomAppBarPetsShelteredTabNothingFound_materialTextView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/there_is_no_added_pet_with_that_name"
+                android:textAlignment="center"
+                android:visibility="gone"
+                style="@style/TextAppearance.Material3.HeadlineLarge"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent" />
 
-    </androidx.constraintlayout.widget.ConstraintLayout>
+        </androidx.constraintlayout.widget.ConstraintLayout>
 
-    <RelativeLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:padding="@dimen/medium_padding"
-        android:layout_alignParentBottom="true"
-        android:layout_alignParentEnd="true">
-        <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
-            android:id="@+id/bottomAppBarPetsShelteredTabAdd_extendedFloatingActionButton"
+        <RelativeLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:contentDescription="@string/add"
-            android:layout_marginVertical="@dimen/vertical_space_between_items"
-            android:drawableStart="@drawable/add_24"
-            android:text="@string/pet"
-            style="@style/Widget.Material3.ExtendedFloatingActionButton.Primary"
-            app:icon="@drawable/add_24"/>
-    </RelativeLayout>
+            android:padding="@dimen/medium_padding"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentEnd="true">
+            <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
+                android:id="@+id/bottomAppBarPetsShelteredTabAdd_extendedFloatingActionButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:contentDescription="@string/add"
+                android:layout_marginVertical="@dimen/vertical_space_between_items"
+                android:drawableStart="@drawable/add_24"
+                android:text="@string/pet"
+                style="@style/Widget.Material3.ExtendedFloatingActionButton.Primary"
+                app:icon="@drawable/add_24"/>
+        </RelativeLayout>
 
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/bottomAppBarPetsShelteredTabNothing_materialTextView"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:visibility="gone"
+            android:text="@string/sorry_no_sheltered_pets"
+            style="@style/TextAppearance.Material3.DisplayMedium"
+            android:gravity="center"/>
 
-    <com.google.android.material.textview.MaterialTextView
-        android:id="@+id/bottomAppBarPetsShelteredTabNothing_materialTextView"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:visibility="gone"
-        android:text="@string/sorry_no_sheltered_pets"
-        style="@style/TextAppearance.Material3.DisplayMedium"
-        android:gravity="center"/>
 
 </RelativeLayout>
