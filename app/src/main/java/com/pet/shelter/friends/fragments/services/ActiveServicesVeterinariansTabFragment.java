@@ -10,16 +10,19 @@ import androidx.fragment.app.Fragment;
 
 import android.os.Handler;
 import android.os.Looper;
+import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton;
 import com.google.android.material.search.SearchBar;
+import com.google.android.material.search.SearchView;
 import com.google.android.material.textview.MaterialTextView;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
@@ -41,11 +44,14 @@ public class ActiveServicesVeterinariansTabFragment extends Fragment {
     private DatabaseReference veterinariansActiveServicesReference, roles;
     private String loggedUserId;
     private SearchBar searchBar;
+    private SearchView searchView;
     private ListView veterinarianServicesListView;
     private RelativeLayout addActiveServicesVeterinarianRelativeLayout;
-    private MaterialTextView materialTextView;
+    private MaterialTextView materialTextView, nothingFound;
 
     private final ArrayList<ActiveServiceData> activeVeterinariansServicesList = new ArrayList<>();
+    private final ArrayList<ActiveServiceData> originalActiveVeterinariansServicesList = new ArrayList<>();
+
     private ActiveServicesCustomAdapter activeServicesCustomAdapter;
 
     public ActiveServicesVeterinariansTabFragment() {
@@ -62,14 +68,14 @@ public class ActiveServicesVeterinariansTabFragment extends Fragment {
         FirebaseDatabase firebaseDatabase = FirebaseDatabase.getInstance();
         roles = firebaseDatabase.getReference("roles");
         veterinariansActiveServicesReference = firebaseDatabase.getReference("activeServices");
-
         loggedUserId = Objects.requireNonNull(firebaseAuth.getCurrentUser()).getUid();
-
+        searchBar = layout.findViewById(R.id.activeServicesVeterinarians_searchBar);
+        searchView = layout.findViewById(R.id.activeServicesVeterinarians_searchView);
+        nothingFound = layout.findViewById(R.id.activeServicesVeterinariansNothingFound_materialTextView);
         veterinarianServicesListView = layout.findViewById(R.id.activeServicesVeterinarians_listView);
         addActiveServicesVeterinarianRelativeLayout = layout.findViewById(R.id.activeServicesAddVeterinarians_relativeLayout);
         ExtendedFloatingActionButton addServiceFloatingActionButton = layout.findViewById(R.id.activeServicesAddVeterinarians_floatingActionButton);
         materialTextView = layout.findViewById(R.id.activeServicesVeterinariansNoServices_materialTextView);
-        searchBar = layout.findViewById(R.id.activeServicesVeterinarians_searchBar);
 
 
         getDataFromDatabase();
@@ -79,6 +85,15 @@ public class ActiveServicesVeterinariansTabFragment extends Fragment {
             public void onClick(View v) {
                 startActivity(new Intent(getActivity(), AddServiceActivity.class));
                 requireActivity().finish();
+            }
+        });
+
+        searchBar.setHint("Search by provider name");
+        searchView.getEditText().setOnEditorActionListener(new TextView.OnEditorActionListener() {
+            @Override
+            public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
+
+                return false;
             }
         });
 
@@ -112,10 +127,12 @@ public class ActiveServicesVeterinariansTabFragment extends Fragment {
                     veterinarianServicesListView.setVisibility(View.VISIBLE);
                     materialTextView.setVisibility(View.GONE);
 
+                    originalActiveVeterinariansServicesList.clear();
                     activeVeterinariansServicesList.clear();
                     for (DataSnapshot activeServiceSnapshot : snapshot.child("Veterinarian").getChildren()) {
                         ActiveServiceData activeServiceData = activeServiceSnapshot.getValue(ActiveServiceData.class);
                         activeVeterinariansServicesList.add(activeServiceData);
+                        originalActiveVeterinariansServicesList.add(activeServiceData);
                     }
 
                     activeServicesCustomAdapter = new ActiveServicesCustomAdapter(getApplicationContext(),
@@ -162,5 +179,35 @@ public class ActiveServicesVeterinariansTabFragment extends Fragment {
                 veterinarianServicesListView.invalidate();
             }
         });
+    }
+
+    @Override
+    public void onStart() {
+        super.onStart();
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+    }
+
+    @Override
+    public void onStop() {
+        super.onStop();
+    }
+
+    @Override
+    public void onLowMemory() {
+        super.onLowMemory();
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
     }
 }
