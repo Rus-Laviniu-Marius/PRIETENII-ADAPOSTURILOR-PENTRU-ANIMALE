@@ -51,10 +51,11 @@ public class BottomAppBarPetsShelteredTabFragment extends Fragment {
     private MaterialTextView materialTextView, nothingFound;
     private ListView listView;
     private ExtendedFloatingActionButton addPetsExtendedFloatingActionButton;
-    private final ArrayList<ShelteredPetData> shelteredPetsList = new ArrayList<>();
-    private final ArrayList<ShelteredPetData> lastShelteredPetsList = new ArrayList<>();
-    private ShelteredPetsCustomAdapter shelteredPetsCustomAdapter, shelteredPetsFilteredByChipsCustomAdapter,
-            shelteredPetsFilteredByTextCustomAdapter, shelteredPetsFilteredByTextAndChipsCustomAdapter;
+    private ArrayList<ShelteredPetData> shelteredPetsList = new ArrayList<>();
+    private final ArrayList<ShelteredPetData> originalShelteredPetsList = new ArrayList<>();
+    private ArrayList<ShelteredPetData> textSearchedShelteredPetsList = new ArrayList<>();
+    private ArrayList<ShelteredPetData> filtersSearchedShelteredPetsList = new ArrayList<>();
+    private ShelteredPetsCustomAdapter shelteredPetsCustomAdapter;
     private FilterData filterData;
 
     public BottomAppBarPetsShelteredTabFragment() {
@@ -81,10 +82,10 @@ public class BottomAppBarPetsShelteredTabFragment extends Fragment {
 
         loggedUserId = Objects.requireNonNull(firebaseAuth.getCurrentUser()).getUid();
 
-        shelteredPetsFilteredByTextCustomAdapter = new ShelteredPetsCustomAdapter(requireContext(),
-                R.layout.sheltered_and_favorite_pet_list_item);
+        getShelteredPetsDataFromDatabase();
+        getRolesFromDatabase();
+        getFiltersDataFromDatabase();
 
-        getDataFromDatabase();
         addPetsExtendedFloatingActionButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -104,7 +105,6 @@ public class BottomAppBarPetsShelteredTabFragment extends Fragment {
                 return false;
             }
         });
-
 
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
@@ -134,41 +134,25 @@ public class BottomAppBarPetsShelteredTabFragment extends Fragment {
         return layout;
     }
 
-    private void filterListBySearchedName() {
-        ArrayList<ShelteredPetData> filteredList = new ArrayList<>();
-        boolean found = false;
-        String searchBarText = String.valueOf(searchBar.getText());
-        if (searchBarText.isEmpty()) {
-            listView.setAdapter(shelteredPetsCustomAdapter);
-            listView.setVisibility(View.VISIBLE);
-            nothingFound.setVisibility(View.GONE);
-        } else {
-            for (ShelteredPetData shelteredPetData : shelteredPetsList) {
-                if (shelteredPetData.getPetName().toLowerCase().contains(searchBarText.toLowerCase())) {
-                    filteredList.add(shelteredPetData);
-                    found = true;
+    private void getRolesFromDatabase() {
+        roles.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                if (snapshot.child(loggedUserId).hasChild("user")) {
+                    addPetsExtendedFloatingActionButton.setVisibility(View.GONE);
                 } else {
-                    found = false;
+                    addPetsExtendedFloatingActionButton.setVisibility(View.VISIBLE);
                 }
             }
-            if (found) {
-                nothingFound.setVisibility(View.GONE);
-                listView.setVisibility(View.VISIBLE);
-//                shelteredPetsFilteredByTextCustomAdapter = new ShelteredPetsCustomAdapter(requireContext(),
-//                        R.layout.sheltered_and_favorite_pet_list_item);
-                shelteredPetsFilteredByTextCustomAdapter.clear();
-                shelteredPetsFilteredByTextCustomAdapter.addAll(filteredList);
-                shelteredPetsFilteredByTextCustomAdapter.notifyDataSetChanged();
-                listView.setAdapter(shelteredPetsFilteredByTextCustomAdapter);
-                refresh();
-            } else {
-                nothingFound.setVisibility(View.VISIBLE);
-                listView.setVisibility(View.GONE);
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
             }
-        }
+        });
     }
 
-    private void getDataFromDatabase() {
+    private void getShelteredPetsDataFromDatabase() {
         shelteredPetsReference.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
@@ -176,13 +160,14 @@ public class BottomAppBarPetsShelteredTabFragment extends Fragment {
                     petsConstraintLayout.setVisibility(View.VISIBLE);
                     materialTextView.setVisibility(View.GONE);
 
+                    originalShelteredPetsList.clear();
                     shelteredPetsList.clear();
-                    lastShelteredPetsList.clear();
                     for (DataSnapshot shelteredPetSnapshot : snapshot.child("Sheltered").getChildren()) {
                         ShelteredPetData shelteredPetData = shelteredPetSnapshot.getValue(ShelteredPetData.class);
                         shelteredPetsList.add(shelteredPetData);
-                        lastShelteredPetsList.add(shelteredPetData);
+                        originalShelteredPetsList.add(shelteredPetData);
                     }
+
 
                     shelteredPetsCustomAdapter = new ShelteredPetsCustomAdapter(getApplicationContext(),
                             R.layout.sheltered_and_favorite_pet_list_item,
@@ -201,22 +186,9 @@ public class BottomAppBarPetsShelteredTabFragment extends Fragment {
                 System.out.println("The read failed: " + error.getMessage());
             }
         });
+    }
 
-        roles.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot snapshot) {
-                if (snapshot.child(loggedUserId).hasChild("user")) {
-                    addPetsExtendedFloatingActionButton.setVisibility(View.GONE);
-                } else {
-                    addPetsExtendedFloatingActionButton.setVisibility(View.VISIBLE);
-                }
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError error) {
-
-            }
-        });
+    private void getFiltersDataFromDatabase() {
 
         filters.addValueEventListener(new ValueEventListener() {
             @Override
@@ -237,64 +209,100 @@ public class BottomAppBarPetsShelteredTabFragment extends Fragment {
         });
     }
 
-    private void filterListByFilterChipsValue() {
-        shelteredPetsCustomAdapter.notifyDataSetChanged();
+    /**
+     * nothing search
+     * enter text
+     * check if each pet name contains entered text
+     * no - show nothing found text
+     * yes - show filtered by search list
+     * */
+    private void filterListBySearchedName() {
         ArrayList<ShelteredPetData> filteredList = new ArrayList<>();
-        for (ShelteredPetData shelteredPetData : shelteredPetsList) {
+        String searchBarText = String.valueOf(searchBar.getText());
+        if (searchBarText.isEmpty()) {
+            shelteredPetsCustomAdapter.clear();
+            shelteredPetsCustomAdapter.addAll(originalShelteredPetsList);
+            shelteredPetsCustomAdapter.notifyDataSetChanged();
+            listView.setAdapter(shelteredPetsCustomAdapter);
+            listView.setVisibility(View.VISIBLE);
+            nothingFound.setVisibility(View.GONE);
+        } else {
+            for (ShelteredPetData shelteredPetData : shelteredPetsList) {
+                if (shelteredPetData.getPetName().toLowerCase().contains(searchBarText.toLowerCase())) {
+                    filteredList.add(shelteredPetData);
+                    nothingFound.setVisibility(View.GONE);
+                } else {
+                    nothingFound.setVisibility(View.VISIBLE);
+                }
+            }
+
+            shelteredPetsCustomAdapter.clear();
+            shelteredPetsCustomAdapter.addAll(filteredList);
+            shelteredPetsCustomAdapter.notifyDataSetChanged();
+            textSearchedShelteredPetsList.clear();
+            textSearchedShelteredPetsList = filteredList;
+            refresh();
+        }
+    }
+
+    private void filterListByFilterChipsValue() {
+        ArrayList<ShelteredPetData> filteredList = new ArrayList<>();
+        String category, size, sex, age, friendly, guarding;
+
+        for (ShelteredPetData shelteredPetData : originalShelteredPetsList) {
             if (filterData.getCategory() != null && filterData.getSex() != null) {
-                String category = filterData.getCategory().toLowerCase();
-                String sex = filterData.getSex().toLowerCase();
+                category = filterData.getCategory().toLowerCase();
+                sex = filterData.getSex().toLowerCase();
                 if (shelteredPetData.getPetType().toLowerCase().matches(category.toLowerCase()) &&
                         shelteredPetData.getPetSex().toLowerCase().matches(sex.toLowerCase())) {
                     filteredList.add(shelteredPetData);
                 }
             } else if (filterData.getCategory() != null) {
-                String category = filterData.getCategory().toLowerCase();
+                category = filterData.getCategory().toLowerCase();
                 if (shelteredPetData.getPetType().toLowerCase().matches(category.toLowerCase())) {
                     filteredList.add(shelteredPetData);
                 }
             }
             else if (filterData.getSex() != null) {
-                String sex = filterData.getSex().toLowerCase();
+                sex = filterData.getSex().toLowerCase();
                 if (shelteredPetData.getPetSex().toLowerCase().matches(sex.toLowerCase())) {
                 filteredList.add(shelteredPetData);
                 }
             } else if (filterData.getSize() != null) {
-                String size = filterData.getSize().toLowerCase();
+                size = filterData.getSize().toLowerCase();
                 if (shelteredPetData.getPetSize().toLowerCase().matches(size.toLowerCase())) {
                     filteredList.add(shelteredPetData);
                 }
             } else if (filterData.getAge() != null) {
-                String age = filterData.getAge().toLowerCase();
+                age = filterData.getAge().toLowerCase();
                 if (shelteredPetData.getPetAge().toLowerCase().matches(age.toLowerCase())) {
                     filteredList.add(shelteredPetData);
                 }
             } else if (filterData.getFriendly() != null) {
-                String friendly = filterData.getFriendly().toLowerCase();
+                friendly = filterData.getFriendly().toLowerCase();
                 if (shelteredPetData.getFriendlyWithPets().toLowerCase().matches(friendly.toLowerCase()) ||
                     shelteredPetData.getFitForChildren().toLowerCase().matches(friendly.toLowerCase())) {
                     filteredList.add(shelteredPetData);
                 }
             } else if (filterData.getGuarding() != null) {
-                String guarding = filterData.getGuarding().toLowerCase();
+                guarding = filterData.getGuarding().toLowerCase();
                 if (shelteredPetData.getFitForGuarding().toLowerCase().matches(guarding.toLowerCase())) {
                     filteredList.add(shelteredPetData);
                 }
             }
         }
-        if (!filteredList.isEmpty()) {
-            nothingFound.setVisibility(View.GONE);
-            listView.setVisibility(View.VISIBLE);
-            shelteredPetsCustomAdapter.clear();
-            shelteredPetsCustomAdapter.addAll(filteredList);
-            shelteredPetsCustomAdapter.notifyDataSetChanged();
-            refresh();
-            listView.setAdapter(shelteredPetsCustomAdapter);
-        } else {
-            listView.setVisibility(View.GONE);
-            nothingFound.setVisibility(View.VISIBLE);
-            getDataFromDatabase();
+        if (filteredList.isEmpty()) {
+            if (String.valueOf(searchBar.getText()).isEmpty()) {
+                filteredList = originalShelteredPetsList;
+            } else {
+                filteredList = textSearchedShelteredPetsList;
+            }
         }
+        shelteredPetsCustomAdapter.clear();
+        shelteredPetsCustomAdapter.addAll(filteredList);
+        shelteredPetsCustomAdapter.notifyDataSetChanged();
+        refresh();
+        listView.setAdapter(shelteredPetsCustomAdapter);
     }
 
     public void refresh() {

@@ -103,11 +103,13 @@ public class BottomAppBarPetsFavoritesTabFragment extends Fragment {
                     materialTextView.setVisibility(View.GONE);
 
                     shelteredPetsList.clear();
-                    for (DataSnapshot newsArticleSnapshot : snapshot.child("Sheltered").getChildren()) {
-                        ShelteredPetData shelteredPetData = newsArticleSnapshot.getValue(ShelteredPetData.class);
+                    for (DataSnapshot shelteredPetsSnapshot : snapshot.child("Sheltered").getChildren()) {
+                        ShelteredPetData shelteredPetData = shelteredPetsSnapshot.getValue(ShelteredPetData.class);
                         if (shelteredPetData != null) {
-                            if (shelteredPetData.getFavorite().equals("yes")) {
-                                shelteredPetsList.add(shelteredPetData);
+                            if (shelteredPetData.getFavorite() != null) {
+                                if (shelteredPetData.getFavorite().equals("yes")) {
+                                    shelteredPetsList.add(shelteredPetData);
+                                }
                             }
                         }
                     }
