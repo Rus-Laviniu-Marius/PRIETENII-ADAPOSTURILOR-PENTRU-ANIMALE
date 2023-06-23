@@ -12,7 +12,7 @@
     <dimen name="large_padding">30dp</dimen>
     <dimen name="small_elevation">10dp</dimen>
     <dimen name="padding_small">10dp</dimen>
-    <dimen name="extra_space_for_floating_action_buttons">10dp</dimen>
+    <dimen name="extra_space_for_floating_action_buttons">20dp</dimen>
     <dimen name="list_padding_left">16dp</dimen>
     <dimen name="list_padding_right">24dp</dimen>
     <dimen name="list_padding_vertical">12dp</dimen>

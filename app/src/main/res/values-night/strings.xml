@@ -127,4 +127,6 @@
     <string name="none">None</string>
     <string name="found">Found</string>
     <string name="there_is_no_added_pet_with_that_name">There is no added pet with that name</string>
+    <string name="search_for_place">Search for place</string>
+    <string name="no_matched_pet_found">No matched pet found</string>
 </resources>

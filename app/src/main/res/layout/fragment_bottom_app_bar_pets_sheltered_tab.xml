@@ -57,25 +57,13 @@
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintEnd_toEndOf="parent" />
-            <com.google.android.material.textview.MaterialTextView
-                android:id="@+id/bottomAppBarPetsShelteredTabNothingFoundByText_materialTextView"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="@string/there_is_no_added_pet_with_that_name"
-                android:textAlignment="center"
-                android:visibility="gone"
-                style="@style/TextAppearance.Material3.HeadlineLarge"
-                app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintEnd_toEndOf="parent" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
         <RelativeLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:padding="@dimen/medium_padding"
+            android:padding="@dimen/extra_space_for_floating_action_buttons"
             android:layout_alignParentBottom="true"
             android:layout_alignParentEnd="true">
             <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton

@@ -5,15 +5,11 @@ import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.SearchView;
 import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.Fragment;
 import androidx.viewpager2.widget.ViewPager2;
 
 import android.view.LayoutInflater;
-import android.view.Menu;
-import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
@@ -27,10 +23,7 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.pet.shelter.friends.R;
-import com.pet.shelter.friends.SearchQueryEvent;
 import com.pet.shelter.friends.pets.filtering.FilterActivity;
-
-import org.greenrobot.eventbus.EventBus;
 
 import java.util.Objects;
 
@@ -47,7 +40,6 @@ public class BottomAppBarPetsFragment extends Fragment {
         View layout = inflater.inflate(R.layout.fragment_bottom_app_bar_pets, container, false);
 
         String loggedUserId = Objects.requireNonNull(FirebaseAuth.getInstance().getCurrentUser()).getUid();
-        AppCompatActivity activity = (AppCompatActivity) getActivity();
         DatabaseReference roles = FirebaseDatabase.getInstance().getReference("roles");
         MaterialToolbar materialToolbar = layout.findViewById(R.id.pets_materialToolbar);
         TabLayout tabLayout = layout.findViewById(R.id.pets_tabLayout);
@@ -90,22 +82,6 @@ public class BottomAppBarPetsFragment extends Fragment {
                 if (item.getItemId() == R.id.action_filter_pets) {
                     startActivity(new Intent(getContext(), FilterActivity.class));
                 }
-//                else if (item.getItemId() == R.id.action_search_pets) {
-//                    searchView = (SearchView) item.getActionView();
-//                    if (searchView != null) {
-//                        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
-//                            @Override
-//                            public boolean onQueryTextSubmit(String query) {
-//                                return false;
-//                            }
-//
-//                            @Override
-//                            public boolean onQueryTextChange(String newText) {
-//                                EventBus.getDefault().post(new SearchQueryEvent(newText));
-//                                return false;
-//                            }
-//                        });
-//                }
                 return true;
             }
         });
@@ -150,30 +126,6 @@ public class BottomAppBarPetsFragment extends Fragment {
         setHasOptionsMenu(true);
         super.onCreate(savedInstanceState);
     }
-
-    @Override
-    public void onCreateOptionsMenu(@NonNull Menu menu, @NonNull MenuInflater inflater) {
-        super.onCreateOptionsMenu(menu, inflater);
-
-        MenuItem menuItem = menu.findItem(R.id.action_search_pets);
-        SearchView searchView = (SearchView) menuItem.getActionView();
-        searchView.setQueryHint("Type here to search by name");
-
-        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
-            @Override
-            public boolean onQueryTextSubmit(String query) {
-                return false;
-            }
-
-            @Override
-            public boolean onQueryTextChange(String newText) {
-                EventBus.getDefault().post(new SearchQueryEvent(newText));
-                return false;
-            }
-        });
-    }
-
-
 
     @Override
     public void onStart() {

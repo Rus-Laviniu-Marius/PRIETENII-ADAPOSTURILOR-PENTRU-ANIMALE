@@ -18,7 +18,6 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton;
 import com.google.android.material.search.SearchBar;
@@ -51,10 +50,9 @@ public class BottomAppBarPetsShelteredTabFragment extends Fragment {
     private MaterialTextView materialTextView, nothingFound;
     private ListView listView;
     private ExtendedFloatingActionButton addPetsExtendedFloatingActionButton;
-    private ArrayList<ShelteredPetData> shelteredPetsList = new ArrayList<>();
+    private final ArrayList<ShelteredPetData> shelteredPetsList = new ArrayList<>();
     private final ArrayList<ShelteredPetData> originalShelteredPetsList = new ArrayList<>();
     private ArrayList<ShelteredPetData> textSearchedShelteredPetsList = new ArrayList<>();
-    private ArrayList<ShelteredPetData> filtersSearchedShelteredPetsList = new ArrayList<>();
     private ShelteredPetsCustomAdapter shelteredPetsCustomAdapter;
     private FilterData filterData;
 
@@ -93,6 +91,7 @@ public class BottomAppBarPetsShelteredTabFragment extends Fragment {
                 startActivity(intent);
             }
         });
+
         searchBar.setHint("Search sheltered pets by name");
 
         searchView.setupWithSearchBar(searchBar);
@@ -209,13 +208,6 @@ public class BottomAppBarPetsShelteredTabFragment extends Fragment {
         });
     }
 
-    /**
-     * nothing search
-     * enter text
-     * check if each pet name contains entered text
-     * no - show nothing found text
-     * yes - show filtered by search list
-     * */
     private void filterListBySearchedName() {
         ArrayList<ShelteredPetData> filteredList = new ArrayList<>();
         String searchBarText = String.valueOf(searchBar.getText());

@@ -2,6 +2,7 @@ package com.pet.shelter.friends.pets.abandoned;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.FragmentActivity;
@@ -9,9 +10,13 @@ import androidx.fragment.app.FragmentActivity;
 import android.app.Activity;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.location.Address;
+import android.location.Geocoder;
 import android.location.Location;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.KeyEvent;
+import android.widget.TextView;
 
 import com.google.android.gms.location.FusedLocationProviderClient;
 import com.google.android.gms.location.LocationServices;
@@ -26,13 +31,22 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.libraries.places.api.Places;
 import com.google.android.libraries.places.api.net.PlacesClient;
+import com.google.android.material.search.SearchBar;
+import com.google.android.material.search.SearchView;
+import com.google.android.material.snackbar.Snackbar;
 import com.pet.shelter.friends.BuildConfig;
 import com.pet.shelter.friends.R;
+
+import java.io.IOException;
+import java.util.List;
 
 
 public class AbandonedPetSelectLocationMapActivity extends FragmentActivity implements OnMapReadyCallback {
     private static final String TAG = AbandonedPetSelectLocationMapActivity.class.getSimpleName();
     private GoogleMap gMap;
+    private SearchBar searchBar;
+    private SearchView searchView;
+    private ConstraintLayout constraintLayout;
     private FusedLocationProviderClient fusedLocationProviderClient;
     // A default location (Timisoara, Romania) and default zoom to use when location permission is
     // not granted.
@@ -61,6 +75,10 @@ public class AbandonedPetSelectLocationMapActivity extends FragmentActivity impl
         }
         // Retrieve the content view that renders the map.
         setContentView(R.layout.activity_abandoned_pet_select_location_map);
+
+        searchBar = findViewById(R.id.abandonedPetSelectLocation_searchBar);
+        searchView = findViewById(R.id.abandonedPetSelectLocation_searchView);
+        constraintLayout = findViewById(R.id.abandonedPetSelectLocation_constraintLayout);
 
         // Construct a PlacesClient
         Places.initialize(getApplicationContext(), BuildConfig.MAPS_API_KEY);
@@ -97,6 +115,9 @@ public class AbandonedPetSelectLocationMapActivity extends FragmentActivity impl
     @Override
     public void onMapReady(@NonNull GoogleMap googleMap) {
 
+        Snackbar snackbar = Snackbar.make(constraintLayout, "Press on map where you have last the pet", Snackbar.LENGTH_SHORT);
+        snackbar.show();
+
         gMap = googleMap;
 
         gMap.setOnMapClickListener(new GoogleMap.OnMapClickListener() {
@@ -112,6 +133,38 @@ public class AbandonedPetSelectLocationMapActivity extends FragmentActivity impl
             }
         });
 
+        String location = String.valueOf(searchBar.getText());
+        List<Address> addressList = null;
+
+        searchBar.setHint("Select place");
+
+        searchView.setupWithSearchBar(searchBar);
+        searchView.getEditText().setOnEditorActionListener(new TextView.OnEditorActionListener() {
+            @Override
+            public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
+                searchBar.setText(searchView.getText());
+                searchView.hide();
+                return false;
+            }
+        });
+
+        Geocoder geocoder = new Geocoder(AbandonedPetSelectLocationMapActivity.this);
+
+        try {
+            addressList = geocoder.getFromLocationName(location, 1);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        Address address;
+        LatLng latLng;
+        if (addressList != null) {
+            address = addressList.get(0);
+            latLng = new LatLng(address.getLatitude(), address.getLongitude());
+            gMap.addMarker(new MarkerOptions().position(latLng));
+            gMap.animateCamera(CameraUpdateFactory.newLatLngZoom(latLng, 10));
+        }
+
         // Prompt the user for permission.
         getLocationPermission();
 
@@ -120,6 +173,7 @@ public class AbandonedPetSelectLocationMapActivity extends FragmentActivity impl
 
         // Get the current location of the device and set the position of the map.
         getDeviceLocation();
+
     }
     /**
      * Gets the current location of the device, and positions the map's camera.
