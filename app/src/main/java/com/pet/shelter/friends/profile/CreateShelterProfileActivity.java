@@ -4,6 +4,8 @@ import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
+import androidx.constraintlayout.widget.ConstraintLayout;
 
 import android.Manifest;
 import android.app.Activity;
@@ -14,9 +16,11 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Toast;
 
+import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -24,17 +28,16 @@ import com.google.android.gms.tasks.Task;
 import com.google.android.material.appbar.MaterialToolbar;
 import com.google.android.material.button.MaterialButton;
 import com.google.android.material.imageview.ShapeableImageView;
+import com.google.android.material.snackbar.Snackbar;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.android.material.textfield.TextInputLayout;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.storage.FirebaseStorage;
-import com.google.firebase.storage.OnProgressListener;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 import com.pet.shelter.friends.ErrorSetter;
-import com.pet.shelter.friends.HomeActivity;
 import com.pet.shelter.friends.R;
 import com.pet.shelter.friends.ValidationManager;
 
@@ -44,16 +47,10 @@ import java.util.Objects;
 
 public class CreateShelterProfileActivity extends AppCompatActivity implements TextWatcher, ErrorSetter {
 
-    private FirebaseAuth firebaseAuth;
-    private FirebaseDatabase firebaseDatabase;
+    private static final int PICK_MAP_POINT_REQUEST = 999;
     private DatabaseReference registeredShelters;
-
-    private FirebaseStorage firebaseStorage;
-
     private StorageReference sheltersLogos;
-
     private String loggedUserId;
-
     private TextInputLayout ibanTextInputLayout, nameTextInputLayout, addressTextInputLayout,
             latitudeTextInputLayout, longitudeTextInputLayout, phoneNumberTextInputLayout,
             emailTextInputLayout, webPageLinkTextInputLayout, ourMissionTextInputLayout,
@@ -63,29 +60,23 @@ public class CreateShelterProfileActivity extends AppCompatActivity implements T
             latitudeTextInputEditText, longitudeTextInputEditText, phoneNumberTextInputEditText,
             emailTextInputEditText, webPageLinkTextInputEditText, ourMissionTextInputEditText,
             ourAdoptionPolicyTextInputEditText;
-    private MaterialToolbar materialToolbar;
-    private MaterialButton addShelterMaterialButton;
     private ShapeableImageView shelterLogoShapeImageView;
     private Uri gallerySelectedImageUri;
 
     private static final int PICK_FROM_GALLERY = 1889;
 
-    private ActivityResultLauncher<Intent> galleryActivityResultLauncher;
+    private ActivityResultLauncher<Intent> galleryActivityResultLauncher, mapActivityResultLauncher;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_create_shelter_profile);
 
-        firebaseAuth = FirebaseAuth.getInstance();
-        firebaseDatabase = FirebaseDatabase.getInstance();
-        registeredShelters = firebaseDatabase.getReference("registeredShelters");
-        firebaseStorage = FirebaseStorage.getInstance();
-        sheltersLogos = firebaseStorage.getReference();
+        registeredShelters = FirebaseDatabase.getInstance().getReference("registeredShelters");
+        sheltersLogos = FirebaseStorage.getInstance().getReference();
+        loggedUserId = Objects.requireNonNull(FirebaseAuth.getInstance().getCurrentUser()).getUid();
 
-        loggedUserId = Objects.requireNonNull(firebaseAuth.getCurrentUser()).getUid();
-
-        materialToolbar = findViewById(R.id.createShelterProfile_materialToolbar);
+        MaterialToolbar materialToolbar = findViewById(R.id.createShelterProfile_materialToolbar);
         ibanTextInputLayout = findViewById(R.id.createShelterProfileIBAN_textInputLayout);
         nameTextInputLayout = findViewById(R.id.createShelterProfileName_textInputLayout);
         addressTextInputLayout = findViewById(R.id.createShelterProfileAddress_textInputLayout);
@@ -107,10 +98,21 @@ public class CreateShelterProfileActivity extends AppCompatActivity implements T
         webPageLinkTextInputEditText = findViewById(R.id.createShelterProfileWebPageLink_textInputEditText);
         ourMissionTextInputEditText = findViewById(R.id.createShelterProfileOurMission_textInputEditText);
         ourAdoptionPolicyTextInputEditText = findViewById(R.id.createShelterProfileOurAdoptionPolicy_textInputEditText);
-
-        addShelterMaterialButton = findViewById(R.id.createShelterProfile_materialButton);
+        MaterialButton addShelterMaterialButton = findViewById(R.id.createShelterProfile_materialButton);
+        ConstraintLayout constraintLayout = findViewById(R.id.createShelterProfile_constraintLayout);
 
         shelterLogoShapeImageView = findViewById(R.id.createShelterProfileLogo_shapeImageView);
+
+        mapActivityResultLauncher = registerForActivityResult(
+                new ActivityResultContracts.StartActivityForResult(), result -> {
+                    if (result.getResultCode() == Activity.RESULT_OK) {
+                        Intent data = result.getData();
+                        assert data != null;
+                        LatLng latLng = data.getParcelableExtra("picked_point");
+                        Objects.requireNonNull(latitudeTextInputLayout.getEditText()).setText(String.valueOf(latLng.latitude));
+                        Objects.requireNonNull(longitudeTextInputLayout.getEditText()).setText(String.valueOf(latLng.longitude));
+                    }
+                });
 
         galleryActivityResultLauncher = registerForActivityResult(
                 new ActivityResultContracts.StartActivityForResult(), result -> {
@@ -142,10 +144,48 @@ public class CreateShelterProfileActivity extends AppCompatActivity implements T
             }
         });
 
+        materialToolbar.setNavigationOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                sendUserToViewProfileActivity();
+            }
+        });
+
+        materialToolbar.setOnMenuItemClickListener(new Toolbar.OnMenuItemClickListener() {
+            @Override
+            public boolean onMenuItemClick(MenuItem item) {
+                if (item.getItemId() == R.id.action_help) {
+                    Snackbar snackbar = Snackbar.make(constraintLayout, "Please fill required information", Snackbar.LENGTH_SHORT);
+                    snackbar.setAction("Dismiss", new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+
+                        }
+                    });
+                    snackbar.show();
+                }
+                return false;
+            }
+        });
+
+        latitudeTextInputLayout.setEndIconOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                pickPointOnMap();
+            }
+        });
+        longitudeTextInputLayout.setEndIconOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                pickPointOnMap();
+            }
+        });
+
         addShelterMaterialButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String iban, name, address, latitude, longitude, phoneNumber, email, webPage, ourMission, ourAdoptionPolicy;
+                String iban, name, address, latitude, longitude, phoneNumber, email, webPage,
+                        ourMission, ourAdoptionPolicy, shelterToSave;
 
                 iban = Objects.requireNonNull(ibanTextInputEditText.getText()).toString().trim();
                 name = Objects.requireNonNull(nameTextInputEditText.getText()).toString().trim();
@@ -157,8 +197,8 @@ public class CreateShelterProfileActivity extends AppCompatActivity implements T
                 webPage = Objects.requireNonNull(webPageLinkTextInputEditText.getText()).toString().trim();
                 ourMission = Objects.requireNonNull(ourMissionTextInputEditText.getText()).toString().trim();
                 ourAdoptionPolicy = Objects.requireNonNull(ourAdoptionPolicyTextInputEditText.getText()).toString().trim();
+                shelterToSave = name + "_" + address;
 
-                // TODO: VALIDATE FIELDS
                 ValidationManager.getInstance().doValidation(CreateShelterProfileActivity.this,
                         ibanTextInputLayout).checkEmpty();
                 ValidationManager.getInstance().doValidation(CreateShelterProfileActivity.this,
@@ -173,17 +213,11 @@ public class CreateShelterProfileActivity extends AppCompatActivity implements T
                         phoneNumberTextInputLayout).checkEmpty().checkPhoneNumber();
                 ValidationManager.getInstance().doValidation(CreateShelterProfileActivity.this,
                         emailTextInputLayout).checkEmpty().checkEmail();
-                ValidationManager.getInstance().doValidation(CreateShelterProfileActivity.this,
-                        webPageLinkTextInputLayout).checkEmpty();
-                ValidationManager.getInstance().doValidation(CreateShelterProfileActivity.this,
-                        ourMissionTextInputLayout).checkEmpty();
-                ValidationManager.getInstance().doValidation(CreateShelterProfileActivity.this,
-                        ourAdoptionPolicyTextInputLayout).checkEmpty();
 
-                if (ValidationManager.getInstance().isNothingEmpty()) {
+                if (ValidationManager.getInstance().arePhoneNumberAndEmailValidAndNothingEmpty()) {
                     StorageReference ref = sheltersLogos
                             .child("sheltersLogos")
-                            .child(Objects.requireNonNull(firebaseAuth.getCurrentUser()).getUid())
+                            .child(Objects.requireNonNull(loggedUserId))
                             .child("images/" + name + "_" + loggedUserId);
 
                     if (gallerySelectedImageUri != null) {
@@ -198,17 +232,17 @@ public class CreateShelterProfileActivity extends AppCompatActivity implements T
                                                 Toast.makeText(CreateShelterProfileActivity.this, "Image uploaded", Toast.LENGTH_SHORT).show();
                                                 String fileLink = task.getResult().toString();
 
-                                                registeredShelters.child(loggedUserId).child("iban").setValue(iban);
-                                                registeredShelters.child(loggedUserId).child("name").setValue(name);
-                                                registeredShelters.child(loggedUserId).child("address").setValue(address);
-                                                registeredShelters.child(loggedUserId).child("latitude").setValue(latitude);
-                                                registeredShelters.child(loggedUserId).child("longitude").setValue(longitude);
-                                                registeredShelters.child(loggedUserId).child("phoneNumber").setValue(phoneNumber);
-                                                registeredShelters.child(loggedUserId).child("email").setValue(email);
-                                                registeredShelters.child(loggedUserId).child("webPageLink").setValue(webPage);
-                                                registeredShelters.child(loggedUserId).child("ourMission").setValue(ourMission);
-                                                registeredShelters.child(loggedUserId).child("ourAdoptionPolicy").setValue(ourAdoptionPolicy);
-                                                registeredShelters.child(loggedUserId).child("profileImageDownloadLink").setValue(fileLink);
+                                                registeredShelters.child(shelterToSave).child("iban").setValue(iban);
+                                                registeredShelters.child(shelterToSave).child("name").setValue(name);
+                                                registeredShelters.child(shelterToSave).child("address").setValue(address);
+                                                registeredShelters.child(shelterToSave).child("latitude").setValue(latitude);
+                                                registeredShelters.child(shelterToSave).child("longitude").setValue(longitude);
+                                                registeredShelters.child(shelterToSave).child("phoneNumber").setValue(phoneNumber);
+                                                registeredShelters.child(shelterToSave).child("email").setValue(email);
+                                                registeredShelters.child(shelterToSave).child("webPageLink").setValue(webPage);
+                                                registeredShelters.child(shelterToSave).child("ourMission").setValue(ourMission);
+                                                registeredShelters.child(shelterToSave).child("ourAdoptionPolicy").setValue(ourAdoptionPolicy);
+                                                registeredShelters.child(shelterToSave).child("profileImageDownloadLink").setValue(fileLink);
                                             }
                                         });
                                     }
@@ -218,26 +252,45 @@ public class CreateShelterProfileActivity extends AppCompatActivity implements T
                                     public void onFailure(@NonNull Exception e) {
                                         Toast.makeText(CreateShelterProfileActivity.this, "Failed " + e.getMessage(), Toast.LENGTH_SHORT).show();
                                     }
-                                })
-                                .addOnProgressListener(new OnProgressListener<UploadTask.TaskSnapshot>() {
-                                    @Override
-                                    public void onProgress(@NonNull UploadTask.TaskSnapshot snapshot) {
-                                        double progress = (100.0 * snapshot.getBytesTransferred() / snapshot.getTotalByteCount());
-                                    }
                                 });
+                        sendUserToViewProfileActivity();
+                    } else {
+                        Snackbar snackbar = Snackbar.make(constraintLayout, "Please add a logo", Snackbar.LENGTH_SHORT);
+                        snackbar.setAction("Dismiss", new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+
+                            }
+                        });
+                        snackbar.show();
                     }
-                    sendUserToNextActivity();
+                } else {
+                    Snackbar snackbar = Snackbar.make(constraintLayout, "Please resolve error messages", Snackbar.LENGTH_SHORT);
+                    snackbar.setAction("Dismiss", new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+
+                        }
+                    });
+                    snackbar.show();
                 }
-
-
             }
         });
 
         setTextWatcher();
     }
 
-    public void sendUserToNextActivity() {
-        Intent intent = new Intent(CreateShelterProfileActivity.this, HomeActivity.class);
+    private void pickPointOnMap() {
+        Intent pickPointIntent = new Intent(this, SelectShelterLocationMapActivity.class);
+        if (checkSelfPermission(Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED || checkSelfPermission(Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED)  {
+            requestPermissions(new String[]{Manifest.permission.ACCESS_COARSE_LOCATION, Manifest.permission.ACCESS_FINE_LOCATION}, PICK_MAP_POINT_REQUEST);
+        } else {
+            mapActivityResultLauncher.launch(pickPointIntent);
+        }
+    }
+
+    public void sendUserToViewProfileActivity() {
+        Intent intent = new Intent(CreateShelterProfileActivity.this, ViewProfileActivity.class);
         intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK| Intent.FLAG_ACTIVITY_NEW_TASK);
         startActivity(intent);
     }
@@ -250,9 +303,6 @@ public class CreateShelterProfileActivity extends AppCompatActivity implements T
         Objects.requireNonNull(longitudeTextInputLayout.getEditText()).addTextChangedListener(this);
         Objects.requireNonNull(phoneNumberTextInputLayout.getEditText()).addTextChangedListener(this);
         Objects.requireNonNull(emailTextInputLayout.getEditText()).addTextChangedListener(this);
-        Objects.requireNonNull(webPageLinkTextInputLayout.getEditText()).addTextChangedListener(this);
-        Objects.requireNonNull(ourMissionTextInputLayout.getEditText()).addTextChangedListener(this);
-        Objects.requireNonNull(ourAdoptionPolicyTextInputLayout.getEditText()).addTextChangedListener(this);
     }
 
     @Override
@@ -281,17 +331,41 @@ public class CreateShelterProfileActivity extends AppCompatActivity implements T
             phoneNumberTextInputLayout.setErrorEnabled(false);
         } else if (s.hashCode() == Objects.requireNonNull(emailTextInputLayout.getEditText()).getText().hashCode()) {
             emailTextInputLayout.setErrorEnabled(false);
-        } else if (s.hashCode() == Objects.requireNonNull(webPageLinkTextInputLayout.getEditText()).getText().hashCode()) {
-            webPageLinkTextInputLayout.setErrorEnabled(false);
-        } else if (s.hashCode() == Objects.requireNonNull(ourMissionTextInputLayout.getEditText()).getText().hashCode()) {
-            ourMissionTextInputLayout.setErrorEnabled(false);
-        } else if (s.hashCode() == Objects.requireNonNull(ourAdoptionPolicyTextInputLayout.getEditText()).getText().hashCode()) {
-            ourAdoptionPolicyTextInputLayout.setErrorEnabled(false);
         }
     }
 
     @Override
     public void setError(TextInputLayout textInputLayout, String errorMessage) {
         textInputLayout.setError(errorMessage);
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+    }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+    }
+
+    @Override
+    public void onLowMemory() {
+        super.onLowMemory();
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
     }
 }

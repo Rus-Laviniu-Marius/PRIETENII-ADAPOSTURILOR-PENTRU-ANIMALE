@@ -1,22 +1,26 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-
+    <dimen name="material_button_max_width">320dp</dimen>
+    <dimen name="material_textInputLayout_max_width">488dp</dimen>
     <dimen name="small_margin">10dp</dimen>
     <dimen name="medium_margin">20dp</dimen>
     <dimen name="large_margin">30dp</dimen>
     <dimen name="margin_vertical">5dp</dimen>
     <dimen name="margin_horizontal">10dp</dimen>
-
     <dimen name="small_padding">10dp</dimen>
     <dimen name="medium_padding">20dp</dimen>
     <dimen name="large_padding">30dp</dimen>
-
     <dimen name="small_elevation">10dp</dimen>
     <dimen name="padding_small">10dp</dimen>
-
+    <dimen name="extra_space_for_floating_action_buttons">20dp</dimen>
+    <dimen name="list_padding_left">16dp</dimen>
+    <dimen name="list_padding_right">24dp</dimen>
+    <dimen name="list_padding_vertical">12dp</dimen>
+    <dimen name="horizontal_space_between_trailing_text_and_trailing_icon">10dp</dimen>
     <dimen name="padding_vertical_header">12dp</dimen>
     <dimen name="padding_vertical_text_content">16dp</dimen>
     <dimen name="padding_horizontal">16dp</dimen>
     <dimen name="horizontal_space_between_items">16dp</dimen>
     <dimen name="vertical_space_between_items">10dp</dimen>
+    <dimen name="material_checkbox">320dp</dimen>
 </resources>

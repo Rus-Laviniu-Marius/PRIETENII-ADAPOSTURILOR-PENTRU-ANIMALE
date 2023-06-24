@@ -1,0 +1,320 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".pets.sheltered.AddShelteredPetActivity">
+
+    <com.google.android.material.appbar.AppBarLayout
+        android:id="@+id/addShelteredPet_appBarLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <com.google.android.material.appbar.MaterialToolbar
+            android:id="@+id/addShelteredPet_materialToolbar"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            app:layout_anchor="@+id/appBarLayout"
+            app:layout_anchorGravity="center"
+            app:navigationIcon="@drawable/arrow_back_24"
+            app:menu="@menu/open_camera_and_gallery_top_app_bar_menu"
+            app:title="Add sheltered pet" />
+    </com.google.android.material.appbar.AppBarLayout>
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/addShelteredPet_appBarLayout" >
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <com.google.android.material.imageview.ShapeableImageView
+                android:id="@+id/addShelteredPet_shapeImageView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:adjustViewBounds="true"
+                android:scaleType="centerInside"
+                android:src="@drawable/media"
+                android:layout_marginVertical="@dimen/vertical_space_between_items"
+                app:layout_constraintBottom_toTopOf="@+id/addShelteredPetType_textInputLayout"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="parent"
+                app:layout_constraintVertical_chainStyle="spread_inside" />
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/addShelteredPetType_textInputLayout"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:hint="@string/select_pet_type"
+                android:layout_marginVertical="@dimen/vertical_space_between_items"
+                app:layout_constraintBottom_toTopOf="@+id/addShelteredPetName_textInputLayout"
+                app:layout_constraintEnd_toStartOf="@id/guideline32"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toEndOf="@id/guideline22"
+                app:layout_constraintTop_toBottomOf="@+id/addShelteredPet_shapeImageView"
+                app:layout_constraintWidth_max="@dimen/material_textInputLayout_max_width">
+
+                <com.google.android.material.textfield.MaterialAutoCompleteTextView
+                    android:id="@+id/addShelteredPetTypes_materialAutoCompleteTextView"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="text" />
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/addShelteredPetName_textInputLayout"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:hint="@string/pet_name"
+                android:layout_marginVertical="@dimen/vertical_space_between_items"
+                app:layout_constraintBottom_toTopOf="@+id/addShelteredPetBreed_textInputLayout"
+                app:layout_constraintEnd_toStartOf="@id/guideline32"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toEndOf="@id/guideline22"
+                app:layout_constraintTop_toBottomOf="@+id/addShelteredPetType_textInputLayout"
+                app:layout_constraintWidth_max="@dimen/material_textInputLayout_max_width">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/addShelteredPetName_textInputEditText"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="text" />
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/addShelteredPetBreed_textInputLayout"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:hint="@string/pet_breed"
+                android:layout_marginVertical="@dimen/vertical_space_between_items"
+                app:layout_constraintBottom_toTopOf="@+id/addShelteredPetAge_textInputLayout"
+                app:layout_constraintEnd_toStartOf="@id/guideline32"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toEndOf="@id/guideline22"
+                app:layout_constraintTop_toBottomOf="@+id/addShelteredPetName_textInputLayout"
+                app:layout_constraintWidth_max="@dimen/material_textInputLayout_max_width">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/addShelteredPetBreed_textInputEditText"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="text" />
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/addShelteredPetAge_textInputLayout"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:hint="@string/pet_age"
+                android:layout_marginVertical="@dimen/vertical_space_between_items"
+                app:layout_constraintBottom_toTopOf="@+id/addShelteredPetSize_textInputLayout"
+                app:layout_constraintEnd_toStartOf="@id/guideline32"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toEndOf="@id/guideline22"
+                app:layout_constraintTop_toBottomOf="@+id/addShelteredPetBreed_textInputLayout"
+                app:layout_constraintWidth_max="@dimen/material_textInputLayout_max_width">
+
+                <com.google.android.material.textfield.MaterialAutoCompleteTextView
+                    android:id="@+id/addShelteredPetAge_materialAutoCompleteTextView"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="text" />
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/addShelteredPetSize_textInputLayout"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:hint="@string/pet_size"
+                android:layout_marginVertical="@dimen/vertical_space_between_items"
+                app:layout_constraintBottom_toTopOf="@+id/addShelteredPetSex_textInputLayout"
+                app:layout_constraintEnd_toStartOf="@id/guideline32"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toEndOf="@id/guideline22"
+                app:layout_constraintTop_toBottomOf="@+id/addShelteredPetAge_textInputLayout"
+                app:layout_constraintWidth_max="@dimen/material_textInputLayout_max_width">
+
+                <com.google.android.material.textfield.MaterialAutoCompleteTextView
+                    android:id="@+id/addShelteredPetSize_materialAutoCompleteTextView"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="text" />
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/addShelteredPetSex_textInputLayout"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:hint="@string/pet_sex"
+                android:layout_marginVertical="@dimen/vertical_space_between_items"
+                app:layout_constraintBottom_toTopOf="@+id/addShelteredPetColor_textInputLayout"
+                app:layout_constraintEnd_toStartOf="@id/guideline32"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toEndOf="@id/guideline22"
+                app:layout_constraintTop_toBottomOf="@+id/addShelteredPetSize_textInputLayout"
+                app:layout_constraintWidth_max="@dimen/material_textInputLayout_max_width">
+
+                <com.google.android.material.textfield.MaterialAutoCompleteTextView
+                    android:id="@+id/addShelteredPetSex_materialAutoCompleteTextView"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="text" />
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/addShelteredPetColor_textInputLayout"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:hint="@string/pet_color"
+                android:visibility="gone"
+                android:layout_marginVertical="@dimen/vertical_space_between_items"
+                app:layout_constraintBottom_toTopOf="@+id/addShelteredPetDescription_textInputLayout"
+                app:layout_constraintEnd_toStartOf="@+id/guideline32"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toEndOf="@+id/guideline22"
+                app:layout_constraintTop_toBottomOf="@+id/addShelteredPetSex_textInputLayout"
+                app:layout_constraintWidth_max="@dimen/material_textInputLayout_max_width">
+
+                <com.google.android.material.textfield.MaterialAutoCompleteTextView
+                    android:id="@+id/addShelteredPetColor_materialAutoCompleteTextView"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="text" />
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/addShelteredPetDescription_textInputLayout"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:hint="@string/pet_description"
+                android:layout_marginVertical="@dimen/vertical_space_between_items"
+                app:layout_constraintBottom_toTopOf="@+id/addShelteredPetSpayedOrNeutered_materialCheckBox"
+                app:layout_constraintEnd_toStartOf="@id/guideline32"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toEndOf="@id/guideline22"
+                app:layout_constraintTop_toBottomOf="@+id/addShelteredPetColor_textInputLayout"
+                app:layout_constraintWidth_max="@dimen/material_textInputLayout_max_width">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/addShelteredPetDescription_textInputEditText"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="textMultiLine"
+                    android:scrollbars="vertical" />
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.checkbox.MaterialCheckBox
+                android:id="@+id/addShelteredPetSpayedOrNeutered_materialCheckBox"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:text="@string/spayed_neutered"
+                app:layout_constraintWidth_max="@dimen/material_checkbox"
+                app:layout_constraintTop_toBottomOf="@+id/addShelteredPetDescription_textInputLayout"
+                app:layout_constraintStart_toEndOf="@+id/guideline22"
+                app:layout_constraintEnd_toStartOf="@+id/guideline32"
+                app:layout_constraintBottom_toTopOf="@+id/addShelteredPetDewormed_materialCheckBox"/>
+
+            <com.google.android.material.checkbox.MaterialCheckBox
+                android:id="@+id/addShelteredPetDewormed_materialCheckBox"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:text="@string/dewormed"
+                app:layout_constraintWidth_max="@dimen/material_checkbox"
+                app:layout_constraintTop_toBottomOf="@+id/addShelteredPetSpayedOrNeutered_materialCheckBox"
+                app:layout_constraintStart_toEndOf="@id/guideline22"
+                app:layout_constraintEnd_toStartOf="@id/guideline32"
+                app:layout_constraintBottom_toTopOf="@+id/addShelteredPetVaccines_materialCheckBox"/>
+
+            <com.google.android.material.checkbox.MaterialCheckBox
+                android:id="@+id/addShelteredPetVaccines_materialCheckBox"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:text="@string/vaccines"
+                app:layout_constraintWidth_max="@dimen/material_checkbox"
+                app:layout_constraintTop_toBottomOf="@+id/addShelteredPetDewormed_materialCheckBox"
+                app:layout_constraintStart_toEndOf="@id/guideline22"
+                app:layout_constraintEnd_toStartOf="@id/guideline32"
+                app:layout_constraintBottom_toTopOf="@+id/addShelteredPetFitForChildren_materialCheckBox"/>
+
+            <com.google.android.material.checkbox.MaterialCheckBox
+                android:id="@+id/addShelteredPetFitForChildren_materialCheckBox"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:text="@string/fit_for_children"
+                app:layout_constraintWidth_max="@dimen/material_checkbox"
+                app:layout_constraintTop_toBottomOf="@+id/addShelteredPetVaccines_materialCheckBox"
+                app:layout_constraintStart_toEndOf="@id/guideline22"
+                app:layout_constraintEnd_toStartOf="@id/guideline32"
+                app:layout_constraintBottom_toTopOf="@+id/addShelteredPetFitForGuarding_materialCheckBox"/>
+
+            <com.google.android.material.checkbox.MaterialCheckBox
+                android:id="@+id/addShelteredPetFitForGuarding_materialCheckBox"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:text="@string/fit_for_guarding"
+                app:layout_constraintWidth_max="@dimen/material_checkbox"
+                app:layout_constraintTop_toBottomOf="@+id/addShelteredPetFitForChildren_materialCheckBox"
+                app:layout_constraintStart_toEndOf="@id/guideline22"
+                app:layout_constraintEnd_toStartOf="@id/guideline32"
+                app:layout_constraintBottom_toTopOf="@+id/addShelteredPetFriendlyWithOtherPets_materialCheckBox"/>
+
+            <com.google.android.material.checkbox.MaterialCheckBox
+                android:id="@+id/addShelteredPetFriendlyWithOtherPets_materialCheckBox"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:text="@string/friendly_with_other_pets"
+                app:layout_constraintWidth_max="@dimen/material_checkbox"
+                app:layout_constraintTop_toBottomOf="@+id/addShelteredPetFitForGuarding_materialCheckBox"
+                app:layout_constraintStart_toEndOf="@id/guideline22"
+                app:layout_constraintEnd_toStartOf="@id/guideline32"
+                app:layout_constraintBottom_toTopOf="@+id/addShelteredPet_materialButton"/>
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/addShelteredPet_materialButton"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:text="@string/add_pet"
+                android:layout_marginVertical="@dimen/vertical_space_between_items"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toStartOf="@id/guideline32"
+                app:layout_constraintStart_toEndOf="@id/guideline22"
+                app:layout_constraintTop_toBottomOf="@+id/addShelteredPetFriendlyWithOtherPets_materialCheckBox"
+                app:layout_constraintWidth_max="@dimen/material_button_max_width" />
+
+            <androidx.constraintlayout.widget.Guideline
+                android:id="@+id/guideline22"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                app:layout_constraintGuide_percent="0.05" />
+
+            <androidx.constraintlayout.widget.Guideline
+                android:id="@+id/guideline32"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                app:layout_constraintGuide_percent="0.95" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </ScrollView>
+
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

@@ -39,10 +39,5 @@
         <item name="android:windowLightStatusBar">true</item>
 
     </style>
-    
-    <style name="Theme.PetShelterFriends.SlidrActivityTheme">
-        <item name="android:windowIsTranslucent">true</item>
-        <item name="android:windowBackground">@android:color/transparent</item>
-    </style>
 
 </resources>

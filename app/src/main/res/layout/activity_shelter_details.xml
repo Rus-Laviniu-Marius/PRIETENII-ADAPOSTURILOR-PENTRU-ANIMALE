@@ -1,0 +1,169 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:id="@+id/shelterDetails_constraintLayout"
+    tools:context=".pets.shelter.ShelterDetailsActivity">
+
+    <com.google.android.material.appbar.AppBarLayout
+        android:id="@+id/shelterDetails_appBarLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <com.google.android.material.appbar.MaterialToolbar
+            android:id="@+id/shelterDetails_materialToolbar"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            app:layout_anchor="@+id/appBarLayout"
+            app:layout_anchorGravity="center"
+            app:menu="@menu/share_top_app_bar_menu"
+            app:navigationIcon="@drawable/arrow_back_24"
+            app:title=""
+            app:titleCentered="true" />
+    </com.google.android.material.appbar.AppBarLayout>
+
+    <com.google.android.material.imageview.ShapeableImageView
+        android:id="@+id/shelterDetailsImage_shapeImageView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:contentDescription="@string/shelter_logo"
+        app:layout_constraintHeight_max="200dp"
+        app:layout_constraintTop_toBottomOf="@+id/shelterDetails_appBarLayout"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toTopOf="@id/shelterDetailsName_materialTextView"
+        app:srcCompat="@drawable/media"/>
+
+    <com.google.android.material.textview.MaterialTextView
+        android:id="@+id/shelterDetailsName_materialTextView"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="@string/shelter_name"
+        android:paddingHorizontal="@dimen/padding_horizontal"
+        android:paddingVertical="@dimen/list_padding_vertical"
+        style="@style/TextAppearance.Material3.HeadlineSmall"
+        app:layout_constraintTop_toBottomOf="@+id/shelterDetailsImage_shapeImageView"
+        app:layout_constraintBottom_toTopOf="@+id/shelterDetailsGeneralDataActions_linearLayout"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"/>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/shelterDetailsGeneralDataActions_linearLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:paddingHorizontal="@dimen/padding_horizontal"
+        app:layout_constraintTop_toBottomOf="@+id/shelterDetailsName_materialTextView"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toTopOf="@+id/shelterDetailsDescription_scrollView">
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/shelterDetailsPhone_materialButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:contentDescription="@string/phone_call"
+            style="@style/Widget.Material3.Button.IconButton.Filled"
+            app:icon="@drawable/phone_filled_24"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/shelterDetailsMail_materialButton"/>
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/shelterDetailsMail_materialButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:contentDescription="@string/email"
+            style="@style/Widget.Material3.Button.IconButton.Filled"
+            app:icon="@drawable/mail_filled_24px"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/shelterDetailsPhone_materialButton"
+            app:layout_constraintEnd_toStartOf="@+id/shelterDetailsWeb_materialButton"/>
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/shelterDetailsWeb_materialButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:contentDescription="@string/web_page_link"
+            style="@style/Widget.Material3.Button.IconButton.Filled"
+            app:icon="@drawable/web_filled_24"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/shelterDetailsMail_materialButton"
+            app:layout_constraintEnd_toStartOf="@+id/shelterDetailsDirections_materialButton"/>
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/shelterDetailsDirections_materialButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:contentDescription="@string/web_page_link"
+            style="@style/Widget.Material3.Button.IconButton.Filled"
+            app:icon="@drawable/directions_filled_24"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/shelterDetailsWeb_materialButton"
+            app:layout_constraintEnd_toEndOf="parent"/>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <ScrollView
+        android:id="@+id/shelterDetailsDescription_scrollView"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        app:layout_constraintTop_toBottomOf="@+id/shelterDetailsGeneralDataActions_linearLayout"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toTopOf="@+id/shelteredDetailsShelterPets_materialButton">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:paddingHorizontal="@dimen/padding_horizontal"
+            android:paddingVertical="@dimen/padding_vertical_header">
+            <com.google.android.material.textview.MaterialTextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/our_mission"
+                style="@style/TextAppearance.Material3.HeadlineLarge" />
+
+            <com.google.android.material.textview.MaterialTextView
+                android:id="@+id/shelterDetailsOurMissionDescription_materialTextView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/description"
+                android:layout_marginVertical="@dimen/vertical_space_between_items"
+                style="@style/TextAppearance.Material3.BodyLarge" />
+
+            <com.google.android.material.textview.MaterialTextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/our_adoption_policy"
+                style="@style/TextAppearance.Material3.HeadlineLarge" />
+
+            <com.google.android.material.textview.MaterialTextView
+                android:id="@+id/shelterDetailsOurAdoptionPolicyDescription_materialTextView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/description"
+                android:layout_marginVertical="@dimen/vertical_space_between_items"
+                style="@style/TextAppearance.Material3.BodyLarge" />
+        </LinearLayout>
+
+    </ScrollView>
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/shelteredDetailsShelterPets_materialButton"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="@string/see_sheltered_pets"
+        android:layout_marginHorizontal="@dimen/small_margin"
+        style="@style/Widget.Material3.Button.TonalButton"
+        app:layout_constraintWidth_max="@dimen/material_button_max_width"
+        app:layout_constraintTop_toBottomOf="@+id/shelterDetailsDescription_scrollView"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"/>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

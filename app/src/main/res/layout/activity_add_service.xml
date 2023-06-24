@@ -2,6 +2,7 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:theme="@style/Theme.PetShelterFriends"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".profile.services.AddServiceActivity">
@@ -149,6 +150,7 @@
                 android:layout_height="wrap_content"
                 android:hint="@string/city_state_country"
                 app:helperText="*Required"
+                android:visibility="visible"
                 app:layout_constraintTop_toBottomOf="@+id/addServiceProviderWebsite_textInputLayout"
                 app:layout_constraintBottom_toTopOf="@+id/addServiceProviderAddress_textInputLayout"
                 app:layout_constraintEnd_toStartOf="@id/guideline28"
@@ -160,6 +162,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:inputType="textMultiLine"
+
                     android:scrollbars="vertical" />
             </com.google.android.material.textfield.TextInputLayout>
 

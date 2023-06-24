@@ -1,0 +1,351 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".pets.adoption.CompleteFamilyAndHouseholdInformationActivity">
+
+    <com.google.android.material.appbar.AppBarLayout
+        android:id="@+id/completeAboutFamilyAndHouseholdInformation_appBarLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <com.google.android.material.appbar.MaterialToolbar
+            android:id="@+id/completeAboutFamilyAndHouseholdInformation_materialToolbar"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            app:layout_anchor="@+id/appBarLayout"
+            app:layout_anchorGravity="center"
+            app:navigationIcon="@drawable/arrow_back_24"
+            app:menu="@menu/forward_top_app_bar_menu"
+            app:title="Family and household"
+            app:titleCentered="true" />
+    </com.google.android.material.appbar.AppBarLayout>
+
+    <com.google.android.material.progressindicator.LinearProgressIndicator
+        android:id="@+id/completeAboutFamilyAndHouseholdInformation_linearProgressIndicator"
+        style="@style/Widget.Material3.LinearProgressIndicator"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:progress="20"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintBottom_toTopOf="@+id/completeAboutFamilyAndHouseholdInformation_scrollView"
+        app:layout_constraintTop_toBottomOf="@+id/completeAboutFamilyAndHouseholdInformation_appBarLayout" />
+
+    <ScrollView
+        android:id="@+id/completeAboutFamilyAndHouseholdInformation_scrollView"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/completeAboutFamilyAndHouseholdInformation_linearProgressIndicator">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/completeAboutFamilyAndHouseholdInformationAdultsNumber_materialTextInputLayout"
+                style="@style/Widget.Material3.TextInputLayout.OutlinedBox"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/vertical_space_between_items"
+                android:autofillHints="number"
+                android:hint="@string/how_many_adults"
+                android:inputType="numberDecimal"
+                app:layout_constraintWidth_max="@dimen/material_textInputLayout_max_width"
+                app:counterEnabled="false"
+                app:endIconMode="clear_text"
+                app:errorEnabled="true"
+                app:helperText="*Required"
+                app:layout_constraintBottom_toTopOf="@+id/completeAboutFamilyAndHouseholdInformationChildrenNumber_materialTextInputLayout"
+                app:layout_constraintEnd_toStartOf="@id/guideline33"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toEndOf="@id/guideline31"
+                app:layout_constraintTop_toTopOf="parent">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/completeAboutFamilyAndHouseholdInformationAdultsNumber_materialTextInputEditText"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="numberDecimal"
+                    android:maxLines="1" />
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/completeAboutFamilyAndHouseholdInformationChildrenNumber_materialTextInputLayout"
+                style="@style/Widget.Material3.TextInputLayout.OutlinedBox"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/vertical_space_between_items"
+                android:autofillHints="number"
+                android:hint="@string/how_many_children"
+                android:inputType="numberDecimal"
+                app:layout_constraintWidth_max="@dimen/material_textInputLayout_max_width"
+                app:counterEnabled="false"
+                app:endIconMode="clear_text"
+                app:errorEnabled="true"
+                app:helperText="*Required"
+                app:layout_constraintBottom_toTopOf="@+id/completeAboutFamilyAndHouseholdInformationHomeType_materialTextInputLayout"
+                app:layout_constraintEnd_toStartOf="@id/guideline33"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toEndOf="@id/guideline31"
+                app:layout_constraintTop_toBottomOf="@+id/completeAboutFamilyAndHouseholdInformationAdultsNumber_materialTextInputLayout">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/completeAboutFamilyAndHouseholdInformationChildrenNumber_materialTextInputEditText"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="number"
+                    android:maxLines="1" />
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/completeAboutFamilyAndHouseholdInformationHomeType_materialTextInputLayout"
+                style="@style/Widget.Material3.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/vertical_space_between_items"
+                android:autofillHints="text"
+                android:hint="@string/select_home_type"
+                android:inputType="text"
+                app:layout_constraintWidth_max="@dimen/material_textInputLayout_max_width"
+                app:counterEnabled="false"
+                app:endIconMode="dropdown_menu"
+                app:errorEnabled="true"
+                app:helperText="*Required"
+                app:layout_constraintBottom_toTopOf="@+id/completeAboutFamilyAndHouseholdInformationHouseholdDescription_materialTextInputLayout"
+                app:layout_constraintEnd_toStartOf="@id/guideline33"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toEndOf="@id/guideline31"
+                app:layout_constraintTop_toBottomOf="@+id/completeAboutFamilyAndHouseholdInformationChildrenNumber_materialTextInputLayout">
+
+                <com.google.android.material.textfield.MaterialAutoCompleteTextView
+                    android:id="@+id/completeAboutFamilyAndHouseholdInformationHomeType_materialAutoCompleteTextView"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="text"
+                    android:maxLines="1" />
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/completeAboutFamilyAndHouseholdInformationHouseholdDescription_materialTextInputLayout"
+                style="@style/Widget.Material3.TextInputLayout.OutlinedBox"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/vertical_space_between_items"
+                android:autofillHints="text"
+                android:hint="@string/household_description"
+                android:inputType="textMultiLine"
+                android:verticalScrollbarPosition="right"
+                android:nestedScrollingEnabled="true"
+                app:layout_constraintWidth_max="@dimen/material_textInputLayout_max_width"
+                app:counterEnabled="false"
+                app:helperText="*Required"
+                app:endIconMode="clear_text"
+                app:errorEnabled="true"
+                app:layout_constraintBottom_toTopOf="@+id/completeAboutFamilyAndHouseholdInformationRentingRulesRegardingPetOwnerShip_materialTextInputLayout"
+                app:layout_constraintEnd_toStartOf="@id/guideline33"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toEndOf="@id/guideline31"
+                app:layout_constraintTop_toBottomOf="@+id/completeAboutFamilyAndHouseholdInformationHomeType_materialTextInputLayout">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/completeAboutFamilyAndHouseholdInformationHouseholdDescription_materialTextInputEditText"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="textMultiLine" />
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/completeAboutFamilyAndHouseholdInformationRentingRulesRegardingPetOwnerShip_materialTextInputLayout"
+                style="@style/Widget.Material3.TextInputLayout.OutlinedBox"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/vertical_space_between_items"
+                android:autofillHints="text"
+                android:hint="@string/renting_rules_regarding_pet_ownership"
+                android:inputType="textMultiLine|textLongMessage|text"
+                app:counterEnabled="false"
+                app:layout_constraintWidth_max="@dimen/material_textInputLayout_max_width"
+                app:endIconMode="clear_text"
+                app:errorEnabled="true"
+                app:helperText="*Required"
+                app:layout_constraintBottom_toTopOf="@+id/completeAboutFamilyAndHouseholdInformationKnownAllergy_linearLayout"
+                app:layout_constraintEnd_toStartOf="@id/guideline33"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toEndOf="@id/guideline31"
+                app:layout_constraintTop_toBottomOf="@+id/completeAboutFamilyAndHouseholdInformationHouseholdDescription_materialTextInputLayout">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/completeAboutFamilyAndHouseholdInformationRentingRulesRegardingPetOwnerShip_materialTextInputEditText"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="textMultiLine" />
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/completeAboutFamilyAndHouseholdInformationKnownAllergy_linearLayout"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                app:layout_constraintTop_toBottomOf="@+id/completeAboutFamilyAndHouseholdInformationRentingRulesRegardingPetOwnerShip_materialTextInputLayout"
+                app:layout_constraintStart_toEndOf="@id/guideline31"
+                app:layout_constraintEnd_toStartOf="@id/guideline33"
+                app:layout_constraintBottom_toTopOf="@+id/completeAboutFamilyAndHouseHoldInformationAllAgree_linearLayout">
+                <com.google.android.material.textview.MaterialTextView
+                    android:id="@+id/completeAboutFamilyAndHouseholdInformationKnownAllergy_materialTextView"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/does_anyone_in_your_family_have_a_known_allergy_to_pets"
+                    style="@style/TextAppearance.Material3.HeadlineSmall"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"/>
+                <RadioGroup
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    app:layout_constraintTop_toBottomOf="@+id/completeAboutFamilyAndHouseholdInformationKnownAllergy_materialTextView"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintWidth_max="@dimen/material_textInputLayout_max_width">
+                    <com.google.android.material.radiobutton.MaterialRadioButton
+                        android:id="@+id/completeAboutFamilyAndHouseholdInformationKnownAllergyYes_materialRadioButton"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:text="@string/yes"
+                        android:layout_weight="1"
+                        style="@style/Widget.Material3.CompoundButton.RadioButton" />
+                    <com.google.android.material.radiobutton.MaterialRadioButton
+                        android:id="@+id/completeAboutFamilyAndHouseholdInformationKnownAllergyNo_materialRadioButton"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:text="@string/no"
+                        android:layout_weight="1"
+                        style="@style/Widget.Material3.CompoundButton.RadioButton" />
+                </RadioGroup>
+            </androidx.constraintlayout.widget.ConstraintLayout>
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/completeAboutFamilyAndHouseHoldInformationAllAgree_linearLayout"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                app:layout_constraintWidth_max="@dimen/material_textInputLayout_max_width"
+                app:layout_constraintTop_toBottomOf="@+id/completeAboutFamilyAndHouseholdInformationKnownAllergy_linearLayout"
+                app:layout_constraintStart_toEndOf="@id/guideline31"
+                app:layout_constraintEnd_toStartOf="@id/guideline33"
+                app:layout_constraintBottom_toTopOf="@+id/completeAboutFamilyAndHouseholdInformationAdequateLoveAndAttention_linearLayout" >
+                <com.google.android.material.textview.MaterialTextView
+                    android:id="@+id/completeAboutFamilyAndHouseholdInformationAllAgree_materialTextView"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/is_everyone_in_agreement_with_the_decision_to_adopt_a_pet"
+                    style="@style/TextAppearance.Material3.HeadlineSmall"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"/>
+                <RadioGroup
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    app:layout_constraintTop_toBottomOf="@+id/completeAboutFamilyAndHouseholdInformationAllAgree_materialTextView"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent">
+                    <com.google.android.material.radiobutton.MaterialRadioButton
+                        android:id="@+id/completeAboutFamilyAndHouseholdInformationAllAgreeYes_materialRadioButton"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:text="@string/yes"
+                        android:layout_weight="1"
+                        style="@style/Widget.Material3.CompoundButton.RadioButton" />
+                    <com.google.android.material.radiobutton.MaterialRadioButton
+                        android:id="@+id/completeAboutFamilyAndHouseholdInformationAllAgreeNo_materialRadioButton"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:text="@string/no"
+                        android:layout_weight="1"
+                        style="@style/Widget.Material3.CompoundButton.RadioButton" />
+                </RadioGroup>
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/completeAboutFamilyAndHouseholdInformationAdequateLoveAndAttention_linearLayout"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                app:layout_constraintWidth_max="@dimen/material_textInputLayout_max_width"
+                app:layout_constraintTop_toBottomOf="@+id/completeAboutFamilyAndHouseHoldInformationAllAgree_linearLayout"
+                app:layout_constraintStart_toEndOf="@id/guideline31"
+                app:layout_constraintEnd_toStartOf="@id/guideline33"
+                app:layout_constraintBottom_toTopOf="@+id/completeAboutFamilyAndHouseholdInformation_materialButton">
+                <com.google.android.material.textview.MaterialTextView
+                    android:id="@+id/completeAboutFamilyAndHouseholdInformationAdequateLoveAndAttention_materialTextView"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/do_you_have_time_to_provide_adequate_love_and_attention"
+                    style="@style/TextAppearance.Material3.HeadlineSmall"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"/>
+                <RadioGroup
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    app:layout_constraintTop_toBottomOf="@+id/completeAboutFamilyAndHouseholdInformationAdequateLoveAndAttention_materialTextView"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent">
+                    <com.google.android.material.radiobutton.MaterialRadioButton
+                        android:id="@+id/completeAboutFamilyAndHouseholdInformationAdequateLoveAndAttentionYes_materialRadioButton"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:text="@string/yes"
+                        android:layout_weight="1"
+                        style="@style/Widget.Material3.CompoundButton.RadioButton"/>
+                    <com.google.android.material.radiobutton.MaterialRadioButton
+                        android:id="@+id/completeAboutFamilyAndHouseholdInformationAdequateLoveAndAttentionNo_materialRadioButton"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:text="@string/no"
+                        android:layout_weight="1"
+                        style="@style/Widget.Material3.CompoundButton.RadioButton"/>
+                </RadioGroup>
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/completeAboutFamilyAndHouseholdInformation_materialButton"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/vertical_space_between_items"
+                android:text="@string/save"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/completeAboutFamilyAndHouseholdInformationAdequateLoveAndAttention_linearLayout"
+                app:layout_constraintWidth_max="@dimen/material_button_max_width" />
+
+            <androidx.constraintlayout.widget.Guideline
+                android:id="@+id/guideline31"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                app:layout_constraintGuide_percent="0.05" />
+
+            <androidx.constraintlayout.widget.Guideline
+                android:id="@+id/guideline33"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                app:layout_constraintGuide_percent="0.95" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </ScrollView>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

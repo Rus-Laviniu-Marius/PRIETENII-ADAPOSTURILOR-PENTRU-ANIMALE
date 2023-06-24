@@ -52,7 +52,7 @@ public class UserPersonalDataActivity extends AppCompatActivity {
     private static final int PICK_FROM_GALLERY = 1889;
     private static final int MY_CAMERA_PERMISSION_CODE = 100;
     private FirebaseAuth firebaseAuth;
-    private DatabaseReference profiles;
+    private DatabaseReference profiles, roles;
     private StorageReference profileImages;
     private MaterialToolbar materialToolbar;
     private MaterialButton openGallery, openCamera, update;
@@ -63,7 +63,7 @@ public class UserPersonalDataActivity extends AppCompatActivity {
     private Uri gallerySelectedImageUri, cameraCapturedImageUri;
     private Bitmap cameraCapturedImageBitmap;
     private ActivityResultLauncher<Intent> galleryActivityResultLauncher, cameraActivityResultLauncher;
-    private String loggedUserId;
+    private String loggedUserId, role;
 
     private boolean isPressed = true;
     @Override
@@ -102,6 +102,7 @@ public class UserPersonalDataActivity extends AppCompatActivity {
         firebaseAuth = FirebaseAuth.getInstance();
         FirebaseDatabase firebaseDatabase = FirebaseDatabase.getInstance();
         profiles = firebaseDatabase.getReference("profiles");
+        roles = firebaseDatabase.getReference("roles");
         FirebaseStorage firebaseStorage = FirebaseStorage.getInstance();
         profileImages = firebaseStorage.getReference("profiles");
 
@@ -128,32 +129,43 @@ public class UserPersonalDataActivity extends AppCompatActivity {
         addressTextInputEditText = findViewById(R.id.editUserPersonalDataAddress_textInputEditText);
         phoneNumberTextInputEditText = findViewById(R.id.editUserPersonalDataPhoneNumber_textInputEditText);
         descriptionTextInputEditText = findViewById(R.id.editUserPersonalDataDescription_textInputEditText);
-
-        readDataFromDatabase();
-        setOnClickListeners();
-    }
-
-    public Uri getImageUri(Context inContext, Bitmap inImage) {
-        ByteArrayOutputStream bytes = new ByteArrayOutputStream();
-        inImage.compress(Bitmap.CompressFormat.JPEG, 100, bytes);
-        String path = MediaStore.Images.Media.insertImage(inContext.getContentResolver(), inImage, "Title", null);
-        return Uri.parse(path);
-    }
-
-    private void readDataFromDatabase() {
-        profiles.child("users").child(loggedUserId).addValueEventListener(new ValueEventListener() {
+        role = "";
+        roles.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
-                String name, email, age, address, phoneNumber, profileImageDownloadLink, description;
+                if (snapshot.child(loggedUserId).hasChild("user")) {
+                    role = "user";
+                } else {
+                    role = "shelterAdministrator";
+                }
+            }
 
-                email = Objects.requireNonNull(firebaseAuth.getCurrentUser()).getEmail();
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
 
-                name = Objects.requireNonNull(snapshot.child("name").getValue()).toString();
-                age = Objects.requireNonNull(snapshot.child("age").getValue()).toString();
-                address = Objects.requireNonNull(snapshot.child("address").getValue()).toString();
-                phoneNumber = Objects.requireNonNull(snapshot.child("phoneNumber").getValue()).toString();
-                description = Objects.requireNonNull(snapshot.child("description").getValue()).toString();
-                profileImageDownloadLink = Objects.requireNonNull(snapshot.child("profileImageDownloadLink").getValue()).toString();
+            }
+        });
+        profiles.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                String name = "", email = "", age = "", address = "", phoneNumber = "", profileImageDownloadLink = "", description = "";
+
+                    email = Objects.requireNonNull(firebaseAuth.getCurrentUser()).getEmail();
+                if (role.equals("user")) {
+                    name = Objects.requireNonNull(snapshot.child("users").child(loggedUserId).child("name").getValue()).toString();
+                    age = Objects.requireNonNull(snapshot.child("users").child(loggedUserId).child("age").getValue()).toString();
+                    address = Objects.requireNonNull(snapshot.child("users").child(loggedUserId).child("address").getValue()).toString();
+                    phoneNumber = Objects.requireNonNull(snapshot.child("users").child(loggedUserId).child("phoneNumber").getValue()).toString();
+                    description = Objects.requireNonNull(snapshot.child("users").child(loggedUserId).child("description").getValue()).toString();
+                    profileImageDownloadLink = Objects.requireNonNull(snapshot.child("users").child(loggedUserId).child("profileImageDownloadLink").getValue()).toString();
+                } else if (role.equals("shelterAdministrator")) {
+                    name = Objects.requireNonNull(snapshot.child("sheltersAdministrators").child(loggedUserId).child("name").getValue()).toString();
+                    age = Objects.requireNonNull(snapshot.child("sheltersAdministrators").child(loggedUserId).child("age").getValue()).toString();
+                    address = Objects.requireNonNull(snapshot.child("sheltersAdministrators").child(loggedUserId).child("address").getValue()).toString();
+                    phoneNumber = Objects.requireNonNull(snapshot.child("sheltersAdministrators").child(loggedUserId).child("phoneNumber").getValue()).toString();
+                    description = Objects.requireNonNull(snapshot.child("sheltersAdministrators").child(loggedUserId).child("description").getValue()).toString();
+                    profileImageDownloadLink = Objects.requireNonNull(snapshot.child("sheltersAdministrators").child(loggedUserId).child("profileImageDownloadLink").getValue()).toString();
+                }
 
                 userName.setText(name);
                 aboutMeShortBio.setText(description);
@@ -173,6 +185,14 @@ public class UserPersonalDataActivity extends AppCompatActivity {
 
             }
         });
+        setOnClickListeners();
+    }
+
+    public Uri getImageUri(Context inContext, Bitmap inImage) {
+        ByteArrayOutputStream bytes = new ByteArrayOutputStream();
+        inImage.compress(Bitmap.CompressFormat.JPEG, 100, bytes);
+        String path = MediaStore.Images.Media.insertImage(inContext.getContentResolver(), inImage, "Title", null);
+        return Uri.parse(path);
     }
 
     private void setOnClickListeners() {
@@ -366,6 +386,36 @@ public class UserPersonalDataActivity extends AppCompatActivity {
             }
         });
 
+    }
+
+    @Override
+    public void onStart() {
+        super.onStart();
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+    }
+
+    @Override
+    public void onStop() {
+        super.onStop();
+    }
+
+    @Override
+    public void onLowMemory() {
+        super.onLowMemory();
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
     }
 
 }

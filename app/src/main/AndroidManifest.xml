@@ -33,6 +33,80 @@
         android:theme="@style/Theme.PetShelterFriends"
         tools:targetApi="31">
         <activity
+            android:name=".pets.ViewRegisteredSheltersOnMapActivity"
+            android:exported="false" />
+        <activity
+            android:name=".profile.SelectShelterLocationMapActivity"
+            android:exported="false" />
+        <activity
+            android:name=".pets.shelter.SheltersLocationMapActivity"
+            android:exported="false" />
+        <activity
+            android:name=".pets.lost.LostPetDetailsActivity"
+            android:exported="false" />
+        <activity
+            android:name=".pets.lost.AddLostPetActivity"
+            android:exported="false" />
+        <activity
+            android:name=".pets.abandoned.AbandonedPetSelectLocationMapActivity"
+            android:exported="false">
+            <meta-data
+                android:name="com.google.android.gms.version"
+                android:value="@integer/google_play_services_version" />
+            <meta-data
+                android:name="com.google.android.geo.API_KEY"
+                android:value="${MAPS_API_KEY}" />
+        </activity>
+        <activity
+            android:name=".pets.abandoned.AbandonedPetDetailsActivity"
+            android:exported="false">
+            <meta-data
+                android:name="com.google.android.gms.version"
+                android:value="@integer/google_play_services_version" />
+            <meta-data
+                android:name="com.google.android.geo.API_KEY"
+                android:value="${MAPS_API_KEY}" />
+        </activity>
+        <activity
+            android:name=".pets.abandoned.AddAbandonedPetActivity"
+            android:exported="false" />
+        <activity
+            android:name=".pets.adoption.GenerateAdoptionApplicationPDFActivity"
+            android:exported="false" />
+        <activity
+            android:name=".pets.adoption.CompleteAboutPersonalReferencesInformationActivity"
+            android:exported="false" />
+        <activity
+            android:name=".pets.adoption.CompleteAboutWishedPetAdoptionInformationActivity"
+            android:exported="false" />
+        <activity
+            android:name=".pets.adoption.CompleteAboutRegularVeterinarianInformationActivity"
+            android:exported="false" />
+        <activity
+            android:name=".pets.adoption.CompleteAboutOtherOwnedPetsActivity"
+            android:exported="false" />
+        <activity
+            android:name=".pets.adoption.CompleteFamilyAndHouseholdInformationActivity"
+            android:exported="false" />
+        <activity
+            android:name=".pets.adoption.CompleteAboutPetAdopterInformationActivity"
+            android:exported="false" />
+        <activity
+            android:name=".pets.shelter.ShelterDetailsActivity"
+            android:exported="false" />
+        <activity
+            android:name=".pets.adoption.AdoptionApplicationParagraphsActivity"
+            android:exported="false" />
+        <activity
+            android:name=".pets.filtering.FilterActivity"
+            android:exported="false" />
+        <activity
+            android:name=".pets.sheltered.AddShelteredPetActivity"
+            android:exported="false" />
+        <activity
+            android:name=".pets.sheltered.ShelteredPetDetailsActivity"
+            android:exported="false" />
+        <activity
             android:name=".profile.services.ActiveServiceDetailsActivity"
             android:exported="false" />
         <activity
@@ -40,13 +114,28 @@
             android:exported="false" />
         <activity
             android:name=".profile.services.AddServiceActivity"
-            android:exported="false" />
+            android:exported="false">
+            <meta-data
+                android:name="com.google.android.gms.version"
+                android:value="@integer/google_play_services_version" />
+            <meta-data
+                android:name="com.google.android.geo.API_KEY"
+                android:value="${MAPS_API_KEY}" />
+        </activity>
         <activity
             android:name=".profile.PastAttendedEventsActivity"
             android:exported="false" />
         <activity
             android:name=".profile.services.ActiveServicesActivity"
-            android:exported="false" />
+            android:exported="false">
+            <intent-filter>
+                <action android:name="android.intent.action.SEARCH" />
+            </intent-filter>
+
+            <meta-data
+                android:name="android.app.searchable"
+                android:resource="@xml/searchable" />
+        </activity>
         <activity
             android:name=".NotificationsActivity"
             android:exported="false" />
@@ -139,6 +228,14 @@
             <meta-data
                 android:name="android.app.lib_name"
                 android:value="" />
+
+            <intent-filter>
+                <action android:name="android.intent.action.SEARCH" />
+            </intent-filter>
+
+            <meta-data
+                android:name="android.app.searchable"
+                android:resource="@xml/searchable" />
         </activity>
         <activity
             android:name=".authentication.LoginActivity"

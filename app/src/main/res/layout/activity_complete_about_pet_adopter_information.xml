@@ -1,0 +1,274 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".pets.adoption.CompleteAboutPetAdopterInformationActivity">
+
+    <com.google.android.material.appbar.AppBarLayout
+        android:id="@+id/completeAboutPetAdopterInformation_appBarLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <com.google.android.material.appbar.MaterialToolbar
+            android:id="@+id/completeAboutPetAdopterInformation_materialToolbar"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            app:layout_anchor="@+id/appBarLayout"
+            app:layout_anchorGravity="center"
+            app:navigationIcon="@drawable/arrow_back_24"
+            app:menu="@menu/forward_top_app_bar_menu"
+            app:title="About pet adopter"
+            app:titleCentered="true" />
+    </com.google.android.material.appbar.AppBarLayout>
+
+    <com.google.android.material.progressindicator.LinearProgressIndicator
+        android:id="@+id/completeAboutPetAdopterInformation_linearProgressIndicator"
+        style="@style/Widget.Material3.LinearProgressIndicator"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:progress="0"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintBottom_toTopOf="@+id/completeAboutPetAdopterInformation_scrollView"
+        app:layout_constraintTop_toBottomOf="@+id/completeAboutPetAdopterInformation_appBarLayout" />
+
+    <ScrollView
+        android:id="@+id/completeAboutPetAdopterInformation_scrollView"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/completeAboutPetAdopterInformation_linearProgressIndicator"
+        app:layout_constraintBottom_toBottomOf="parent">
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/completeAboutPetAdopterInformationFullName_materialTextInputLayout"
+                style="@style/Widget.Material3.TextInputLayout.OutlinedBox"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:autofillHints="name"
+                android:hint="@string/full_name"
+                android:inputType="textPersonName"
+                android:layout_marginTop="@dimen/vertical_space_between_items"
+                app:counterEnabled="false"
+                app:endIconMode="clear_text"
+                app:errorEnabled="true"
+                app:helperText="*Required"
+                app:layout_constraintWidth_max="@dimen/material_textInputLayout_max_width"
+                app:layout_constraintEnd_toStartOf="@id/guideline30"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toEndOf="@id/guideline29"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toTopOf="@+id/completeAboutPetAdopterInformationAddress_materialTextInputLayout">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/completeAboutPetAdopterInformationFullName_materialTextInputEditText"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="textPersonName"
+                    android:maxLines="1" />
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/completeAboutPetAdopterInformationAddress_materialTextInputLayout"
+                style="@style/Widget.Material3.TextInputLayout.OutlinedBox"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:autofillHints="postalAddress"
+                android:hint="@string/address"
+                android:inputType="text"
+                android:layout_marginTop="@dimen/vertical_space_between_items"
+                app:helperText="*Required"
+                app:layout_constraintWidth_max="@dimen/material_textInputLayout_max_width"
+                app:counterEnabled="false"
+                app:endIconMode="clear_text"
+                app:errorEnabled="true"
+                app:layout_constraintEnd_toStartOf="@id/guideline30"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toEndOf="@id/guideline29"
+                app:layout_constraintTop_toBottomOf="@+id/completeAboutPetAdopterInformationFullName_materialTextInputLayout"
+                app:layout_constraintBottom_toTopOf="@+id/completeAboutPetAdopterInformationPhoneNumber_materialTextInputLayout">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/completeAboutPetAdopterInformationAddress_materialTextInputEditText"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="textPostalAddress"
+                    android:maxLines="2"/>
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/completeAboutPetAdopterInformationPhoneNumber_materialTextInputLayout"
+                style="@style/Widget.Material3.TextInputLayout.OutlinedBox"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:autofillHints="phone"
+                android:hint="@string/phone_number"
+                android:inputType="phone"
+                android:layout_marginTop="@dimen/vertical_space_between_items"
+                app:helperText="*Required"
+                app:counterEnabled="true"
+                app:layout_constraintWidth_max="@dimen/material_textInputLayout_max_width"
+                app:counterMaxLength="10"
+                app:endIconMode="clear_text"
+                app:errorEnabled="true"
+                app:layout_constraintEnd_toStartOf="@id/guideline30"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toEndOf="@id/guideline29"
+                app:layout_constraintTop_toBottomOf="@+id/completeAboutPetAdopterInformationAddress_materialTextInputLayout"
+                app:layout_constraintBottom_toTopOf="@+id/completeAboutPetAdopterInformationEmail_materialTextInputLayout">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/completeAboutPetAdopterInformationPhoneNumber_materialTextInputEditText"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="phone"
+                    android:maxLines="1"/>
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/completeAboutPetAdopterInformationEmail_materialTextInputLayout"
+                style="@style/Widget.Material3.TextInputLayout.OutlinedBox"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:autofillHints="emailAddress"
+                android:hint="@string/email"
+                android:inputType="textEmailAddress"
+                android:layout_marginTop="@dimen/vertical_space_between_items"
+                app:counterEnabled="false"
+                app:layout_constraintWidth_max="@dimen/material_textInputLayout_max_width"
+                app:endIconMode="clear_text"
+                app:errorEnabled="true"
+                app:helperText="*Required"
+                app:layout_constraintEnd_toStartOf="@id/guideline30"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toEndOf="@id/guideline29"
+                app:layout_constraintTop_toBottomOf="@+id/completeAboutPetAdopterInformationPhoneNumber_materialTextInputLayout"
+                app:layout_constraintBottom_toTopOf="@+id/completeAboutPetAdopterInformationOccupation_materialTextInputLayout">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/completeAboutPetAdopterInformationEmail_materialTextInputEditText"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="textEmailAddress"
+                    android:maxLines="1"/>
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/completeAboutPetAdopterInformationOccupation_materialTextInputLayout"
+                style="@style/Widget.Material3.TextInputLayout.OutlinedBox"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:autofillHints="name"
+                android:hint="@string/occupation"
+                android:inputType="text"
+                android:layout_marginTop="@dimen/vertical_space_between_items"
+                app:counterEnabled="false"
+                app:endIconMode="clear_text"
+                app:errorEnabled="true"
+                app:layout_constraintWidth_max="@dimen/material_textInputLayout_max_width"
+                app:layout_constraintEnd_toStartOf="@id/guideline30"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toEndOf="@id/guideline29"
+                app:layout_constraintTop_toBottomOf="@+id/completeAboutPetAdopterInformationEmail_materialTextInputLayout"
+                app:layout_constraintBottom_toTopOf="@+id/completeAboutPetAdopterInformationSittingAtCurrentAddress_materialTextInputLayout">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/completeAboutPetAdopterInformationOccupation_materialTextInputEditText"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="text"
+                    android:maxLines="1"/>
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/completeAboutPetAdopterInformationSittingAtCurrentAddress_materialTextInputLayout"
+                style="@style/Widget.Material3.TextInputLayout.OutlinedBox"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:autofillHints="name"
+                android:hint="@string/sitting_at_current_address"
+                android:inputType="text"
+                android:layout_marginTop="@dimen/vertical_space_between_items"
+                app:counterEnabled="false"
+                app:layout_constraintWidth_max="@dimen/material_textInputLayout_max_width"
+                app:endIconMode="clear_text"
+                app:errorEnabled="true"
+                app:layout_constraintEnd_toStartOf="@id/guideline30"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toEndOf="@id/guideline29"
+                app:layout_constraintTop_toBottomOf="@+id/completeAboutPetAdopterInformationOccupation_materialTextInputLayout"
+                app:layout_constraintBottom_toTopOf="@+id/completeAboutPetAdopterInformationBestTimeToCall_materialTextInputLayout">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/completeAboutPetAdopterInformationSittingAtCurrentAddress_materialTextInputEditText"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="text"
+                    android:maxLines="1"/>
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/completeAboutPetAdopterInformationBestTimeToCall_materialTextInputLayout"
+                style="@style/Widget.Material3.TextInputLayout.OutlinedBox"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:autofillHints="emailAddress"
+                android:hint="@string/best_time_to_call"
+                android:inputType="text"
+                android:layout_marginTop="@dimen/vertical_space_between_items"
+                app:counterEnabled="false"
+                app:endIconMode="clear_text"
+                app:errorEnabled="true"
+                app:layout_constraintWidth_max="@dimen/material_textInputLayout_max_width"
+                app:helperText="hh-hh"
+                app:layout_constraintEnd_toStartOf="@id/guideline30"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toEndOf="@id/guideline29"
+                app:layout_constraintTop_toBottomOf="@+id/completeAboutPetAdopterInformationSittingAtCurrentAddress_materialTextInputLayout"
+                app:layout_constraintBottom_toTopOf="@+id/completeAboutPetAdopterInformation_materialButton">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/completeAboutPetAdopterInformationBestTimeToCall_materialTextInputEditText"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="text|numberDecimal"
+                    android:maxLines="1"/>
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/completeAboutPetAdopterInformation_materialButton"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:text="@string/save"
+                android:layout_marginTop="@dimen/vertical_space_between_items"
+                app:layout_constraintWidth_max="@dimen/material_button_max_width"
+                app:layout_constraintTop_toBottomOf="@+id/completeAboutPetAdopterInformationBestTimeToCall_materialTextInputLayout"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent" />
+
+            <androidx.constraintlayout.widget.Guideline
+                android:id="@+id/guideline29"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                app:layout_constraintGuide_percent="0.05" />
+
+            <androidx.constraintlayout.widget.Guideline
+                android:id="@+id/guideline30"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                app:layout_constraintGuide_percent="0.95" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </ScrollView>
+</androidx.constraintlayout.widget.ConstraintLayout>

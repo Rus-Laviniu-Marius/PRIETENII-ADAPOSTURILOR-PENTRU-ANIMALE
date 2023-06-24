@@ -1,0 +1,353 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".pets.lost.AddLostPetActivity">
+
+    <com.google.android.material.appbar.AppBarLayout
+        android:id="@+id/addLostPet_appBarLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <com.google.android.material.appbar.MaterialToolbar
+            android:id="@+id/addLostPet_materialToolbar"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            app:layout_anchor="@+id/appBarLayout"
+            app:layout_anchorGravity="center"
+            app:titleCentered="true"
+            app:menu="@menu/open_camera_and_gallery_top_app_bar_menu"
+            app:navigationIcon="@drawable/arrow_back_24"
+            app:title="Add lost pet" />
+    </com.google.android.material.appbar.AppBarLayout>
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/addLostPet_appBarLayout">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <com.google.android.material.imageview.ShapeableImageView
+                android:id="@+id/addLostPet_shapeImageView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginVertical="@dimen/vertical_space_between_items"
+                android:adjustViewBounds="true"
+                android:scaleType="centerInside"
+                android:src="@drawable/media"
+                app:layout_constraintBottom_toTopOf="@+id/addLostPetOwnerEmail_textInputLayout"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="parent"
+                app:layout_constraintVertical_chainStyle="spread_inside" />
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/addLostPetOwnerEmail_textInputLayout"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginVertical="@dimen/vertical_space_between_items"
+                android:hint="@string/email"
+                app:helperTextEnabled="true"
+                app:helperText="*Required"
+                app:layout_constraintBottom_toTopOf="@+id/addLostPetOwnerPhoneNumber_textInputLayout"
+                app:layout_constraintEnd_toStartOf="@id/guideline49"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toEndOf="@id/guideline48"
+                app:layout_constraintTop_toBottomOf="@+id/addLostPet_shapeImageView"
+                app:layout_constraintWidth_max="@dimen/material_textInputLayout_max_width">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/addLostPetOwnerEmail_textInputEditText"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="textEmailAddress" />
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/addLostPetOwnerPhoneNumber_textInputLayout"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginVertical="@dimen/vertical_space_between_items"
+                android:hint="@string/phone_number"
+                app:helperText="*Required"
+                app:counterEnabled="true"
+                app:counterMaxLength="10"
+                app:layout_constraintBottom_toTopOf="@+id/addLostPetType_textInputLayout"
+                app:layout_constraintEnd_toStartOf="@id/guideline49"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toEndOf="@id/guideline48"
+                app:layout_constraintTop_toBottomOf="@+id/addLostPetOwnerEmail_textInputLayout"
+                app:layout_constraintWidth_max="@dimen/material_textInputLayout_max_width">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/addLostPetOwnerPhoneNumber_textInputEditText"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="phone" />
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/addLostPetType_textInputLayout"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginVertical="@dimen/vertical_space_between_items"
+                android:hint="@string/select_pet_type"
+                app:helperTextEnabled="true"
+                app:helperText="*Required"
+                app:layout_constraintBottom_toTopOf="@+id/addLostPetName_textInputLayout"
+                app:layout_constraintEnd_toStartOf="@id/guideline49"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toEndOf="@id/guideline48"
+                app:layout_constraintTop_toBottomOf="@+id/addLostPetOwnerPhoneNumber_textInputLayout"
+                app:layout_constraintWidth_max="@dimen/material_textInputLayout_max_width">
+
+                <com.google.android.material.textfield.MaterialAutoCompleteTextView
+                    android:id="@+id/addLostPetTypes_materialAutoCompleteTextView"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="text" />
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/addLostPetName_textInputLayout"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginVertical="@dimen/vertical_space_between_items"
+                android:hint="@string/pet_name"
+                app:helperTextEnabled="true"
+                app:helperText="*Required"
+                app:layout_constraintBottom_toTopOf="@+id/addLostPetBreed_textInputLayout"
+                app:layout_constraintEnd_toStartOf="@id/guideline49"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toEndOf="@id/guideline48"
+                app:layout_constraintTop_toBottomOf="@+id/addLostPetType_textInputLayout"
+                app:layout_constraintWidth_max="@dimen/material_textInputLayout_max_width">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/addLostPetName_textInputEditText"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="text" />
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/addLostPetBreed_textInputLayout"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginVertical="@dimen/vertical_space_between_items"
+                android:hint="@string/pet_breed"
+                app:helperTextEnabled="true"
+                app:helperText="*Required"
+                app:layout_constraintBottom_toTopOf="@+id/addLostPetAge_textInputLayout"
+                app:layout_constraintEnd_toStartOf="@id/guideline49"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toEndOf="@id/guideline48"
+                app:layout_constraintTop_toBottomOf="@+id/addLostPetName_textInputLayout"
+                app:layout_constraintWidth_max="@dimen/material_textInputLayout_max_width">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/addLostPetBreed_textInputEditText"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="text" />
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/addLostPetAge_textInputLayout"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginVertical="@dimen/vertical_space_between_items"
+                android:hint="@string/pet_age"
+                app:helperTextEnabled="true"
+                app:helperText="*Required"
+                app:layout_constraintBottom_toTopOf="@+id/addLostPetSize_textInputLayout"
+                app:layout_constraintEnd_toStartOf="@id/guideline49"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toEndOf="@id/guideline48"
+                app:layout_constraintTop_toBottomOf="@+id/addLostPetBreed_textInputLayout"
+                app:layout_constraintWidth_max="@dimen/material_textInputLayout_max_width">
+
+                <com.google.android.material.textfield.MaterialAutoCompleteTextView
+                    android:id="@+id/addLostPetAge_materialAutoCompleteTextView"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="text" />
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/addLostPetSize_textInputLayout"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginVertical="@dimen/vertical_space_between_items"
+                android:hint="@string/pet_size"
+                app:helperTextEnabled="true"
+                app:helperText="*Required"
+                app:layout_constraintBottom_toTopOf="@+id/addLostPetSex_textInputLayout"
+                app:layout_constraintEnd_toStartOf="@id/guideline49"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toEndOf="@id/guideline48"
+                app:layout_constraintTop_toBottomOf="@+id/addLostPetAge_textInputLayout"
+                app:layout_constraintWidth_max="@dimen/material_textInputLayout_max_width">
+
+                <com.google.android.material.textfield.MaterialAutoCompleteTextView
+                    android:id="@+id/addLostPetSize_materialAutoCompleteTextView"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="text" />
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/addLostPetSex_textInputLayout"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginVertical="@dimen/vertical_space_between_items"
+                android:hint="@string/pet_sex"
+                app:helperTextEnabled="true"
+                app:helperText="*Required"
+                app:layout_constraintBottom_toTopOf="@+id/addLostPetColor_textInputLayout"
+                app:layout_constraintEnd_toStartOf="@id/guideline49"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toEndOf="@id/guideline48"
+                app:layout_constraintTop_toBottomOf="@+id/addLostPetSize_textInputLayout"
+                app:layout_constraintWidth_max="@dimen/material_textInputLayout_max_width">
+
+                <com.google.android.material.textfield.MaterialAutoCompleteTextView
+                    android:id="@+id/addLostPetSex_materialAutoCompleteTextView"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="text" />
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/addLostPetColor_textInputLayout"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginVertical="@dimen/vertical_space_between_items"
+                android:hint="@string/pet_color"
+                android:visibility="gone"
+                app:helperTextEnabled="true"
+                app:helperText="*Required"
+                app:layout_constraintBottom_toTopOf="@+id/addLostPetDescription_textInputLayout"
+                app:layout_constraintEnd_toStartOf="@+id/guideline49"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toEndOf="@+id/guideline48"
+                app:layout_constraintTop_toBottomOf="@+id/addLostPetSex_textInputLayout"
+                app:layout_constraintWidth_max="@dimen/material_textInputLayout_max_width">
+
+                <com.google.android.material.textfield.MaterialAutoCompleteTextView
+                    android:id="@+id/addLostPetColor_materialAutoCompleteTextView"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="text" />
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/addLostPetDescription_textInputLayout"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginVertical="@dimen/vertical_space_between_items"
+                android:hint="@string/pet_description"
+                app:helperTextEnabled="true"
+                app:helperText="*Required"
+                app:layout_constraintBottom_toTopOf="@+id/addLostPetSpayedOrNeutered_materialCheckBox"
+                app:layout_constraintEnd_toStartOf="@id/guideline49"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toEndOf="@id/guideline48"
+                app:layout_constraintTop_toBottomOf="@+id/addLostPetColor_textInputLayout"
+                app:layout_constraintWidth_max="@dimen/material_textInputLayout_max_width">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/addLostPetDescription_textInputEditText"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="textMultiLine"
+                    android:scrollbars="vertical" />
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.checkbox.MaterialCheckBox
+                android:id="@+id/addLostPetSpayedOrNeutered_materialCheckBox"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:text="@string/spayed_neutered"
+                app:layout_constraintBottom_toTopOf="@+id/addLostPetDewormed_materialCheckBox"
+                app:layout_constraintEnd_toStartOf="@+id/guideline49"
+                app:layout_constraintStart_toEndOf="@+id/guideline48"
+                app:layout_constraintTop_toBottomOf="@+id/addLostPetDescription_textInputLayout"
+                app:layout_constraintWidth_max="@dimen/material_checkbox" />
+
+            <com.google.android.material.checkbox.MaterialCheckBox
+                android:id="@+id/addLostPetDewormed_materialCheckBox"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:text="@string/dewormed"
+                app:layout_constraintBottom_toTopOf="@+id/addLostPetVaccines_materialCheckBox"
+                app:layout_constraintEnd_toStartOf="@id/guideline49"
+                app:layout_constraintStart_toEndOf="@id/guideline48"
+                app:layout_constraintTop_toBottomOf="@+id/addLostPetSpayedOrNeutered_materialCheckBox"
+                app:layout_constraintWidth_max="@dimen/material_checkbox" />
+
+            <com.google.android.material.checkbox.MaterialCheckBox
+                android:id="@+id/addLostPetVaccines_materialCheckBox"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:text="@string/vaccines"
+                app:layout_constraintBottom_toTopOf="@+id/addLostPet_materialButton"
+                app:layout_constraintEnd_toStartOf="@id/guideline49"
+                app:layout_constraintStart_toEndOf="@id/guideline48"
+                app:layout_constraintTop_toBottomOf="@+id/addLostPetDewormed_materialCheckBox"
+                app:layout_constraintWidth_max="@dimen/material_checkbox" />
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/addLostPet_materialButton"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginVertical="@dimen/vertical_space_between_items"
+                android:text="@string/add_pet"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toStartOf="@id/guideline49"
+                app:layout_constraintStart_toEndOf="@id/guideline48"
+                app:layout_constraintTop_toBottomOf="@+id/addLostPetVaccines_materialCheckBox"
+                app:layout_constraintWidth_max="@dimen/material_button_max_width" />
+
+            <androidx.constraintlayout.widget.Guideline
+                android:id="@+id/guideline48"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                app:layout_constraintGuide_percent="0.05" />
+
+            <androidx.constraintlayout.widget.Guideline
+                android:id="@+id/guideline49"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                app:layout_constraintGuide_percent="0.95" />
+
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </ScrollView>
+
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>
