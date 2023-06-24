@@ -52,6 +52,11 @@ public class BottomAppBarHomeFragment extends Fragment {
 
         MaterialToolbar materialToolbar = layout.findViewById(R.id.userHomeScreenTop_materialToolbar);
         tabLayout = layout.findViewById(R.id.bottomNavigationBarHome_tabLayout);
+        tabLayout.addTab(tabLayout.newTab().setText("Pets"));
+        tabLayout.addTab(tabLayout.newTab().setText("Volunteer"));
+        tabLayout.addTab(tabLayout.newTab().setText("Donation"));
+        tabLayout.addTab(tabLayout.newTab().setText("Support"));
+        tabLayout.addTab(tabLayout.newTab().setText("Caring"));
 
         viewPager2 = layout.findViewById(R.id.bottomNavigationBarHome_viewPager2);
         HomeTabLayoutViewPager2Adapter homeTabLayoutViewPager2Adapter = new HomeTabLayoutViewPager2Adapter(this);

@@ -92,6 +92,7 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:text="@string/past_attended_events"
+        android:visibility="gone"
         app:icon="@drawable/history_24"
         app:layout_constraintBottom_toTopOf="@+id/viewProfileActiveServices_materialButton"
         app:layout_constraintEnd_toStartOf="@+id/guideline18"

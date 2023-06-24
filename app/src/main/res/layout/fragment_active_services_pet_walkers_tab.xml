@@ -55,7 +55,7 @@
         android:id="@+id/activeServicesAddPetWalkers_relativeLayout"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:padding="@dimen/medium_padding"
+        android:padding="@dimen/extra_space_for_floating_action_buttons"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent">
 
