@@ -93,7 +93,6 @@ public class BottomAppBarHomePetsNewsTabFragment extends Fragment {
                 intent.putExtra("newsArticleAuthorProfileImage", newsArticleData.getNewsArticleAuthorProfileImage());
                 intent.putExtra("category", newsArticleData.getCategory());
                 startActivity(intent);
-                requireActivity().finish();
             }
         });
 
