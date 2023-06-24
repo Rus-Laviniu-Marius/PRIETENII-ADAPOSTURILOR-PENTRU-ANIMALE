@@ -3,7 +3,10 @@ package com.pet.shelter.friends.profile;
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
+import androidx.constraintlayout.widget.ConstraintLayout;
 
 import android.Manifest;
 import android.app.Activity;
@@ -14,9 +17,11 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Toast;
 
+import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -24,6 +29,7 @@ import com.google.android.gms.tasks.Task;
 import com.google.android.material.appbar.MaterialToolbar;
 import com.google.android.material.button.MaterialButton;
 import com.google.android.material.imageview.ShapeableImageView;
+import com.google.android.material.snackbar.Snackbar;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.android.material.textfield.TextInputLayout;
 import com.google.firebase.auth.FirebaseAuth;
@@ -44,16 +50,9 @@ import java.util.Objects;
 
 public class CreateShelterProfileActivity extends AppCompatActivity implements TextWatcher, ErrorSetter {
 
-    private FirebaseAuth firebaseAuth;
-    private FirebaseDatabase firebaseDatabase;
     private DatabaseReference registeredShelters;
-
-    private FirebaseStorage firebaseStorage;
-
     private StorageReference sheltersLogos;
-
     private String loggedUserId;
-
     private TextInputLayout ibanTextInputLayout, nameTextInputLayout, addressTextInputLayout,
             latitudeTextInputLayout, longitudeTextInputLayout, phoneNumberTextInputLayout,
             emailTextInputLayout, webPageLinkTextInputLayout, ourMissionTextInputLayout,
@@ -63,8 +62,6 @@ public class CreateShelterProfileActivity extends AppCompatActivity implements T
             latitudeTextInputEditText, longitudeTextInputEditText, phoneNumberTextInputEditText,
             emailTextInputEditText, webPageLinkTextInputEditText, ourMissionTextInputEditText,
             ourAdoptionPolicyTextInputEditText;
-    private MaterialToolbar materialToolbar;
-    private MaterialButton addShelterMaterialButton;
     private ShapeableImageView shelterLogoShapeImageView;
     private Uri gallerySelectedImageUri;
 
@@ -77,15 +74,11 @@ public class CreateShelterProfileActivity extends AppCompatActivity implements T
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_create_shelter_profile);
 
-        firebaseAuth = FirebaseAuth.getInstance();
-        firebaseDatabase = FirebaseDatabase.getInstance();
-        registeredShelters = firebaseDatabase.getReference("registeredShelters");
-        firebaseStorage = FirebaseStorage.getInstance();
-        sheltersLogos = firebaseStorage.getReference();
+        registeredShelters = FirebaseDatabase.getInstance().getReference("registeredShelters");
+        sheltersLogos = FirebaseStorage.getInstance().getReference();
+        loggedUserId = Objects.requireNonNull(FirebaseAuth.getInstance().getCurrentUser()).getUid();
 
-        loggedUserId = Objects.requireNonNull(firebaseAuth.getCurrentUser()).getUid();
-
-        materialToolbar = findViewById(R.id.createShelterProfile_materialToolbar);
+        MaterialToolbar materialToolbar = findViewById(R.id.createShelterProfile_materialToolbar);
         ibanTextInputLayout = findViewById(R.id.createShelterProfileIBAN_textInputLayout);
         nameTextInputLayout = findViewById(R.id.createShelterProfileName_textInputLayout);
         addressTextInputLayout = findViewById(R.id.createShelterProfileAddress_textInputLayout);
@@ -107,8 +100,8 @@ public class CreateShelterProfileActivity extends AppCompatActivity implements T
         webPageLinkTextInputEditText = findViewById(R.id.createShelterProfileWebPageLink_textInputEditText);
         ourMissionTextInputEditText = findViewById(R.id.createShelterProfileOurMission_textInputEditText);
         ourAdoptionPolicyTextInputEditText = findViewById(R.id.createShelterProfileOurAdoptionPolicy_textInputEditText);
-
-        addShelterMaterialButton = findViewById(R.id.createShelterProfile_materialButton);
+        MaterialButton addShelterMaterialButton = findViewById(R.id.createShelterProfile_materialButton);
+        ConstraintLayout constraintLayout = findViewById(R.id.createShelterProfile_constraintLayout);
 
         shelterLogoShapeImageView = findViewById(R.id.createShelterProfileLogo_shapeImageView);
 
@@ -142,6 +135,45 @@ public class CreateShelterProfileActivity extends AppCompatActivity implements T
             }
         });
 
+        materialToolbar.setNavigationOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
+
+        materialToolbar.setOnMenuItemClickListener(new Toolbar.OnMenuItemClickListener() {
+            @Override
+            public boolean onMenuItemClick(MenuItem item) {
+                if (item.getItemId() == R.id.action_help) {
+                    Snackbar snackbar = Snackbar.make(constraintLayout, "Please fill required information", Snackbar.LENGTH_SHORT);
+                    snackbar.setAction("Dismiss", new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+
+                        }
+                    });
+                    snackbar.show();
+                }
+                return false;
+            }
+        });
+
+        latitudeTextInputLayout.setEndIconOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(CreateShelterProfileActivity.this, SelectShelterLocationMapActivity.class));
+                finish();
+            }
+        });
+        longitudeTextInputLayout.setEndIconOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(CreateShelterProfileActivity.this, SelectShelterLocationMapActivity.class));
+                finish();
+            }
+        });
+
         addShelterMaterialButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -158,7 +190,6 @@ public class CreateShelterProfileActivity extends AppCompatActivity implements T
                 ourMission = Objects.requireNonNull(ourMissionTextInputEditText.getText()).toString().trim();
                 ourAdoptionPolicy = Objects.requireNonNull(ourAdoptionPolicyTextInputEditText.getText()).toString().trim();
 
-                // TODO: VALIDATE FIELDS
                 ValidationManager.getInstance().doValidation(CreateShelterProfileActivity.this,
                         ibanTextInputLayout).checkEmpty();
                 ValidationManager.getInstance().doValidation(CreateShelterProfileActivity.this,
@@ -183,7 +214,7 @@ public class CreateShelterProfileActivity extends AppCompatActivity implements T
                 if (ValidationManager.getInstance().isNothingEmpty()) {
                     StorageReference ref = sheltersLogos
                             .child("sheltersLogos")
-                            .child(Objects.requireNonNull(firebaseAuth.getCurrentUser()).getUid())
+                            .child(Objects.requireNonNull(loggedUserId))
                             .child("images/" + name + "_" + loggedUserId);
 
                     if (gallerySelectedImageUri != null) {
@@ -218,12 +249,6 @@ public class CreateShelterProfileActivity extends AppCompatActivity implements T
                                     public void onFailure(@NonNull Exception e) {
                                         Toast.makeText(CreateShelterProfileActivity.this, "Failed " + e.getMessage(), Toast.LENGTH_SHORT).show();
                                     }
-                                })
-                                .addOnProgressListener(new OnProgressListener<UploadTask.TaskSnapshot>() {
-                                    @Override
-                                    public void onProgress(@NonNull UploadTask.TaskSnapshot snapshot) {
-                                        double progress = (100.0 * snapshot.getBytesTransferred() / snapshot.getTotalByteCount());
-                                    }
                                 });
                     }
                     sendUserToNextActivity();
@@ -234,6 +259,20 @@ public class CreateShelterProfileActivity extends AppCompatActivity implements T
         });
 
         setTextWatcher();
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (resultCode == RESULT_OK) {
+            if (data != null) {
+                LatLng latLng = data.getParcelableExtra("picked_point");
+                latitudeTextInputEditText.setText(String.valueOf(latLng.latitude));
+                longitudeTextInputEditText.setText(String.valueOf(latLng.longitude));
+            Toast.makeText(this, "Point Chosen: " + latLng.latitude + " " + latLng.longitude, Toast.LENGTH_LONG).show();
+            }
+
+        }
     }
 
     public void sendUserToNextActivity() {
@@ -293,5 +332,35 @@ public class CreateShelterProfileActivity extends AppCompatActivity implements T
     @Override
     public void setError(TextInputLayout textInputLayout, String errorMessage) {
         textInputLayout.setError(errorMessage);
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+    }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+    }
+
+    @Override
+    public void onLowMemory() {
+        super.onLowMemory();
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
     }
 }
