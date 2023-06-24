@@ -232,17 +232,17 @@ public class CreateShelterProfileActivity extends AppCompatActivity implements T
                                                 Toast.makeText(CreateShelterProfileActivity.this, "Image uploaded", Toast.LENGTH_SHORT).show();
                                                 String fileLink = task.getResult().toString();
 
-                                                registeredShelters.child(loggedUserId).child(shelterToSave).child("iban").setValue(iban);
-                                                registeredShelters.child(loggedUserId).child(shelterToSave).child("name").setValue(name);
-                                                registeredShelters.child(loggedUserId).child(shelterToSave).child("address").setValue(address);
-                                                registeredShelters.child(loggedUserId).child(shelterToSave).child("latitude").setValue(latitude);
-                                                registeredShelters.child(loggedUserId).child(shelterToSave).child("longitude").setValue(longitude);
-                                                registeredShelters.child(loggedUserId).child(shelterToSave).child("phoneNumber").setValue(phoneNumber);
-                                                registeredShelters.child(loggedUserId).child(shelterToSave).child("email").setValue(email);
-                                                registeredShelters.child(loggedUserId).child(shelterToSave).child("webPageLink").setValue(webPage);
-                                                registeredShelters.child(loggedUserId).child(shelterToSave).child("ourMission").setValue(ourMission);
-                                                registeredShelters.child(loggedUserId).child(shelterToSave).child("ourAdoptionPolicy").setValue(ourAdoptionPolicy);
-                                                registeredShelters.child(loggedUserId).child(shelterToSave).child("profileImageDownloadLink").setValue(fileLink);
+                                                registeredShelters.child(shelterToSave).child("iban").setValue(iban);
+                                                registeredShelters.child(shelterToSave).child("name").setValue(name);
+                                                registeredShelters.child(shelterToSave).child("address").setValue(address);
+                                                registeredShelters.child(shelterToSave).child("latitude").setValue(latitude);
+                                                registeredShelters.child(shelterToSave).child("longitude").setValue(longitude);
+                                                registeredShelters.child(shelterToSave).child("phoneNumber").setValue(phoneNumber);
+                                                registeredShelters.child(shelterToSave).child("email").setValue(email);
+                                                registeredShelters.child(shelterToSave).child("webPageLink").setValue(webPage);
+                                                registeredShelters.child(shelterToSave).child("ourMission").setValue(ourMission);
+                                                registeredShelters.child(shelterToSave).child("ourAdoptionPolicy").setValue(ourAdoptionPolicy);
+                                                registeredShelters.child(shelterToSave).child("profileImageDownloadLink").setValue(fileLink);
                                             }
                                         });
                                     }
