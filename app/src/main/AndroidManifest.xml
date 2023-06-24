@@ -39,7 +39,7 @@
             android:name=".profile.SelectShelterLocationMapActivity"
             android:exported="false" />
         <activity
-            android:name=".shelter.SheltersLocationMapActivity"
+            android:name=".pets.shelter.SheltersLocationMapActivity"
             android:exported="false" />
         <activity
             android:name=".pets.lost.LostPetDetailsActivity"
@@ -92,7 +92,7 @@
             android:name=".pets.adoption.CompleteAboutPetAdopterInformationActivity"
             android:exported="false" />
         <activity
-            android:name=".shelter.ShelterDetailsActivity"
+            android:name=".pets.shelter.ShelterDetailsActivity"
             android:exported="false" />
         <activity
             android:name=".pets.adoption.AdoptionApplicationParagraphsActivity"

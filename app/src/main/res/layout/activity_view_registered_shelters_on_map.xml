@@ -7,6 +7,25 @@
     android:id="@+id/viewRegisteredSheltersLocation_constraintLayout"
     tools:context=".pets.ViewRegisteredSheltersOnMapActivity">
 
+    <com.google.android.material.appbar.AppBarLayout
+        android:id="@+id/viewRegisteredSheltersLocation_appBarLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <com.google.android.material.appbar.MaterialToolbar
+            android:id="@+id/viewRegisteredSheltersLocation_materialToolbar"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            app:titleCentered="true"
+            app:layout_anchor="@+id/appBarLayout"
+            app:layout_anchorGravity="center"
+            app:navigationIcon="@drawable/arrow_back_24"
+            app:title="Registered shelters" />
+    </com.google.android.material.appbar.AppBarLayout>
+
     <com.google.android.material.search.SearchBar
         android:visibility="gone"
         android:id="@+id/viewRegisteredSheltersLocation_searchBar"
@@ -14,7 +33,7 @@
         android:layout_height="wrap_content"
         android:contentDescription="@string/search_for_place"
         style="@style/Widget.Material3.SearchBar"
-        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/viewRegisteredSheltersLocation_appBarLayout"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"/>
 
@@ -36,12 +55,12 @@
     <androidx.fragment.app.FragmentContainerView
         android:id="@+id/viewRegisteredSheltersLocation_map"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="0dp"
         android:name="com.google.android.gms.maps.SupportMapFragment"
         android:contentDescription="@string/select_pet_location"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintTop_toTopOf="parent"/>
+        app:layout_constraintTop_toBottomOf="@+id/viewRegisteredSheltersLocation_appBarLayout"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

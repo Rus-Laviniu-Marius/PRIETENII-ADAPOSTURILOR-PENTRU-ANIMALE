@@ -7,15 +7,19 @@ import androidx.core.content.ContextCompat;
 import androidx.fragment.app.FragmentActivity;
 
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.location.Address;
 import android.location.Geocoder;
 import android.location.Location;
+import android.location.LocationManager;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.KeyEvent;
+import android.view.View;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.android.gms.location.FusedLocationProviderClient;
 import com.google.android.gms.location.LocationServices;
@@ -25,11 +29,13 @@ import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.CameraPosition;
 import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.libraries.places.api.Places;
 import com.google.android.libraries.places.api.net.PlacesClient;
+import com.google.android.material.appbar.MaterialToolbar;
 import com.google.android.material.search.SearchBar;
 import com.google.android.material.search.SearchView;
 import com.google.android.material.snackbar.Snackbar;
@@ -40,19 +46,23 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.pet.shelter.friends.BuildConfig;
 import com.pet.shelter.friends.R;
+import com.pet.shelter.friends.pets.shelter.ShelterData;
 
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 
-public class ViewRegisteredSheltersOnMapActivity extends FragmentActivity implements OnMapReadyCallback {
+public class ViewRegisteredSheltersOnMapActivity extends FragmentActivity
+        implements OnMapReadyCallback, GoogleMap.OnInfoWindowClickListener {
 
     private static final String TAG = ViewRegisteredSheltersOnMapActivity.class.getSimpleName();
     private GoogleMap gMap;
     private SearchBar searchBar;
     private SearchView searchView;
     private ConstraintLayout constraintLayout;
+    private MaterialToolbar materialToolbar;
     private FusedLocationProviderClient fusedLocationProviderClient;
     // A default location (Timisoara, Romania) and default zoom to use when location permission is
     // not granted.
@@ -68,23 +78,31 @@ public class ViewRegisteredSheltersOnMapActivity extends FragmentActivity implem
     // Keys for storing activity state.
     private static final String KEY_CAMERA_POSITION = "camera_position";
     private static final String KEY_LOCATION = "location";
+    private DatabaseReference registeredSheltersReference;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_view_registered_shelters_on_map);
-
         // Retrieve location and camera position from saved instance state.
         if (savedInstanceState != null) {
             lastKnownLocation = savedInstanceState.getParcelable(KEY_LOCATION);
             CameraPosition cameraPosition = savedInstanceState.getParcelable(KEY_CAMERA_POSITION);
         }
         // Retrieve the content view that renders the map.
-        setContentView(R.layout.activity_abandoned_pet_select_location_map);
+        setContentView(R.layout.activity_view_registered_shelters_on_map);
         searchBar = findViewById(R.id.viewRegisteredSheltersLocation_searchBar);
         searchView = findViewById(R.id.viewRegisteredSheltersLocation_searchView);
-        constraintLayout = findViewById(R.id.viewRegisteredSheltersLocation_map);
+        constraintLayout = findViewById(R.id.viewRegisteredSheltersLocation_constraintLayout);
+        materialToolbar = findViewById(R.id.viewRegisteredSheltersLocation_materialToolbar);
+        registeredSheltersReference = FirebaseDatabase.getInstance().getReference("registeredShelters");
+
+        materialToolbar.setNavigationOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
 
         // Construct a PlacesClient
         Places.initialize(getApplicationContext(), BuildConfig.MAPS_API_KEY);
@@ -96,11 +114,13 @@ public class ViewRegisteredSheltersOnMapActivity extends FragmentActivity implem
 
         // Build the map.
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
-                .findFragmentById(R.id.abandonedPetSelectLocation_map);
+                .findFragmentById(R.id.viewRegisteredSheltersLocation_map);
         if (mapFragment != null) {
             mapFragment.getMapAsync(this);
         }
     }
+
+
 
     /**
      * Saves the state of the map when the activity is paused.
@@ -121,17 +141,33 @@ public class ViewRegisteredSheltersOnMapActivity extends FragmentActivity implem
     @Override
     public void onMapReady(@NonNull GoogleMap googleMap) {
 
-        Snackbar snackbar = Snackbar.make(constraintLayout, "Press on map where you have last the pet", Snackbar.LENGTH_SHORT);
+        Snackbar snackbar = Snackbar.make(constraintLayout, "Click a pin for more details", Snackbar.LENGTH_SHORT);
         snackbar.show();
 
         gMap = googleMap;
-        ArrayList<ShelterData> shelters = new ArrayList<>();
-        DatabaseReference registeredSheltersReference = FirebaseDatabase.getInstance().getReference("registeredShelters");
+        gMap.getUiSettings().setMapToolbarEnabled(true);
+        gMap.getUiSettings().setZoomControlsEnabled(true);
+        gMap.getUiSettings().setCompassEnabled(true);
 
         registeredSheltersReference.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
-
+                for (DataSnapshot sheltersDataSnapshot : snapshot.getChildren()) {
+                    String key = sheltersDataSnapshot.getKey();
+                    if (key != null) {
+                        ShelterData shelterData = snapshot.child(key).getValue(ShelterData.class);
+                        if (shelterData != null) {
+                            String snippetString = "Email: " + shelterData.getEmail() +
+                                    " " + "Phone: "+ shelterData.getPhoneNumber();
+                            Objects.requireNonNull(gMap.addMarker(new MarkerOptions()
+                                            .position(
+                                                    new LatLng(Double.parseDouble(shelterData.getLatitude()),
+                                                            Double.parseDouble(shelterData.getLongitude())))
+                                            .title(shelterData.getName())
+                                            .snippet(snippetString)));
+                        }
+                    }
+                }
             }
 
             @Override
@@ -139,6 +175,7 @@ public class ViewRegisteredSheltersOnMapActivity extends FragmentActivity implem
 
             }
         });
+
         String location = String.valueOf(searchBar.getText());
         List<Address> addressList = null;
 
@@ -202,6 +239,7 @@ public class ViewRegisteredSheltersOnMapActivity extends FragmentActivity implem
                                 gMap.moveCamera(CameraUpdateFactory.newLatLngZoom(
                                         new LatLng(lastKnownLocation.getLatitude(),
                                                 lastKnownLocation.getLongitude()), DEFAULT_ZOOM));
+
                             }
                         } else {
                             Log.d(TAG, "Current location is null. Using defaults.");
@@ -309,5 +347,10 @@ public class ViewRegisteredSheltersOnMapActivity extends FragmentActivity implem
     @Override
     protected void onResume() {
         super.onResume();
+    }
+
+    @Override
+    public void onInfoWindowClick(@NonNull Marker marker) {
+        Toast.makeText(this, "Info window clicked", Toast.LENGTH_SHORT).show();
     }
 }

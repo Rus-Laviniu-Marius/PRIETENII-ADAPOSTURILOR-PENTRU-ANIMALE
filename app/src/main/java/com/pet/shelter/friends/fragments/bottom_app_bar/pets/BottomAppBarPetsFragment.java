@@ -1,19 +1,37 @@
 package com.pet.shelter.friends.fragments.bottom_app_bar.pets;
 
+import static com.facebook.FacebookSdk.getApplicationContext;
+
+import android.Manifest;
 import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.location.Address;
+import android.location.Geocoder;
+import android.location.Location;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.widget.Toolbar;
+import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 import androidx.viewpager2.widget.ViewPager2;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
+import com.google.android.gms.location.FusedLocationProviderClient;
+import com.google.android.gms.location.LocationServices;
+import com.google.android.gms.maps.CameraUpdateFactory;
+import com.google.android.gms.maps.GoogleMap;
+import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 import com.google.android.material.appbar.MaterialToolbar;
 import com.google.android.material.tabs.TabLayout;
 import com.google.firebase.auth.FirebaseAuth;
@@ -26,9 +44,20 @@ import com.pet.shelter.friends.R;
 import com.pet.shelter.friends.pets.ViewRegisteredSheltersOnMapActivity;
 import com.pet.shelter.friends.pets.filtering.FilterActivity;
 
+import java.io.IOException;
+import java.util.List;
+import java.util.Locale;
 import java.util.Objects;
+import java.util.concurrent.Executor;
 
 public class BottomAppBarPetsFragment extends Fragment {
+
+    private static final int PERMISSIONS_REQUEST_ACCESS_FINE_LOCATION = 1;
+    private boolean locationPermissionGranted;
+    private FusedLocationProviderClient fusedLocationProviderClient;
+    private Location lastKnownLocation;
+    private MaterialToolbar materialToolbar;
+
 
     public BottomAppBarPetsFragment() {
         // Required empty public constructor
@@ -42,7 +71,7 @@ public class BottomAppBarPetsFragment extends Fragment {
 
         String loggedUserId = Objects.requireNonNull(FirebaseAuth.getInstance().getCurrentUser()).getUid();
         DatabaseReference roles = FirebaseDatabase.getInstance().getReference("roles");
-        MaterialToolbar materialToolbar = layout.findViewById(R.id.pets_materialToolbar);
+        materialToolbar = layout.findViewById(R.id.pets_materialToolbar);
         TabLayout tabLayout = layout.findViewById(R.id.pets_tabLayout);
         ViewPager2 viewPager2 = layout.findViewById(R.id.pets_viewPager2);
         PetsTabLayoutViewPager2Adapter petsTabLayoutViewPager2Adapter = new PetsTabLayoutViewPager2Adapter(this);
@@ -87,6 +116,8 @@ public class BottomAppBarPetsFragment extends Fragment {
             }
         });
 
+        getDeviceLocation();
+
         tabLayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
             @Override
             public void onTabSelected(TabLayout.Tab tab) {
@@ -121,6 +152,56 @@ public class BottomAppBarPetsFragment extends Fragment {
 
         return layout;
     }
+
+
+    /**
+     * Gets the current location of the device, and positions the map's camera.
+     */
+    private void getDeviceLocation() {
+        /*
+         * Get the best and most recent location of the device, which may be null in rare
+         * cases when a location is not available.
+         */
+        try {
+            if (locationPermissionGranted) {
+                Task<Location> locationResult = fusedLocationProviderClient.getLastLocation();
+                locationResult.addOnCompleteListener((Executor) this, new OnCompleteListener<Location>() {
+                    @Override
+                    public void onComplete(@NonNull Task<Location> task) {
+                        if (task.isSuccessful()) {
+                            // Set the map's camera position to the current location of the device.
+                            lastKnownLocation = task.getResult();
+                            if (lastKnownLocation == null) {
+                                Toast.makeText(getContext(), "null", Toast.LENGTH_SHORT).show();
+                            }
+                            if (lastKnownLocation != null) {
+                                Geocoder geocoder;
+                                List<Address> addresses;
+                                geocoder = new Geocoder(getApplicationContext(), Locale.getDefault());
+
+                                try {
+                                    addresses = geocoder.getFromLocation(lastKnownLocation.getLatitude(), lastKnownLocation.getLongitude(), 1); // Here 1 represent max location result to returned, by documents it recommended 1 to 5
+                                } catch (IOException e) {
+                                    throw new RuntimeException(e);
+                                }
+
+                                String address = addresses.get(0).getAddressLine(0); // If any additional address line present than only, check with max available address lines by getMaxAddressLineIndex()
+                                String city = addresses.get(0).getLocality();
+                                String state = addresses.get(0).getAdminArea();
+                                String country = addresses.get(0).getCountryName();
+                                String postalCode = addresses.get(0).getPostalCode();
+                                String knownName = addresses.get(0).getFeatureName(); // Only if available else return NULL
+                                materialToolbar.setTitle(state+ "," + city + "," + postalCode);
+                            }
+                        }
+                    }
+                });
+            }
+        } catch (SecurityException e)  {
+            Log.e("Exception: %s", e.getMessage(), e);
+        }
+    }
+
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {

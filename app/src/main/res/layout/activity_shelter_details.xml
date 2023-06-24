@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:id="@+id/shelterDetails_constraintLayout"
-    tools:context=".shelter.ShelterDetailsActivity">
+    tools:context=".pets.shelter.ShelterDetailsActivity">
 
     <com.google.android.material.appbar.AppBarLayout
         android:id="@+id/shelterDetails_appBarLayout"

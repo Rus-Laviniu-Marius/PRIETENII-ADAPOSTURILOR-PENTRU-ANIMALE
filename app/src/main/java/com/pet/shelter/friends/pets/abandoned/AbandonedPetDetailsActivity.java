@@ -72,7 +72,7 @@ public class AbandonedPetDetailsActivity extends AppCompatActivity implements On
                             "here are the coordinates: latitude " + latitude + " and longitude " +
                             longitude + ".";
                     Intent sendIntent = new Intent(Intent.ACTION_SEND);
-                    sendIntent.putExtra("message", message);
+                    sendIntent.putExtra(Intent.EXTRA_TEXT, message);
                     sendIntent.setType("text/plain");
                     Intent chooserIntent = Intent.createChooser(sendIntent, "Select messaging apps");
                     startActivity(chooserIntent);

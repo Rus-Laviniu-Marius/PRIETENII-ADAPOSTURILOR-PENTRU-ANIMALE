@@ -1,9 +1,7 @@
 package com.pet.shelter.friends.pets.sheltered;
 
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.content.res.AppCompatResources;
-import androidx.appcompat.view.ActionMode;
 import androidx.appcompat.widget.Toolbar;
 import androidx.viewpager2.widget.ViewPager2;
 
@@ -23,7 +21,7 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.pet.shelter.friends.R;
 import com.pet.shelter.friends.fragments.bottom_app_bar.pets.tabs.details.ShelteredPetDetailsViewPager2Adapter;
 import com.pet.shelter.friends.pets.adoption.AdoptionApplicationParagraphsActivity;
-import com.pet.shelter.friends.shelter.ShelterDetailsActivity;
+import com.pet.shelter.friends.pets.shelter.ShelterDetailsActivity;
 import com.squareup.picasso.Picasso;
 
 import java.util.Objects;

@@ -1,4 +1,4 @@
-package com.pet.shelter.friends.shelter;
+package com.pet.shelter.friends.pets.shelter;
 
 public class ShelterData {
     private String address;

@@ -1,4 +1,4 @@
-package com.pet.shelter.friends.shelter;
+package com.pet.shelter.friends.pets.shelter;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
