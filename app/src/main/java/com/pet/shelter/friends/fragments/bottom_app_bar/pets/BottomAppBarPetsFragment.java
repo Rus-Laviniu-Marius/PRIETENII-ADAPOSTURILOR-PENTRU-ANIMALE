@@ -1,7 +1,10 @@
 package com.pet.shelter.friends.fragments.bottom_app_bar.pets;
 
+import android.content.Intent;
 import android.os.Bundle;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.Fragment;
 import androidx.viewpager2.widget.ViewPager2;
@@ -13,8 +16,14 @@ import android.view.ViewGroup;
 
 import com.google.android.material.appbar.MaterialToolbar;
 import com.google.android.material.tabs.TabLayout;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 import com.pet.shelter.friends.R;
-import com.pet.shelter.friends.fragments.bottom_app_bar.home.HomeTabLayoutViewPager2Adapter;
+import com.pet.shelter.friends.pets.filtering.FilterActivity;
 
 import java.util.Objects;
 
@@ -30,12 +39,35 @@ public class BottomAppBarPetsFragment extends Fragment {
         // Inflate the layout for this fragment
         View layout = inflater.inflate(R.layout.fragment_bottom_app_bar_pets, container, false);
 
+        String loggedUserId = Objects.requireNonNull(FirebaseAuth.getInstance().getCurrentUser()).getUid();
+        DatabaseReference roles = FirebaseDatabase.getInstance().getReference("roles");
         MaterialToolbar materialToolbar = layout.findViewById(R.id.pets_materialToolbar);
         TabLayout tabLayout = layout.findViewById(R.id.pets_tabLayout);
         ViewPager2 viewPager2 = layout.findViewById(R.id.pets_viewPager2);
         PetsTabLayoutViewPager2Adapter petsTabLayoutViewPager2Adapter = new PetsTabLayoutViewPager2Adapter(this);
         viewPager2.setAdapter(petsTabLayoutViewPager2Adapter);
         viewPager2.setSaveEnabled(false);
+
+        tabLayout.addTab(tabLayout.newTab().setText("Sheltered"));
+        tabLayout.addTab(tabLayout.newTab().setText("Abandoned"));
+        tabLayout.addTab(tabLayout.newTab().setText("Lost"));
+
+        roles.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                if (snapshot.hasChild(loggedUserId)) {
+                    snapshot = snapshot.child(loggedUserId);
+                    if (snapshot.hasChild("user")) {
+                        tabLayout.addTab(tabLayout.newTab().setText("Favorites"));
+                    }
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
 
         materialToolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
@@ -47,6 +79,9 @@ public class BottomAppBarPetsFragment extends Fragment {
         materialToolbar.setOnMenuItemClickListener(new Toolbar.OnMenuItemClickListener() {
             @Override
             public boolean onMenuItemClick(MenuItem item) {
+                if (item.getItemId() == R.id.action_filter_pets) {
+                    startActivity(new Intent(getContext(), FilterActivity.class));
+                }
                 return true;
             }
         });
@@ -84,5 +119,51 @@ public class BottomAppBarPetsFragment extends Fragment {
         });
 
         return layout;
+    }
+
+    @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        setHasOptionsMenu(true);
+        super.onCreate(savedInstanceState);
+    }
+
+    @Override
+    public void onStart() {
+        super.onStart();
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+    }
+
+    @Override
+    public void onStop() {
+        super.onStop();
+    }
+
+    @Override
+    public void onLowMemory() {
+        super.onLowMemory();
+    }
+
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+    }
+
+    @Override
+    public void onDetach() {
+        super.onDetach();
     }
 }

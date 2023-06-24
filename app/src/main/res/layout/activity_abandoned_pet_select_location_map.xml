@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:id="@+id/abandonedPetSelectLocation_constraintLayout"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:theme="@style/Theme.PetShelterFriends">
+
+    <com.google.android.material.search.SearchBar
+        android:visibility="gone"
+        android:id="@+id/abandonedPetSelectLocation_searchBar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:contentDescription="@string/search_for_place"
+        style="@style/Widget.Material3.SearchBar"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"/>
+
+    <com.google.android.material.search.SearchView
+        android:visibility="gone"
+        android:id="@+id/abandonedPetSelectLocation_searchView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="@string/search_hint_for_pets"
+        app:layout_anchor="@id/abandonedPetSelectLocation_searchBar"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+        <!-- Search suggestions/results go here (ScrollView, RecyclerView, etc.). -->
+
+    </com.google.android.material.search.SearchView>
+
+    <androidx.fragment.app.FragmentContainerView
+        android:id="@+id/abandonedPetSelectLocation_map"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:name="com.google.android.gms.maps.SupportMapFragment"
+        android:contentDescription="@string/select_pet_location"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toTopOf="parent"/>
+
+</androidx.constraintlayout.widget.ConstraintLayout>
+
+
+

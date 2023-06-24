@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <com.google.android.material.textview.MaterialTextView
+        android:id="@+id/lostPetBottomSheet_materialTextView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/contact"
+        android:textAlignment="center"
+        style="@style/TextAppearance.Material3.HeadlineLarge"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
+
+    <LinearLayout
+        android:id="@+id/lostPetBottomSheetEmailContact_linearLayout"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_marginVertical="@dimen/vertical_space_between_items"
+        android:paddingHorizontal="@dimen/padding_horizontal"
+        app:layout_constraintTop_toBottomOf="@+id/lostPetBottomSheet_materialTextView"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toTopOf="@+id/lostPetBottomSheetPhoneContact_linearLayout">
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/lostPetBottomSheetEmail_materialTextView"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="@string/email"
+            android:layout_gravity="center"
+            android:textAlignment="center"
+            android:layout_weight="1"
+            android:layout_marginEnd="@dimen/horizontal_space_between_items"
+            style="@style/TextAppearance.Material3.BodyLarge"/>
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/lostPetBottomSheetEmail_materialButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:contentDescription="@string/email"
+            style="@style/Widget.Material3.Button.IconButton.Filled"
+            app:icon="@drawable/mail_filled_24px" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/lostPetBottomSheetPhoneContact_linearLayout"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_marginVertical="@dimen/vertical_space_between_items"
+        android:paddingHorizontal="@dimen/padding_horizontal"
+        app:layout_constraintTop_toBottomOf="@+id/lostPetBottomSheetEmailContact_linearLayout"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent">
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/lostPetBottomSheetPhone_materialTextView"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="@string/phone_number"
+            android:layout_gravity="center"
+            android:textAlignment="center"
+            android:layout_weight="1"
+            android:layout_marginEnd="@dimen/horizontal_space_between_items"
+            style="@style/TextAppearance.Material3.BodyLarge"/>
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/lostPetBottomSheetPhone_materialButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:contentDescription="@string/phone_call"
+            style="@style/Widget.Material3.Button.IconButton.Filled"
+            app:icon="@drawable/phone_filled_24" />
+    </LinearLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

@@ -1,31 +1,72 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:theme="@style/Theme.PetShelterFriends"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".fragments.bottom_app_bar.pets.tabs.BottomAppBarPetsLostTabFragment">
 
-    <RelativeLayout
-        android:id="@+id/bottomAppBarPetsLostTab_relativeLayout"
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/bottomAppBarPetsLostTab_constraintLayout"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content" >
+        android:layout_height="match_parent" >
+
+        <com.google.android.material.search.SearchBar
+            android:id="@+id/bottomAppBarPetsLostTab_searchBar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:contentDescription="@string/search_hint_for_pets"
+            style="@style/Widget.Material3.SearchBar"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"/>
+
+        <com.google.android.material.search.SearchView
+            android:id="@+id/bottomAppBarPetsLostTab_searchView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="@string/search_hint_for_pets"
+            app:layout_anchor="@id/bottomAppBarPetsLostTab_searchBar"
+            app:layout_constraintHorizontal_bias="1.0"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+            <!-- Search suggestions/results go here (ScrollView, RecyclerView, etc.). -->
+
+        </com.google.android.material.search.SearchView>
+
         <ListView
             android:id="@+id/bottomAppBarPetsLostTab_listView"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:dividerHeight="@dimen/margin_vertical"
-            android:layout_alignParentTop="true"
-            android:layout_alignParentBottom="true"
-            android:layout_alignParentStart="true"
-            android:layout_alignParentEnd="true"/>
+            app:layout_constraintTop_toBottomOf="@+id/bottomAppBarPetsLostTab_searchBar"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"/>
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/bottomAppBarPetsLostTabNothingFound_materialTextView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/there_is_no_added_pet_with_that_name"
+            android:textAlignment="center"
+            android:visibility="gone"
+            style="@style/TextAppearance.Material3.HeadlineLarge"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
         <RelativeLayout
             android:id="@+id/bottomAppBarPetsLostTabAdd_relativeLayout"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:padding="@dimen/extra_space_for_floating_action_buttons"
-            android:layout_alignParentBottom="true"
-            android:layout_alignParentEnd="true">
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentBottom="true">
             <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
                 android:id="@+id/bottomAppBarPetsLostTabAdd_extendedFloatingActionButton"
                 android:layout_width="wrap_content"
@@ -36,7 +77,6 @@
                 android:text="@string/pet"
                 style="@style/Widget.Material3.ExtendedFloatingActionButton.Primary"/>
         </RelativeLayout>
-    </RelativeLayout>
 
     <com.google.android.material.textview.MaterialTextView
         android:id="@+id/bottomAppBarPetsLostTabNothing_materialTextView"
@@ -47,4 +87,4 @@
         style="@style/TextAppearance.Material3.DisplayMedium"
         android:gravity="center"/>
 
-</FrameLayout>
+</RelativeLayout>

@@ -4,7 +4,7 @@ import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.viewpager2.adapter.FragmentStateAdapter;
 
-import com.pet.shelter.friends.pets.ShelteredPetDetailsActivity;
+import com.pet.shelter.friends.pets.sheltered.ShelteredPetDetailsActivity;
 
 public class ShelteredPetDetailsViewPager2Adapter extends FragmentStateAdapter {
 
@@ -30,13 +30,6 @@ public class ShelteredPetDetailsViewPager2Adapter extends FragmentStateAdapter {
         return 2;
     }
 
-    public CharSequence getPageTitle(int position) {
-        String title = null;
-        if (position == 0) {
-            title = "Pet";
-        } else if (position == 1) {
-            title = "Shelter";
-        }
-        return title;
-    }
+
+
 }

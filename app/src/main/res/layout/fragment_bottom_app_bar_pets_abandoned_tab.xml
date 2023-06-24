@@ -39,6 +39,16 @@
     </RelativeLayout>
 
     <com.google.android.material.textview.MaterialTextView
+        android:id="@+id/bottomAppBarPetsAbandonedTabNothingFound_materialTextView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:text="@string/no_matched_pet_found"
+        android:textAlignment="center"
+        android:visibility="gone"
+        style="@style/TextAppearance.Material3.HeadlineLarge"
+        android:gravity="center"/>
+
+    <com.google.android.material.textview.MaterialTextView
         android:id="@+id/bottomAppBarPetsAbandonedTabNothing_materialTextView"
         android:layout_width="match_parent"
         android:layout_height="match_parent"

@@ -1,4 +1,4 @@
-package com.pet.shelter.friends.pets;
+package com.pet.shelter.friends.pets.sheltered;
 
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
@@ -13,7 +13,6 @@ import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
-import android.graphics.drawable.shapes.Shape;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
@@ -25,32 +24,26 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Toast;
 
-import com.google.android.gms.auth.api.signin.internal.Storage;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.material.appbar.MaterialToolbar;
 import com.google.android.material.button.MaterialButton;
+import com.google.android.material.checkbox.MaterialCheckBox;
 import com.google.android.material.imageview.ShapeableImageView;
 import com.google.android.material.textfield.MaterialAutoCompleteTextView;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.android.material.textfield.TextInputLayout;
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 import com.pet.shelter.friends.ErrorSetter;
-import com.pet.shelter.friends.HomeActivity;
 import com.pet.shelter.friends.R;
 import com.pet.shelter.friends.ValidationManager;
-import com.pet.shelter.friends.fragments.bottom_app_bar.pets.tabs.BottomAppBarPetsShelteredTabFragment;
-import com.pet.shelter.friends.news.CreateNewsArticleActivity;
 
 import java.io.ByteArrayOutputStream;
 import java.io.FileNotFoundException;
@@ -63,17 +56,16 @@ public class AddShelteredPetActivity extends AppCompatActivity implements TextWa
     private TextInputLayout typeTextInputLayout, nameTextInputLayout, breedTextInputLayout,
             ageTextInputLayout, sexTextInputLayout, sizeTextInputLayout, colorTextInputLayout,
             descriptionTextInputLayout;
-    private MaterialAutoCompleteTextView typeMaterialAutoCompleteTextView, sizeMaterialAutoCompleteTextView,
-            sexMaterialAutoCompleteTextView, colorMaterialAutoCompleteTextView, ageMaterialAutoCompleteTextView;
     private TextInputEditText nameTextInputEditText, breedTextInputEditText, descriptionTextInputEditText;
     private Uri gallerySelectedImageUri, cameraCapturedImageUri;
     private Bitmap cameraCapturedImageBitmap;
 
     private static final int PICK_FROM_GALLERY = 1889;
     private static final int MY_CAMERA_PERMISSION_CODE = 100;
-    private String loggedUserId, name;
+    private String loggedUserId;
     private ActivityResultLauncher<Intent> galleryActivityResultLauncher, cameraActivityResultLauncher;
-    private String selectedType, selectedSize, selectedSex, selectedAge, selectedColor;
+    private String selectedType, selectedSize, selectedSex, selectedAge, spayedOrNeutered,
+            dewormed, vaccines, fitForChildren, fitForGuarding, friendlyWithPets;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -91,14 +83,19 @@ public class AddShelteredPetActivity extends AppCompatActivity implements TextWa
         sizeTextInputLayout = findViewById(R.id.addShelteredPetSize_textInputLayout);
         colorTextInputLayout = findViewById(R.id.addShelteredPetColor_textInputLayout);
         descriptionTextInputLayout = findViewById(R.id.addShelteredPetDescription_textInputLayout);
-        typeMaterialAutoCompleteTextView = findViewById(R.id.addShelteredPetTypes_materialAutoCompleteTextView);
-        sizeMaterialAutoCompleteTextView = findViewById(R.id.addShelteredPetSize_materialAutoCompleteTextView);
-        sexMaterialAutoCompleteTextView = findViewById(R.id.addShelteredPetSex_materialAutoCompleteTextView);
-        ageMaterialAutoCompleteTextView = findViewById(R.id.addShelteredPetAge_materialAutoCompleteTextView);
-        colorMaterialAutoCompleteTextView = findViewById(R.id.addShelteredPetColor_materialAutoCompleteTextView);
+        MaterialAutoCompleteTextView typeMaterialAutoCompleteTextView = findViewById(R.id.addShelteredPetTypes_materialAutoCompleteTextView);
+        MaterialAutoCompleteTextView sizeMaterialAutoCompleteTextView = findViewById(R.id.addShelteredPetSize_materialAutoCompleteTextView);
+        MaterialAutoCompleteTextView sexMaterialAutoCompleteTextView = findViewById(R.id.addShelteredPetSex_materialAutoCompleteTextView);
+        MaterialAutoCompleteTextView ageMaterialAutoCompleteTextView = findViewById(R.id.addShelteredPetAge_materialAutoCompleteTextView);
         nameTextInputEditText = findViewById(R.id.addShelteredPetName_textInputEditText);
         breedTextInputEditText = findViewById(R.id.addShelteredPetBreed_textInputEditText);
         descriptionTextInputEditText = findViewById(R.id.addShelteredPetDescription_textInputEditText);
+        MaterialCheckBox spayedOrNeuteredMaterialCheckBox = findViewById(R.id.addShelteredPetSpayedOrNeutered_materialCheckBox);
+        MaterialCheckBox dewormedMaterialCheckBox = findViewById(R.id.addShelteredPetDewormed_materialCheckBox);
+        MaterialCheckBox vaccinesMaterialCheckBox = findViewById(R.id.addShelteredPetVaccines_materialCheckBox);
+        MaterialCheckBox fitForChildrenMaterialCheckBox = findViewById(R.id.addShelteredPetFitForChildren_materialCheckBox);
+        MaterialCheckBox fitForGuardingMaterialCheckBox = findViewById(R.id.addShelteredPetFitForGuarding_materialCheckBox);
+        MaterialCheckBox friendlyWithPetsMaterialCheckBox = findViewById(R.id.addShelteredPetFriendlyWithOtherPets_materialCheckBox);
 
         StorageReference petsImages = FirebaseStorage.getInstance().getReference("petsImages");
         DatabaseReference petsReference = FirebaseDatabase.getInstance().getReference("pets");
@@ -163,6 +160,72 @@ public class AddShelteredPetActivity extends AppCompatActivity implements TextWa
                     }
                 });
 
+        spayedOrNeuteredMaterialCheckBox.addOnCheckedStateChangedListener(new MaterialCheckBox.OnCheckedStateChangedListener() {
+            @Override
+            public void onCheckedStateChangedListener(@NonNull MaterialCheckBox checkBox, int state) {
+                if (checkBox.isChecked()) {
+                    spayedOrNeutered = "yes";
+                } else {
+                    spayedOrNeutered = "no";
+                }
+            }
+        });
+
+        dewormedMaterialCheckBox.addOnCheckedStateChangedListener(new MaterialCheckBox.OnCheckedStateChangedListener() {
+            @Override
+            public void onCheckedStateChangedListener(@NonNull MaterialCheckBox checkBox, int state) {
+                if (checkBox.isChecked()) {
+                    dewormed = "yes";
+                } else {
+                    dewormed = "no";
+                }
+            }
+        });
+
+        vaccinesMaterialCheckBox.addOnCheckedStateChangedListener(new MaterialCheckBox.OnCheckedStateChangedListener() {
+            @Override
+            public void onCheckedStateChangedListener(@NonNull MaterialCheckBox checkBox, int state) {
+                if (checkBox.isChecked()) {
+                    vaccines = "yes";
+                } else {
+                    vaccines = "no";
+                }
+            }
+        });
+
+        fitForChildrenMaterialCheckBox.addOnCheckedStateChangedListener(new MaterialCheckBox.OnCheckedStateChangedListener() {
+            @Override
+            public void onCheckedStateChangedListener(@NonNull MaterialCheckBox checkBox, int state) {
+                if (checkBox.isChecked()) {
+                    fitForChildren = "Children";
+                } else {
+                    fitForChildren = "no";
+                }
+            }
+        });
+
+        fitForGuardingMaterialCheckBox.addOnCheckedStateChangedListener(new MaterialCheckBox.OnCheckedStateChangedListener() {
+            @Override
+            public void onCheckedStateChangedListener(@NonNull MaterialCheckBox checkBox, int state) {
+                if (checkBox.isChecked()) {
+                    fitForGuarding = "yes";
+                } else {
+                    fitForGuarding = "no";
+                }
+            }
+        });
+
+        friendlyWithPetsMaterialCheckBox.addOnCheckedStateChangedListener(new MaterialCheckBox.OnCheckedStateChangedListener() {
+            @Override
+            public void onCheckedStateChangedListener(@NonNull MaterialCheckBox checkBox, int state) {
+                if (checkBox.isChecked()) {
+                    friendlyWithPets = "Pets";
+                } else {
+                    friendlyWithPets = "no";
+                }
+            }
+        });
+
         typeMaterialAutoCompleteTextView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
@@ -188,6 +251,13 @@ public class AddShelteredPetActivity extends AppCompatActivity implements TextWa
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 selectedAge = String.valueOf(parent.getItemAtPosition(position));
+            }
+        });
+
+        materialToolbar.setNavigationOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
             }
         });
 
@@ -261,9 +331,15 @@ public class AddShelteredPetActivity extends AppCompatActivity implements TextWa
                                                 petsReference.child("Sheltered").child(petToSave).child("petSize").setValue(selectedSize);
                                                 petsReference.child("Sheltered").child(petToSave).child("petSex").setValue(selectedSex);
                                                 petsReference.child("Sheltered").child(petToSave).child("petDescription").setValue(petDescription);
+                                                petsReference.child("Sheltered").child(petToSave).child("spayedOrNeutered").setValue(spayedOrNeutered);
+                                                petsReference.child("Sheltered").child(petToSave).child("dewormed").setValue(dewormed);
+                                                petsReference.child("Sheltered").child(petToSave).child("vaccines").setValue(vaccines);
+                                                petsReference.child("Sheltered").child(petToSave).child("fitForChildren").setValue(fitForChildren);
+                                                petsReference.child("Sheltered").child(petToSave).child("fitForGuarding").setValue(fitForGuarding);
+                                                petsReference.child("Sheltered").child(petToSave).child("friendlyWithPets").setValue(friendlyWithPets);
                                             }
                                         });
-                                        sendUserToNextActivity();
+                                        finish();
                                     }
                                 })
                                 .addOnFailureListener(new OnFailureListener() {
@@ -293,9 +369,15 @@ public class AddShelteredPetActivity extends AppCompatActivity implements TextWa
                                                 petsReference.child("Sheltered").child(petToSave).child("petSize").setValue(selectedSize);
                                                 petsReference.child("Sheltered").child(petToSave).child("petSex").setValue(selectedSex);
                                                 petsReference.child("Sheltered").child(petToSave).child("petDescription").setValue(petDescription);
+                                                petsReference.child("Sheltered").child(petToSave).child("spayedOrNeutered").setValue(spayedOrNeutered);
+                                                petsReference.child("Sheltered").child(petToSave).child("dewormed").setValue(dewormed);
+                                                petsReference.child("Sheltered").child(petToSave).child("vaccines").setValue(vaccines);
+                                                petsReference.child("Sheltered").child(petToSave).child("fitForChildren").setValue(fitForChildren);
+                                                petsReference.child("Sheltered").child(petToSave).child("fitForGuarding").setValue(fitForGuarding);
+                                                petsReference.child("Sheltered").child(petToSave).child("friendlyWithPets").setValue(friendlyWithPets);
                                             }
                                         });
-                                        sendUserToNextActivity();
+                                        finish();
                                     }
                                 })
                                 .addOnFailureListener(new OnFailureListener() {
@@ -320,13 +402,6 @@ public class AddShelteredPetActivity extends AppCompatActivity implements TextWa
         String path = MediaStore.Images.Media.insertImage(inContext.getContentResolver(), inImage, "Title", null);
         return Uri.parse(path);
     }
-
-    public void sendUserToNextActivity() {
-        Intent intent = new Intent(AddShelteredPetActivity.this, HomeActivity.class);
-        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK| Intent.FLAG_ACTIVITY_NEW_TASK);
-        startActivity(intent);
-    }
-
     private void setTextWatcher() {
         Objects.requireNonNull(nameTextInputLayout.getEditText()).addTextChangedListener(this);
         Objects.requireNonNull(descriptionTextInputLayout.getEditText()).addTextChangedListener(this);

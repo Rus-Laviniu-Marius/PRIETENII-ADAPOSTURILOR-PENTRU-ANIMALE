@@ -71,7 +71,7 @@ public class ValidationManager {
     public void checkPhoneNumber() {
         if (!isEmpty && editText.getText().toString().length() != phoneNumberDigits) {
             errorSetter.setError(textInputLayout, ERROR_MESSAGE_CHECK_PHONE_NUMBER);
-            isPasswordValid = false;
+            isPhoneNumberValid = false;
         } else if (!isEmpty && editText.getText().toString().startsWith("+")){
             errorSetter.setError(textInputLayout, ERROR_MESSAGE_CHECK_PHONE_NUMBER_REMOVE_STARTING_PLUS);
             isPhoneNumberValid = false;

@@ -1,6 +1,6 @@
-package com.pet.shelter.friends.pets;
+package com.pet.shelter.friends.pets.sheltered;
 
-public class PetData {
+public class ShelteredPetData {
     private String shelterAdministratorId;
     private String petImage1DownloadLink;
     private String petImage2DownloadLink;
@@ -15,18 +15,35 @@ public class PetData {
     private String petWeight;
     private String petColor;
     private String petDescription;
+    private String spayedOrNeutered;
+    private String dewormed;
+    private String vaccines;
+    private String fitForChildren;
+    private String fitForGuarding;
+    private String friendlyWithPets;
+    private String favorite;
 
-    public PetData() { }
+    public ShelteredPetData() { }
 
-    public PetData(String shelterAdministratorId,
-                   String petImage1DownloadLink,
-                   String petName,
-                   String petType,
-                   String petBreed,
-                   String petAge,
-                   String petSize,
-                   String petSex,
-                   String petDescription) {
+    public ShelteredPetData(String shelterAdministratorId,
+                            String petImage1DownloadLink,
+                            String petName,
+                            String petType,
+                            String petBreed,
+                            String petAge,
+                            String petSize,
+                            String petSex,
+                            String petLocation,
+                            String petWeight,
+                            String petColor,
+                            String petDescription,
+                            String spayedOrNeutered,
+                            String dewormed,
+                            String vaccines,
+                            String fitForChildren,
+                            String fitForGuarding,
+                            String friendlyWithPets,
+                            String favorite) {
         this.shelterAdministratorId = shelterAdministratorId;
         this.petImage1DownloadLink = petImage1DownloadLink;
         this.petName = petName;
@@ -35,7 +52,17 @@ public class PetData {
         this.petAge = petAge;
         this.petSize = petSize;
         this.petSex = petSex;
+        this.petLocation = petLocation;
+        this.petWeight = petWeight;
+        this.petColor = petColor;
         this.petDescription = petDescription;
+        this.spayedOrNeutered = spayedOrNeutered;
+        this.dewormed = dewormed;
+        this.vaccines = vaccines;
+        this.fitForChildren = fitForChildren;
+        this.fitForGuarding = fitForGuarding;
+        this.friendlyWithPets = friendlyWithPets;
+        this.favorite = favorite;
     }
 
     public String getShelterAdministratorId() {
@@ -148,5 +175,61 @@ public class PetData {
 
     public void setPetDescription(String petDescription) {
         this.petDescription = petDescription;
+    }
+
+    public String getSpayedOrNeutered() {
+        return spayedOrNeutered;
+    }
+
+    public void setSpayedOrNeutered(String spayedOrNeutered) {
+        this.spayedOrNeutered = spayedOrNeutered;
+    }
+
+    public String getDewormed() {
+        return dewormed;
+    }
+
+    public void setDewormed(String dewormed) {
+        this.dewormed = dewormed;
+    }
+
+    public String getVaccines() {
+        return vaccines;
+    }
+
+    public void setVaccines(String vaccines) {
+        this.vaccines = vaccines;
+    }
+
+    public String getFitForChildren() {
+        return fitForChildren;
+    }
+
+    public void setFitForChildren(String fitForChildren) {
+        this.fitForChildren = fitForChildren;
+    }
+
+    public String getFitForGuarding() {
+        return fitForGuarding;
+    }
+
+    public void setFitForGuarding(String fitForGuarding) {
+        this.fitForGuarding = fitForGuarding;
+    }
+
+    public String getFriendlyWithPets() {
+        return friendlyWithPets;
+    }
+
+    public void setFriendlyWithPets(String friendlyWithPets) {
+        this.friendlyWithPets = friendlyWithPets;
+    }
+
+    public String getFavorite() {
+        return favorite;
+    }
+
+    public void setFavorite(String favorite) {
+        this.favorite = favorite;
     }
 }

@@ -1,0 +1,210 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:id="@+id/completeAboutPersonalReferencesInformation_constraintLayout"
+    tools:context=".pets.adoption.CompleteAboutPersonalReferencesInformationActivity">
+
+    <com.google.android.material.appbar.AppBarLayout
+        android:id="@+id/completeAboutPersonalReferencesInformation_appBarLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <com.google.android.material.appbar.MaterialToolbar
+            android:id="@+id/completeAboutPersonalReferencesInformation_materialToolbar"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            app:layout_anchor="@+id/appBarLayout"
+            app:layout_anchorGravity="center"
+            app:navigationIcon="@drawable/arrow_back_24"
+            app:menu="@menu/forward_top_app_bar_menu"
+            app:title="Personal references"
+            app:titleCentered="true" />
+    </com.google.android.material.appbar.AppBarLayout>
+
+    <com.google.android.material.progressindicator.LinearProgressIndicator
+        android:id="@+id/completeAboutPersonalReferencesInformation_linearProgressIndicator"
+        style="@style/Widget.Material3.LinearProgressIndicator"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:progress="100"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/completeAboutPersonalReferencesInformation_appBarLayout" />
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/completeAboutPersonalReferencesInformationName_textInputLayout"
+        style="@style/Widget.Material3.TextInputLayout.OutlinedBox"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/vertical_space_between_items"
+        android:autofillHints="name"
+        android:hint="@string/name"
+        android:inputType="textPersonName"
+        android:layout_marginVertical="@dimen/vertical_space_between_items"
+        app:counterEnabled="false"
+        app:endIconMode="clear_text"
+        app:errorEnabled="true"
+        app:helperText="*Required"
+        app:layout_constraintBottom_toTopOf="@+id/completeAboutPersonalReferencesInformationAddress_textInputLayout"
+        app:layout_constraintEnd_toStartOf="@+id/guideline41"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/guideline40"
+        app:layout_constraintTop_toBottomOf="@+id/completeAboutPersonalReferencesInformation_linearProgressIndicator"
+        app:layout_constraintWidth_max="@dimen/material_textInputLayout_max_width">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/completeAboutPersonalReferencesInformationName_textInputEditText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:inputType="textPersonName" />
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/completeAboutPersonalReferencesInformationAddress_textInputLayout"
+        style="@style/Widget.Material3.TextInputLayout.OutlinedBox"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/vertical_space_between_items"
+        android:autofillHints="postalAddress"
+        android:hint="@string/address"
+        android:inputType="textPostalAddress"
+        android:layout_marginVertical="@dimen/vertical_space_between_items"
+        app:counterEnabled="false"
+        app:endIconMode="clear_text"
+        app:errorEnabled="true"
+        app:helperText="*Required"
+        app:layout_constraintBottom_toTopOf="@+id/completeAboutPersonalReferencesInformationPhoneNumber_textInputLayout"
+        app:layout_constraintEnd_toStartOf="@+id/guideline41"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/guideline40"
+        app:layout_constraintTop_toBottomOf="@+id/completeAboutPersonalReferencesInformationName_textInputLayout"
+        app:layout_constraintWidth_max="@dimen/material_textInputLayout_max_width">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/completeAboutPersonalReferencesInformationAddress_textInputEditText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:inputType="textPostalAddress" />
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/completeAboutPersonalReferencesInformationPhoneNumber_textInputLayout"
+        style="@style/Widget.Material3.TextInputLayout.OutlinedBox"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/vertical_space_between_items"
+        android:autofillHints="phone"
+        android:hint="@string/phone_number"
+        android:inputType="phone"
+        android:layout_marginVertical="@dimen/vertical_space_between_items"
+        app:counterEnabled="true"
+        app:counterMaxLength="10"
+        app:endIconMode="clear_text"
+        app:errorEnabled="true"
+        app:helperText="*Required"
+        app:layout_constraintBottom_toTopOf="@+id/completeAboutPersonalReferencesInformationEmail_textInputLayout"
+        app:layout_constraintEnd_toStartOf="@id/guideline41"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@id/guideline40"
+        app:layout_constraintTop_toBottomOf="@+id/completeAboutPersonalReferencesInformationAddress_textInputLayout"
+        app:layout_constraintWidth_max="@dimen/material_textInputLayout_max_width">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/completeAboutPersonalReferencesInformationPhoneNumber_textInputEditText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:inputType="phone"
+            android:maxLines="1"/>
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/completeAboutPersonalReferencesInformationEmail_textInputLayout"
+        style="@style/Widget.Material3.TextInputLayout.OutlinedBox"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/vertical_space_between_items"
+        android:autofillHints="emailAddress"
+        android:hint="@string/email"
+        android:inputType="textEmailAddress"
+        android:layout_marginVertical="@dimen/vertical_space_between_items"
+        app:counterEnabled="false"
+        app:endIconMode="clear_text"
+        app:errorEnabled="true"
+        app:helperText="*Required"
+        app:layout_constraintBottom_toTopOf="@+id/completeAboutPersonalReferencesInformationRelationship_textInputLayout"
+        app:layout_constraintEnd_toStartOf="@id/guideline41"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@id/guideline40"
+        app:layout_constraintTop_toBottomOf="@+id/completeAboutPersonalReferencesInformationPhoneNumber_textInputLayout"
+        app:layout_constraintWidth_max="@dimen/material_textInputLayout_max_width">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/completeAboutPersonalReferencesInformationEmail_textInputEditText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:inputType="textEmailAddress"
+            android:maxLines="1"/>
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/completeAboutPersonalReferencesInformationRelationship_textInputLayout"
+        style="@style/Widget.Material3.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/vertical_space_between_items"
+        android:autofillHints="emailAddress"
+        android:hint="@string/select_relationship"
+        android:inputType="textEmailAddress"
+        android:layout_marginVertical="@dimen/vertical_space_between_items"
+        app:counterEnabled="false"
+        app:endIconMode="dropdown_menu"
+        app:errorEnabled="true"
+        app:helperText="*Required"
+        app:layout_constraintBottom_toTopOf="@+id/completeAboutPersonalReferencesInformation_materialButton"
+        app:layout_constraintEnd_toStartOf="@id/guideline41"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@id/guideline40"
+        app:layout_constraintTop_toBottomOf="@+id/completeAboutPersonalReferencesInformationEmail_textInputLayout"
+        app:layout_constraintWidth_max="@dimen/material_textInputLayout_max_width">
+
+        <com.google.android.material.textfield.MaterialAutoCompleteTextView
+            android:id="@+id/completeAboutPersonalReferencesAdoptionInformationRelationship_materialAutoCompleteTextView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:inputType="textEmailAddress"
+            android:maxLines="1"/>
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/completeAboutPersonalReferencesInformation_materialButton"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/vertical_space_between_items"
+        android:text="@string/save"
+        android:layout_marginVertical="@dimen/vertical_space_between_items"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/completeAboutPersonalReferencesInformationRelationship_textInputLayout"
+        app:layout_constraintWidth_max="@dimen/material_button_max_width" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline40"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent="0.05" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline41"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent="0.95" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

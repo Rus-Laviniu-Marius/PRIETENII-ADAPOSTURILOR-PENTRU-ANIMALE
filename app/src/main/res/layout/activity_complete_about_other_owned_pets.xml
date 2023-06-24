@@ -1,0 +1,340 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".pets.adoption.CompleteAboutOtherOwnedPetsActivity">
+
+    <com.google.android.material.appbar.AppBarLayout
+        android:id="@+id/completeAboutOtherOwnedPetsInformation_appBarLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <com.google.android.material.appbar.MaterialToolbar
+            android:id="@+id/completeAboutOtherOwnedPetsInformation_materialToolbar"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            app:layout_anchor="@+id/appBarLayout"
+            app:layout_anchorGravity="center"
+            app:navigationIcon="@drawable/arrow_back_24"
+            app:menu="@menu/forward_top_app_bar_menu"
+            app:title="About other owned pets"
+            app:titleCentered="true" />
+    </com.google.android.material.appbar.AppBarLayout>
+
+    <com.google.android.material.progressindicator.LinearProgressIndicator
+        android:id="@+id/completeAboutOtherOwnedPetsInformation_linearProgressIndicator"
+        style="@style/Widget.Material3.LinearProgressIndicator"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:progress="40"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintBottom_toTopOf="@+id/completeAboutOtherOwnedPetsInformation_scrollView"
+        app:layout_constraintTop_toBottomOf="@+id/completeAboutOtherOwnedPetsInformation_appBarLayout" />
+
+    <ScrollView
+        android:id="@+id/completeAboutOtherOwnedPetsInformation_scrollView"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/completeAboutOtherOwnedPetsInformation_linearProgressIndicator">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/completeAboutOtherOwnedPetsInformationType_textInputLayout"
+                style="@style/Widget.Material3.TextInputLayout.OutlinedBox"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginVertical="@dimen/vertical_space_between_items"
+                android:autofillHints="text"
+                android:hint="@string/what_types_of_pets_do_you_own"
+                android:inputType="textMultiLine"
+                app:counterEnabled="false"
+                app:layout_constraintWidth_max="@dimen/material_textInputLayout_max_width"
+                app:endIconMode="clear_text"
+                app:errorEnabled="true"
+                app:helperText="*Required"
+                app:layout_constraintBottom_toTopOf="@+id/completeAboutOtherOwnedPetsInformationDiscipline_textInputLayout"
+                app:layout_constraintEnd_toStartOf="@id/guideline35"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toEndOf="@id/guideline34"
+                app:layout_constraintTop_toTopOf="parent">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/completeAboutOtherOwnedPetsInformationType_textInputEditText"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="textMultiLine" />
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/completeAboutOtherOwnedPetsInformationDiscipline_textInputLayout"
+                style="@style/Widget.Material3.TextInputLayout.OutlinedBox"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginVertical="@dimen/vertical_space_between_items"
+                android:autofillHints="text"
+                android:hint="@string/how_do_you_discipline_your_pet"
+                android:inputType="textMultiLine"
+                app:layout_constraintWidth_max="@dimen/material_textInputLayout_max_width"
+                app:counterEnabled="false"
+                app:endIconMode="clear_text"
+                app:errorEnabled="true"
+                app:helperText="*Required"
+                app:layout_constraintBottom_toTopOf="@+id/completeAboutOtherOwnedPetsInformationUpToDateVaccines_linearLayout"
+                app:layout_constraintEnd_toStartOf="@id/guideline35"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toEndOf="@id/guideline34"
+                app:layout_constraintTop_toBottomOf="@+id/completeAboutOtherOwnedPetsInformationType_textInputLayout">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/completeAboutOtherOwnedPetsInformationDiscipline_TextInputEditText"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="textMultiLine" />
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/completeAboutOtherOwnedPetsInformationUpToDateVaccines_linearLayout"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:layout_marginVertical="@dimen/vertical_space_between_items"
+                app:layout_constraintWidth_max="@dimen/material_textInputLayout_max_width"
+                app:layout_constraintBottom_toTopOf="@+id/completeAboutOtherOwnedPetsInformationEverSurrenderedPet_linearLayout"
+                app:layout_constraintEnd_toStartOf="@id/guideline35"
+                app:layout_constraintStart_toEndOf="@id/guideline34"
+                app:layout_constraintTop_toBottomOf="@+id/completeAboutOtherOwnedPetsInformationDiscipline_textInputLayout">
+
+                <com.google.android.material.textview.MaterialTextView
+                    android:id="@+id/completeAboutOtherOwnedPetsInformationUpToDateVaccines_materialTextView"
+                    style="@style/TextAppearance.Material3.HeadlineSmall"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/are_these_pets_up_to_date_on_vaccines"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"/>
+
+                <RadioGroup
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    app:layout_constraintTop_toBottomOf="@+id/completeAboutOtherOwnedPetsInformationUpToDateVaccines_materialTextView"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent">
+                    <com.google.android.material.radiobutton.MaterialRadioButton
+                        android:id="@+id/completeAboutOtherOwnedPetsInformationUpToDateVaccinesYes_materialRadioButton"
+                        style="@style/Widget.Material3.CompoundButton.RadioButton"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="@string/yes" />
+                    <com.google.android.material.radiobutton.MaterialRadioButton
+                        android:id="@+id/completeAboutOtherOwnedPetsInformationUpToDateVaccinesNo_materialRadioButton"
+                        style="@style/Widget.Material3.CompoundButton.RadioButton"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:text="@string/no"
+                        android:layout_weight="1" />
+                </RadioGroup>
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/completeAboutOtherOwnedPetsInformationEverSurrenderedPet_linearLayout"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:layout_marginVertical="@dimen/vertical_space_between_items"
+                app:layout_constraintWidth_max="@dimen/material_textInputLayout_max_width"
+                app:layout_constraintBottom_toTopOf="@+id/completeAboutOtherOwnedPetsInformationEverSurrenderedPetWhatHappened_textInputLayout"
+                app:layout_constraintEnd_toStartOf="@id/guideline35"
+                app:layout_constraintStart_toEndOf="@id/guideline34"
+                app:layout_constraintTop_toBottomOf="@+id/completeAboutOtherOwnedPetsInformationUpToDateVaccines_linearLayout">
+
+                <com.google.android.material.textview.MaterialTextView
+                    android:id="@+id/completeAboutOtherOwnedPetsInformationEverSurrenderedPet_materialTextView"
+                    style="@style/TextAppearance.Material3.HeadlineSmall"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/have_you_ever_surrendered_a_pet"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"/>
+
+                <RadioGroup
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    app:layout_constraintTop_toBottomOf="@+id/completeAboutOtherOwnedPetsInformationEverSurrenderedPet_materialTextView"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent">
+                    <com.google.android.material.radiobutton.MaterialRadioButton
+                        android:id="@+id/completeAboutOtherOwnedPetsInformationEverSurrenderedPetYes_materialRadioButton"
+                        style="@style/Widget.Material3.CompoundButton.RadioButton"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:text="@string/yes"
+                        android:layout_weight="1"
+                        app:layout_constraintEnd_toStartOf="@+id/completeAboutOtherOwnedPetsInformationEverSurrenderedPetNo_materialRadioButton" />
+
+                    <com.google.android.material.radiobutton.MaterialRadioButton
+                        android:id="@+id/completeAboutOtherOwnedPetsInformationEverSurrenderedPetNo_materialRadioButton"
+                        style="@style/Widget.Material3.CompoundButton.RadioButton"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:text="@string/no"
+                        android:layout_weight="1" />
+                </RadioGroup>
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/completeAboutOtherOwnedPetsInformationEverSurrenderedPetWhatHappened_textInputLayout"
+                style="@style/Widget.Material3.TextInputLayout.OutlinedBox"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/vertical_space_between_items"
+                android:autofillHints="text"
+                android:hint="@string/please_tell_us_what_happened"
+                android:inputType="textMultiLine"
+                android:nestedScrollingEnabled="true"
+                android:verticalScrollbarPosition="right"
+                android:visibility="gone"
+                android:layout_marginVertical="@dimen/vertical_space_between_items"
+                app:layout_constraintWidth_max="@dimen/material_textInputLayout_max_width"
+                app:counterEnabled="false"
+                app:endIconMode="clear_text"
+                app:errorEnabled="true"
+                app:helperText=""
+                app:layout_constraintBottom_toTopOf="@+id/completeAboutOtherOwnedPetsInformationEverHadPetEuthanized_linearLayout"
+                app:layout_constraintEnd_toStartOf="@id/guideline35"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toEndOf="@id/guideline34"
+                app:layout_constraintTop_toBottomOf="@+id/completeAboutOtherOwnedPetsInformationEverSurrenderedPet_linearLayout">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/completeAboutOtherOwnedPetsInformationEverSurrenderedPetWhatHappened_textInputEditText"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="textMultiLine" />
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/completeAboutOtherOwnedPetsInformationEverHadPetEuthanized_linearLayout"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:layout_marginVertical="@dimen/vertical_space_between_items"
+                app:layout_constraintWidth_max="@dimen/material_textInputLayout_max_width"
+                app:layout_constraintBottom_toTopOf="@+id/completeAboutOtherOwnedPetsInformationEverHadPetEuthanizedWhatHappened_textInputLayout"
+                app:layout_constraintEnd_toStartOf="@id/guideline35"
+                app:layout_constraintStart_toEndOf="@id/guideline34"
+                app:layout_constraintTop_toBottomOf="@+id/completeAboutOtherOwnedPetsInformationEverSurrenderedPetWhatHappened_textInputLayout">
+
+                <com.google.android.material.textview.MaterialTextView
+                    android:id="@+id/completeAboutOtherOwnedPetsInformationEverHadPetEuthanized_materialTextView"
+                    style="@style/TextAppearance.Material3.HeadlineSmall"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/have_you_ever_had_a_pet_euthanized"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"/>
+
+                <RadioGroup
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    app:layout_constraintTop_toBottomOf="@+id/completeAboutOtherOwnedPetsInformationEverHadPetEuthanized_materialTextView"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent">
+                    <com.google.android.material.radiobutton.MaterialRadioButton
+                        android:id="@+id/completeAboutOtherOwnedPetsInformationEverHadPetEuthanizedYes_materialRadioButton"
+                        style="@style/Widget.Material3.CompoundButton.RadioButton"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:text="@string/yes"
+                        android:layout_weight="1"
+                        app:layout_constraintEnd_toStartOf="@+id/completeAboutOtherOwnedPetsInformationEverHadPetEuthanizedNo_materialRadioButton" />
+
+                    <com.google.android.material.radiobutton.MaterialRadioButton
+                        android:id="@+id/completeAboutOtherOwnedPetsInformationEverHadPetEuthanizedNo_materialRadioButton"
+                        style="@style/Widget.Material3.CompoundButton.RadioButton"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:text="@string/no"
+                        android:layout_weight="1" />
+
+                </RadioGroup>
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/completeAboutOtherOwnedPetsInformationEverHadPetEuthanizedWhatHappened_textInputLayout"
+                style="@style/Widget.Material3.TextInputLayout.OutlinedBox"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginVertical="@dimen/vertical_space_between_items"
+                android:autofillHints="text"
+                android:hint="@string/please_tell_us_what_happened"
+                android:inputType="textMultiLine|textLongMessage|text"
+                android:visibility="gone"
+                app:layout_constraintWidth_max="@dimen/material_textInputLayout_max_width"
+                app:counterEnabled="false"
+                app:endIconMode="clear_text"
+                app:errorEnabled="true"
+                app:helperText=""
+                app:layout_constraintBottom_toTopOf="@+id/completeAboutOtherOwnedPetsInformation_materialButton"
+                app:layout_constraintEnd_toStartOf="@id/guideline35"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toEndOf="@id/guideline34"
+                app:layout_constraintTop_toBottomOf="@+id/completeAboutOtherOwnedPetsInformationEverHadPetEuthanized_linearLayout">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/completeAboutOtherOwnedPetsInformationEverHadPetEuthanizedWhatHappened_textInputEditText"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="textMultiLine|textLongMessage" />
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/completeAboutOtherOwnedPetsInformation_materialButton"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginVertical="@dimen/vertical_space_between_items"
+                android:text="@string/save"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/completeAboutOtherOwnedPetsInformationEverHadPetEuthanizedWhatHappened_textInputLayout"
+                app:layout_constraintWidth_max="@dimen/material_button_max_width" />
+
+            <androidx.constraintlayout.widget.Guideline
+                android:id="@+id/guideline34"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                app:layout_constraintGuide_percent="0.05" />
+
+            <androidx.constraintlayout.widget.Guideline
+                android:id="@+id/guideline35"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                app:layout_constraintGuide_percent="0.95" />
+
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </ScrollView>
+
+</androidx.constraintlayout.widget.ConstraintLayout>
