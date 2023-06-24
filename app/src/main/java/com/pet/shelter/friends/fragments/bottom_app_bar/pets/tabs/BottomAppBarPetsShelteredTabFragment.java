@@ -310,19 +310,16 @@ public class BottomAppBarPetsShelteredTabFragment extends Fragment {
     @Override
     public void onResume() {
         super.onResume();
-//        getDataFromDatabase();
     }
 
     @Override
     public void onPause() {
         super.onPause();
-//        getDataFromDatabase();
     }
 
     @Override
     public void onStart() {
         super.onStart();
-//        getDataFromDatabase();
     }
 
     @Override

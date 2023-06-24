@@ -2,7 +2,6 @@ package com.pet.shelter.friends.fragments.bottom_app_bar.pets.tabs;
 
 import static com.facebook.FacebookSdk.getApplicationContext;
 
-import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 
@@ -41,7 +40,6 @@ import com.pet.shelter.friends.pets.lost.LostPetData;
 import com.pet.shelter.friends.pets.lost.AddLostPetActivity;
 import com.pet.shelter.friends.pets.lost.LostPetDetailsActivity;
 import com.pet.shelter.friends.pets.lost.LostPetsCustomAdapter;
-import com.pet.shelter.friends.pets.sheltered.ShelteredPetData;
 
 import java.util.ArrayList;
 import java.util.Objects;
@@ -89,11 +87,7 @@ public class BottomAppBarPetsLostTabFragment extends Fragment {
                 new ActivityResultCallback<ActivityResult>() {
                     @Override
                     public void onActivityResult(ActivityResult result) {
-                        if (result.getResultCode() == Activity.RESULT_OK) {
-                            // There are no request codes
-                            Intent data = result.getData();
-//                            doSomeOperations();
-                        }
+
                     }
                 });
 

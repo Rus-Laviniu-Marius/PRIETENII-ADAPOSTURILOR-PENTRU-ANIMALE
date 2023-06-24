@@ -164,4 +164,34 @@ public class CompleteAboutRegularVeterinarianInformationActivity extends AppComp
     public void setError(TextInputLayout textInputLayout, String errorMessage) {
         textInputLayout.setError(errorMessage);
     }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+    }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+    }
+
+    @Override
+    public void onLowMemory() {
+        super.onLowMemory();
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+    }
 }

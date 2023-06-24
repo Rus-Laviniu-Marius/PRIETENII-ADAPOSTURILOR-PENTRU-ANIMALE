@@ -1,4 +1,4 @@
-package com.pet.shelter.friends.pets.abandoned;
+package com.pet.shelter.friends.pets;
 
 import androidx.annotation.NonNull;
 import androidx.constraintlayout.widget.ConstraintLayout;
@@ -33,15 +33,22 @@ import com.google.android.libraries.places.api.net.PlacesClient;
 import com.google.android.material.search.SearchBar;
 import com.google.android.material.search.SearchView;
 import com.google.android.material.snackbar.Snackbar;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 import com.pet.shelter.friends.BuildConfig;
 import com.pet.shelter.friends.R;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 
 
-public class AbandonedPetSelectLocationMapActivity extends FragmentActivity implements OnMapReadyCallback {
-    private static final String TAG = AbandonedPetSelectLocationMapActivity.class.getSimpleName();
+public class ViewRegisteredSheltersOnMapActivity extends FragmentActivity implements OnMapReadyCallback {
+
+    private static final String TAG = ViewRegisteredSheltersOnMapActivity.class.getSimpleName();
     private GoogleMap gMap;
     private SearchBar searchBar;
     private SearchView searchView;
@@ -66,6 +73,7 @@ public class AbandonedPetSelectLocationMapActivity extends FragmentActivity impl
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_view_registered_shelters_on_map);
 
         // Retrieve location and camera position from saved instance state.
         if (savedInstanceState != null) {
@@ -74,10 +82,9 @@ public class AbandonedPetSelectLocationMapActivity extends FragmentActivity impl
         }
         // Retrieve the content view that renders the map.
         setContentView(R.layout.activity_abandoned_pet_select_location_map);
-
-        searchBar = findViewById(R.id.abandonedPetSelectLocation_searchBar);
-        searchView = findViewById(R.id.abandonedPetSelectLocation_searchView);
-        constraintLayout = findViewById(R.id.abandonedPetSelectLocation_constraintLayout);
+        searchBar = findViewById(R.id.viewRegisteredSheltersLocation_searchBar);
+        searchView = findViewById(R.id.viewRegisteredSheltersLocation_searchView);
+        constraintLayout = findViewById(R.id.viewRegisteredSheltersLocation_map);
 
         // Construct a PlacesClient
         Places.initialize(getApplicationContext(), BuildConfig.MAPS_API_KEY);
@@ -118,20 +125,20 @@ public class AbandonedPetSelectLocationMapActivity extends FragmentActivity impl
         snackbar.show();
 
         gMap = googleMap;
+        ArrayList<ShelterData> shelters = new ArrayList<>();
+        DatabaseReference registeredSheltersReference = FirebaseDatabase.getInstance().getReference("registeredShelters");
 
-        gMap.setOnMapClickListener(new GoogleMap.OnMapClickListener() {
+        registeredSheltersReference.addValueEventListener(new ValueEventListener() {
             @Override
-            public void onMapClick(@NonNull LatLng latLng) {
-                gMap.addMarker(new MarkerOptions()
-                        .position(latLng)
-                        .title("Last seen place"));
-                Intent returnIntent = new Intent();
-                returnIntent.putExtra("picked_point", latLng);
-                setResult(Activity.RESULT_OK, returnIntent);
-                finish();
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
             }
         });
-
         String location = String.valueOf(searchBar.getText());
         List<Address> addressList = null;
 
@@ -147,7 +154,7 @@ public class AbandonedPetSelectLocationMapActivity extends FragmentActivity impl
             }
         });
 
-        Geocoder geocoder = new Geocoder(AbandonedPetSelectLocationMapActivity.this);
+        Geocoder geocoder = new Geocoder(ViewRegisteredSheltersOnMapActivity.this);
 
         try {
             addressList = geocoder.getFromLocationName(location, 1);
@@ -273,6 +280,17 @@ public class AbandonedPetSelectLocationMapActivity extends FragmentActivity impl
         }
     }
 
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+    }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+    }
+
     @Override
     protected void onDestroy() {
         super.onDestroy();
@@ -291,15 +309,5 @@ public class AbandonedPetSelectLocationMapActivity extends FragmentActivity impl
     @Override
     protected void onResume() {
         super.onResume();
-    }
-
-    @Override
-    protected void onStart() {
-        super.onStart();
-    }
-
-    @Override
-    protected void onStop() {
-        super.onStop();
     }
 }

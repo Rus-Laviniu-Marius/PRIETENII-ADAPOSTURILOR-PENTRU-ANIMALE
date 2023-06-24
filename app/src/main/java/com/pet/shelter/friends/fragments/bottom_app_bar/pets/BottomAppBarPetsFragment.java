@@ -23,6 +23,7 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.pet.shelter.friends.R;
+import com.pet.shelter.friends.pets.ViewRegisteredSheltersOnMapActivity;
 import com.pet.shelter.friends.pets.filtering.FilterActivity;
 
 import java.util.Objects;
@@ -72,7 +73,7 @@ public class BottomAppBarPetsFragment extends Fragment {
         materialToolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                startActivity(new Intent(getContext(), ViewRegisteredSheltersOnMapActivity.class));
             }
         });
 
