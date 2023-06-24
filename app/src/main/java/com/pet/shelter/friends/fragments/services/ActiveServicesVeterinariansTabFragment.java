@@ -18,7 +18,6 @@ import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton;
 import com.google.android.material.search.SearchBar;
@@ -40,7 +39,6 @@ import java.util.ArrayList;
 import java.util.Objects;
 
 public class ActiveServicesVeterinariansTabFragment extends Fragment {
-
     private DatabaseReference veterinariansActiveServicesReference, roles;
     private String loggedUserId;
     private SearchBar searchBar;
@@ -51,6 +49,7 @@ public class ActiveServicesVeterinariansTabFragment extends Fragment {
 
     private final ArrayList<ActiveServiceData> activeVeterinariansServicesList = new ArrayList<>();
     private final ArrayList<ActiveServiceData> originalActiveVeterinariansServicesList = new ArrayList<>();
+    private ArrayList<ActiveServiceData> textSearchedActiveVeterinariansServicesList = new ArrayList<>();
 
     private ActiveServicesCustomAdapter activeServicesCustomAdapter;
 
@@ -89,10 +88,13 @@ public class ActiveServicesVeterinariansTabFragment extends Fragment {
         });
 
         searchBar.setHint("Search by provider name");
+        searchView.setupWithSearchBar(searchBar);
         searchView.getEditText().setOnEditorActionListener(new TextView.OnEditorActionListener() {
             @Override
             public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
-
+                searchBar.setText(searchView.getText());
+                filterListBySearchedName();
+                searchView.hide();
                 return false;
             }
         });
@@ -170,6 +172,36 @@ public class ActiveServicesVeterinariansTabFragment extends Fragment {
             }
         });
     }
+
+    private void filterListBySearchedName() {
+        ArrayList<ActiveServiceData> filteredList = new ArrayList<>();
+        String searchBarText = String.valueOf(searchBar.getText());
+        if (searchBarText.isEmpty()) {
+            activeServicesCustomAdapter.clear();
+            activeServicesCustomAdapter.addAll(originalActiveVeterinariansServicesList);
+            activeServicesCustomAdapter.notifyDataSetChanged();
+            veterinarianServicesListView.setAdapter(activeServicesCustomAdapter);
+            veterinarianServicesListView.setVisibility(View.VISIBLE);
+            nothingFound.setVisibility(View.GONE);
+        } else {
+            for (ActiveServiceData activeServiceData : activeVeterinariansServicesList) {
+                if (activeServiceData.getName().toLowerCase().contains(searchBarText.toLowerCase())) {
+                    filteredList.add(activeServiceData);
+                    nothingFound.setVisibility(View.GONE);
+                } else {
+                    nothingFound.setVisibility(View.VISIBLE);
+                }
+            }
+
+            activeServicesCustomAdapter.clear();
+            activeServicesCustomAdapter.addAll(filteredList);
+            activeServicesCustomAdapter.notifyDataSetChanged();
+            textSearchedActiveVeterinariansServicesList.clear();
+            textSearchedActiveVeterinariansServicesList = filteredList;
+            refresh();
+        }
+    }
+
 
     public void refresh() {
         new Handler(Looper.getMainLooper()).post(new Runnable() {

@@ -19,6 +19,7 @@ public class ValidationManager {
     private static final String emailPattern = "[a-zA-Z0-9._-][a-zA-Z0-9._-]+@[a-z]+\\.+[a-z]+";
     private static final String ERROR_MESSAGE_CHECK_EMPTY = "Field can not be empty.";
     private static final String ERROR_MESSAGE_CHECK_PHONE_NUMBER = "Please enter 10 digit phone number.";
+    private static final String ERROR_MESSAGE_CHECK_PHONE_NUMBER_REMOVE_STARTING_PLUS = "Please remove \"+\" starting character";
     private static final String ERROR_MESSAGE_CHECK_EMAIL = "Invalid email address.";
     private static final String ERROR_MESSAGE_CHECK_MATCH_PASSWORD = "Password does not match.";
     private static final String ERROR_MESSAGE_CHECK_SHORT_PASSWORD = "Be at least 14 characters long.";
@@ -71,6 +72,9 @@ public class ValidationManager {
         if (!isEmpty && editText.getText().toString().length() != phoneNumberDigits) {
             errorSetter.setError(textInputLayout, ERROR_MESSAGE_CHECK_PHONE_NUMBER);
             isPasswordValid = false;
+        } else if (!isEmpty && editText.getText().toString().startsWith("+")){
+            errorSetter.setError(textInputLayout, ERROR_MESSAGE_CHECK_PHONE_NUMBER_REMOVE_STARTING_PLUS);
+            isPhoneNumberValid = false;
         } else {
             isPhoneNumberValid = true;
         }

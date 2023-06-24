@@ -54,8 +54,6 @@ public class AddServiceActivity extends AppCompatActivity implements TextWatcher
         setContentView(R.layout.activity_add_service);
 
         loggedUserId = Objects.requireNonNull(FirebaseAuth.getInstance().getCurrentUser()).getUid();
-
-
         activeServicesReference = FirebaseDatabase.getInstance().getReference("activeServices");
 
         MaterialToolbar materialToolbar = findViewById(R.id.addService_materialToolbar);
@@ -157,7 +155,7 @@ public class AddServiceActivity extends AppCompatActivity implements TextWatcher
                     sendUserToNextActivity();
 
                 } else {
-                    Toast.makeText(AddServiceActivity.this, "Please select news article media image", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(AddServiceActivity.this, "Please fill the required information", Toast.LENGTH_SHORT).show();
                 }
             }
         });

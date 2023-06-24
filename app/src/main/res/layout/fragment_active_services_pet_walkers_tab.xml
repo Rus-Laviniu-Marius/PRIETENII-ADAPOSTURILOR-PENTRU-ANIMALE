@@ -1,28 +1,63 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".fragments.services.ActiveServicesPetWalkersTabFragment">
 
-    <ListView
-        android:id="@+id/activeServicesPetWalkers_listView"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignParentEnd="true"
-        android:layout_alignParentBottom="true"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentTop="true"
-        android:dividerHeight="@dimen/margin_vertical" />
+        <com.google.android.material.search.SearchBar
+            android:id="@+id/activeServicesPetWalkers_searchBar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:contentDescription="@string/search_hint_for_services"
+            style="@style/Widget.Material3.SearchBar"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"/>
+
+        <com.google.android.material.search.SearchView
+            android:id="@+id/activeServicesPetWalkers_searchView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="@string/search_hint_for_services"
+            app:layout_anchor="@id/activeServicesPetWalkers_searchBar"
+            app:layout_constraintHorizontal_bias="1.0"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+            <!-- Search suggestions/results go here (ScrollView, RecyclerView, etc.). -->
+        </com.google.android.material.search.SearchView>
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/activeServicesPetWalkersNothingFound_materialTextView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/found_no_matched_service"
+            android:textAlignment="center"
+            android:visibility="gone"
+            style="@style/TextAppearance.Material3.HeadlineLarge"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent" />
+        <ListView
+            android:id="@+id/activeServicesPetWalkers_listView"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/activeServicesPetWalkers_searchBar"
+            android:dividerHeight="@dimen/margin_vertical" />
 
     <RelativeLayout
         android:id="@+id/activeServicesAddPetWalkers_relativeLayout"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:padding="@dimen/padding_small"
-        android:layout_alignParentEnd="true"
-        android:layout_alignParentBottom="true">
+        android:padding="@dimen/medium_padding"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent">
 
         <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
             android:id="@+id/activeServicesAddPetWalkers_floatingActionButton"
@@ -43,6 +78,9 @@
         android:gravity="center"
         android:text="@string/sorry_no_pet_walkers_services"
         android:visibility="gone"
-        android:layout_centerInParent="true"/>
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"/>
 
-</RelativeLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>
