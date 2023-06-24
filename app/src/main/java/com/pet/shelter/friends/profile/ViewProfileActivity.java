@@ -33,13 +33,13 @@ import java.util.Objects;
 
 public class ViewProfileActivity extends AppCompatActivity {
 
-    private FirebaseAuth firebaseAuth;
     private DatabaseReference profiles, roles;
     private MaterialToolbar materialToolbar;
     private MaterialTextView nameMaterialTextView;
     private ShapeableImageView profileShapeImageView;
     private MaterialButton settingsMaterialButton, personalDataMaterialButton, logoutMaterialButton,
-            pastAttendedEventsMaterialButton, activeServicesMaterialButton, changeRoleMaterialButton;
+            pastAttendedEventsMaterialButton, activeServicesMaterialButton, changeRoleMaterialButton,
+            addShelterMaterialButton;
     private String loggedUserId;
     private String role;
 
@@ -48,7 +48,6 @@ public class ViewProfileActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_view_profile);
 
-        firebaseAuth = FirebaseAuth.getInstance();
         profiles = FirebaseDatabase.getInstance().getReference("profiles");
         roles = FirebaseDatabase.getInstance().getReference("roles");
 
@@ -61,8 +60,8 @@ public class ViewProfileActivity extends AppCompatActivity {
         activeServicesMaterialButton = findViewById(R.id.viewProfileActiveServices_materialButton);
         logoutMaterialButton = findViewById(R.id.viewProfileLogout_materialButton);
         changeRoleMaterialButton = findViewById(R.id.viewProfileChangeRole_materialButton);
-
-        loggedUserId = Objects.requireNonNull(firebaseAuth.getCurrentUser()).getUid();
+        addShelterMaterialButton = findViewById(R.id.viewProfileAddShelter_materialButton);
+        loggedUserId = Objects.requireNonNull(FirebaseAuth.getInstance().getCurrentUser()).getUid();
 
         readDataFromDatabase();
 
@@ -76,8 +75,10 @@ public class ViewProfileActivity extends AppCompatActivity {
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 if (snapshot.child(loggedUserId).hasChild("user")) {
                     role = "user";
+                    addShelterMaterialButton.setVisibility(View.GONE);
                 } else {
                     changeRoleMaterialButton.setVisibility(View.GONE);
+                    addShelterMaterialButton.setVisibility(View.VISIBLE);
                     role = "shelterAdministrator";
                 }
             }
@@ -135,6 +136,14 @@ public class ViewProfileActivity extends AppCompatActivity {
             }
         });
 
+        addShelterMaterialButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(ViewProfileActivity.this, CreateShelterProfileActivity.class));
+                finish();
+            }
+        });
+
         activeServicesMaterialButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -146,7 +155,7 @@ public class ViewProfileActivity extends AppCompatActivity {
         logoutMaterialButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                firebaseAuth.signOut();
+                FirebaseAuth.getInstance().signOut();
                 startActivity(new Intent(ViewProfileActivity.this, LoginActivity.class));
                 finish();
             }
@@ -198,5 +207,35 @@ public class ViewProfileActivity extends AppCompatActivity {
             }
         });
 
+    }
+
+    @Override
+    public void onStart() {
+        super.onStart();
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+    }
+
+    @Override
+    public void onStop() {
+        super.onStop();
+    }
+
+    @Override
+    public void onLowMemory() {
+        super.onLowMemory();
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
     }
 }

@@ -93,11 +93,27 @@
         android:layout_height="wrap_content"
         android:text="@string/past_attended_events"
         app:icon="@drawable/history_24"
-        app:layout_constraintBottom_toTopOf="@+id/viewProfileActiveServices_materialButton"
+        android:visibility="gone"
+        app:layout_constraintBottom_toTopOf="@+id/viewProfileAddShelter_materialButton"
         app:layout_constraintEnd_toStartOf="@+id/guideline18"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toEndOf="@+id/guideline17"
         app:layout_constraintTop_toBottomOf="@+id/viewProfilePersonalData_materialButton"
+        app:layout_constraintWidth_max="320dp" />
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/viewProfileAddShelter_materialButton"
+        style="@style/Widget.Material3.Button.Icon"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="@string/add_shelter"
+        android:visibility="gone"
+        app:icon="@drawable/pet_shelter"
+        app:layout_constraintBottom_toTopOf="@+id/viewProfileActiveServices_materialButton"
+        app:layout_constraintEnd_toStartOf="@+id/guideline18"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/guideline17"
+        app:layout_constraintTop_toBottomOf="@+id/viewProfilePastAttendedEvents_materialButton"
         app:layout_constraintWidth_max="320dp" />
 
     <com.google.android.material.button.MaterialButton
@@ -111,7 +127,7 @@
         app:layout_constraintEnd_toStartOf="@+id/guideline18"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toEndOf="@+id/guideline17"
-        app:layout_constraintTop_toBottomOf="@+id/viewProfilePastAttendedEvents_materialButton"
+        app:layout_constraintTop_toBottomOf="@+id/viewProfileAddShelter_materialButton"
         app:layout_constraintWidth_max="320dp" />
 
     <com.google.android.material.button.MaterialButton

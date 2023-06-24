@@ -1,6 +1,5 @@
 package com.pet.shelter.friends.profile.services;
 
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
@@ -12,11 +11,7 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Toast;
-
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
-import com.google.android.gms.tasks.Task;
 import com.google.android.material.appbar.MaterialToolbar;
 import com.google.android.material.button.MaterialButton;
 import com.google.android.material.textfield.MaterialAutoCompleteTextView;
@@ -27,17 +22,12 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
-import com.google.firebase.storage.UploadTask;
 import com.pet.shelter.friends.ErrorSetter;
-import com.pet.shelter.friends.HomeActivity;
 import com.pet.shelter.friends.R;
 import com.pet.shelter.friends.ValidationManager;
-import com.pet.shelter.friends.news.CreateNewsArticleActivity;
-
 import java.util.Objects;
 
 public class AddServiceActivity extends AppCompatActivity implements TextWatcher, ErrorSetter {
-
     private TextInputLayout nameTextInputLayout, emailTextInputLayout, phoneNumberTextInputLayout,
             cityStateCountryTextInputLayout, addressTextInputLayout, descriptionTextInputLayout,
             serviceCategoryTextInputLayout;
@@ -54,8 +44,6 @@ public class AddServiceActivity extends AppCompatActivity implements TextWatcher
         setContentView(R.layout.activity_add_service);
 
         loggedUserId = Objects.requireNonNull(FirebaseAuth.getInstance().getCurrentUser()).getUid();
-
-
         activeServicesReference = FirebaseDatabase.getInstance().getReference("activeServices");
 
         MaterialToolbar materialToolbar = findViewById(R.id.addService_materialToolbar);
@@ -157,7 +145,7 @@ public class AddServiceActivity extends AppCompatActivity implements TextWatcher
                     sendUserToNextActivity();
 
                 } else {
-                    Toast.makeText(AddServiceActivity.this, "Please select news article media image", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(AddServiceActivity.this, "Please fill the required information", Toast.LENGTH_SHORT).show();
                 }
             }
         });
@@ -214,5 +202,35 @@ public class AddServiceActivity extends AppCompatActivity implements TextWatcher
     @Override
     public void setError(TextInputLayout textInputLayout, String errorMessage) {
         textInputLayout.setError(errorMessage);
+    }
+
+    @Override
+    public void onStart() {
+        super.onStart();
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+    }
+
+    @Override
+    public void onStop() {
+        super.onStop();
+    }
+
+    @Override
+    public void onLowMemory() {
+        super.onLowMemory();
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
     }
 }

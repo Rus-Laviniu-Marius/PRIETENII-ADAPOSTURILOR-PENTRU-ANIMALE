@@ -10,14 +10,37 @@
         android:id="@+id/activeServicesVeterinarians_searchBar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:visibility="gone"
-        android:contentDescription="@string/search_services_by_provider_name"
-        android:hint="@string/search_services_by_provider_name"
-        style="@style/ShapeAppearanceOverlay.Material3.SearchBar"
+        android:contentDescription="@string/search_hint_for_services"
+        style="@style/Widget.Material3.SearchBar"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintBottom_toTopOf="@id/activeServicesVeterinarians_listView"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"/>
+
+    <com.google.android.material.search.SearchView
+        android:id="@+id/activeServicesVeterinarians_searchView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="@string/search_hint_for_services"
+        app:layout_anchor="@id/activeServicesVeterinarians_searchBar"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"/>
+        app:layout_constraintTop_toTopOf="parent">
+        <!-- Search suggestions/results go here (ScrollView, RecyclerView, etc.). -->
+
+    </com.google.android.material.search.SearchView>
+    <com.google.android.material.textview.MaterialTextView
+        android:id="@+id/activeServicesVeterinariansNothingFound_materialTextView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/found_no_matched_service"
+        android:textAlignment="center"
+        android:visibility="gone"
+        style="@style/TextAppearance.Material3.HeadlineLarge"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
 
     <ListView
         android:id="@+id/activeServicesVeterinarians_listView"
@@ -33,7 +56,7 @@
         android:id="@+id/activeServicesAddVeterinarians_relativeLayout"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:padding="@dimen/padding_small"
+        android:padding="@dimen/extra_space_for_floating_action_buttons"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintBottom_toBottomOf="parent">
 
