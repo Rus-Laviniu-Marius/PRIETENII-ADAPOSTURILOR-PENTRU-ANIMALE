@@ -3,7 +3,6 @@ package com.pet.shelter.friends.profile;
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.constraintlayout.widget.ConstraintLayout;
@@ -36,11 +35,9 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.storage.FirebaseStorage;
-import com.google.firebase.storage.OnProgressListener;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 import com.pet.shelter.friends.ErrorSetter;
-import com.pet.shelter.friends.HomeActivity;
 import com.pet.shelter.friends.R;
 import com.pet.shelter.friends.ValidationManager;
 
@@ -50,6 +47,7 @@ import java.util.Objects;
 
 public class CreateShelterProfileActivity extends AppCompatActivity implements TextWatcher, ErrorSetter {
 
+    private static final int PICK_MAP_POINT_REQUEST = 999;
     private DatabaseReference registeredShelters;
     private StorageReference sheltersLogos;
     private String loggedUserId;
@@ -67,7 +65,7 @@ public class CreateShelterProfileActivity extends AppCompatActivity implements T
 
     private static final int PICK_FROM_GALLERY = 1889;
 
-    private ActivityResultLauncher<Intent> galleryActivityResultLauncher;
+    private ActivityResultLauncher<Intent> galleryActivityResultLauncher, mapActivityResultLauncher;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -105,6 +103,17 @@ public class CreateShelterProfileActivity extends AppCompatActivity implements T
 
         shelterLogoShapeImageView = findViewById(R.id.createShelterProfileLogo_shapeImageView);
 
+        mapActivityResultLauncher = registerForActivityResult(
+                new ActivityResultContracts.StartActivityForResult(), result -> {
+                    if (result.getResultCode() == Activity.RESULT_OK) {
+                        Intent data = result.getData();
+                        assert data != null;
+                        LatLng latLng = data.getParcelableExtra("picked_point");
+                        Objects.requireNonNull(latitudeTextInputLayout.getEditText()).setText(String.valueOf(latLng.latitude));
+                        Objects.requireNonNull(longitudeTextInputLayout.getEditText()).setText(String.valueOf(latLng.longitude));
+                    }
+                });
+
         galleryActivityResultLauncher = registerForActivityResult(
                 new ActivityResultContracts.StartActivityForResult(), result -> {
                     if (result.getResultCode() == Activity.RESULT_OK) {
@@ -138,7 +147,7 @@ public class CreateShelterProfileActivity extends AppCompatActivity implements T
         materialToolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                finish();
+                sendUserToViewProfileActivity();
             }
         });
 
@@ -162,22 +171,21 @@ public class CreateShelterProfileActivity extends AppCompatActivity implements T
         latitudeTextInputLayout.setEndIconOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(CreateShelterProfileActivity.this, SelectShelterLocationMapActivity.class));
-                finish();
+                pickPointOnMap();
             }
         });
         longitudeTextInputLayout.setEndIconOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(CreateShelterProfileActivity.this, SelectShelterLocationMapActivity.class));
-                finish();
+                pickPointOnMap();
             }
         });
 
         addShelterMaterialButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String iban, name, address, latitude, longitude, phoneNumber, email, webPage, ourMission, ourAdoptionPolicy;
+                String iban, name, address, latitude, longitude, phoneNumber, email, webPage,
+                        ourMission, ourAdoptionPolicy, shelterToSave;
 
                 iban = Objects.requireNonNull(ibanTextInputEditText.getText()).toString().trim();
                 name = Objects.requireNonNull(nameTextInputEditText.getText()).toString().trim();
@@ -189,6 +197,7 @@ public class CreateShelterProfileActivity extends AppCompatActivity implements T
                 webPage = Objects.requireNonNull(webPageLinkTextInputEditText.getText()).toString().trim();
                 ourMission = Objects.requireNonNull(ourMissionTextInputEditText.getText()).toString().trim();
                 ourAdoptionPolicy = Objects.requireNonNull(ourAdoptionPolicyTextInputEditText.getText()).toString().trim();
+                shelterToSave = name + "_" + address;
 
                 ValidationManager.getInstance().doValidation(CreateShelterProfileActivity.this,
                         ibanTextInputLayout).checkEmpty();
@@ -204,14 +213,8 @@ public class CreateShelterProfileActivity extends AppCompatActivity implements T
                         phoneNumberTextInputLayout).checkEmpty().checkPhoneNumber();
                 ValidationManager.getInstance().doValidation(CreateShelterProfileActivity.this,
                         emailTextInputLayout).checkEmpty().checkEmail();
-                ValidationManager.getInstance().doValidation(CreateShelterProfileActivity.this,
-                        webPageLinkTextInputLayout).checkEmpty();
-                ValidationManager.getInstance().doValidation(CreateShelterProfileActivity.this,
-                        ourMissionTextInputLayout).checkEmpty();
-                ValidationManager.getInstance().doValidation(CreateShelterProfileActivity.this,
-                        ourAdoptionPolicyTextInputLayout).checkEmpty();
 
-                if (ValidationManager.getInstance().isNothingEmpty()) {
+                if (ValidationManager.getInstance().arePhoneNumberAndEmailValidAndNothingEmpty()) {
                     StorageReference ref = sheltersLogos
                             .child("sheltersLogos")
                             .child(Objects.requireNonNull(loggedUserId))
@@ -229,17 +232,17 @@ public class CreateShelterProfileActivity extends AppCompatActivity implements T
                                                 Toast.makeText(CreateShelterProfileActivity.this, "Image uploaded", Toast.LENGTH_SHORT).show();
                                                 String fileLink = task.getResult().toString();
 
-                                                registeredShelters.child(loggedUserId).child("iban").setValue(iban);
-                                                registeredShelters.child(loggedUserId).child("name").setValue(name);
-                                                registeredShelters.child(loggedUserId).child("address").setValue(address);
-                                                registeredShelters.child(loggedUserId).child("latitude").setValue(latitude);
-                                                registeredShelters.child(loggedUserId).child("longitude").setValue(longitude);
-                                                registeredShelters.child(loggedUserId).child("phoneNumber").setValue(phoneNumber);
-                                                registeredShelters.child(loggedUserId).child("email").setValue(email);
-                                                registeredShelters.child(loggedUserId).child("webPageLink").setValue(webPage);
-                                                registeredShelters.child(loggedUserId).child("ourMission").setValue(ourMission);
-                                                registeredShelters.child(loggedUserId).child("ourAdoptionPolicy").setValue(ourAdoptionPolicy);
-                                                registeredShelters.child(loggedUserId).child("profileImageDownloadLink").setValue(fileLink);
+                                                registeredShelters.child(loggedUserId).child(shelterToSave).child("iban").setValue(iban);
+                                                registeredShelters.child(loggedUserId).child(shelterToSave).child("name").setValue(name);
+                                                registeredShelters.child(loggedUserId).child(shelterToSave).child("address").setValue(address);
+                                                registeredShelters.child(loggedUserId).child(shelterToSave).child("latitude").setValue(latitude);
+                                                registeredShelters.child(loggedUserId).child(shelterToSave).child("longitude").setValue(longitude);
+                                                registeredShelters.child(loggedUserId).child(shelterToSave).child("phoneNumber").setValue(phoneNumber);
+                                                registeredShelters.child(loggedUserId).child(shelterToSave).child("email").setValue(email);
+                                                registeredShelters.child(loggedUserId).child(shelterToSave).child("webPageLink").setValue(webPage);
+                                                registeredShelters.child(loggedUserId).child(shelterToSave).child("ourMission").setValue(ourMission);
+                                                registeredShelters.child(loggedUserId).child(shelterToSave).child("ourAdoptionPolicy").setValue(ourAdoptionPolicy);
+                                                registeredShelters.child(loggedUserId).child(shelterToSave).child("profileImageDownloadLink").setValue(fileLink);
                                             }
                                         });
                                     }
@@ -250,33 +253,44 @@ public class CreateShelterProfileActivity extends AppCompatActivity implements T
                                         Toast.makeText(CreateShelterProfileActivity.this, "Failed " + e.getMessage(), Toast.LENGTH_SHORT).show();
                                     }
                                 });
+                        sendUserToViewProfileActivity();
+                    } else {
+                        Snackbar snackbar = Snackbar.make(constraintLayout, "Please add a logo", Snackbar.LENGTH_SHORT);
+                        snackbar.setAction("Dismiss", new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+
+                            }
+                        });
+                        snackbar.show();
                     }
-                    sendUserToNextActivity();
+                } else {
+                    Snackbar snackbar = Snackbar.make(constraintLayout, "Please resolve error messages", Snackbar.LENGTH_SHORT);
+                    snackbar.setAction("Dismiss", new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+
+                        }
+                    });
+                    snackbar.show();
                 }
-
-
             }
         });
 
         setTextWatcher();
     }
 
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-        if (resultCode == RESULT_OK) {
-            if (data != null) {
-                LatLng latLng = data.getParcelableExtra("picked_point");
-                latitudeTextInputEditText.setText(String.valueOf(latLng.latitude));
-                longitudeTextInputEditText.setText(String.valueOf(latLng.longitude));
-            Toast.makeText(this, "Point Chosen: " + latLng.latitude + " " + latLng.longitude, Toast.LENGTH_LONG).show();
-            }
-
+    private void pickPointOnMap() {
+        Intent pickPointIntent = new Intent(this, SelectShelterLocationMapActivity.class);
+        if (checkSelfPermission(Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED || checkSelfPermission(Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED)  {
+            requestPermissions(new String[]{Manifest.permission.ACCESS_COARSE_LOCATION, Manifest.permission.ACCESS_FINE_LOCATION}, PICK_MAP_POINT_REQUEST);
+        } else {
+            mapActivityResultLauncher.launch(pickPointIntent);
         }
     }
 
-    public void sendUserToNextActivity() {
-        Intent intent = new Intent(CreateShelterProfileActivity.this, HomeActivity.class);
+    public void sendUserToViewProfileActivity() {
+        Intent intent = new Intent(CreateShelterProfileActivity.this, ViewProfileActivity.class);
         intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK| Intent.FLAG_ACTIVITY_NEW_TASK);
         startActivity(intent);
     }
@@ -289,9 +303,6 @@ public class CreateShelterProfileActivity extends AppCompatActivity implements T
         Objects.requireNonNull(longitudeTextInputLayout.getEditText()).addTextChangedListener(this);
         Objects.requireNonNull(phoneNumberTextInputLayout.getEditText()).addTextChangedListener(this);
         Objects.requireNonNull(emailTextInputLayout.getEditText()).addTextChangedListener(this);
-        Objects.requireNonNull(webPageLinkTextInputLayout.getEditText()).addTextChangedListener(this);
-        Objects.requireNonNull(ourMissionTextInputLayout.getEditText()).addTextChangedListener(this);
-        Objects.requireNonNull(ourAdoptionPolicyTextInputLayout.getEditText()).addTextChangedListener(this);
     }
 
     @Override
@@ -320,12 +331,6 @@ public class CreateShelterProfileActivity extends AppCompatActivity implements T
             phoneNumberTextInputLayout.setErrorEnabled(false);
         } else if (s.hashCode() == Objects.requireNonNull(emailTextInputLayout.getEditText()).getText().hashCode()) {
             emailTextInputLayout.setErrorEnabled(false);
-        } else if (s.hashCode() == Objects.requireNonNull(webPageLinkTextInputLayout.getEditText()).getText().hashCode()) {
-            webPageLinkTextInputLayout.setErrorEnabled(false);
-        } else if (s.hashCode() == Objects.requireNonNull(ourMissionTextInputLayout.getEditText()).getText().hashCode()) {
-            ourMissionTextInputLayout.setErrorEnabled(false);
-        } else if (s.hashCode() == Objects.requireNonNull(ourAdoptionPolicyTextInputLayout.getEditText()).getText().hashCode()) {
-            ourAdoptionPolicyTextInputLayout.setErrorEnabled(false);
         }
     }
 

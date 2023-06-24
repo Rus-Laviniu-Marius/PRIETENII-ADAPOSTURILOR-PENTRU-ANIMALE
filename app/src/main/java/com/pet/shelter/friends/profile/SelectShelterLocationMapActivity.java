@@ -106,7 +106,7 @@ public class SelectShelterLocationMapActivity extends FragmentActivity implement
     @Override
     public void onMapReady(@NonNull GoogleMap googleMap) {
 
-        Snackbar snackbar = Snackbar.make(constraintLayout, "Press on map where you have last the pet", Snackbar.LENGTH_SHORT);
+        Snackbar snackbar = Snackbar.make(constraintLayout, "Press on map where is the shelter. You can see your location", Snackbar.LENGTH_SHORT);
         snackbar.setAction("Dismiss", new View.OnClickListener() {
             @Override
             public void onClick(View v) {
