@@ -345,22 +345,6 @@ public class GenerateAdoptionApplicationPDFActivity extends AppCompatActivity {
 
         document.add(image);
 
-//        Paragraph paragraph1 = new Paragraph();
-//        Text text = new Text("This is to certify that ")
-//                .setFontSize(20);
-//        Text text1 = new Text(fullName)
-//                .setFontSize(60)
-//                .setBackgroundColor(ColorConstants.GREEN);
-//        Text text2 = new Text("who is a student," + " and who lives in " + address);
-//        Text text3 = new Text("has adopted ")
-//                .setFontSize(20);
-//        Text text4 = new Text(petName + "\n")
-//                .setFontSize(60)
-//                .setFontColor(ColorConstants.RED);
-//        Text text5 = new Text("More about ");
-//        paragraph1.add(text).add(text1).add(text2).add(text3).add(text4).add(text5);
-//        document.add(paragraph1);
-
         // Title
         Text title = new Text("PET ADOPTION CERTIFICATE")
                 .setBold().setFontSize(26)
